@@ -1,0 +1,175 @@
+% Primeira lista de exercícios - Computação de Alto Desempenho
+% 09/09/2015
+
+\documentclass[12pt,fleqn]{amsart}
+\usepackage{enumitem}
+\usepackage{xstring}
+\usepackage{graphicx}
+\usepackage[a4paper]{geometry}
+\usepackage[portuguese,brazilian]{babel}
+\usepackage[ansinew]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[scaled]{helvet}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+% Formatação
+\usepackage{sidecap}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{matlab-prettifier}
+
+\title{Computação de Alto Desempenho - Primeira lista de exercícios}
+\date{}
+\author{Sérgio Cordeiro}
+
+\newenvironment{pergunta}{
+	\par
+	\trivlist
+	\fontfamily{phv}
+	\selectfont
+	\item\arabic{prob_num}. 
+	}{
+	\endtrivlist
+	}
+
+\newenvironment{resposta}{
+	\trivlist
+    \vspace{3pt}
+	\fontfamily{pbk}
+	\selectfont
+	\item
+	}{
+	\vspace{3pt}
+	\noindent\makebox[\linewidth]{\rule{\paperwidth}{1pt}}
+	\endtrivlist
+	\stepcounter{prob_num}
+	}
+
+\newenvironment{listae}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}	
+	\vspace{-5mm}}
+
+\newenvironment{listaef}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}}
+
+% Perguntas
+\newcommand{\perguntaaa}{Escreva um programa que gere  uma sequencia 2500 números aleatórios inteiros  com distribuição uniforme no intervalo de 0 a 255 divididos em oito faixas e calcule a frequência absoluta de incidência destes números  em cada faixa. \\
+Ex.: \\
+Faixa 0 a 31 -  Frequência = 309	\\
+Faixa 32 a 63 -  Frequência = 305	\\
+Faixa 64 a 95  - Frequência = 315	\\
+Faixa 96 a 127 -  Frequência = 327	\\
+Faixa 128 a 159 -  Frequência = 307	\\
+Faixa 160 a 191 -  Frequência = 299	\\
+Faixa 192 a 223 -  Frequência = 317	\\
+Faixa 224 a 255 -  Frequência = 321	\\
+Gere agora uma seguência de 25000 números aleatórios e divididos também em 8 faixas. Aumente este problema nesta proporção e verifique se há redução do tempo de execução utilizando os diversos níveis de otimização mostrados em sala de aula.  Utilize o comando “time” do Linux para lhe auxiliar sua análise. Comente seus resultados e entregue uma listagem do seu código. }
+\newcommand{\perguntaab}{Converta  os valores a seguir para a representação de ponto flutuante apresentada em aula.   a)  +0,00565     b)  - 674,25 }
+\newcommand{\perguntaac}{Realize a operação de multiplicação Matriz X Matriz para que se atinja 1 Mflop e 1 Gflop. Dimensione suas matrizes e realize quantas operações forem necessárias até atingir esta marca. }
+\newcommand{\perguntaad}{Suponha que um processamento utilize muitas tarefas com ponto flutuante, sendo que 44\% do tempo de execução consumido com esta tarefa. Qual o fator de agilidade requerido para que se obtenha um aumento de speedup de 17\%?}
+
+
+\begin{document}
+\setlength{\parskip}{1em}
+\setlength{\jot}{10pt}
+\setlength{\parindent}{0pt}
+
+\lstset{language=C++,frame=single,basicstyle={\tiny},breaklines=true,numbers=left,numberstyle={\color{red}},numbersep=9pt,showstringspaces=false,keepspaces=false,tabsize=2}
+
+\newcounter{prob_num}
+
+\maketitle
+
+\setcounter{prob_num}{1}
+\begin{pergunta}
+\perguntaaa{}
+\end{pergunta}
+\begin{resposta}
+Código:
+\lstinputlisting[caption=gcrand.c]{trab15.c}
+Resultados (tempos em $ \mu s $ ): \\
+\begin{table}[H]
+    \begin{tabular}{|c|c|c|c|c|}
+		\hline
+        O & \multicolumn{2}{|c|}{Tempo de parede} & \multicolumn{2}{|c|}{Tempo de usuário} \\		
+        & n = 2500 & n = 25000 & n = 2500 & n = 25000 \\
+		\hline
+		0 & 469 & 47 & 485 & 485 \\
+		1 & 469 & 47 & 438 & 438 \\
+		2 & 313 & 31 & 360 & 360 \\
+		3 & 47  & 31 & 375 & 375 \\
+		\hline
+    \end{tabular}
+\end{table}
+Interpretação: \\
+O programa não faz chamadas ao sistema operacional, por isso o tempo de núcleo é sempre nulo. A utilização de níveis de otimização crescentes gerou sempre resultados mensuráveis, às vezes no tempo de parede, às vezes no tempo de usuário. \\
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntaab{}
+\end{pergunta}
+\begin{resposta}
+a) \\
+\begin{table}[H]
+    \begin{tabular}{|c|c|c|}
+	\hline
+	\multicolumn{3}{|c|}{0,00565} \\
+	0 & 01110111 & 01110010010001110100011 \\
+	0 & 77x & 3923A3x \\
+	\hline
+    \end{tabular}
+\end{table}
+b) \\
+\begin{table}[H]
+    \begin{tabular}{|c|c|c|c|c|}
+	\hline
+	\multicolumn{3}{|c|}{- 674,25} \\
+	1 & 10001000 & 01010001001000000000000 \\
+	1 & 88x & 289000x \\
+	\hline
+    \end{tabular}
+\end{table}
+\end{resposta}
+
+\begin{pergunta}
+\perguntaac{}
+\end{pergunta}
+\begin{resposta}
+Para 1 Mflop, a melhor aproximação encontrada foi multiplicar uma matriz de dimensão 86 x 77 por outra de dimensão 77 x 76, dando como resultado uma matriz 86 x 76. \\
+Para 1 Gflop, a melhor aproximação á multiplicar uma matriz de dimensão 872 x 752 por outra de dimensão 752 x 763, dando como resultado uma matriz 872 x 763. \\
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntaad{}
+\end{pergunta}
+\begin{resposta}
+\begin{equation*}
+	\begin{split}
+	& s = \cfrac{1}{(1 - f) + \cfrac{f}{K}} \implies (1 - f) + \cfrac{f}{K} = \cfrac{1}{s} \implies ... \\
+	& \qquad \implies \cfrac{f}{K} = \cfrac{1}{s} - (1 - f) \implies ... \\
+	K & = \cfrac{f}{\cfrac{1}{s} + f - 1} \\
+	& = \cfrac{0,44}{\cfrac{1}{1,17} + 0,44 - 1} \\
+	& = 1.5 \\
+	\end{split}
+\end{equation*}
+\end{resposta}
+
+\end{document}

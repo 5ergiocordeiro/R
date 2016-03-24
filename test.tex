@@ -1,0 +1,414 @@
+\documentclass[12pt,fleqn]{amsart}
+\usepackage{enumitem}
+\usepackage{xstring}
+\usepackage{graphicx}
+\usepackage[a4paper]{geometry}
+\usepackage[portuguese,brazilian]{babel}
+\usepackage[ansinew]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{comment}
+% Fontes
+\usepackage{textgreek}
+\usepackage{yfonts}
+\usepackage{microtype}
+\usepackage{calligra}
+\usepackage{lmodern}
+\usepackage{bookman}
+\usepackage[scaled]{helvet}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+\usepackage{fmtcount}
+%\usepackage{glossaries}
+% Formatação
+\usepackage{sidecap}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{matlab-prettifier}
+% Figuras geométricas
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\usepackage{pgfplots}
+\usetikzlibrary{calc,fadings,decorations.pathreplacing,3d}
+\usetikzlibrary{arrows}
+\usetikzlibrary{positioning}
+% Símbolos matemáticos
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{wasysym}
+\usepackage{mathtools}
+\usepackage{bbm}
+\usepackage{mbboard}
+\usepackage{boolexpr}
+
+
+\title{Espalhamento eletromagnético por um cilindro condutor elétrico perfeito}
+\author{Sérgio Cordeiro}
+\date{}
+
+\renewcommand*\contentsname{Sumário}
+
+\newcommand{\Fourier}[1]{\mathbb{#1}(\omega) e^{j \omega t}}
+\newcommand{\FunR}[1]{\vec{#1}(x,y,z)}
+\newcommand{\phasor}[1]{\mathpzc{#1}}
+\newcommand{\FourFunR}[1]{\left( \phasor{#1} \FunR{#1} \right)}
+
+\newenvironment{inthisrev}{
+	\color{blue}
+	}{
+	\color{black}
+	}
+
+\newenvironment{myquote}{
+	\begin{quote}
+	\fontfamily{lmr} \selectfont
+	{\huge ``}}{{\huge ''}
+	\end{quote}
+	}
+
+\newenvironment{pergunta}{
+	\par
+	\trivlist
+	\fontfamily{phv}
+	\selectfont
+	\item\arabic{prob_num}. 
+	}{
+	\endtrivlist
+	}
+
+\newenvironment{resposta}{
+	\trivlist
+    \vspace{3pt}
+	\fontfamily{pbk}
+	\selectfont
+	\item
+	}{
+	\vspace{3pt}
+	\noindent\makebox[\linewidth]{\rule{\paperwidth}{1pt}}
+	\endtrivlist
+	\stepcounter{prob_num}
+	}
+
+\newenvironment{listae}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}	
+	\vspace{-5mm}}
+
+\newenvironment{listaef}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}}
+
+\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
+
+%\renewcommand{\thesubsection}{\textbf{\arabic{subsection}}}
+%\renewcommand{\thesection}{\color{red}}
+\makeatletter
+\def\subsubsection{\@startsection{subsubsection}{3}%
+  \z@{.5\linespacing\@plus.7\linespacing}{.1\linespacing}%
+  {\normalfont\itshape}}
+\makeatother\renewcommand{\thesubsubsection}{}
+
+\newcommand{\newbibit}[6]{\bibitem[#1]{#2}#3, {\bf #4}. Disponível em \url{#5}, acesso em #6.}
+\newcommand{\newbibpp}[5]{\bibitem[#1]{#2}#3, {\bf #4}, \emph{in} #5.}
+\newcommand{\newbibbk}[5]{\bibitem[#1]{#2}#3, {\bf #4}, #5.}
+\newcommand{\newbibip}[6]{\bibitem[#1]{#2}#3, {\bf #4}, \emph{in} #5, disponível em \url{#6}.}
+\newcommand{\newbiboc}[4]{\bibitem[#1]{#2}#3, \textit{op. cit.}, #4.}
+\newcommand{\newbibsi}[7]{\bibitem[#1]{#2}#3, {\bf #4} : {#5}. Disponível em \url{#6}, acesso em #7.}
+
+\newenvironment{iquote}{\begin{quote}\itshape}{\end{quote}}
+
+\BeforeBeginEnvironment{figure}{\vskip-1ex}
+\AfterEndEnvironment{figure}{\vskip-4ex}
+
+% Símbolos de funções
+\DeclareMathOperator{\sinc}{\mbox{sinc}}				% Função sinc
+\DeclareMathOperator{\sgn}{\mbox{sgn}}					% Função sinal
+\DeclareMathOperator{\atan}{\mbox{arctan}}				% Função arco-tangente
+\DeclareMathOperator{\acos}{\mbox{arccos}}				% Função arco-cosseno
+\DeclareMathOperator{\J}{\mbox{J}}						% Função de Bessel de primeira espécie
+\DeclareMathOperator{\Y}{\mbox{Y}}						% Função de Bessel de segunda espécie
+\let\H\relax
+\DeclareMathOperator{\H}{\mbox{H}}						% Função de Hankel
+% Símbolos de elementos infinitesimais
+\newcommand {\dpx}[1]{\boldsymbol{\delta {#1}}}
+% Símbolos de constantes escalares (ex. carga do eletron: \ke{e})
+\newcommand {\ke}[1]{\text{\large \textfrak{#1}}}
+% Valores de constantes escalares (ex. carga do eletron: \kve{e})
+\newcommand {\kve}[1]{
+  \IfStrEqCase{#1}{
+    {e}{1,602 \times 10^{-19} \; C}
+    {mu}{4 \pi \times 10^{-7} \; H \; m^{-1}}
+    {ep}{8,854 \times 10^{-12} \; F \; m^{-1}}	
+    {c}{2,998 \times 10^{8} \; m \; s^{-1}}
+	}
+  \text{\large \textfrak{#1}}}
+% Símbolos de parâmetros escalares do problema
+ \newcommand{\ppe}[1]{\boldsymbol{#1}}					% genérico
+ \newcommand{\dcv}[1]{\ppe{\boldsymbol{\rho}_{v_{#1}}}}			% Densidade volumétrica de carga
+ \newcommand{\dcs}[1]{\ppe{\boldsymbol{\rho}_{S_{#1}}}}			% Densidade superficial de carga
+ \newcommand{\dcl}[1]{\ppe{\boldsymbol{\rho}_{l_{#1}}}}			% Densidade linear de carga
+% Símbolos de propriedades escalares do meio
+% Para letras gregas, usar o nome especial (precedido por 'bb')
+%(ex. condutividade: \pme{\bbsigma})
+\newcommand {\pme}[1]{\mathbb{#1}}
+% Símbolos de propriedades tensoriais do meio
+% Para letras gregas, usar o nome especial (precedido por 'bb')
+%(ex. condutividade: \pmm{\bbsigma})
+\newcommand {\pmm}[1]{\pmb{\mathbb{#1}}}
+% Expressões de elementos diferenciais
+% Elemento de volume em coordenadas esféricas
+\newcommand {\dve}{r^2 \sin \theta \; dr \; d \theta \; d \phi}
+% Elemento de superfície em coordenadas cilíndricas
+\newcommand {\dsc}{\rho \; d \phi \; dz \; \a{\rho} + dz \; d \rho \; \a{\phi} + \rho \; d \rho \; d \phi \; \a{z}}
+% Elemento de superfície em coordenadas esféricas
+\newcommand {\dse}{r^2 \sin \theta \; d \theta \; d \phi \; \a{r} + r \sin \theta \; dr \; d \phi \; \a{\theta} + r \; dr \; d \theta \; \a{\phi}}
+% Elemento de deslocamento em coordenadas cilíndricas
+\newcommand {\dlc}{d \rho \; \a{\rho} + \rho \; d \phi \; \a{\phi} + dz \; \a{z}}
+% Elemento de deslocamento em coordenadas esféricas
+\newcommand {\dle}{dr \; \a{r} + r \; d \theta \; \a{\theta} + r \sin \theta \; d \phi \; \a{\phi} + dz \; \a{z}}
+% Conversão de vetores unitários
+\newcommand {\convarc}{\sin \theta \; \a{\rho} + \cos \theta \; \a{z}}
+\newcommand {\convark}{\sin \theta \; \cos \phi \; \a{x} + \sin \theta \; \sin \phi \; \a{y} + \cos \theta \; \a{z}}
+\newcommand {\convatc}{\cos \theta \; \a{\rho} - \sin \theta a; \a{z}}
+\newcommand {\convatk}{\cos \theta \; \cos \phi \; \a{x} + \cos \theta \; \sin \phi \; \a{y} - \sin \theta \; \a{z}}
+\newcommand {\convapk}{- \sin \phi \; \a{x} + \cos \phi \; \a{y}}
+\newcommand {\convahk}{\cos \phi \; \a{x} + \sin \phi \; \a{y}}
+\newcommand {\convaxc}{\cos \phi \; \a{\rho} - \sin \phi \; \a{\phi}}
+\newcommand {\convayc}{\sin \phi \; \a{\rho} + \cos \phi \; \a{\phi}}
+\newcommand {\convaxe}{\sin \theta \; \cos \phi \; \a{r} + \cos \theta \; \cos \phi \; \a{\theta} - \sin \phi \; \a{\phi}}
+\newcommand {\convaye}{\sin \theta \; \sin \phi \; \a{r} + \cos \theta \; \sin \phi \; \a{\theta} + \cos \phi \; \a{\phi}}
+\newcommand {\convaze}{\cos \theta \; \a{r} - \sin \theta \; \a{\theta}}
+\newcommand {\convahe}{\sin \theta \; \a{r} + \cos \theta \; \a{\theta}}
+% Conversão de coordenadas
+\newcommand {\convrc}{\sqrt{\rho^2 + z^2}}
+\newcommand {\convrk}{\sqrt{x^2 + y^2 + z^2}}
+\newcommand {\convtc}{\atan(\rho,z)}
+\newcommand {\convtk}{\acos(z,\sqrt{x^2 + y^2 + z^2})}
+\newcommand {\convpk}{\atan(y,x)}
+\newcommand {\convhk}{\sqrt{x^2 + y^2}}
+\newcommand {\convhe}{r \sin \theta}
+\newcommand {\convyc}{\rho \sin \phi}
+\newcommand {\convxe}{r \sin \theta \; \cos \phi}
+\newcommand {\convye}{r \sin \theta \; \sin \phi}
+\newcommand {\convze}{r \cos \theta}
+% Símbolos de operadores diferencias
+\newcommand{\grad}{\vec{\nabla}}
+\renewcommand{\div}{\grad \cdot}
+\newcommand{\rot}{\grad \times}
+\newcommand{\lap}{\nabla^2}
+\newcommand{\vlap}{\grad^2}
+\newcommand{\pd}[2]{\frac{\partial {#1}}{\partial {#2}}}
+\newcommand{\px}[1]{\frac{\partial {#1}}{\partial x}}
+\newcommand{\py}[1]{\frac{\partial {#1}}{\partial y}}
+\newcommand{\pz}[1]{\frac{\partial {#1}}{\partial z}}
+\newcommand{\pt}[1]{\frac{\partial {#1}}{\partial t}}
+\newcommand{\prho}[1]{\frac{\partial {#1}}{\partial \rho}}
+\newcommand{\pphi}[1]{\frac{\partial {#1}}{\partial \phi}}
+\newcommand{\pr}[1]{\frac{\partial {#1}}{\partial r}}
+\newcommand{\ptheta}[1]{\frac{\partial {#1}}{\partial \theta}}
+\newcommand{\ppx}[1]{\frac{\partial^2 {#1}}{\partial x^2}}
+\newcommand{\ppy}[1]{\frac{\partial^2 {#1}}{\partial y^2}}
+\newcommand{\ppz}[1]{\frac{\partial^2 {#1}}{\partial z^2}}
+\newcommand{\pppz}[1]{\frac{\partial^3 {#1}}{\partial z^3}}
+\newcommand{\ppt}[1]{\frac{\partial^2 {#1}}{\partial t^2}}
+\newcommand{\pprho}[1]{\frac{\partial^2 {#1}}{\partial \rho^2}}
+\newcommand{\ppprho}[1]{\frac{\partial^3 {#1}}{\partial \rho^3}}
+\newcommand{\ppphi}[1]{\frac{\partial^2 {#1}}{\partial \phi^2}}
+\newcommand{\pppphi}[1]{\frac{\partial^3 {#1}}{\partial \phi^3}}
+\renewcommand{\a}[1]{\hat{a}_{#1}}
+\newcommand{\ga}[3]{\px{#1} \a{x} + \py{#2} \a{y} + \pz{#3} \a{z}}
+\newcommand{\gc}[3]{\prho{#1} \a{\rho} + \frac{1}{\rho} \pphi{#2} \a{\phi} + \pz{} \a{z}}
+\newcommand{\gr}[3]{\pr{#1} \a{r} + \frac{1}{r \sin \theta} \pphi{#2} \a{\phi} + \frac{1}{r} \ptheta{#3} \a{\theta}}
+\newcommand{\de}[3]{\frac{1}{r^2} \pr{} r^2 \; {#1} \; \a{r} + \frac{1}{r \sin \theta} \pphi{} \; {#2} \; \a{\phi} + \frac{1}{r \sin \theta} \ptheta{} \sin \theta \; {#3} \; \a{\theta}}
+\newcommand{\dc}{\frac{1}{\rho} \prho{} \rho \; \a{\rho} + \frac{1}{\rho} \pphi{} \; \a{\phi} + \pz{} \a{z}}
+\newcommand{\la}[3]{\ppx{#1} + \ppy{#2} + \ppz{#3}}
+\newcommand{\lc}[3]{\frac{1}{\rho} \prho{} \rho \prho{#1} + \frac{1}{\rho^2} \ppphi{#2} + \ppz{#3}}
+\newcommand{\lr}[3]{\frac{1}{r^2} \pr{} r^2 \pr{#1} + \frac{1}{r^2 \sin \theta} \ptheta{} \sin \theta \ptheta{#2} + \frac{1}{r^2 \sin^2 \theta} \ppphi{#3}}
+\newcommand{\vla}[3]{\ppx{#1} \a{x} + \ppy{#2} \a{y} + \ppz{#3} \a{z}}
+\newcommand{\vlc}[3]{\left[ \lap{#1} - \frac{1}{\rho^2} \left( {#1} + 2 \pphi{#2} \right) \right] \a{\rho} + \left[ \lap{#2} + \frac{1}{\rho^2} \left( 2 \pphi{#1} - {#2} \right) \right] \a{\phi} + \left[ \lap{#3} \right] \a{z}}
+\renewcommand{\ra}[3]{\left( \py{#3} - \pz{#2} \right) \a{x} + \left( \pz{#1} - \px{#3} \right) \a{y} + \left( \px{#2} - \py{#1} \right) \a{z}}
+% Símbolos de operadores integrais
+\newcommand {\iv}[1]{\iiint \limits_{#1}}
+\newcommand {\ivv}[6]{\int_{#1}^{#2} \int_{#3}^{#4} \int_{#5}^{#6}}
+\newcommand {\is}[1]{\iint \limits_{#1}}
+\newcommand {\ios}[1]{\oiint \limits_{#1}}
+\newcommand {\iss}[4]{\int_{#1}^{#2} \int_{#3}^{#4}}
+\newcommand {\il}[1]{\int \limits_{#1}}
+\newcommand {\ill}[2]{\int_{#1}^{#2}}
+% Linhas divisórias
+\newcommand{\hhhlin}{\noindent\hfil\rule{0.25\textwidth}{.2pt}\hfil\newline}
+\newcommand{\hhlin}{\noindent\hfil\rule{0.5\textwidth}{.4pt}\hfil\newline}
+\newcommand{\hlin}{\noindent\hfil\rule{\textwidth}{.8pt}\hfil\newline}
+% Matriz coluna (3x1)
+\newcommand{\bigmc}[3]{\left( \begin{matrix} {#1} \\ {#2} \\ {#3} \end{matrix} \right)}
+\newcommand{\bigmci}[1]{\left( \begin{matrix} {#1}_1 \\ {#1}_2 \\ {#1}_3 \end{matrix} \right)}
+% Matriz linha (1x3)
+\newcommand{\bigml}[3]{\left( \begin{matrix} {#1} & {#2} & {#3} \end{matrix} \right)}
+\newcommand{\bigmli}[1]{\left( \begin{matrix} {#1}_1 & {#1}_2 & {#1}_3 \end{matrix} \right)}
+% Matriz quadrada (3x3)
+\newcommand{\bigmq}[9]{\left( \begin{matrix} {#1} & {#2} & {#3} \\ {#4} & {#5} & {#6} \\ {#7} & {#8} & {#9} \end{matrix} \right)}
+\newcommand{\bigmqi}[1]{\left( \begin{matrix} {#1}_{1,1} & {#1}_{1,2} & {#1}_{1,3} \\ {#1}_{2,1} & {#1}_{2,2} & {#1}_{2,3} \\ {#1}_{3,1} & {#1}_{3,2} & {#1}_{3,3} \end{matrix} \right)}
+\newcommand{\bigmqd}[9]{\left| \begin{matrix} {#1} & {#2} & {#3} \\ {#4} & {#5} & {#6} \\ {#7} & {#8} & {#9} \end{matrix} \right|}
+\newcommand{\bigmqid}[1]{\left| \begin{matrix} {#1}_{1,1} & {#1}_{1,2} & {#1}_{1,3} \\ {#1}_{2,1} & {#1}_{2,2} & {#1}_{2,3} \\ {#1}_{3,1} & {#1}_{3,2} & {#1}_{3,3} \end{matrix} \right|}
+
+
+\begin{document}
+\setlength{\parskip}{1em}
+\setlength{\jot}{10pt}
+\setlength{\parindent}{0pt}
+
+\lstset{language=Octave,frame=single,style=Matlab-editor,basicstyle={\tiny},breaklines=true,numbers=left,numberstyle={\color{red}},numbersep=9pt,showstringspaces=false,keepspaces=false,tabsize=2}
+
+\newcounter{prob_num}
+
+\begin{abstract}
+A configuração do campo eletromagnético em uma dada região do espaço, num intervalo de tempo determinado, precisa ser obtida, no caso geral, resolvendo-se as equações de Maxwell. O presente trabalho versa sobre a determinação dos campos no entorno de um cilindro condutor perfeito, localizado no espaço livre, sobre o qual incide uma onda eletromagnética viajante; sob essas condições ideais, soluções analíticas podem ser encontradas para as equações mencionadas. Para a geometria do problema, essas soluções envolvem funções transcendentais: as conhecidas funções de Bessel e funções de Hankel. \\
+Os conceitos e derivações menos comuns são apresentados em detalhe; para os mais comuns remete-se à bibliografia de referência.
+\end{abstract}
+
+\maketitle
+
+\tableofcontents
+
+%\addcontentsline{toc}{section}{Unnumbered Section}
+
+\section{Introdução}
+A configuração do campo eletromagnético em uma dada região do espaço, num intervalo de tempo determinado, precisa ser obtida, no caso geral, resolvendo-se as equações de Maxwell \cite{BALANIS 2012 1}. A forma usual dessas equações, para aplicações de eletromagnetismo clássico, é a que emprega conceitos de cálculo vetorial \footnote{Essa forma foi estabelecida de maneira definitiva por Heaviside. Para a forma originalmente proposta por Maxwell, consultar \cite{MAXWELL 1873 1}. Para formas mais recentes, apropriadas a aplicações não-clássicas, consultar COMPLETAR} \footnote{Para o significado dos símbolos, consultar o glossário COMPLETAR}:
+\begin{align}
+	\div \vec{D} & = \ppe{\rho} \label{EqCom1} \\
+	\div \vec{B} & = 0 \label{EqCom2} \\
+	\rot \vec{E} & = - \vec{M} - \pmm{\bbmu} \pt{\vec{H}} \label{EqCom3} \\
+	\rot \vec{H} & = \vec{P} + \ppe{\rho} \vec{v} + \pmm{\bbsigma} \vec{E} + \pmm{\bbepsilon} \pt{\vec{H}} \label{EqCom4}
+\end{align}
+No espaço livre, as equações \ref{EqCom1} a \ref{EqCom4} podem ser simplificadas, uma vez que não há campos externos ($ \vec{M} = \vec{P} = \vec{0} $ e $ \ppe{\rho} = 0 $) e o meio é homogêneo, linear e isotrópico (portanto $ \pmm{\bbmu} = \pme{\bbmu} $ , $ \pmm{\bbsigma} = \pme{\bbsigma} $ e $ \pmm{\bbepsilon} = \pme{\bbepsilon} $). Assim, chegamos ao que chamaremos de \textit{equações canônicas}:
+\begin{align}
+	\div \vec{D} & = 0 \label{EqCan1} \\
+	\div \vec{B} & = 0 \label{EqCan2} \\
+	\rot \vec{E} & = - \pme{\bbmu} \pt{\vec{H}} \label{EqCan3} \\
+	\rot \vec{H} & =  \pme{\bbsigma} \vec{E} + \pme{\bbepsilon} \pt{\vec{H}} \label{EqCan4}
+\end{align}
+Estas, por sua vez, podem ser manipuladas de forma a obter-se um conjunto alternativo, usualmente chamado de \textit{equações de onda vetoriais} \footnote{Para a derivação das equações de onda vetoriais a partir das equações canônicas, consultar \cite{BALANIS 2012 1} .}:
+\begin{align}
+	\vlap \vec{E} & = \pme{\bbmu} \pme{\bbsigma} \pt{\vec{E}} + \pme{\bbmu} \pme{\bbepsilon} \ppt{\vec{E}} \label{EqOnda1} \\
+	\vlap \vec{H} & = \pme{\bbmu} \pme{\bbsigma} \pt{\vec{H}} + \pme{\bbmu} \pme{\bbepsilon} \ppt{\vec{H}} \label{EqOnda2}
+\end{align}
+Ambos os conjuntos consistem de equações diferenciais parciais, por isso a forma da solução é determinada também pelas \textit{condições de contorno}, que variam de problema para problema. Em casos mais simples, pode-se obter uma solução analítica; nos demais, é necessário recorrer a métodos numéricos e, em consequência, a solução obtida estará em forma de sequências de valores. No presente trabalho, estudaremos a configuração dos campos no entorno de um cilindro condutor perfeito sobre o qual incide uma onda eletromagnética viajante, no espaço livre; sob essas condições ideais, soluções analíticas podem ser encontradas \cite{BALANIS 2012 1} . \\
+Tanto \ref{EqCan1} a \ref{EqCan4} quanto \ref{EqOnda1} a \ref{EqOnda2} são úteis em aplicações práticas. A opção entre os dois conjuntos é uma questão de conveniência, o que por sua vez depende das condições do problema específico a ser resolvido, como geometria, condições de contorno e parâmetros constitutivos. Para este trabalho, estabelecemos o seguinte roteiro:
+\begin{listae}
+	\item Derivar as equações canônicas e as equações de onda vetoriais para as condições idealizadas do problema (ver \ref{EqProb} e \ref{EqCyl});
+	\item Obter a solução dessas equações para as condições dadas (ver \ref{EqSolz});
+	\item Obter a solução analítica dessas equações (ver \ref{EqSolAF});
+\end{listae}
+Neste trabalho, os conceitos e derivações menos comuns são apresentados em detalhe; para os mais comuns remete-se à bibliografia de referência. A notação segue de perto a das principais referência, mas diverge em pontos onde buscamos maior clareza ou precisão.
+
+\section{Equações de Maxwell em coordenadas cilíndricas}
+\subsection{Forma das equações para o problema proposto} \label{EqProb}
+No espaço livre, as perdas por polarização e magnetização são nulas; isso equivale a fazer $ \pme{\bbsigma} = 0 $ nas equações \ref{EqCan1} a \ref{EqCan4} e \ref{EqOnda1} a \ref{EqOnda2}. Além disso, como o meio é linear, todas essas equações são lineares e vale o teorema integral de Fourier:
+\begin{align}
+	f(t) = \frac{1}{2 \pi} \int_{-\infty}^{\infty} \Fourier{F} d \omega \label{Fourier1} \\
+	\text{onde } \mathbb{F}(\omega) = \int_{-\infty}^{\infty} f(t) e^{-j \omega t} \label{Fourier2}
+\end{align}
+Quando $ f(t) $ é uma função periódica, com período $ \tau $, a integral \ref{Fourier1} degenera na somatória discreta
+\begin{align}
+	f(t) = \frac{1}{\tau} \sum_{\omega = -\infty}^{\infty} \mathbb{F}_{\omega} e^{j \omega t} \label{Fourier3}
+\end{align}
+Podemos agora representar, nas equações do problema, o vetor genérico $ \vec{A} $ , que é uma função do tempo e da posição, como o produto $ A(t) \FunR{A} $ \footnote{Essa notação configura um certo abuso, uma vez que são duas funções distintas, uma do tempo e outra da posição. O mais correto seria escrever algo como $ A_1(t) \FunR{A_2} $ .} \footnote{A técnica de substituição de uma função $ f(x,y) $ pelo produto $ g(x) h(y) $ é chamada \textit{técnica da substituição de variáveis}.}, e então substituir $ A(t) $ por $ \Fourier{A} $, uma vez que, encontrada a solução para o caso geral $ \vec{A} = \mathbb{A}_{\omega} e^{j \omega t} \FunR{A} $ , a solução específica consistirá na soma das soluções para cada $ \mathbb{A}_{\omega} $ não-nulo, devido à linearidade das equações. Campos que podem ser representados dessa forma são chamados \textit{campos harmônicos}. \\
+Em condições de \textit{regime permanente}, pode-se simplificar ainda mais o problema com a introdução da notação fasorial, substituindo $ \mathbb{A} e^{j \omega t} $ pelo fasor $ \phasor{A} = \Re \left( \mathbb{A} e^{j \omega t}\right) $. Podemos ainda, sem perda de generalidade, fazer todos os fasores unitários, o que equivale a considerar $ A(t) $ como uma função cujo máximo é 1; com isso, o máximo de $ \vec{A} $ passa a ser dado pelo máximo de $ \FunR{A} $. Com isso, chegamos a:
+\begin{align*}
+	\div \FourFunR{D} & = 0 \\
+	\div \FourFunR{B} & = 0 \\
+	\rot \FourFunR{E} & = - \pme{\bbmu} \pt{} \FourFunR{H} \\
+	\rot \FourFunR{H} & = \pme{\bbepsilon} \pt{} \FourFunR{E} \\
+	\vlap \FourFunR{E} & = \pme{\bbmu} \pme{\bbepsilon} \ppt{} \FourFunR{H} \\
+	\vlap \FourFunR{H} & = \pme{\bbmu} \pme{\bbepsilon} \ppt{} \FourFunR{E}
+\end{align*}
+mas, se 
+\[ \pt{A} = 0 \]
+então
+\[ \pt{Ae^{j \omega t}} = (j A \omega) e^{j \omega t} = j \omega (A e^{j \omega t}) \]
+e
+\[ \ppt{Ae^{j \omega t)}} = (j \omega)^2 (A e^{j \omega t}) = - \omega^2 (A e^{j \omega t}) \]
+o que resulta:
+\[ \pt{} \phasor{A} = j \omega \phasor{A} \]
+e
+\[ \ppt{} \phasor{A} = - \omega^2 \phasor{A} \]
+Assim, temos \cite{BALANIS 2012 2,BALANIS 2012 3}:
+\begin{align}
+	\div \FourFunR{D} & = 0 \label{EqSimp1} \\
+	\div \FourFunR{B} & = 0 \label{EqSimp2} \\
+	\rot \FourFunR{E} & = - \pme{\bbmu} j \omega \FourFunR{H} \label{EqSimp3} \\
+	\rot \FourFunR{H} & = \pme{\bbepsilon} j \omega \FourFunR{E} \label{EqSimp4} \\
+	\vlap \FourFunR{E} & = - \pme{\bbmu} \pme{\bbepsilon} \omega^2 \FourFunR{H} \label{EqSimp5} \\
+	\vlap \FourFunR{H} & = - \pme{\bbmu} \pme{\bbepsilon} \omega^2 \FourFunR{E} \label{EqSimp6}
+\end{align}
+
+\begin{thebibliography}{30}
+
+\newbibbk{BALANIS 2012 1}{BALANIS 2012 1}{Constantine A. BALANIS}{Advanced Engineering Electromagnetics}{2\textsuperscript{nd} edition, Wiley, 2012, ISBN 978-0-470-58948-9, itens 3.1 e 3.2, pp. 99 a 101}
+
+\newbibbk{MAXWELL 1873 1}{MAXWELL 1873 1}{James C. MAXWELL}{A Treatise On Electricity And Magnetism}{Vol. I, Clarendon Press, 1873, pp. }
+
+\newbibbk{MACEDO 1988 1}{MACEDO 1988 1}{Annita MACEDO}{Eletromagnetismo}{Guanabara, 1988, Formulário, pp. 619 a 628}
+
+\newbibsi{WEISSTEIN 2015 1}{WEISSTEIN 2015 1}{Eric WEISSTEIN}{WolframMathWorld}{Bessel Differential Equation}{http://mathworld.wolfram.com/BesselDifferentialEquation.html}{11/09/2015}
+
+\newbibsi{WEISSTEIN 2015 2}{WEISSTEIN 2015 2}{Eric WEISSTEIN}{WolframMathWorld}{Hankel Function of the First Kind}{http://mathworld.wolfram.com/HankelFunctionoftheFirstKind.html}{12/09/2015}
+
+\newbibsi{WEISSTEIN 2015 3}{WEISSTEIN 2015 3}{Eric WEISSTEIN}{WolframMathWorld}{Hankel Function of the Second Kind}{http://mathworld.wolfram.com/HankelFunctionoftheSecondKind.html}{12/09/2015}
+
+\newbibsi{WOLFRAM 2015 1}{WOLFRAM 2015 1}{Stephen WOLFRAM}{WolframResearch}{Bessel function of the first kind: Differentiation}{http://functions.wolfram.com/Bessel-TypeFunctions/BesselJ/20/01/02/}
+
+\newbiboc{BALANIS 2012 2}{BALANIS 2012 2}{Constantine BALANIS}{item 1.7, pp. 21 a 22}
+\newbiboc{BALANIS 2012 3}{BALANIS 2012 3}{Constantine BALANIS}{item 3.3, pp. 101 a 102}
+\newbiboc{BALANIS 2012 4}{BALANIS 2012 4}{Constantine BALANIS}{item 3.4.2 pp. 110 a 114}
+\newbiboc{BALANIS 2012 5}{BALANIS 2012 5}{Constantine BALANIS}{itens 6.1 a 6.4, pp. 259 a 265}
+\newbiboc{BALANIS 2012 6}{BALANIS 2012 6}{Constantine BALANIS}{item 6.5.1, pp. 265 a 272}
+\newbiboc{BALANIS 2012 7}{BALANIS 2012 7}{Constantine BALANIS}{item 11, pag. 575}
+\newbiboc{BALANIS 2012 8}{BALANIS 2012 8}{Constantine BALANIS}{itens 11.4 a 11.5.2, pp. 599 a 614}
+
+\end{thebibliography}
+
+A solução de algumas integrais indefinidas foi obtida no site \textbf{Wolfram Alpha}: \\(\url{http://www.wolframalpha.com/widget/widgetPopup.jsp?p=v&id=7d800d10b8bfcd949b17866c0679e786} ) \\
+Os gráficos foram preparados pelo \textbf{Octave} 4.0.0 \\
+(\url{https://www.gnu.org/software/octave/} ) \\
+O texto foi formatado com \textbf{pdflatex} em ambiente MiKTeX 2.9 \\
+(\url{http://miktex.org/download/} ) \\
+
+
+%\thispagestyle{empty}
+
+% \geometry{margin=1in} % for example, change the margins to 2 inches all round
+% \addtolength{\topmargin}{-10mm}
+
+%%% PACKAGES
+% \usepackage{abstract}
+
+%%% HEADERS & FOOTERS
+%\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+%\pagestyle{fancy} % options: empty , plain , fancy
+%\renewcommand{\headrulewidth}{0pt} % customise the layout...
+%\lhead{}\chead{}\rhead{}
+%\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+%\usepackage{sectsty}
+%\allsectionsfont{\mdseries\upshape 
+%      \sectionrule{15pt}{0pt}{-5pt}{1pt} }
+
+%\twocolumn[
+%\begin{onecolabstract}
+%One Column Abstract - it is the Abstract title that I wish to remove.\\
+%\end{onecolabstract}
+%]

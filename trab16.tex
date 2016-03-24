@@ -1,0 +1,822 @@
+\documentclass[12pt,fleqn]{amsart}
+\usepackage{enumitem}
+\usepackage{xstring}
+\usepackage{graphicx}
+\usepackage[a4paper]{geometry}
+\usepackage[portuguese,brazilian]{babel}
+\usepackage[ansinew]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{comment}
+% Fontes
+\usepackage{textgreek}
+\usepackage{yfonts}
+\usepackage{microtype}
+\usepackage{calligra}
+\usepackage{lmodern}
+\usepackage{bookman}
+\usepackage[scaled]{helvet}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+\usepackage{fmtcount}
+%\usepackage{glossaries}
+% Formatação
+\usepackage{sidecap}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{matlab-prettifier}
+% Figuras geométricas
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\usepackage{pgfplots}
+\usetikzlibrary{calc,fadings,decorations.pathreplacing,3d}
+\usetikzlibrary{arrows}
+\usetikzlibrary{positioning}
+% Símbolos matemáticos
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{wasysym}
+\usepackage{mathtools}
+\usepackage{bbm}
+\usepackage{mbboard}
+
+
+\title{Espalhamento eletromagnético por um cilindro condutor elétrico perfeito}
+\author{Sérgio Cordeiro}
+\date{}
+
+\renewcommand*\contentsname{Sumário}
+
+\newcommand{\Fourier}[1]{\mathbb{#1}(\omega) e^{j \omega t}}
+\newcommand{\FunR}[1]{\vec{#1}(x,y,z)}
+\newcommand{\phasor}[1]{\mathpzc{#1}}
+\newcommand{\FourFunR}[1]{\left( \phasor{#1} \FunR{#1} \right)}
+
+\newenvironment{inthisrev}{
+	\color{blue}
+	}{
+	\color{black}
+	}
+
+\newenvironment{myquote}{
+	\begin{quote}
+	\fontfamily{lmr} \selectfont
+	{\huge ``}}{{\huge ''}
+	\end{quote}
+	}
+
+\newenvironment{pergunta}{
+	\par
+	\trivlist
+	\fontfamily{phv}
+	\selectfont
+	\item\arabic{prob_num}. 
+	}{
+	\endtrivlist
+	}
+
+\newenvironment{resposta}{
+	\trivlist
+    \vspace{3pt}
+	\fontfamily{pbk}
+	\selectfont
+	\item
+	}{
+	\vspace{3pt}
+	\noindent\makebox[\linewidth]{\rule{\paperwidth}{1pt}}
+	\endtrivlist
+	\stepcounter{prob_num}
+	}
+
+\newenvironment{listae}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}	
+	\vspace{-5mm}}
+
+\newenvironment{listaef}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}}
+
+\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
+
+%\renewcommand{\thesubsection}{\textbf{\arabic{subsection}}}
+%\renewcommand{\thesection}{\color{red}}
+
+\makeatletter
+\def\subsubsection{\@startsection{subsubsection}{3}%
+  \z@{.5\linespacing\@plus.7\linespacing}{.1\linespacing}%
+  {\normalfont\itshape}}
+\makeatother\renewcommand{\thesubsubsection}{}
+
+\newcommand{\newbibit}[6]{\bibitem[#1]{#2}#3, {\bf #4}. Disponível em \url{#5}, acesso em #6.}
+\newcommand{\newbibpp}[5]{\bibitem[#1]{#2}#3, {\bf #4}, \emph{in} #5.}
+\newcommand{\newbibbk}[5]{\bibitem[#1]{#2}#3, {\bf #4}, #5.}
+\newcommand{\newbibip}[6]{\bibitem[#1]{#2}#3, {\bf #4}, \emph{in} #5, disponível em \url{#6}.}
+\newcommand{\newbiboc}[4]{\bibitem[#1]{#2}#3, \textit{op. cit.}, #4.}
+\newcommand{\newbibsi}[7]{\bibitem[#1]{#2}#3, {\bf #4} : {#5}. Disponível em \url{#6}, acesso em #7.}
+
+\newenvironment{iquote}{\begin{quote}\itshape}{\end{quote}}
+
+\BeforeBeginEnvironment{figure}{\vskip-1ex}
+\AfterEndEnvironment{figure}{\vskip-4ex}
+
+% Símbolos de funções
+\DeclareMathOperator{\sinc}{\mbox{sinc}}				% Função sinc
+\DeclareMathOperator{\sgn}{\mbox{sgn}}					% Função sinal
+\DeclareMathOperator{\atan}{\mbox{arctan}}				% Função arco-tangente
+\DeclareMathOperator{\acos}{\mbox{arccos}}				% Função arco-cosseno
+\DeclareMathOperator{\J}{\mbox{J}}						% Função de Bessel de primeira espécie
+\DeclareMathOperator{\Y}{\mbox{Y}}						% Função de Bessel de segunda espécie
+\let\H\relax
+\DeclareMathOperator{\H}{\mbox{H}}						% Função de Hankel
+% Símbolos de elementos infinitesimais
+\newcommand {\dpx}[1]{\boldsymbol{\delta {#1}}}
+% Símbolos de constantes escalares (ex. carga do eletron: \ke{e})
+\newcommand {\ke}[1]{\text{\large \textfrak{#1}}}
+% Valores de constantes escalares (ex. carga do eletron: \kve{e})
+\newcommand {\kve}[1]{
+  \IfStrEqCase{#1}{
+    {e}{1,602 \times 10^{-19} \; C}
+    {mu}{4 \pi \times 10^{-7} \; H \; m^{-1}}
+    {ep}{8,854 \times 10^{-12} \; F \; m^{-1}}	
+    {c}{2,998 \times 10^{8} \; m \; s^{-1}}
+	}
+  \text{\large \textfrak{#1}}}
+% Símbolos de parâmetros escalares do problema
+ \newcommand{\ppe}[1]{\boldsymbol{#1}}					% genérico
+ \newcommand{\dcv}[1]{\ppe{\boldsymbol{\rho}_{v_{#1}}}}			% Densidade volumétrica de carga
+ \newcommand{\dcs}[1]{\ppe{\boldsymbol{\rho}_{S_{#1}}}}			% Densidade superficial de carga
+ \newcommand{\dcl}[1]{\ppe{\boldsymbol{\rho}_{l_{#1}}}}			% Densidade linear de carga
+% Símbolos de propriedades escalares do meio
+% Para letras gregas, usar o nome especial (precedido por 'bb')
+%(ex. condutividade: \pme{\bbsigma})
+\newcommand {\pme}[1]{\mathbb{#1}}
+% Símbolos de propriedades tensoriais do meio
+% Para letras gregas, usar o nome especial (precedido por 'bb')
+%(ex. condutividade: \pmm{\bbsigma})
+\newcommand {\pmm}[1]{\pmb{\mathbb{#1}}}
+% Expressões de elementos diferenciais
+% Elemento de volume em coordenadas esféricas
+\newcommand {\dve}{r^2 \sin \theta \; dr \; d \theta \; d \phi}
+% Elemento de superfície em coordenadas cilíndricas
+\newcommand {\dsc}{\rho \; d \phi \; dz \; \a{\rho} + dz \; d \rho \; \a{\phi} + \rho \; d \rho \; d \phi \; \a{z}}
+% Elemento de superfície em coordenadas esféricas
+\newcommand {\dse}{r^2 \sin \theta \; d \theta \; d \phi \; \a{r} + r \sin \theta \; dr \; d \phi \; \a{\theta} + r \; dr \; d \theta \; \a{\phi}}
+% Elemento de deslocamento em coordenadas cilíndricas
+\newcommand {\dlc}{d \rho \; \a{\rho} + \rho \; d \phi \; \a{\phi} + dz \; \a{z}}
+% Elemento de deslocamento em coordenadas esféricas
+\newcommand {\dle}{dr \; \a{r} + r \; d \theta \; \a{\theta} + r \sin \theta \; d \phi \; \a{\phi} + dz \; \a{z}}
+% Conversão de vetores unitários
+\newcommand {\convarc}{\sin \theta \; \a{\rho} + \cos \theta \; \a{z}}
+\newcommand {\convark}{\sin \theta \; \cos \phi \; \a{x} + \sin \theta \; \sin \phi \; \a{y} + \cos \theta \; \a{z}}
+\newcommand {\convatc}{\cos \theta \; \a{\rho} - \sin \theta a; \a{z}}
+\newcommand {\convatk}{\cos \theta \; \cos \phi \; \a{x} + \cos \theta \; \sin \phi \; \a{y} - \sin \theta \; \a{z}}
+\newcommand {\convapk}{- \sin \phi \; \a{x} + \cos \phi \; \a{y}}
+\newcommand {\convahk}{\cos \phi \; \a{x} + \sin \phi \; \a{y}}
+\newcommand {\convaxc}{\cos \phi \; \a{\rho} - \sin \phi \; \a{\phi}}
+\newcommand {\convayc}{\sin \phi \; \a{\rho} + \cos \phi \; \a{\phi}}
+\newcommand {\convaxe}{\sin \theta \; \cos \phi \; \a{r} + \cos \theta \; \cos \phi \; \a{\theta} - \sin \phi \; \a{\phi}}
+\newcommand {\convaye}{\sin \theta \; \sin \phi \; \a{r} + \cos \theta \; \sin \phi \; \a{\theta} + \cos \phi \; \a{\phi}}
+\newcommand {\convaze}{\cos \theta \; \a{r} - \sin \theta \; \a{\theta}}
+\newcommand {\convahe}{\sin \theta \; \a{r} + \cos \theta \; \a{\theta}}
+% Conversão de coordenadas
+\newcommand {\convrc}{\sqrt{\rho^2 + z^2}}
+\newcommand {\convrk}{\sqrt{x^2 + y^2 + z^2}}
+\newcommand {\convtc}{\atan(\rho,z)}
+\newcommand {\convtk}{\acos(z,\sqrt{x^2 + y^2 + z^2})}
+\newcommand {\convpk}{\atan(y,x)}
+\newcommand {\convhk}{\sqrt{x^2 + y^2}}
+\newcommand {\convhe}{r \sin \theta}
+\newcommand {\convyc}{\rho \sin \phi}
+\newcommand {\convxe}{r \sin \theta \; \cos \phi}
+\newcommand {\convye}{r \sin \theta \; \sin \phi}
+\newcommand {\convze}{r \cos \theta}
+% Símbolos de operadores diferencias
+\newcommand{\grad}{\vec{\nabla}}
+\renewcommand{\div}{\grad \cdot}
+\newcommand{\rot}{\grad \times}
+\newcommand{\lap}{\nabla^2}
+\newcommand{\vlap}{\grad^2}
+\newcommand{\pd}[2]{\frac{\partial {#1}}{\partial {#2}}}
+\newcommand{\px}[1]{\frac{\partial {#1}}{\partial x}}
+\newcommand{\py}[1]{\frac{\partial {#1}}{\partial y}}
+\newcommand{\pz}[1]{\frac{\partial {#1}}{\partial z}}
+\newcommand{\pt}[1]{\frac{\partial {#1}}{\partial t}}
+\newcommand{\prho}[1]{\frac{\partial {#1}}{\partial \rho}}
+\newcommand{\pphi}[1]{\frac{\partial {#1}}{\partial \phi}}
+\newcommand{\pr}[1]{\frac{\partial {#1}}{\partial r}}
+\newcommand{\ptheta}[1]{\frac{\partial {#1}}{\partial \theta}}
+\newcommand{\ppx}[1]{\frac{\partial^2 {#1}}{\partial x^2}}
+\newcommand{\ppy}[1]{\frac{\partial^2 {#1}}{\partial y^2}}
+\newcommand{\ppz}[1]{\frac{\partial^2 {#1}}{\partial z^2}}
+\newcommand{\pppz}[1]{\frac{\partial^3 {#1}}{\partial z^3}}
+\newcommand{\ppt}[1]{\frac{\partial^2 {#1}}{\partial t^2}}
+\newcommand{\pprho}[1]{\frac{\partial^2 {#1}}{\partial \rho^2}}
+\newcommand{\ppprho}[1]{\frac{\partial^3 {#1}}{\partial \rho^3}}
+\newcommand{\ppphi}[1]{\frac{\partial^2 {#1}}{\partial \phi^2}}
+\newcommand{\pppphi}[1]{\frac{\partial^3 {#1}}{\partial \phi^3}}
+\renewcommand{\a}[1]{\hat{a}_{#1}}
+\newcommand{\ga}[3]{\px{#1} \a{x} + \py{#2} \a{y} + \pz{#3} \a{z}}
+\newcommand{\gc}[3]{\prho{#1} \a{\rho} + \frac{1}{\rho} \pphi{#2} \a{\phi} + \pz{} \a{z}}
+\newcommand{\gr}[3]{\pr{#1} \a{r} + \frac{1}{r \sin \theta} \pphi{#2} \a{\phi} + \frac{1}{r} \ptheta{#3} \a{\theta}}
+\newcommand{\de}[3]{\frac{1}{r^2} \pr{} r^2 \; {#1} \; \a{r} + \frac{1}{r \sin \theta} \pphi{} \; {#2} \; \a{\phi} + \frac{1}{r \sin \theta} \ptheta{} \sin \theta \; {#3} \; \a{\theta}}
+\newcommand{\dc}{\frac{1}{\rho} \prho{} \rho \; \a{\rho} + \frac{1}{\rho} \pphi{} \; \a{\phi} + \pz{} \a{z}}
+\newcommand{\la}[3]{\ppx{#1} + \ppy{#2} + \ppz{#3}}
+\newcommand{\lc}[3]{\frac{1}{\rho} \prho{} \rho \prho{#1} + \frac{1}{\rho^2} \ppphi{#2} + \ppz{#3}}
+\newcommand{\lr}[3]{\frac{1}{r^2} \pr{} r^2 \pr{#1} + \frac{1}{r^2 \sin \theta} \ptheta{} \sin \theta \ptheta{#2} + \frac{1}{r^2 \sin^2 \theta} \ppphi{#3}}
+\newcommand{\vla}[3]{\ppx{#1} \a{x} + \ppy{#2} \a{y} + \ppz{#3} \a{z}}
+\newcommand{\vlc}[3]{\left[ \lap{#1} - \frac{1}{\rho^2} \left( {#1} + 2 \pphi{#2} \right) \right] \a{\rho} + \left[ \lap{#2} + \frac{1}{\rho^2} \left( 2 \pphi{#1} - {#2} \right) \right] \a{\phi} + \left[ \lap{#3} \right] \a{z}}
+\renewcommand{\ra}[3]{\left( \py{#3} - \pz{#2} \right) \a{x} + \left( \pz{#1} - \px{#3} \right) \a{y} + \left( \px{#2} - \py{#1} \right) \a{z}}
+% Símbolos de operadores integrais
+\newcommand {\iv}[1]{\iiint \limits_{#1}}
+\newcommand {\ivv}[6]{\int_{#1}^{#2} \int_{#3}^{#4} \int_{#5}^{#6}}
+\newcommand {\is}[1]{\iint \limits_{#1}}
+\newcommand {\ios}[1]{\oiint \limits_{#1}}
+\newcommand {\iss}[4]{\int_{#1}^{#2} \int_{#3}^{#4}}
+\newcommand {\il}[1]{\int \limits_{#1}}
+\newcommand {\ill}[2]{\int_{#1}^{#2}}
+% Linhas divisórias
+\newcommand{\hhhlin}{\noindent\hfil\rule{0.25\textwidth}{.2pt}\hfil\newline}
+\newcommand{\hhlin}{\noindent\hfil\rule{0.5\textwidth}{.4pt}\hfil\newline}
+\newcommand{\hlin}{\noindent\hfil\rule{\textwidth}{.8pt}\hfil\newline}
+% Matriz coluna (3x1)
+\newcommand{\bigmc}[3]{\left( \begin{matrix} {#1} \\ {#2} \\ {#3} \end{matrix} \right)}
+\newcommand{\bigmci}[1]{\left( \begin{matrix} {#1}_1 \\ {#1}_2 \\ {#1}_3 \end{matrix} \right)}
+% Matriz linha (1x3)
+\newcommand{\bigml}[3]{\left( \begin{matrix} {#1} & {#2} & {#3} \end{matrix} \right)}
+\newcommand{\bigmli}[1]{\left( \begin{matrix} {#1}_1 & {#1}_2 & {#1}_3 \end{matrix} \right)}
+% Matriz quadrada (3x3)
+\newcommand{\bigmq}[9]{\left( \begin{matrix} {#1} & {#2} & {#3} \\ {#4} & {#5} & {#6} \\ {#7} & {#8} & {#9} \end{matrix} \right)}
+\newcommand{\bigmqi}[1]{\left( \begin{matrix} {#1}_{1,1} & {#1}_{1,2} & {#1}_{1,3} \\ {#1}_{2,1} & {#1}_{2,2} & {#1}_{2,3} \\ {#1}_{3,1} & {#1}_{3,2} & {#1}_{3,3} \end{matrix} \right)}
+\newcommand{\bigmqd}[9]{\left| \begin{matrix} {#1} & {#2} & {#3} \\ {#4} & {#5} & {#6} \\ {#7} & {#8} & {#9} \end{matrix} \right|}
+\newcommand{\bigmqid}[1]{\left| \begin{matrix} {#1}_{1,1} & {#1}_{1,2} & {#1}_{1,3} \\ {#1}_{2,1} & {#1}_{2,2} & {#1}_{2,3} \\ {#1}_{3,1} & {#1}_{3,2} & {#1}_{3,3} \end{matrix} \right|}
+
+%\makeglossaries
+%\makeindex
+%\setglossarystyle{altlist}
+
+\begin{document}
+\setlength{\parskip}{1em}
+\setlength{\jot}{10pt}
+\setlength{\parindent}{0pt}
+
+\lstset{language=Octave,frame=single,style=Matlab-editor,basicstyle={\tiny},breaklines=true,numbers=left,numberstyle={\color{red}},numbersep=9pt,showstringspaces=false,keepspaces=false,tabsize=2}
+
+\begin{abstract}
+A configuração do campo eletromagnético em uma dada região do espaço, num intervalo de tempo determinado, precisa ser obtida, no caso geral, resolvendo-se as equações de Maxwell. O presente trabalho versa sobre a determinação dos campos no entorno de um cilindro condutor perfeito, localizado no espaço livre, sobre o qual incide uma onda eletromagnética viajante; sob essas condições ideais, soluções analíticas podem ser encontradas para as equações mencionadas. Para a geometria do problema, essas soluções envolvem funções transcendentais: as conhecidas funções de Bessel e funções de Hankel. \\
+Os conceitos e derivações menos comuns são apresentados em detalhe; para os mais comuns remete-se à bibliografia de referência. Um programa para cálculo dos campos é apresentado, bem como alguns gráficos obtidos por meio dele.
+\end{abstract}
+
+\maketitle
+
+\clearpage
+
+\tableofcontents
+
+%\addcontentsline{toc}{section}{Unnumbered Section}
+
+\clearpage
+
+\section{Introdução}
+A configuração do campo eletromagnético em uma dada região do espaço, num intervalo de tempo determinado, precisa ser obtida, no caso geral, resolvendo-se as equações de Maxwell \cite{BALANIS 2012 1}. A forma usual dessas equações, para aplicações de eletromagnetismo clássico, é a que emprega conceitos de cálculo vetorial:
+\begin{align}
+	\div \vec{D} & = \ppe{\rho} \label{EqCom1} \\
+	\div \vec{B} & = 0 \label{EqCom2} \\
+	\rot \vec{E} & = - \vec{M} - \pmm{\bbmu} \pt{\vec{H}} \label{EqCom3} \\
+	\rot \vec{H} & = \vec{P} + \ppe{\rho} \vec{v} + \pmm{\bbsigma} \vec{E} + \pmm{\bbepsilon} \pt{\vec{H}} \label{EqCom4}
+\end{align}
+No espaço livre, as equações \ref{EqCom1} a \ref{EqCom4} podem ser simplificadas, uma vez que não há campos externos ($ \vec{M} = \vec{P} = \vec{0} $ e $ \ppe{\rho} = 0 $) e o meio é homogêneo, linear e isotrópico (portanto $ \pmm{\bbmu} = \pme{\bbmu} $ , $ \pmm{\bbsigma} = \pme{\bbsigma} $ e $ \pmm{\bbepsilon} = \pme{\bbepsilon} $). Assim, chegamos ao que chamaremos de \textit{equações canônicas}:
+\begin{align}
+	\div \vec{D} & = 0 \label{EqCan1} \\
+	\div \vec{B} & = 0 \label{EqCan2} \\
+	\rot \vec{E} & = - \pme{\bbmu} \pt{\vec{H}} \label{EqCan3} \\
+	\rot \vec{H} & =  \pme{\bbsigma} \vec{E} + \pme{\bbepsilon} \pt{\vec{H}} \label{EqCan4}
+\end{align}
+Estas, por sua vez, podem ser manipuladas de forma a obter-se um conjunto alternativo, usualmente chamado de \textit{equações de onda vetoriais} \footnote{Para a derivação das equações de onda vetoriais a partir das equações canônicas, consultar \cite{BALANIS 2012 1} .}:
+\begin{align}
+	\vlap \vec{E} & = \pme{\bbmu} \pme{\bbsigma} \pt{\vec{E}} + \pme{\bbmu} \pme{\bbepsilon} \ppt{\vec{E}} \label{EqOnda1} \\
+	\vlap \vec{H} & = \pme{\bbmu} \pme{\bbsigma} \pt{\vec{H}} + \pme{\bbmu} \pme{\bbepsilon} \ppt{\vec{H}} \label{EqOnda2}
+\end{align}
+Ambos os conjuntos consistem de equações diferenciais parciais, por isso a forma da solução é determinada também pelas \textit{condições de contorno}, que variam de problema para problema. Em casos mais simples, pode-se obter uma solução analítica; nos demais, é necessário recorrer a métodos numéricos e, em consequência, a solução obtida estará em forma de sequências de valores. No presente trabalho, estudaremos a configuração dos campos no entorno de um cilindro condutor perfeito sobre o qual incide uma onda eletromagnética viajante, no espaço livre; sob essas condições ideais, soluções analíticas podem ser encontradas \cite{BALANIS 2012 1} . \\
+Tanto \ref{EqCan1} a \ref{EqCan4} quanto \ref{EqOnda1} a \ref{EqOnda2} são úteis em aplicações práticas. A opção entre os dois conjuntos é uma questão de conveniência, o que por sua vez depende das condições do problema específico a ser resolvido, como geometria, condições de contorno e parâmetros constitutivos. Para este trabalho, estabelecemos o seguinte roteiro:
+\begin{listae}
+	\item Derivar as equações canônicas e as equações de onda vetoriais para as condições idealizadas do problema (ver \ref{EqProb} e \ref{EqCyl});
+	\item Obter a solução dessas equações para as condições dadas (ver \ref{EqSolz});
+	\item Obter a solução analítica dessas equações (ver \ref{EqSolAF});
+\end{listae}
+Neste trabalho, os conceitos e derivações menos comuns são apresentados em detalhe; para os mais comuns remete-se à bibliografia de referência. A notação segue de perto a das principais referência, mas diverge em pontos onde buscamos maior clareza ou precisão.
+
+\section{Equações de Maxwell em coordenadas cilíndricas}
+\subsection{Forma das equações para o problema proposto} \label{EqProb}
+No espaço livre, as perdas por polarização e magnetização são nulas; isso equivale a fazer $ \pme{\bbsigma} = 0 $ nas equações \ref{EqCan1} a \ref{EqCan4} e \ref{EqOnda1} a \ref{EqOnda2}. Além disso, como o meio é linear, todas essas equações são lineares e vale o teorema integral de Fourier:
+\begin{align}
+	f(t) = \frac{1}{2 \pi} \int_{-\infty}^{\infty} \Fourier{F} d \omega \label{Fourier1} \\
+	\text{onde } \mathbb{F}(\omega) = \int_{-\infty}^{\infty} f(t) e^{-j \omega t} \label{Fourier2}
+\end{align}
+Quando $ f(t) $ é uma função periódica, com período $ \tau $, a integral \ref{Fourier1} degenera na somatória discreta
+\begin{align}
+	f(t) = \frac{1}{\tau} \sum_{\omega = -\infty}^{\infty} \mathbb{F}_{\omega} e^{j \omega t} \label{Fourier3}
+\end{align}
+Podemos agora representar, nas equações do problema, o vetor genérico $ \vec{A} $ , que é uma função do tempo e da posição, como o produto $ A(t) \FunR{A} $ \footnote{Essa notação configura um certo abuso, uma vez que são duas funções distintas, uma do tempo e outra da posição. O mais correto seria escrever algo como $ A_1(t) \FunR{A_2} $ .} \footnote{A técnica de substituição de uma função $ f(x,y) $ pelo produto $ g(x) h(y) $ é chamada \textit{técnica da substituição de variáveis}.}, e então substituir $ A(t) $ por $ \Fourier{A} $, uma vez que, encontrada a solução para o caso geral $ \vec{A} = \mathbb{A}_{\omega} e^{j \omega t} \FunR{A} $ , a solução específica consistirá na soma das soluções para cada $ \mathbb{A}_{\omega} $ não-nulo, devido à linearidade das equações. Campos que podem ser representados dessa forma são chamados \textit{campos harmônicos}. \\
+Em condições de \textit{regime permanente}, pode-se simplificar ainda mais o problema com a introdução da notação fasorial, substituindo $ \mathbb{A} e^{j \omega t} $ pelo fasor $ \phasor{A} = \Re \left( \mathbb{A} e^{j \omega t}\right) $. Podemos ainda, sem perda de generalidade, fazer todos os fasores unitários, o que equivale a considerar $ A(t) $ como uma função cujo máximo é 1; com isso, o máximo de $ \vec{A} $ passa a ser dado pelo máximo de $ \FunR{A} $. Com isso, chegamos a:
+\begin{align*}
+	\div \FourFunR{D} & = 0 \\
+	\div \FourFunR{B} & = 0 \\
+	\rot \FourFunR{E} & = - \pme{\bbmu} \pt{} \FourFunR{H} \\
+	\rot \FourFunR{H} & = \pme{\bbepsilon} \pt{} \FourFunR{E} \\
+	\vlap \FourFunR{E} & = \pme{\bbmu} \pme{\bbepsilon} \ppt{} \FourFunR{H} \\
+	\vlap \FourFunR{H} & = \pme{\bbmu} \pme{\bbepsilon} \ppt{} \FourFunR{E}
+\end{align*}
+mas, se 
+\[ \pt{A} = 0 \]
+então
+\[ \pt{Ae^{j \omega t}} = (j A \omega) e^{j \omega t} = j \omega (A e^{j \omega t}) \]
+e
+\[ \ppt{Ae^{j \omega t)}} = (j \omega)^2 (A e^{j \omega t}) = - \omega^2 (A e^{j \omega t}) \]
+o que resulta:
+\[ \pt{} \phasor{A} = j \omega \phasor{A} \]
+e
+\[ \ppt{} \phasor{A} = - \omega^2 \phasor{A} \]
+Assim, temos \cite{BALANIS 2012 2,BALANIS 2012 3}:
+\begin{align}
+	\div \FourFunR{D} & = 0 \label{EqSimp1} \\
+	\div \FourFunR{B} & = 0 \label{EqSimp2} \\
+	\rot \FourFunR{E} & = - \pme{\bbmu} j \omega \FourFunR{H} \label{EqSimp3} \\
+	\rot \FourFunR{H} & = \pme{\bbepsilon} j \omega \FourFunR{E} \label{EqSimp4} \\
+	\vlap \FourFunR{E} & = - \pme{\bbmu} \pme{\bbepsilon} \omega^2 \FourFunR{H} \label{EqSimp5} \\
+	\vlap \FourFunR{H} & = - \pme{\bbmu} \pme{\bbepsilon} \omega^2 \FourFunR{E} \label{EqSimp6}
+\end{align}
+
+\subsection{Forma das equações em coordenadas cilíndricas} \label{EqCyl}
+Obviamente, o sistema de coordenadas mais adequado ao problema proposto é o cilíndrico. As equações de onda vetoriais, \ref{EqSimp5} a \ref{EqSimp6}, após todas as manipulações, são simples o suficiente para permitir uma solução analítica, e por isso são as mais indicadas, em lugar das demais. No sistema escolhido \cite{MACEDO 1988 1}:
+\begin{align}
+	\vec{A} & = A_{\rho} \a{\rho} + A_{\phi} \a{\phi} + A_{z} \a{z} \label{EqCyl1} \\ \notag \\
+	\vlap \vec{A} & = \left[ \lap{A_{\rho}} - \frac{1}{\rho^2} \left( {A_{\rho}} + 2 \pphi{A_{\phi}} \right) \right] \a{\rho} + ... \notag \\
+	& \qquad + \left[ \lap{A_{\phi}} + \frac{1}{\rho^2} \left( 2 \pphi{A_{\rho}} - A_{\phi} \right) \right] \a{\phi} + ... \label{EqCyl2} \\
+	& \qquad + \left[ \lap{A_z} \right] \a{z} \notag \\ \notag \\
+	\lap{} A & = \lc{A_{\rho}}{A_{\phi}}{A_z} \label{EqCyl3}
+\end{align}
+Combinando \ref{EqCyl1} e \ref{EqCyl2} com \ref{EqSimp5} e \ref{EqSimp6}, obtemos o sistema de equações a ser resolvido: \\
+\begin{align}
+	\lap{} A_{\rho} - \frac{1}{\rho^2} \left( {A_{\rho}} + 2 \pphi{A_{\phi}} \right) & = - \pme{\bbmu} \pme{\bbepsilon} \omega^2 A_{\rho} \label{Eqrho} \\
+	\lap{} A_{\phi} + \frac{1}{\rho^2} \left( 2 \pphi{A_{\rho}} - A_{\phi} \right) & = - \pme{\bbmu} \pme{\bbepsilon} \omega^2 A_{\phi} \label{Eqphi} \\
+	\lap{} A_z & = - \pme{\bbmu} \pme{\bbepsilon} \omega^2 A_z \label{Eqz}
+\end{align}
+\begin{align*}
+	\qquad \Aboxed{\vec{A} \text{: } \vec{E} \text{ ou } \vec{H} \qquad A_a = A_a(t,\rho,\phi,z) = \phasor{A}_a A_a(\rho,\phi,z)}
+\end{align*}
+As equações \ref{Eqrho} e \ref{Eqphi} estão \textit{acopladas}, isto é, possuem termos tanto em $ \rho $ quanto em $ \phi $; a equação \ref{Eqz}, por sua vez, está desacoplada: possui apenas termos em $ z $. Entretanto, em diversas situações práticas é possível escolher o sistema de coordenadas de forma a obter-se o que se chama \textbf{modo transversal elétrico (TE)} ou o \textbf{modo transversal magnético (TM)}, para os quais basta resolver a equação \ref{Eqz}.
+
+\subsection{Solução da equação \ref{Eqz}} \label{EqSolz}
+Como \ref{Eqz} é a mais simples, comecemos por ela. De acordo com a técnica de separação de variáveis, façamos a substituição:
+\begin{align}
+	A(\rho,\phi,z) = A_1(\rho)A_2(\phi)A_3(z) \label{Substz}
+\end{align}
+em \ref{EqCyl3} e \ref{Eqz}. O que obtemos é:
+\begin{equation*}
+	\left.
+	\begin{aligned}
+	\prho{A} & = A_2 \; A_3 \; \prho{A_1} \\
+	\prho{} (\rho \prho{A}) & = A_2 \; A_3 \; \left( \prho{A_1} + \rho \pprho{A_1} \right) \\
+	\pphi{A} & = A_1 \; A_3 \; \pphi{A_2} \\
+	\ppphi{A} & = A_1 \; A_3 \; \ppphi{A_2} \\
+	\pz{A} & = A_1 \; A_2 \; \pz{A_3} \\
+	\ppz{A} & = A_1 \; A_2 \; \ppz{A_3} \\
+	\end{aligned}
+	\right\} \implies ... \\
+\end{equation*}
+\begin{align*}
+	\qquad \lap{A_z} & = \frac{1}{\rho} \; A_2 \; A_3 \; \left( \prho{A_1} + \rho \pprho{A_1} \right) + \frac{1}{\rho^2} \; A_1 \; A_3 \; \ppphi{A_2} + A_1 \; A_2 \; \ppz{A_3} \\
+	& = \frac{A_2 \; A_3 }{\rho} \; \prho{A_1} + A_2 \; A_3 \; \pprho{A_1} + \frac{A_1 \; A_3}{\rho^2} \; \ppphi{A_2} + A_1 \; A_2 \; \ppz{A_3}
+\end{align*}
+\begin{align*}
+	\wasytherefore \qquad \frac{A_2 \; A_3 }{\rho} \; \prho{A_1} + A_2 \; A_3 \; \pprho{A_1} + \frac{A_1 \; A_3}{\rho^2} \; \ppphi{A_2} + A_1 \; A_2 \; \ppz{A_3} & = - \pme{\bbmu} \pme{\bbepsilon} \omega^2 \; A_1 \; A_2 \; A_3 \\
+	\frac{1}{A_1 \; \rho} \; \prho{A_1} + \frac{1}{A_1} \; \pprho{A_1} + \frac{1}{A_2 \; \rho^2} \; \ppphi{A_2} + \frac{1}{A_3} \; \ppz{A_3} = - \pme{\bbmu} \pme{\bbepsilon} \omega^2
+\end{align*}
+\hhhlin
+\begin{align}
+	\pz{} \left[ \frac{1}{A_1 \; \rho} \; \prho{A_1} + \frac{1}{A_1} \; \pprho{A_1} + \frac{1}{A_2 \; \rho^2} \; \ppphi{A_2} + \frac{1}{A_3} \; \ppz{A_3} \right] & = \pz{} \left[ - \pme{\bbmu} \pme{\bbepsilon} \omega^2 \right] \notag \\
+	\pz{} \left[ \frac{1}{A_3} \; \ppz{A_3} \right]& = 0 \notag \\
+	\wasytherefore \qquad \frac{1}{A_3} \; \ppz{A_3} & = \mathbf{constante} \label{Eqzz}
+\end{align}
+\hhhlin
+\begin{align}
+	\pphi{} \left[ \frac{1}{A_1 \; \rho} \; \prho{A_1} + \frac{1}{A_1} \; \pprho{A_1} + \frac{1}{A_2 \; \rho^2} \; \ppphi{A_2} + \frac{1}{A_3} \; \ppz{A_3} \right] & = \pphi{} \left[ - \pme{\bbmu} \pme{\bbepsilon} \omega^2 \right] \notag \\
+	\frac{1}{\rho^2} \; \pphi{} \left[ \frac{1}{A_2} \; \ppphi{A_2} \right] & = 0 \notag \\
+	\wasytherefore \qquad \frac{1}{A_2} \; \ppphi{A_2} & = \mathbf{constante} \label{Eqzphi}
+\end{align}
+\hhhlin
+\begin{align}
+	\wasytherefore \qquad \frac{1}{A_1 \; \rho} \; \prho{A_1} + \frac{1}{A_1} \; \pprho{A_1} + \frac{1}{\rho^2} \; \mathbf{C}_{\phi} + \mathbf{C}_z & = - \pme{\bbmu} \pme{\bbepsilon} \omega^2 \notag \\
+	\rho \; \prho{A_1} + \rho^2 \; \pprho{A_1} + \mathbf{C}_{\phi} \; A_1 + \rho^2 \; A_1 (\mathbf{C}_z + \pme{\bbmu} \pme{\bbepsilon} \omega^2) & = 0 \notag \\
+	\rho^2 \; \pprho{A_1} + \rho \; \prho{A_1} + A_1 \; [ \mathbf{C}_{\phi} \; + \rho^2 (\mathbf{C}_z + \pme{\bbmu} \pme{\bbepsilon} \omega^2) ] & = 0 \label{EqzBessel}
+\end{align}
+\begin{align*}
+	\qquad \Aboxed{\mathbf{C}_z = \frac{1}{A_3} \; \ppz{A_3} \qquad \mathbf{C}_{\phi} = \frac{1}{A_2} \; \ppphi{A_2}}
+\end{align*}
+Temos agora 3 equações diferenciais ordinárias desacopladas a resolver, o que detalharemos a seguir \cite{BALANIS 2012 4}.
+
+\subsubsection{Solução da equação \ref{EqzBessel}}
+\ref{EqzBessel} tem a forma da \textit{equação diferencial de Bessel na versão de Bowman}:
+\begin{align}
+	u^2 \frac{d^2 v}{du^2} + (2p + 1) u \frac{dv}{du} + [ a^2 u^{2c} + b^2] v = 0 \label{EqBowman}
+\end{align}
+\begin{align*}
+	\qquad \Aboxed{p = 0 \qquad c = 1 \qquad a^2 = (\mathbf{C}_z + \pme{\bbmu} \pme{\bbepsilon} \omega^2) \qquad b^2 = \mathbf{C}_{\phi} }
+\end{align*}
+cuja solução é:
+\begin{align}
+	v = u^{-p} \left[ \mathbf{C}_1 \J_{\frac{q}{c}} \left( \frac{a}{c} u^c \right) + \mathbf{C}_2 \Y_{\frac{q}{c}} \left( \frac{a}{c} u^c \right) \right] \label{SolBessel} \\
+	\qquad \Aboxed{q = \sqrt{p^2 - b^2}} \notag
+\end{align}
+onde $ \J $ é uma \textit{função de Bessel de primeira espécie}, $ \Y $ é uma \textit{função de Bessel de segunda espécie} e $ \mathbf{C}_1 $ e $ \mathbf{C}_2 $ são constantes, determinadas pelas condições de contorno de cada problema \cite{WEISSTEIN 2015 1}. Fazendo as devidas substituições em \ref{EqzBessel}, chegamos a:
+\begin{align}
+	f(\rho) & = \rho^{0} \left[ \mathbf{C}_1 \J_q \left( \sqrt{\mathbf{C}_z + \pme{\bbmu} \pme{\bbepsilon} \omega^2} \; \rho \right) + \mathbf{C}_2 \Y_q \left( \sqrt{\mathbf{C}_z + \pme{\bbmu} \pme{\bbepsilon} \omega^2} \; \rho \right) \right] \notag \\
+	& = \mathbf{C}_1 \J_q \left( \sqrt{\mathbf{C}_z + \pme{\bbmu} \pme{\bbepsilon} \omega^2} \; \rho \right)
+	+ \mathbf{C}_2 \Y_q \left( \sqrt{\mathbf{C}_z + \pme{\bbmu} \pme{\bbepsilon} \omega^2} \; \rho \right) \label{SolEqzBesselA}
+\end{align}
+\begin{align}
+	\qquad \Aboxed{q = \sqrt{- \mathbf{C}_{\phi}}} \label{SolEqzBesselq}
+\end{align}
+De acordo com \ref{SolEqzBesselq}, $ \mathbf{C}_{\phi} $ deve ser um valor negativo para que tal solução seja possível; de maneira similar, conforme \ref{SolEqzBesselA}, $ \mathbf{C}_z + \pme{\bbmu} \pme{\bbepsilon} \omega^2 $ deve ser postitivo. Assim, definamos $ \mathbf{C}_{\phi} = - m^2 $ e $ \mathbf{C}_z + \pme{\bbmu} \pme{\bbepsilon} \omega^2 = \beta_{\rho}^2 $. Com isso, \ref{SolEqzBesselA} se torna
+\begin{align}
+	A_1 & = \mathbf{C}_1 \J_m \left( \beta_{\rho} \rho \right) + \mathbf{C}_2 \Y_m \left( \beta_{\rho} \rho \right) \label{SolEqzBessel}
+\end{align}
+
+\subsubsection{Solução das equações \ref{Eqzz} e \ref{Eqzphi}}
+Essas equações são de fácil solução, uma vez que se trata de equações lineares na forma:
+\begin{align}
+	\frac{d^2 v}{du^2} + a \frac{dv}{du} + bv = 0 \label{EqLin} \\
+	\Aboxed{a = 0 \qquad b = - \mathbf{C_z}} \notag
+\end{align}
+cuja solução geral depende do sinal de $ \Delta = a^2 - 4b $, que, no caso presente, é igual a $ 4 \mathbf{C}_z $. Como estamos interessados em soluções ondulatória, é preciso que $ \mathbf{C}_z < 0 $. Escrevemos então:
+\begin{align*}
+	\frac{d^2 A_2}{d \phi^2} & = - m^2 A_2 \\
+	\frac{d^2 A_3}{dz^2} & = - \beta_z^2 A_3
+\end{align*}
+e as soluções serão
+\begin{align}
+	A_2 & = \mathbf{C}_3 \cos(m \phi) + \mathbf{C}_4 \sin(m \phi) \label{SolEqzphi} \\
+	A_3 & = \mathbf{C}_5 \cos(\beta_z z) + \mathbf{C}_6 \sin(\beta_z z) \label{SolEqzz}
+\end{align}
+As equações \ref{SolEqzBessel} a \ref{SolEqzz} podem ser reescritas em uma forma alternativa:
+\begin{align}
+	A_1 & = \mathbf{C}_7 \H_{m}^{(1)} ( \beta_{\rho} \rho ) + \mathbf{C}_8 \H_{m}^{(2)}( \beta_{\rho} \rho ) \label{SolEqzBesselRad} \\
+	A_2 & = \mathbf{C}_9 e^{-j m \phi} + \mathbf{C}_{10} e^{j m \phi} \label{SolEqzphiRad} \\
+	A_3 & = \mathbf{C}_{11} e^{-j \beta_z z} + \mathbf{C}_{12} e^{j \beta_z z} \label{SolEqzzRad}
+\end{align}
+onde $ \H_{m}^{(n)} $ é a função de Hankel de espécie $ n $, relacionada às funções de Bessel por \cite{WEISSTEIN 2015 2,WEISSTEIN 2015 3}:
+\begin{align*}
+	\H_{m}^{(1)} (x) =  \J_m(x) + j \Y_m(x) \\
+	\H_{m}^{(2)} (x) =  \J_m(x) - j \Y_m(x)	
+\end{align*}
+O primeiro conjunto é mais apropriado ao tratamento de ondas estacionárias; o segundo, ao de ondas viajantes \cite{BALANIS 2012 4}.
+
+\section{Solução das equações de onda} \label{EqSolAV}
+\subsection{Os potenciais vetores elétrico e magnético}
+A solução da equação de onda em um problema prático pode ser obtida através de dois roteiros. O primeiro consiste na solução direta do conjunto de equações formuladas em termos das coordenadas escolhidas, cilíndricas no nosso caso. O segundo contempla um passo intermediário, que consiste na obtenção de duas quantidades auxiliares, os vetores potencial elétrico $ \vec{F} $ e potencial magnético $ \vec{A} $; esta alternativa normalmente é mais fácil e será a utilizada aqui. \\
+a solução das equações:
+\begin{align}
+	\vec{D} = - \rot \vec{F} \qquad & / \; \div \vec{D} = 0 \label{EqRotF} \\
+	\vec{B} = \rot \vec{A} \qquad & / \; \div \vec{B} = 0 \label{EqRotA}
+\end{align}
+Substituindo essas equações em \ref{EqSimp4} e \ref{EqSimp3}, respectivamente, obtém-se:
+\begin{align}
+	\rot ( \phasor{H} \vec{H} ) & = \pme{\bbepsilon} j \omega \phasor{E} \vec{E} \notag \\
+	& = - j \omega \rot ( \phasor{F} \vec{F} ) \implies \notag \\
+	& \rot (\phasor{H} \vec{H} + j \omega \phasor{F} \vec{F}) = \vec{0} \implies \notag \\
+	& \phasor{H} \vec{H} + j \omega \phasor{F} \vec{F} = - \grad V^{(m)} \label{EqVm}
+\end{align}
+e
+\begin{align}
+	\rot ( \phasor{E} \vec{E} ) & = - \pme{\bbmu} j \omega \phasor{H} \vec{H} \notag \\
+	& = - j \omega \rot ( \phasor{A} \vec{A} ) \implies \notag \\
+	& \rot (\phasor{E} \vec{E} + j \omega \phasor{A} \vec{A}) =	\vec{0} \implies \notag \\
+	& \phasor{E} \vec{E} + j \omega \phasor{A} \vec{A} = - \grad V^{(e)} \label{EqVe}
+\end{align}
+onde $ V^{(m)} $ é uma função que representa o potencial magnético devido ao campo elétrico e $ V^{(e)} $ é uma função que representa o potencial elétrico devido ao campo magnético. Definem-se então os divergentes de $ \vec{F} $ e $ \vec{A} $ como:
+\begin{align}
+	\div{F} & = -j \omega \pme{\bbepsilon} \pme{\bbmu} V^{(m)} \label{EqDivF} \\
+	\div{A} & = -j \omega \pme{\bbepsilon} \pme{\bbmu} V^{(e)} \label{EqDivA}
+\end{align}
+Por outro lado, manipulando as equações \ref{EqRotF} e \ref{ÈqRotA}, teremos:
+\begin{align}
+	\rot \vec{D} & = - \rot \rot ( \vec{F} )\notag \\
+	& = - \grad( \div F) + \vlap (\phasor{F} \vec{F}) \notag
+	\pme{\bbepsilon} \rot \vec{E} & = - \grad ( \div F) + \vlap (\phasor{F} \vec{F}) \notag \\
+	\pme{\bbepsilon} (\vec{M} + j \omega \pme{\bbmu} \phasor{H} \vec{H} & = \grad( \div (\phasor{F} \vec{F})) - \vlap (\phasor{F} \vec{F}) \label{EqLapF}
+\end{align}
+e	
+\begin{align}
+	\rot \vec{B} & = \rot (\rot \vec{A} ) \notag \\
+	& = \grad( \div A) - \vlap (\phasor{A} \vec{A}) \notag \\
+	\pme{\bbmu} \rot \vec{H} & = \grad( \div A) - \vlap (\phasor{A} \vec{A}) \notag \\
+	\pme{\bbmu} (\vec{J} + j \omega \pme{\bbepsilon} \phasor{E} \vec{E}) & = \grad( \div A) - \vlap (\phasor{A} \vec{A}) \label{EqLapA}
+\end{align}
+Combinando \ref{EqVm} com \ref{EqDivF} e \ref{EqLapF} por um lado e \ref{EqVe} com \ref{EqDivA} e \ref{EqLapA} por outro, e lembrando que $ \vec{M} = \vec{J} = 0 $ no nosso problema, chegaremos aos pares de equações:
+\begin{align}
+	& \vlap (\phasor{F} \vec{F}) + \omega^2 \pme{\bbmu} \pme{\bbepsilon} \phasor{F} \vec{F} = \vec{0} \label {EqOndaF} \\
+	& j \frac{1}{\omega \pme{\bbmu} \pme{\bbepsilon}} \grad (\div(\phasor{F} \vec{F})) + j \omega \phasor{F} \vec{F} + \vec{H} = \vec{0} \label{EqHF}
+\end{align}
+e
+\begin{align}
+	& \vlap (\phasor{A} \vec{A}) + \omega^2 \pme{\bbmu} \pme{\bbepsilon} \phasor{A} \vec{A} = \vec{0} \label {EqOndaA} \\
+	& j \frac{1}{\omega \pme{\bbmu} \pme{\bbepsilon}} \grad (\div(\phasor{A} \vec{A})) + j \omega \phasor{A} \vec{A} + \vec{E} = \vec{0} \label{EqEA}
+\end{align}
+As equações \ref{EqOndaF} e \ref{EqOndaA} são equações de onda, na forma das equações \ref{EqSimp5} e \ref{EqSimp6}, e sua solução geral já foi derivada. Uma vez calculados os potenciais $ \vec{F} $ e $ \vec{A} $, obtêm-se os respectivos $ \vec{E} $ e $ \vec{H} $ por meio da combinação das equações \ref{EqRotF} e \ref{EqRotA} com \ref{EqHF} e \ref{EqEA} ou, alternativamente, com \ref{EqLapF} e \ref{EqLapA}. O campo total será dado pela soma de todas essas componentes. Para ondas planas, o segundo termo das equações \ref{EqEA} e \ref{EqHF} é desprezível, por isso essas equações são as mais recomendadas para os problemas a elas relacionados \cite{BALANIS 2012 5}.
+
+\subsection{Os modos transversais}
+Em um modo transversal, o sistema de coordenadas foi escolhido de forma a que os vetores $ \vec{E} \text{ e/ou } \vec{H} $ sejam ortogonais à direção de propagação. Em tais configurações do campo eletromagnético, diversos componentes de $ \vec{E} \text{, } \vec{H} \text{, } \vec{A} \text{ e } \vec{F} $ são nulos. No modo mais simples, chamado transversal eletromagnético (TEM), ambos o são; neste caso, teremos o mmáximo de componentes nulos. Os  modos transversal elétrico (TE) e transversal magnético (TM) são um pouco mais complexos e menos componentes serão nulos em cada caso. Pode-se demonstrar, com o auxílio da teoria desenvolvida nas seções anteriores, que, em um sistema de coordenadas cartesianas, partindo das equações \ref{EqEA} e \ref{EqHF} e considerando os vetores na forma geral $ \vec{\psi} = \phasor{\psi}_x \a{x} + \phasor{\psi}_y \a{y} + \phasor{\psi}_z \a{z} $, com $ \psi = \psi(x, y, z) \text {, para } \vec{E} = \phasor{E} \a{x} \text { e } \vec{H} = \phasor{H} \a{y} $, teremos uma onda plana no modo TEM\textsuperscript{z} e \cite{BALANIS 2012 6}:
+\begin{align}
+	\phasor{E}_x = \phasor{E}_x^{+} e^{-\jmath \beta z} + \phasor{E}_x^{-} e^{\jmath \beta z} \label{EqTEMkE} \\
+	\phasor{H}_y = \phasor{H}_y^{+} e^{-\jmath \beta z} + \phasor{H}_y^{-} e^{\jmath \beta z} \label{EqTEMkH} \\
+	\phasor{E}_x{^+} = - \frac{1}{\sqrt{\pme{\bbmu} \pme{\bbepsilon}}} \px{\phasor{A_z^{+}}} - \frac{1}{\pme{\bbepsilon}} \py{\phasor{F}_z^{+}} \label{EqTEMkEp}  \\
+	\phasor{E}_x^{-} = \frac{1}{\sqrt{\pme{\bbmu} \pme{\bbepsilon}}} \px{\phasor{A_z^{-}}} - \frac{1}{\pme{\bbepsilon}} \py{\phasor{F}_z^{-}} \label{EqTEMkEm} \\
+	\phasor{H}_y^{+} = \sqrt{\frac{\pme{\bbepsilon}}{\pme{\bbmu}}} \phasor{E}_x^{+} \label{EqTEMkHp} \\
+	\phasor{H}_y^{-} = - \sqrt{\frac{\pme{\bbepsilon}}{\pme{\bbmu}}} \phasor{E}_x^{-} \label{EqTEMkHm}
+\end{align}
+
+\subsection{Ondas refletidas}
+Nas proximidades do cilindro condutor, existirá uma onda refletida que interferirá com a onda incidente. A onda resultante será a somatória de ambas, uma vez que vale o princípio da superposição \cite{BALANIS 2012 7}:
+\begin{align}
+	\vec{E} & = \vec{E}^{(i)} + \vec{E}^{(r)} \label{EqEScat} \\
+	\vec{H} & = \vec{H}^{(i)} + \vec{H}^{(r)} \label{EqHScat}
+\end{align}
+onde \textsuperscript{(r)} e \textsuperscript{(i)} identificam as ondas refletida e incidente, respectivamente. \\
+Se suposermos, como vimos fazendo, uma onda incidente plana, a onda refletida será uma onda cilíndrica. Para o modo TEM\textsuperscript{\textrho}, com $ \vec{E} = \phasor{E} \a{z} \text{ e } \vec{H} = \phasor{H} \a{\phi} $, e considerando apenas a propagação na direção positiva, que é a significativa para os nossos propósitos, teremos \cite{BALANIS 2012 6}:
+\begin{equation}
+	\begin{split}
+	\phasor{E}_z = \phasor{E}_z \H_1^{(2)} (\beta \rho) \\
+	\phasor{H}_{\phi} = \phasor{H}_{\phi} \H_1^{(2)} (\beta \rho) \\
+	\end{split}
+	\qquad
+	\begin{split}
+	\phasor{E}_z = - \jmath \frac{1}{\omega \pme{\bbmu} \pme{\bbepsilon}} \pz{} \left[ \frac{1}{\rho} \prho{} \left( \rho \phasor{A}_{\rho} \right) \right] + \frac{1}{\rho \pme{\bbepsilon}} \pphi{\phasor{F}_{\rho}} \\
+	\phasor{H}_{\phi} = - \jmath \frac{1}{\rho \omega \pme{\bbmu} \pme{\bbepsilon}} \pphi{} \left[ \frac{1}{\rho} \prho{} \left( \rho \phasor{F}_{\rho} \right) \right] + \frac{1}{\pme{\bbmu}} \pz{\phasor{A}_{\rho}} \\
+	\end{split}
+\end{equation}
+
+\subsection{Onda plana em coordenadas cilíndricas}
+Como estamos trabalhando em coordenadas cilíndricas, será preciso reescrever as equações \ref{EqTEMkE} a \label{EqTEMkHm} neste sistema. A melhor opção é decompor cada função exponencial como uma soma de funções de Bessel, que, como vimos anteriormente, são as funções mais adequadas para representar ondas em coordenadas esféricas. Assim: 
+\begin{align}
+	e^{-\jmath \beta x} & = e^{-\jmath \beta \rho \cos \phi} \label{EqExpC} \\
+	& = \sum_{n = -\infty}^{\infty} a_n \J_{n}(\beta \rho) \label{EqExpCJ}
+\end{align}
+É possível demostrar, aplicando as condições de contorno, que os coeficientes $ a_n $ são dados por
+\begin{align}
+	a_n = \jmath^{-n} e^{\jmath n \phi} \label{EqExpCa}
+\end{align}
+Assim, considerando o modo TM\textsuperscript{z}, a onda incidente sobre o cilindro pode ser escrita como:
+\begin{align}
+	\vec{E}^{i} & = \phasor{E}_z^{+} \a{z} \notag  \\
+	\phasor{E}_z^{+} & = E_0 \sum_{n = -\infty}^{\infty} \jmath^{-n} \J_n(\beta \rho) e^{\jmath n \phi} \label{EqEi}
+\end{align}
+e
+\begin{align}
+	\vec{H}^{i} & = \phasor{H}_{\rho} \a{\rho} + \phasor{H}_{\phi} \a{\phi} \notag  \\
+	\phasor{H}_{\rho} & = - \frac{E_0}{\jmath \pme{\bbmu} \omega \rho} \sum_{n = -\infty}^{\infty} n \jmath^{1-n} \J_{n}(\beta \rho) e^{\jmath n \phi} \label{EqHir} \\
+	\phasor{H}_{\phi} & = - \frac{\beta E_0}{\jmath \pme{\bbmu} \omega} \sum_{n = -\infty}^{\infty} \jmath^{-n} \left[ \frac{\partial}{\partial (\beta \rho)} J_{n}(\beta \rho) \right] e^{\jmath n \phi} \label{EqHip}
+\end{align}
+Para TE\textsuperscript{z}, por sua vez, teremos:
+\begin{align}
+	\vec{H}^{i} & = \phasor{H}_{z} \a{z} \notag  \\
+	\phasor{H}_{z} & = H_0 \sum_{n = -\infty}^{\infty} \jmath^{-n} e^{-j n \phi} \J_n(\beta \rho) \label{EqHi}
+\end{align}
+e \cite{BALANIS 2012 8}
+\begin{align}
+	\vec{E}^{i} & = \phasor{E}_{\rho}^{i} \a{\rho} + \phasor{E}_{\phi}^{i} \a{\phi} \notag \\
+	\phasor{E}_{\rho} & = \frac{H_0}{\jmath \omega \pme{\bbepsilon} \rho} \sum_{n = -\infty}^{\infty} n \jmath^{1-n} e^{-j n \phi} \J_n(\beta \rho) \label{EqEir} \\
+	\phasor{E}_{\phi} & = \frac{\jmath \beta H_0}{\omega \pme{\bbepsilon}} \sum_{n = -\infty}^{\infty} \jmath^{-n} e^{-j n \phi} \frac{\partial}{\partial(\beta \rho)} \J_n(\beta \rho) \label{EqEip}
+\end{align}
+
+\subsection{Onda espalhada}
+De forma similar, a onda espalhada deve ser escrita como uma composição de funções de Hankel de segunda espécie, uma vez que se trata de uma onda viajante. Para o modo TM\textsuperscript{z}:
+\begin{align}
+	\vec{E}^{s} & = \phasor{E}_z^{s} \a{z} \notag \\
+	\phasor{E}_z^{s} & = E_0 \sum_{n = -\infty}^{\infty} \mathbf{c}_n \H_{n}^{(2)}(\beta \rho) \label{EqEs}
+\end{align}
+onde os coeficientes $ \mathbf{c}_n $ são dados por:
+\begin{align}
+	\mathbf{c}_n & = (- \jmath)^{-n} \frac{\J_n(\beta R)}{\H_n^{(2)}(\beta R)} e^{\jmath n \phi} \label{EqEsc}
+\end{align}
+sendo $ R $ o raio do cilindro. Combinando \ref{EqEsc} com \ref{EqEs} e aplicando as equações \ref{EqHir} e \ref{EqHip} ao resultado, chegamos a:
+\begin{align}
+	\phasor{H}_{\rho}^{(s)} & = \frac{E_0}{\jmath \pme{\bbmu} \omega \rho} \sum_{n = -\infty}^{\infty} n \jmath^{1-n} \frac{\J_n(\beta R)}{\H_n^{(2)}(\beta R)} \H_n^{(2)} (\beta \rho) e^{\jmath n \phi} \label{EqHsr} \\
+	\phasor{H}_{\phi} & = - \frac{\beta E_0}{\jmath \pme{\bbmu} \omega} \sum_{n = -\infty}^{\infty} \jmath^{-n} \frac{\J_n(\beta R)}{\H_n^{(2)}(\beta R)} \left[ \frac{\partial}{\partial (\beta \rho)} \H_{n}^{(2)}(\beta \rho) \right] e^{\jmath n \phi} \label{EqHsp}
+\end{align}
+Para o modo TE\textsuperscript{z}, por sua vez, teremos \cite{BALANIS 2012 8}:
+\begin{align}
+	\vec{H}^{s} & = \phasor{H}_z^{s} \a{z} \notag \\
+	\phasor{H}_z^{s} & = H_0 \sum_{n = -\infty}^{\infty} \mathbf{d}_n \H_n^{(2)}(\beta \rho) \label{EqHs} \\
+	\mathbf{d}_n & = -(\jmath)^{-n} \; \left. \left[ \dfrac{\dfrac{\partial}{\partial(\beta \rho)} \J_n(\beta \rho)}{\dfrac{\partial}{\partial(\beta \rho)} \H_n^{(2)}(\beta \rho)} \right] \right|_{\rho = R} e^{\jmath n \phi} \label{EqHsd} \\
+	\phasor{E}_{\rho}^{(s)} & = \frac{\jmath H_0}{\pme{\bbepsilon} \omega \rho} \sum_{n = -\infty}^{\infty} n \jmath^{1-n} \; \left. \left[ \dfrac{\dfrac{\partial}{\partial(\beta \rho)} \J_n(\beta \rho)}{\dfrac{\partial}{\partial(\beta \rho)} \H_n^{(2)}(\beta \rho)} \right] \right|_{\rho = R} \H_n^{(2)} (\beta \rho) e^{\jmath n \phi} \label{EqEsr} \\
+	\phasor{E}_{\phi} & = \frac{\beta H_0}{\jmath \pme{\bbepsilon} \omega} \sum_{n = -\infty}^{\infty} \jmath^{-n} \; \left. \left[ \dfrac{\dfrac{\partial}{\partial(\beta \rho)} \J_n(\beta \rho)}{\dfrac{\partial}{\partial(\beta \rho)} \H_n^{(2)}(\beta \rho)} \right] \right|_{\rho = R} \left[ \frac{\partial}{\partial (\beta \rho)} \H_{n}^{(2)}(\beta \rho) \right] e^{\jmath n \phi} \label{EqEsp}
+\end{align}
+
+\subsection{Corrente na superfície do cilindro}
+A densidade de corrente $ J $ na superfície do cilindro é igual à componente tangencial do campo magnético no local ($ \rho = R $). Assim \cite{BALANIS 2012 8}:
+\begin{align}
+	J & = \H_{\phi}^{(t)} (\beta R) \label{EqJ}
+\end{align}
+
+\section{Implementação}
+As equações \ref{EqEi} a \ref{EqJ} foram implementadas no Matlab conforme a listagem seguinte:
+\lstinputlisting[caption=probcyl.m]{trab19.m}
+Foram simuladas situações onde o comprimento da onda $ \lambda $ assume os valores de $ 0.01 R \text{ (onda curta), } R \text{ (onda média) e } 100 R \text{ (onda longa)} $. O valor de $ n $ pôde variar de $ -5 \text{ a } 5 $, apenas, com resultados satisfatórios, e o incremento a ser usado para $ \rho $ e para $ \phi $ para os quais se calcularam os campos) foram fixadas em $ 1 \; m  \text{ e } 1^{\circ} $, respectivamente. Essas constantes podem ser alteradas facilmente com a edição do programa. \\
+Para as derivadas das funções de Bessel e de Hankel que aparecem nas equações, utilizaram-se as identidades \cite{WOLFRAM 2015 1,WEISSTEIN 2015 3}:
+\begin{align}
+	\frac{\partial \J_n(z)}{\partial (z)} & = \J_{n-1}(z) - \frac{n}{z} \J_n(z) \\
+	\frac{\partial \H_n^{(2)}(z)}{\partial (z)} & = \frac{1}{2} \left[ \H_{n-1}^{(2)}(z) - \H_{n+1}^{(2)}(z) \right]
+\end{align}
+Para expressar as equações em função de $ \lambda $, substituimos $ \beta = \frac{2 \pi}{\lambda} $ e:
+\begin{align}
+	\omega & = 2 \pi f \notag \\
+	& = \frac{2 \pi c}{\lambda} \notag \\
+	& = \frac{2 \pi}{\lambda \sqrt{\pme{\bbmu} \pme{\bbepsilon}}}
+\end{align}
+Assim,
+\begin{align}
+	\omega \pme{\bbmu} & = \frac{2 \pi}{\lambda} \sqrt{\frac{\pme{\bbmu}}{\pme{\bbepsilon}}} = \frac{2 \pi \pme{\bbeta}}{\lambda} \\
+	\omega \pme{\bbepsilon} & = \frac{2 \pi}{\lambda} \sqrt{\frac{\pme{\bbepsilon}}{\pme{\bbmu}}} = \frac{2 \pi}{\pme{\bbeta} \lambda} \\
+	\frac{\beta}{\omega \pme{\bbmu}} & = \frac{2 \pi}{\lambda} \frac{\lambda}{2 \pi \pme{\bbeta}} = \frac{1}{\pme{\bbeta}} \\
+	\frac{\beta}{\omega \pme{\bbepsilon}} & = \frac{2 \pi}{\lambda} \frac{\pme{\bbeta \lambda}}{2 \pi} = \pme{\bbeta}
+\end{align}
+onde $ \pme{\bbeta} $ é a impedância do meio. \\
+Os gráficos traçados pelo programa foram os seguintes: \\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab18figa.jpg} \\
+	Corrente na superfície do cilindro para $ \lambda = 0.01 \; R $, modo TM\textsuperscript{z} \\
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab18figb.jpg} \\
+	Intensidade dos campos na superfície do cilindro para $ \lambda = 0.01 \; R $, modo TM\textsuperscript{z} \\
+	\end{figure}%
+\end{minipage} \\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab18figd.jpg} \\
+	Corrente na superfície do cilindro para $ \lambda = R $, modo TM\textsuperscript{z} \\
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab18fige.jpg} \\
+	Intensidade dos campos na superfície do cilindro para $ \lambda = R $, modo TM\textsuperscript{z} \\
+	\end{figure}%
+\end{minipage} \\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab18figf.jpg} \\
+	Corrente na superfície do cilindro para $ \lambda = 100 \; R $, modo TM\textsuperscript{z} \\
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab18figg.jpg} \\
+	Intensidade dos campos na superfície do cilindro para $ \lambda = 100 \; R $, modo TM\textsuperscript{z} \\
+	\end{figure}%
+\end{minipage} \\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab18figc.jpg} \\
+	Intensidade dos campos em função da distância em $ \phi = 0 \text { para } \lambda = 0.01 \; R $, modo TM\textsuperscript{z} \\
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab18figh.jpg} \\
+	Intensidade dos campos em função da distância em $ \phi = 0 \text { para } \lambda = 100 \; R $, modo TM\textsuperscript{z} \\
+	\end{figure}%
+\end{minipage} \\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab18figi.jpg} \\
+	Corrente na superfície do cilindro para $ \lambda = 0.01 \; R $, modo TE\textsuperscript{z} \\
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab18figo.jpg} \\
+	Corrente na superfície do cilindro para $ \lambda = 100 \; R $, modo TE\textsuperscript{z} \\
+	\end{figure}%
+\end{minipage} \\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab18figj.jpg} \\
+	Intensidade dos campos na superfície do cilindro para $ \lambda = 0.01 \; R $, modo TE\textsuperscript{z} \\
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab18figl.jpg} \\
+	Intensidade dos campos na superfície do cilindro para $ \lambda = R $, modo TE\textsuperscript{z} \\
+	\end{figure}%
+\end{minipage} \\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab18figm.jpg} \\
+	Intensidade dos campos na superfície do cilindro para $ \lambda = 100 \; R $, modo TE\textsuperscript{z} \\
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab18fign.jpg} \\
+	Intensidade dos campos em função da distância em $ \phi = 0 \text { para } \lambda = 100 \; R $, modo TE\textsuperscript{z} \\
+	\end{figure}%
+\end{minipage} \\
+As figuras mostram que, em cada caso, os campos elétrico e magnético variam da mesma forma. Pode-se notar que, como não há perdas, a intensidade do campo eletromagnético não varia com a distância ao cilindro. Além disso, só aparece corrente na superfície do cilindro no modo TM\textsuperscript{z}.
+
+\begin{thebibliography}{30}
+
+\newbibbk{BALANIS 2012 1}{BALANIS 2012 1}{Constantine A. BALANIS}{Advanced Engineering Electromagnetics}{2\textsuperscript{nd} edition, Wiley, 2012, ISBN 978-0-470-58948-9, itens 3.1 e 3.2, pp. 99 a 101}
+
+\newbiboc{BALANIS 2012 2}{BALANIS 2012 2}{Constantine BALANIS}{item 1.7, pp. 21 a 22}
+
+\newbiboc{BALANIS 2012 3}{BALANIS 2012 3}{Constantine BALANIS}{item 3.3, pp. 101 a 102}
+
+\newbiboc{BALANIS 2012 4}{BALANIS 2012 4}{Constantine BALANIS}{item 3.4.2 pp. 110 a 114}
+
+\newbiboc{BALANIS 2012 5}{BALANIS 2012 5}{Constantine BALANIS}{itens 6.1 a 6.4, pp. 259 a 265}
+
+\newbiboc{BALANIS 2012 6}{BALANIS 2012 6}{Constantine BALANIS}{item 6.5.1, pp. 265 a 272}
+
+\newbiboc{BALANIS 2012 7}{BALANIS 2012 7}{Constantine BALANIS}{item 11, pag. 575}
+
+\newbiboc{BALANIS 2012 8}{BALANIS 2012 8}{Constantine BALANIS}{itens 11.4 a 11.5.2, pp. 599 a 614}
+
+\newbibbk{MACEDO 1988 1}{MACEDO 1988 1}{Annita MACEDO}{Eletromagnetismo}{Guanabara, 1988, Formulário, pp. 619 a 628}
+
+\newbibsi{WEISSTEIN 2015 1}{WEISSTEIN 2015 1}{Eric WEISSTEIN}{WolframMathWorld}{Bessel Differential Equation}{http://mathworld.wolfram.com/BesselDifferentialEquation.html}{11/09/2015}
+
+\newbibsi{WEISSTEIN 2015 2}{WEISSTEIN 2015 2}{Eric WEISSTEIN}{WolframMathWorld}{Hankel Function of the First Kind}{http://mathworld.wolfram.com/HankelFunctionoftheFirstKind.html}{12/09/2015}
+
+\newbibsi{WEISSTEIN 2015 3}{WEISSTEIN 2015 3}{Eric WEISSTEIN}{WolframMathWorld}{Hankel Function of the Second Kind}{http://mathworld.wolfram.com/HankelFunctionoftheSecondKind.html}{12/09/2015}
+
+\newbibsi{WOLFRAM 2015 1}{WOLFRAM 2015 1}{Stephen WOLFRAM}{WolframResearch}{Bessel function of the first kind: Differentiation}{http://functions.wolfram.com/Bessel-TypeFunctions/BesselJ/20/01/02/}{27/11/2015}
+
+
+\end{thebibliography}
+
+A solução de algumas integrais indefinidas foi obtida no site \textbf{Wolfram Alpha}: \\(\url{http://www.wolframalpha.com/widget/widgetPopup.jsp?p=v&id=7d800d10b8bfcd949b17866c0679e786} ) \\
+Os gráficos foram preparados pelo \textbf{Octave} 4.0.0 \\
+(\url{https://www.gnu.org/software/octave/} ) \\
+O texto foi formatado com \textbf{pdflatex} em ambiente MiKTeX 2.9 \\
+(\url{http://miktex.org/download/} ) \\
+
+
+\end{document}
+
+%\thispagestyle{empty}
+
+% \geometry{margin=1in} % for example, change the margins to 2 inches all round
+% \addtolength{\topmargin}{-10mm}
+
+%%% PACKAGES
+% \usepackage{abstract}
+
+%%% HEADERS & FOOTERS
+%\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+%\pagestyle{fancy} % options: empty , plain , fancy
+%\renewcommand{\headrulewidth}{0pt} % customise the layout...
+%\lhead{}\chead{}\rhead{}
+%\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+%\usepackage{sectsty}
+%\allsectionsfont{\mdseries\upshape 
+%      \sectionrule{15pt}{0pt}{-5pt}{1pt} }
+
+%\twocolumn[
+%\begin{onecolabstract}
+%One Column Abstract - it is the Abstract title that I wish to remove.\\
+%\end{onecolabstract}
+%]

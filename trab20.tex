@@ -1,0 +1,1476 @@
+% Preparado para MiKTeX 2.9. Gerar arquivo PDF com pdflatex.
+\newcommand{\plotres}{}				% Usar \newcommand{\plotres}{180} para desenho de superfícies em alta resolução
+
+
+\documentclass[12pt,fleqn]{amsart}
+\usepackage{enumitem}
+\usepackage{xstring}
+% \usepackage{graphicx}
+\usepackage[a4paper]{geometry}
+\usepackage[portuguese,brazilian]{babel}
+\usepackage[ansinew]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textgreek}
+\usepackage[scaled]{helvet}
+\usepackage{xcolor}
+% \usepackage[hyphens]{url}
+% \usepackage{hyperref}
+% \usepackage{fmtcount}
+% Formatação
+\usepackage{sidecap}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{matlab-prettifier}
+\usepackage{changes}
+% Figuras geométricas
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\usepackage{pgfplots}
+\usetikzlibrary{calc,fadings,decorations.pathreplacing,3d}
+\usetikzlibrary{arrows}
+\usetikzlibrary{positioning}
+\usepackage{tikz}
+\usepackage{circuitikz}
+% Símbolos matemáticos
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{wasysym}
+\usepackage{mathtools}
+\usepackage{bbm}
+\usepackage{yfonts}
+\usepackage{mbboard}
+\usepackage{boolexpr}
+\usepackage{steinmetz}
+
+
+\title{Teoria Eletromagnética - Lista de Exercícios IV}
+\date{}
+\author{Sérgio Cordeiro}
+
+
+\newenvironment{final}{}{}
+
+\newenvironment{pergunta}{
+	\par
+	\trivlist
+	\fontfamily{phv}
+	\selectfont
+	\item\arabic{prob_num}. 
+	}{
+	\endtrivlist
+	}
+
+\newenvironment{resposta}{
+	\trivlist
+    \vspace{3pt}
+	\fontfamily{pbk}
+	\selectfont
+	\item
+	}{
+	\vspace{3pt}
+	\noindent\makebox[\linewidth]{\rule{\paperwidth}{1pt}}
+	\endtrivlist
+	\stepcounter{prob_num}
+	}
+
+\newenvironment{listae}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}	
+	\vspace{-5mm}}
+
+\newenvironment{listaef}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}}
+
+\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
+
+\newcommand{\Fourier}[1]{\mathbb{#1}(\omega) e^{j \omega t}}
+\newcommand{\FunR}[1]{\vec{#1}(x,y,z)}
+\newcommand{\phasor}[1]{\mathpzc{#1}}
+\newcommand{\uniphasor}[1]{\hat{\mathpzc{#1}}}
+\newcommand{\vecphasor}[1]{\vec{\mathpzc{#1}}}
+\newcommand{\FourFunR}[1]{\left( \phasor{#1} \FunR{#1} \right)}
+
+% Símbolos de funções
+\DeclareMathOperator{\sinc}{\mbox{sinc}}				% Função sinc
+\DeclareMathOperator{\sgn}{\mbox{sgn}}					% Função sinal
+\DeclareMathOperator{\atan}{\mbox{arctan}}				% Função arco-tangente
+\DeclareMathOperator{\acos}{\mbox{arccos}}				% Função arco-cosseno
+% Símbolos de elementos infinitesimais
+\newcommand {\dpx}[1]{\boldsymbol{\delta {#1}}}
+% Símbolos de constantes escalares (ex. carga do eletron: \ke{e})
+\newcommand {\ke}[1]{\text{\large \textfrak{#1}}}
+% Valores de constantes escalares (ex. carga do eletron: \kve{e})
+\newcommand {\kve}[1]{
+  \IfStrEqCase{#1}{
+    {e}{1,602 \times 10^{-19} \; C}
+    {mu}{4 \pi \times 10^{-7} \; H \; m^{-1}}
+    {ep}{8,854 \times 10^{-12} \; F \; m^{-1}}	
+    {c}{2,998 \times 10^{8} \; m \; s^{-1}}}
+	}
+% Símbolos de parâmetros escalares do problema
+ \newcommand{\ppe}[1]{\boldsymbol{#1}}					% genérico
+ \newcommand{\dcv}[1]{\ppe{\boldsymbol{\rho}_{v_{#1}}}}			% Densidade volumétrica de carga
+ \newcommand{\dcs}[1]{\ppe{\boldsymbol{\rho}_{S_{#1}}}}			% Densidade superficial de carga
+ \newcommand{\dcl}[1]{\ppe{\boldsymbol{\rho}_{l_{#1}}}}			% Densidade linear de carga
+% Símbolos de propriedades escalares do meio
+% Para letras gregas, usar o nome especial (precedido por 'bb')
+%(ex. condutividade: \ppe{\bbsigma})
+\newcommand {\pme}[1]{\mathbb{#1}}
+% Símbolos de propriedades tensoriais do meio
+% Para letras gregas, usar o nome especial (precedido por 'bb')
+%(ex. condutividade: \ppe{\bbsigma})
+\newcommand {\pmm}[1]{\pmb{\mathbb{#1}}}
+% Expressões de elementos diferenciais
+% Elemento de volume em coordenadas esféricas
+\newcommand {\dve}{r^2 \sin \theta \; dr \; d \theta \; d \phi}
+% Elemento de superfície em coordenadas cilíndricas
+\newcommand {\dsc}{\rho \; d \phi \; dz \; \a{\rho} + dz \; d \rho \; \a{\phi} + \rho \; d \rho \; d \phi \; \a{z}}
+% Elemento de superfície em coordenadas esféricas
+\newcommand {\dse}{r^2 \sin \theta \; d \theta \; d \phi \; \a{r} + r \sin \theta \; dr \; d \phi \; \a{\theta} + r \; dr \; d \theta \; \a{\phi}}
+% Elemento de deslocamento em coordenadas cilíndricas
+\newcommand {\dlc}{d \rho \; \a{\rho} + \rho \; d \phi \; \a{\phi} + dz \; \a{z}}
+% Elemento de deslocamento em coordenadas esféricas
+\newcommand {\dle}{dr \; \a{r} + r \; d \theta \; \a{\theta} + r \sin \theta \; d \phi \; \a{\phi} + dz \; \a{z}}
+% Conversão de vetores unitários
+\newcommand {\convarc}{\sin \theta \; \a{\rho} + \cos \theta \; \a{z}}
+\newcommand {\convark}{\sin \theta \; \cos \phi \; \a{x} + \sin \theta \; \sin \phi \; \a{y} + \cos \theta \; \a{z}}
+\newcommand {\convatc}{\cos \theta \; \a{\rho} - \sin \theta a; \a{z}}
+\newcommand {\convatk}{\cos \theta \; \cos \phi \; \a{x} + \cos \theta \; \sin \phi \; \a{y} - \sin \theta \; \a{z}}
+\newcommand {\convapk}{- \sin \phi \; \a{x} + \cos \phi \; \a{y}}
+\newcommand {\convahk}{\cos \phi \; \a{x} + \sin \phi \; \a{y}}
+\newcommand {\convaxc}{\cos \phi \; \a{\rho} - \sin \phi \; \a{\phi}}
+\newcommand {\convayc}{\sin \phi \; \a{\rho} + \cos \phi \; \a{\phi}}
+\newcommand {\convaxe}{\sin \theta \; \cos \phi \; \a{r} + \cos \theta \; \cos \phi \; \a{\theta} - \sin \phi \; \a{\phi}}
+\newcommand {\convaye}{\sin \theta \; \sin \phi \; \a{r} + \cos \theta \; \sin \phi \; \a{\theta} + \cos \phi \; \a{\phi}}
+\newcommand {\convaze}{\cos \theta \; \a{r} - \sin \theta \; \a{\theta}}
+\newcommand {\convahe}{\sin \theta \; \a{r} + \cos \theta \; \a{\theta}}
+% Conversão de coordenadas
+\newcommand {\convrc}{\sqrt{\rho^2 + z^2}}
+\newcommand {\convrk}{\sqrt{x^2 + y^2 + z^2}}
+\newcommand {\convtc}{\atan(\rho,z)}
+\newcommand {\convtk}{\acos(z,\sqrt{x^2 + y^2 + z^2})}
+\newcommand {\convpk}{\atan(y,x)}
+\newcommand {\convhk}{\sqrt{x^2 + y^2}}
+\newcommand {\convhe}{r \sin \theta}
+\newcommand {\convyc}{\rho \sin \phi}
+\newcommand {\convxe}{r \sin \theta \; \cos \phi}
+\newcommand {\convye}{r \sin \theta \; \sin \phi}
+\newcommand {\convze}{r \cos \theta}
+% Símbolos de operadores diferencias
+\newcommand{\grad}{\vec{\nabla}}
+\renewcommand{\div}{\grad \cdot}
+\newcommand{\rot}{\grad \times}
+\newcommand{\lap}{\nabla^2}
+\newcommand{\vlap}{\grad^2}
+\newcommand{\pd}[2]{\frac{\partial {#1}}{\partial {#2}}}
+\newcommand{\px}[1]{\frac{\partial {#1}}{\partial x}}
+\newcommand{\py}[1]{\frac{\partial {#1}}{\partial y}}
+\newcommand{\pz}[1]{\frac{\partial {#1}}{\partial z}}
+\newcommand{\pt}[1]{\frac{\partial {#1}}{\partial t}}
+\newcommand{\prho}[1]{\frac{\partial {#1}}{\partial \rho}}
+\newcommand{\pphi}[1]{\frac{\partial {#1}}{\partial \phi}}
+\newcommand{\pr}[1]{\frac{\partial {#1}}{\partial r}}
+\newcommand{\ptheta}[1]{\frac{\partial {#1}}{\partial \theta}}
+\newcommand{\ppx}[1]{\frac{\partial^2 {#1}}{\partial x^2}}
+\newcommand{\ppy}[1]{\frac{\partial^2 {#1}}{\partial y^2}}
+\newcommand{\ppz}[1]{\frac{\partial^2 {#1}}{\partial z^2}}
+\newcommand{\ppt}[1]{\frac{\partial^2 {#1}}{\partial t^2}}
+\newcommand{\ppphi}[1]{\frac{\partial^2 {#1}}{\partial \phi^2}}
+\renewcommand{\a}[1]{\hat{a}_{#1}}
+\newcommand{\ga}[3]{\px{#1} \a{x} + \py{#2} \a{y} + \pz{#3} \a{z}}
+\newcommand{\gc}[3]{\prho{#1} \a{\rho} + \frac{1}{\rho} \pphi{#2} \a{\phi} + \pz{} \a{z}}
+\newcommand{\gr}[3]{\pr{#1} \a{r} + \frac{1}{r \sin \theta} \pphi{#2} \a{\phi} + \frac{1}{r} \ptheta{#3} \a{\theta}}
+\newcommand{\de}[3]{\frac{1}{r^2} \pr{} r^2 \; {#1} \; \a{r} + \frac{1}{r \sin \theta} \pphi{} \; {#2} \; \a{\phi} + \frac{1}{r \sin \theta} \ptheta{} \sin \theta \; {#3} \; \a{\theta}}
+\newcommand{\dc}{\frac{1}{\rho} \prho{} \rho \; \a{\rho} + \frac{1}{\rho} \pphi{} \; \a{\phi} + \pz{} \a{z}}
+\newcommand{\la}[1]{\ppx{#1} + \ppy{#1} + \ppz{#1}}
+\newcommand{\lc}[1]{\frac{1}{\rho} \prho{} \rho \prho{#1} + \frac{1}{\rho^2} \ppphi{#1} + \ppz{#1}}
+\newcommand{\lr}[1]{\frac{1}{r^2} \pr{} r^2 \pr{#1} + \frac{1}{r^2 \sin \theta} \ptheta{} \sin \theta \ptheta{#1} + \frac{1}{r^2 \sin^2 \theta} \ppphi{#1}}
+\newcommand{\vla}[3]{\lap \; {#1} \; \a{x} + \lap \; {#2} \; \a{y} + \lap \; {#3} \; \a{z}}
+\renewcommand{\ra}[3]{\left( \py{#3} - \pz{#2} \right) \a{x} + \left( \pz{#1} - \px{#3} \right) \a{y} + \left( \px{#2} - \py{#1} \right) \a{z}}
+% Símbolos de operadores integrais
+\newcommand {\iv}[1]{\iiint \limits_{#1}}
+\newcommand {\ivv}[6]{\int_{#1}^{#2} \int_{#3}^{#4} \int_{#5}^{#6}}
+\newcommand {\is}[1]{\iint \limits_{#1}}
+\newcommand {\ios}[1]{\oiint \limits_{#1}}
+\newcommand {\iss}[4]{\int_{#1}^{#2} \int_{#3}^{#4}}
+\newcommand {\il}[1]{\int \limits_{#1}}
+\newcommand {\ill}[2]{\int_{#1}^{#2}}
+% Linhas divisórias
+\newcommand{\hhhlin}{\noindent\hfil\rule{0.25\textwidth}{.2pt}\hfil\newline}
+\newcommand{\hhlin}{\noindent\hfil\rule{0.5\textwidth}{.4pt}\hfil\newline}
+\newcommand{\hlin}{\noindent\hfil\rule{\textwidth}{.8pt}\hfil\newline}
+% Matriz coluna (3x1)
+\newcommand{\bigmc}[3]{\left( \begin{matrix} {#1} \\ {#2} \\ {#3} \end{matrix} \right)}
+\newcommand{\bigmci}[1]{\left( \begin{matrix} {#1}_1 \\ {#1}_2 \\ {#1}_3 \end{matrix} \right)}
+% Matriz linha (1x3)
+\newcommand{\bigml}[3]{\left( \begin{matrix} {#1} & {#2} & {#3} \end{matrix} \right)}
+\newcommand{\bigmli}[1]{\left( \begin{matrix} {#1}_1 & {#1}_2 & {#1}_3 \end{matrix} \right)}
+% Matriz quadrada (3x3)
+\newcommand{\bigmq}[9]{\left( \begin{matrix} {#1} & {#2} & {#3} \\ {#4} & {#5} & {#6} \\ {#7} & {#8} & {#9} \end{matrix} \right)}
+\newcommand{\bigmqi}[1]{\left( \begin{matrix} {#1}_{1,1} & {#1}_{1,2} & {#1}_{1,3} \\ {#1}_{2,1} & {#1}_{2,2} & {#1}_{2,3} \\ {#1}_{3,1} & {#1}_{3,2} & {#1}_{3,3} \end{matrix} \right)}
+\newcommand{\bigmqd}[9]{\left| \begin{matrix} {#1} & {#2} & {#3} \\ {#4} & {#5} & {#6} \\ {#7} & {#8} & {#9} \end{matrix} \right|}
+\newcommand{\bigmqid}[1]{\left| \begin{matrix} {#1}_{1,1} & {#1}_{1,2} & {#1}_{1,3} \\ {#1}_{2,1} & {#1}_{2,2} & {#1}_{2,3} \\ {#1}_{3,1} & {#1}_{3,2} & {#1}_{3,3} \end{matrix} \right|}
+
+
+% Figuras geométricas 3D
+% Eixos coordenados
+\newcommand{\drawaxes}[1]{
+    \begin{scope}[solid,->,opacity={#1}]
+        \draw (0,0,0) -- (3,0,0) node[anchor=south west]{$x$};
+        \draw (0,0,0) -- (0,3,0) node[right]{$y$};
+        \draw (0,0,0) -- (0,0,3) node[above]{$z$};
+	\end{scope}
+	}
+% Cone com vértice na origem
+\newcommand{\drawcone}[9]{
+    \pgfmathsetmacro\nn{#1}
+	\pgfmathsetmacro\ox{#3}
+	\pgfmathsetmacro\oy{#4}
+	\pgfmathsetmacro\oz{#5}
+	\pgfmathsetmacro\re{#6}
+	\pgfmathsetmacro\ac{#7}
+    \pgfmathsetmacro\n{2*\nn}
+    \pgfmathsetmacro\ni{\nn/2}
+    \pgfmathsetmacro\nf{1.5*\nn}	
+    \pgfmathsetmacro\rh{\re*sin(\ac)}
+    \pgfmathsetmacro\h{\re*cos(\ac)}
+    \foreach \t in {1,...,\n} {
+        \filldraw[fill=white,dotted,opacity={#2}] (0,0,0) -- ({\rh*cos((\t+1)*pi/\nn r)},{\rh*sin((\t+1)*pi/\nn r)},\h) -- ({\rh*cos(\t*pi/\nn r)},{\rh*sin(\t*pi/\nn r)},\h) -- cycle;
+		}
+	\IfStrEq{#8}{}{
+ 		\path[draw] plot[domain=0:2*pi,samples=\n] ({\rh*cos(\x r)}, {\rh*sin(\x r)}, \h);	
+		}{
+		\foreach \t in {1,...,\nn} {
+			\filldraw[fill={#8},opacity={#9}] ({\rh*cos((\t+1)*pi/\nn r)},{\rh*sin((\t+1)*pi/\nn r)},\h) -- ({\rh*cos(\t*pi/\nn r)},{\rh*sin(\t*pi/\nn r)},\h) -- ({\rh*cos(\t*pi/\nn r)},-{\rh*sin(\t*pi/\nn r)},\h) -- ({\rh*cos((\t+1)*pi/\nn r)},-{\rh*sin((\t+1)*pi/\nn r)},\h) -- cycle;
+			}
+		\foreach \t in {\ni,...,\nf} {
+			\draw[opacity={#9}] ({\rh*cos((\t+1)*pi/\nn r)},{\rh*sin((\t+1)*pi/\nn r)},\h) -- ({\rh*cos(\t*pi/\nn r)},{\rh*sin(\t*pi/\nn r)},\h) -- (-{\rh*cos(\t*pi/\nn r)},{\rh*sin(\t*pi/\nn r)},\h) -- (-{\rh*cos((\t+1)*pi/\nn r)},{\rh*sin((\t+1)*pi/\nn r)},\h) -- cycle;
+			}
+		}
+	}
+% Esfera com centro na origem
+\newcommand{\drawsphere}[8]{
+    \pgfmathsetmacro\nn{#1}
+	\pgfmathsetmacro\ox{#3}
+	\pgfmathsetmacro\oy{#4}
+	\pgfmathsetmacro\oz{#5}
+	\pgfmathsetmacro\re{#6}
+	\pgfmathsetmacro\ac{#7}
+    \pgfmathsetmacro\tcc{int \ac/10}	
+	\begin{scope}[dotted,opacity={#2}]
+		\foreach \t in {0,...,11} {
+			\tdplotsetthetaplanecoords{\t*30}
+			\draw[tdplot_rotated_coords] (\re,0,0) arc (0:360:\re);
+		}
+		\foreach \t in {0,...,6} {
+			\pgfmathsetmacro\tc{\t*30-90}	
+			\draw plot[domain=0:2*pi,samples=\n] ({\re*cos(\tc)*cos(\x r)}, {\re*cos(\tc)*sin(\x r)}, {\re*sin(\tc)});
+		}
+	\end{scope}
+	\IfStrEq{#7}{}{}{				% ATENÇÃO: Não substituir #7 por \ac
+		\begin{scope}[opacity={#8}]
+			\foreach \t in {0,...,35} {
+				\tdplotsetthetaplanecoords{\t*10}
+				\draw[tdplot_rotated_coords] (\re,0,0) arc (0:\ac:\re);
+			}
+			\foreach \t in {0,...,\tcc} {
+				\pgfmathsetmacro\tc{\t*10+90}	
+				\draw plot[domain=0:2*pi,samples=\n] ({\re*cos(\tc)*cos(\x r)}, {\re*cos(\tc)*sin(\x r)}, {\re*sin(\tc)});
+			}
+		\end{scope}
+		}
+	}
+% Elementos diferenciais
+% Área diferencial orientada segundo o eixo r
+\newcommand \drawdsr[3]{
+	\pgfmathsetmacro\re{#1}
+	\pgfmathsetmacro\t{#2}
+    \pgfmathsetmacro\p{#3}
+    \pgfmathsetmacro\xi{\re*sin(\t)*cos(\p)}
+    \pgfmathsetmacro\yi{\re*sin(\t)*sin(\p)}
+    \pgfmathsetmacro\zi{\re*cos(\t)}
+    \pgfmathsetmacro\xf{1.2*\xi}
+    \pgfmathsetmacro\yf{1.2*\yi}
+    \pgfmathsetmacro\zf{1.2*\zi}
+	\IfStrEq{\plotres}{}{}{	
+		\tdplotsetpolarplotrange{\t-5}{\t+5}{\p-5}{\p+5}
+		\tdplotsphericalsurfaceplot{\plotres}{\plotres}{\re}{red!25}{red!25}{}{}{}
+		}
+	\draw [thick,->,red] (\xi,\yi,\zi) -- (\xf,\yf,\zf) node[right]{$\vec{dS_r}$};
+	}
+% Área diferencial orientada segundo o eixo Z
+\newcommand \drawdsz[3]{
+	\pgfmathsetmacro\x{#1}
+	\pgfmathsetmacro\y{#2}
+    \pgfmathsetmacro\z{#3}
+    \pgfmathsetmacro\xi{\x-0.15}
+    \pgfmathsetmacro\xf{\x+0.15}
+    \pgfmathsetmacro\yi{\y-0.15}
+    \pgfmathsetmacro\yf{\y+0.15}
+	\pgfmathsetmacro\zf{\z*1.2}
+    \filldraw[red,fill=red!25] (\xi,\yi,\z) -- (\xi,\yf,\z) -- (\xf,\yf,\z) -- (\xf,\yi,\z) -- cycle ;
+    \draw [thick,->,red] (\x,\y,\z) -- (\x,\y,\zf) node[right]{$\vec{dS_z}$};
+	}
+
+% Figura Exercício 2.4.2-a
+\newcommand{\drawfigbdba}{
+\begin{tikzpicture}[math3d,tdplot_main_coords,scale=3]
+	\pgfmathsetmacro\re{2}
+	\pgfmathsetmacro\ac{45}
+    \pgfmathsetmacro\h{\re*cos(\ac)}
+	\pgfmathsetmacro\rere{\re/2}
+    \pgfmathsetmacro\axax{3*\rere}
+    \pgfmathsetmacro\ay{\axax*sin(\ac)}	
+    \pgfmathsetmacro\az{\axax*cos(\ac)}
+	% Eixos x,y e z
+	\drawaxes{0.2}
+	% /% Cone interno sem tampa
+	\drawcone{20}{0.4}{0}{0}{0}{2}{45}{}{}
+	% Esfera externa com calota destacada
+	\drawsphere{20}{0.6}{0}{0}{0}{2}{45}{0.6}
+	% Grandezas
+    \begin{scope}[solid,->,thick,blue]
+        \draw (0,0,0) node[below]{O} -- (\rh,0,\h) node[below,pos=0.5]{$a$};
+	\end{scope}
+    \begin{scope}[solid,opacity=0.2]
+        \draw (0,\rh,\h) -- (0,\ay,\az);
+	\end{scope}
+	\tdplotsetthetaplanecoords{90}
+	\draw[blue,thick,tdplot_rotated_coords] (2.5,0,0) arc (0:45:2.5) node[pos=0.5,above]{$\theta_0$};
+	\pgfmathsetmacro\tab{35}
+	\pgfmathsetmacro\pab{65}
+	\pgfmathsetmacro\xab{\re*sin(\tab)*cos(\pab)}
+	\pgfmathsetmacro\yab{\re*sin(\tab)*sin(\pab)}
+	\pgfmathsetmacro\zab{\re*cos(\tab)}
+	% Elementos diferenciais
+	\drawdsr{\re}{\tab}{\pab}
+	% Carga e densidade de fluxo
+    \draw [very thick,->,violet] (0,0,0) node[right]{q} -- (\xab,\yab,\zab) node[right,pos=0.5]{$\vec{D}$};
+\end{tikzpicture}
+}
+% Figura Exercício 2.4.2-b
+\newcommand{\drawfigbdbb}{
+\begin{tikzpicture}[math3d,tdplot_main_coords,scale=1.5]
+	\pgfmathsetmacro\re{2}
+	\pgfmathsetmacro\ac{45}
+    \pgfmathsetmacro\h{\re*cos(\ac)}
+	\pgfmathsetmacro\rere{\re/2}
+    \pgfmathsetmacro\axax{3*\rere}
+    \pgfmathsetmacro\ay{\axax*sin(\ac)}	
+    \pgfmathsetmacro\az{\axax*cos(\ac)}
+	% Eixos x,y e z
+	\drawaxes{0.2}
+	/% Cone interno com tampa
+	\drawcone{20}{0.4}{0}{0}{0}{2}{45}{gray!25}{0.6}
+	% Esfera externa
+	\drawsphere{20}{0.6}{0}{0}{0}{2}{}{}
+	% Grandezas
+    \begin{scope}[solid,->,thick,blue]
+        \draw (0,0,0) -- (0,0,\h) node[above]{$z_0$};	
+        \draw (0,0,\h) -- (0,-\rh,\h) node[below]{$\rho$};
+        \draw (0,0,0) node[below]{O} -- (\rh,0,\h) node[below,pos=0.5]{$a$};
+	\end{scope}
+    \begin{scope}[solid,opacity=0.2]
+        \draw (0,\rh,\h) -- (0,\ay,\az);
+	\end{scope}
+	\tdplotsetthetaplanecoords{90}
+	\draw[blue,thick,tdplot_rotated_coords] (2.5,0,0) arc (0:\ac:2.5) node[pos=0.5,above]{$\theta_0$};
+	\pgfmathsetmacro\xab{0.35}
+	\pgfmathsetmacro\yab{0.35}
+	\drawdsz{\xab}{\yab}{\h}
+	% Cargas e campos
+	% Carga e densidade de fluxo
+    \draw [very thick,->,violet] (0,0,0) node[right]{q} -- (\xab,\yab,\h) node[right,pos=0.5]{$\vec{D}$};
+\end{tikzpicture}
+}
+% Figura Exercício 2.4.3-b
+\newcommand{\drawfigbdcb}{
+\begin{tikzpicture}[math3d,tdplot_main_coords,scale=3]
+	\pgfmathsetmacro\re{2}
+	\pgfmathsetmacro\ac{135}
+    \pgfmathsetmacro\h{\re*cos(\ac)}
+	\pgfmathsetmacro\rere{\re/2}
+    \pgfmathsetmacro\axax{3*\rere}
+    \pgfmathsetmacro\ay{\axax*sin(\ac)}	
+    \pgfmathsetmacro\az{\axax*cos(\ac)}
+	% Eixos x,y e z
+	\drawaxes{0.2}
+	/% Cone interno com tampa
+	\drawcone{20}{0.4}{0}{0}{0}{2}{135}{gray!15}{0.4}
+	% Esfera externa
+	% \drawsphere{20}{0.6}{0}{0}{0}{2}{}{}
+	% Grandezas
+    \begin{scope}[solid,->,thick,blue]
+        \draw (0,0,0) -- (0,0,\h) node[below]{$z_0$};	
+        \draw (0,0,\h) -- (0,-\rh,\h) node[below]{$\rho$};
+        \draw (0,0,0) node[anchor=north west]{O} -- (\rh,0,\h) node[above,pos=0.5]{$a$};
+	\end{scope}
+    \begin{scope}[solid,opacity=0.2]
+        \draw (0,\rh,\h) -- (0,\ay,\az);
+	\end{scope}
+	\tdplotsetthetaplanecoords{90}
+	\draw[blue,thick,tdplot_rotated_coords] (2.5,0,0) arc (0:\ac:2.5) node[pos=0.5,above]{$\theta_0$};
+	\pgfmathsetmacro\xab{0.35}
+	\pgfmathsetmacro\yab{0.35}
+	\drawdsz{\xab}{\yab}{\h}
+	% Cargas e campos
+	% Carga e densidade de fluxo
+    \draw [very thick,->,violet] (0,0,0) node[right]{q} -- (\xab,\yab,\h) node[right,pos=0.5]{$\vec{D}$};
+\end{tikzpicture}
+}
+
+
+% Perguntas
+\newcommand{\perguntaaa}{Para incidência interna e externa, meios 2 com perdas e sem perdas, polarizações perpendicular e paralela:
+\begin{listae}[2]
+	\item Traçar o gráfico (amplitude e fase) dos coeficientes de transmissão e reflexão.
+	\item Traça o gráfico da refletividade e transmissividade
+	\item Apresentar os códigos
+	\item Apresentar comentários detalhados
+\end{listae}
+}
+\newcommand{\perguntaab}{Resolve os problemas: 6.1 a 6.12, 6.13 a 6.17, 6.18 a 6.27 e 6.29 do pdf em anexo. Para os problemas a serem resolvidos no matlab, apresentar código, gráficos e comentários. \\ \\
+Equações dos problemas: \\ \\
+(6.10) $ \lap \vec{E} = \jmath \omega \pme{\bbmu} (\pme{\bbsigma} + \jmath \omega \pme{\bbepsilon}) \vec{E} $ \\ \\
+(6.14) $ \lap \vec{H} - k^2 \vec{H} = 0 $ \\ \\
+(6.29) $ \vec{H} = (H_0 e^{\pm kz}) \a{y} $ \\ \\
+(6.11) $ \lap \vec{E} - k^2 \vec{E} = 0 $ \\ \\
+(6.15) $ \vec{E}(z) = E(z) \a{x} $ \\ \\
+(6.41) $ \vec{E} = (E_0 e^{\pm \jmath \beta z}) \a{x} $ \\ \\
+(6.52) $ \alpha = \omega \sqrt{ \dfrac{\pme{\bbmu} \pme{\bbepsilon}}{2} \left\{ \sqrt{1 + \left( \dfrac{\pme{\bbsigma}}{\omega \pme{\bbepsilon}} \right)^2} - 1 \right\} } \qquad \beta = \omega \sqrt{ \dfrac{\pme{\bbmu} \pme{\bbepsilon}}{2} \left\{ \sqrt{1 + \left( \dfrac{\pme{\bbsigma}}{\omega \pme{\bbepsilon}} \right)^2} + 1 \right\} } $ \\ \\ \\
+(6.54) $ \alpha \approx \dfrac{\pme{\bbsigma}}{2} \sqrt{\dfrac{\pme{\bbmu}}{\pme{\bbepsilon}}} \qquad \beta \approx \omega \sqrt{\pme{\bbmu} \pme{\bbepsilon}} $ \\ \\
+Tabela 6.1
+\begin{table}[H]
+    \begin{tabular}{|c|c|c|c|}
+		\hline
+        \textbf{Material} & \textbf{ $ \pme{\bbsigma} $ (S/m)} & $ \pme{\bbepsilon}^{(r,')} $ & $ \pme{\bbepsilon}^{(r,'')} $ \\
+		\hline
+		Cobre & $ 5.8 \times 10^7 $ & 1 & 0 \\
+		\hline
+		Água do mar & 5 & 72 & 12 \\
+		\hline
+		Vidro & $ 10^{-12} $ & 10 & 0.010 \\
+ 		\hline
+   \end{tabular}
+\end{table}
+No exercício 6.15 onde está escrito (6.25) considerar (6.52). \\
+Para meios sem perdas o módulo do  vetor de Pointing, que determina a densidade superficial de potência, é dado por:
+\begin{align*}
+	P = \dfrac{E_0 ^2}{2 |\pme{\bbeta}|} e^{- 2 \alpha z} \cos \theta_{\pme{\bbeta}} \approx \dfrac{E_0 ^2}{2 |\pme{\bbeta}|}
+\end{align*}
+}
+
+
+\begin{document}
+\setlength{\parskip}{1em}
+\setlength{\jot}{10pt}
+\setlength{\parindent}{0pt}
+
+\lstset{language=Octave,frame=single,style=Matlab-editor,basicstyle={\tiny},breaklines=true,numbers=left,numberstyle={\color{red}},numbersep=9pt,showstringspaces=false,keepspaces=false,tabsize=2}
+
+\newcounter{prob_num}
+\setcounter{prob_num}{1}
+
+\maketitle
+
+\section*{Parte 1}
+\begin{pergunta}
+\perguntaaa{}
+\end{pergunta}
+\begin{resposta}
+O programa de cálculo dos coeficientes e os gráficos resultantes estão listados a seguir.
+\lstinputlisting[caption=calcref.m]{calcref.m}
+Para $ \pme{\bbmu}_1^{(r)} = \pme{\bbepsilon}_1^{(r)} = \pme{\bbmu}_2^{(r)} = 1 $ e $ \pme{\bbepsilon}_2^{(r)} = 2 $ (incidência externa) e $ f = 1 \; GHz $, os módulos dos coeficientes variam da seguinte maneira: \\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab20-1-a.jpg} \\
+	Coeficiente de reflexão $ \Gamma_{\perp} $ em função do ângulo de incidência \\
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab20-1-c.jpg} \\
+	Coeficiente de transmissão $ \tau_{\perp} $ em função do ângulo de incidência \\
+	\end{figure}%
+\end{minipage} \\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab20-1-b.jpg} \\
+	Coeficiente de reflexão $ \Gamma_{\parallel} $ em função do ângulo de incidência \\
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab20-1-d.jpg} \\
+	Coeficiente de transmissão $ \tau_{\parallel} $ em função do ângulo de incidência \\
+	\end{figure}%
+\end{minipage} \\
+\begin{minipage}{0.5\textwidth}
+Os coeficientes $ \Gamma_{\perp} \text{, } \tau_{\perp} \text{ e } \tau_{\parallel} $  são reais, pois foram considerados apenas meios sem perdas. Já o coeficiente $ \Gamma_{\parallel} $ é real para ângulos de incidência pequenos e imaginário para ângulos grandes, como mostra a figura ao lado.
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab20-1-e.jpg} \\
+	Ângulo de fase do coeficiente de transmissão $ \Gamma_{\parallel} $ em função do ângulo de incidência \\
+	\end{figure}%
+\end{minipage} \\
+O ângulo em que ocorre essa transição é chamado o \textbf{ângulo de Brewster}. \\
+Os coeficientes de reflexão e de transmissão tendem a baixar à medida que o ângulo de incidência se afasta da normal à superfície. Para ângulos superiores ao ângulo de Brewster, a reflexão da onda perpendicular apresenta o comportamento inverso, aumentando à medida que o ângulo cresce. \\
+Para $ \pme{\bbmu}_2^{(r)} = \pme{\bbepsilon}_2^{(r)} = \pme{\bbmu}_2^{(r)} = 1 $ e $ \pme{\bbepsilon}_1^{(r)} = 4 $ (incidência interna) e $ f = 1 \; GHz $, os módulos e os ângulos de fase dos coeficientes variam da seguinte maneira: \\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab20-1-j.jpg} \\
+	Módulo do coeficiente de reflexão $ \Gamma_{\perp} $ em função do ângulo de incidência \\
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab20-1-k.jpg} \\
+	Ângulo do coeficiente de reflexão $ \Gamma_{\perp} $ em função do ângulo de incidência \\
+	\end{figure}%
+\end{minipage} \\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab20-1-l.jpg} \\
+	Módulo do coeficiente de transmissão $ \tau_{\perp} $ em função do ângulo de incidência \\
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab20-1-m.jpg} \\
+	Ângulo do coeficiente de transmissão $ \tau_{\perp} $ em função do ângulo de incidência \\
+	\end{figure}%
+\end{minipage} \\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab20-1-f.jpg} \\
+	Módulo do coeficiente de reflexão \\
+	$ \Gamma_{\parallel} $ em função do ângulo de incidência \\
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab20-1-g.jpg} \\
+	Ângulo do coeficiente de reflexão \\
+	$ \Gamma_{\parallel} $ em função do ângulo de incidência \\
+	\end{figure}%
+\end{minipage} \\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab20-1-h.jpg} \\
+	Módulo do coeficiente de transmissão $ \tau_{\parallel} $ em função do ângulo de incidência \\
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab20-1-i.jpg} \\
+	Ângulo do coeficiente de transmissão $ \tau_{\parallel} $ em função do ângulo de incidência \\
+	\end{figure}%
+\end{minipage} \\
+A primeira figura mostra claramente que, no caso da incidência interna, além do ângulo de Brewster existe o \textbf{ângulo crítico}, a partir do qual a reflexão é total. \\
+Todos os coeficientes são complexos neste caso, o que implica alteração no ângulo de fase das ondas refletidas e transmitidas. \\
+Os gráficos de refletividade e transmissividade são obtidos a partir da fórmula $ R = |\Gamma|^2 $ e $T = 1 - R $: \\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab20-1-n.jpg} \\
+	Refletividade da onda perpendicular em função do ângulo de incidência para incidência externa \\
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab20-1-o.jpg} \\
+	Refletividade da onda paralela em função do ângulo de incidência para incidência externa \\
+	\end{figure}%
+\end{minipage} \\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab20-1-p.jpg} \\
+	Transmissividade da onda perpendicular em função do ângulo de incidência para incidência externa \\
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab20-1-q.jpg} \\
+	Transmissividade da onda paralela em função do ângulo de incidência para incidência externa \\
+	\end{figure}%
+\end{minipage} \\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab20-1-r.jpg} \\
+	Refletividade da onda perpendicular em função do ângulo de incidência para incidência interna \\
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab20-1-s.jpg} \\
+	Refletividade da onda paralela em função do ângulo de incidência para incidência interna \\
+	\end{figure}%
+\end{minipage} \\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab20-1-t.jpg} \\
+	Transmissividade da onda perpendicular em função do ângulo de incidência para incidência interna \\
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab20-1-u.jpg} \\
+	Transmissividade da onda paralela em função do ângulo de incidência para incidência interna \\
+	\end{figure}%
+\end{minipage} \\
+\end{resposta}
+
+\clearpage
+
+\section*{Parte 2}
+\begin{pergunta}
+\perguntaab{}
+\end{pergunta}
+\begin{resposta}
+6.1)
+\begin{equation*}
+	\begin{split}
+	\rot \vec{H} = \pt{\vec{D}} \implies \rot (\rot \vec{H}) & = \rot \left( \pt{\vec{D}} \right) \\
+	\grad(\div \vec{H}) - \vlap \vec{H} & = \rot \left( \pt{\pme{\bbepsilon} \vec{E}} \right) \\
+	\vec{0} - \vlap \vec{H} & = \pme{\bbepsilon} \pt{} \left( \frac{}{} \rot \vec{E} \right) \\
+	- \vlap \vec{H} & = \pme{\bbepsilon} \pt{} \left( - \pt{\vec{B}} \right) \\
+	\vlap \vec{H} & = \pme{\bbepsilon} \pt{} \left( \pt{} [\pme{\bbmu} \vec{H}] \right) \\
+	\vlap \vec{H} & - \pme{\bbepsilon} \pme{\bbmu} \ppt{\vec{H}} = \vec{0} \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\vec{H}(r,t) = \vecphasor{H}(r) & \implies \ppt{\vec{H}} = - \omega^2 \vec{H} \\ 
+	\wasytherefore \vlap \vec{H} & + \omega^2 \pme{\bbepsilon} \pme{\bbmu} \vec{H} = \vec{0} \\
+	\vlap \vec{H} & - k^2 \vec{H} = \vec{0} \qquad \Aboxed{k^2 = -\omega^2 \pme{\bbepsilon} \pme{\bbmu}} \\
+	\end{split}
+\end{equation*}
+\hlin
+
+\clearpage
+
+6.2)
+\begin{equation*}
+	\begin{split}
+	\rot \vecphasor{E} = - \jmath \omega \pme{\bbmu} \vecphasor{H} \implies \rot (\rot \vecphasor{E}) & = \rot \left( - \jmath \omega \pme{\bbmu} \vecphasor{H} \right) \\
+	\grad(\div \vec{E}) - \vlap \vec{E} & = - \jmath \omega \pme{\bbmu} \rot \vecphasor{H} \\
+	\vec{0} - \vlap \vec{E} & = - \jmath \omega \pme{\bbmu} \left( \jmath \omega \pme{\bbepsilon} \vecphasor{E} \right) \\
+	\vlap \vec{E} & = - \omega^2 \pme{\bbmu} \pme{\bbepsilon} \vecphasor{E} \\
+	& = - \omega^2 \pme{\bbmu} \left( \pme{\bbepsilon}^{(')} - \jmath \frac{\pme{\bbsigma}}{\omega} \right) \vecphasor{E} \\
+	& = \jmath ^2 \omega^2 \pme{\bbmu} \pme{\bbepsilon}^{(')} + \jmath \omega \pme{\bbmu} \pme{\bbsigma} \vecphasor{E} \\
+	& = \jmath \omega \pme{\bbmu} \left( \pme{\bbsigma} + \jmath \omega \pme{\bbepsilon}^{(')} \right) \vecphasor{E} \\
+\end{split}
+\end{equation*}
+\hlin
+
+\clearpage
+
+6.3) \\
+a)
+\begin{equation*}
+	\begin{split}
+	f_a & = \frac{c_a}{\lambda_a} \\
+	& = \frac{\kve{c}}{6.0 \; cm} \\
+	& = 5.0 \; GHz \\
+	\end{split}
+\end{equation*}
+b)
+\begin{equation*}
+	\begin{split}
+	f_b & = f_a \\
+	& = 5.0 \; GHz \\
+	\end{split}
+\end{equation*}
+c)
+\begin{equation*}
+	\begin{split}
+	\frac{\lambda_b}{\lambda_a} & = \frac{c_b}{c_a} \\
+	& = \sqrt{\frac{\pme{\bbmu_a} \pme{\bbepsilon_a}}{\pme{\bbmu_b} \pme{\bbepsilon_b}}} \\
+	& = \sqrt{\frac{\pme{\bbmu_a}^{(r)} \pme{\bbepsilon_a}^{(r)}}{\pme{\bbmu_b}^{(r)} \pme{\bbepsilon_b}^{(r)}}} \implies \pme{\bbepsilon_b}^{(r)} = \left(\frac{\lambda_a}{\lambda_b} \right)^2 \frac{\pme{\bbmu_a}^{(r)} \pme{\bbepsilon_a}^{(r)}}{\pme{\bbmu_b}^{(r)}} \\
+	\pme{\bbepsilon_b}^{(r)} & = \left(\frac{6.0}{1.0} \right)^2 \frac{1 \times 1}{1} \\
+	& = 36 \\
+	\end{split}
+\end{equation*}
+\hlin
+
+\clearpage
+
+6.4)
+\begin{equation*}
+	\begin{split}
+	\vlap \vec{H} & = \vlap (\phasor{H}(z) \a{y}) \\
+	& = \vla{0}{\phasor{H}(z)}{0} \\
+	& = \vec{0} + \left( \la{\phasor{H}(z)} \right) \a{y} + \vec{0} \\
+	& = \left( 0 + \ppz{\phasor{H}(z)} + 0 \right) \a{y} \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\vlap \vec{H} - k^2 \vec{H} & = \vec{0} \implies \left( \ppz{\phasor{H}(z)} \right) \a{y} = k^2 \phasor{H}(z) \a{y} \\
+	\ppz{\phasor{H}(z)} & = k^2 \phasor{H}(z) \implies \phasor{H}(z) = \phasor{H_0} e^{\pm k z} \\
+	\vecphasor{H} & = \phasor{H_0} e^{\pm k z} \a{y} \\
+	\end{split}
+\end{equation*}
+\hlin
+
+\clearpage
+
+6.5)
+\begin{equation*}
+	\begin{split}
+	\gamma & = \omega \sqrt{\pme{\bbmu} \left( \pme{\bbepsilon} - \jmath \frac{\pme{\bbsigma}}{\omega} \right) } \\
+	& = 2 \pi f \sqrt{\pme{\bbmu}^{(r)} \pme{\bbmu_0} \left( \pme{\bbepsilon}^{(r)} \pme{\bbepsilon_0} - \jmath \frac{\pme{\bbsigma}}{2 \pi f} \right) } \\
+	& = 2 \pi \times 10 \; MHz \times \left[ \frac{}{} 50 \times \kve{mu} \times \left( \frac{}{} 2.0 \times \kve{ep} - \right. \right. ... \\
+	& \qquad \left. \left. - \jmath \frac{1.0 \times 10^{-5} \; S \; m^{-1}}{2 \pi \times 10 \; MHz} \right) \right]^{0.5} \\
+	& = (0.21 + \jmath 0.0094 ) \; m^{-1} \qquad \implies \alpha = - 9.4 \times 10{-3} \; m^{-1}, \; \beta = 210 \times 10{-3} \; m^{-1} \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\pme{\bbeta} & = \sqrt{\dfrac{\pme{\bbmu}}{\pme{\bbepsilon} - \jmath \dfrac{\pme{\bbsigma}}{\omega}}} \\
+	& = \sqrt{\dfrac{\pme{\bbmu}^{(r)} \pme{\bbmu_0}}{\pme{\bbepsilon}^{(r)} \pme{\bbepsilon_0} - \jmath \dfrac{\pme{\bbsigma}}{2 \pi f}}} \\
+	& = \left[ \dfrac{50 \times \kve{mu}}{2.0 \times \kve{ep} - \jmath \dfrac{1.0 \times 10^{-5} \; S \; m^{-1}}{2 \pi \times 10 \; MHz}} \right]^{0.5} \\
+	& = (1900 - \jmath 84) \; \Omega \\
+	\end{split}
+\end{equation*}
+\hlin
+
+\clearpage
+
+6.6)
+O programa e os gráficos resultantes são os seguintes (a escala do eixo de frequências é logarítmica):
+\lstinputlisting[caption=plotparms.m]{plotparms.m}
+
+\clearpage
+
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab20-6-a.jpg} \\
+	$ \alpha $ em função da frequência \\
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab20-6-c.jpg} \\
+	$ \beta $ em função da frequência \\
+	\end{figure}%
+\end{minipage} \\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab20-6-b.jpg} \\
+	Parte real de $ \pme{\bbeta} $ em função da frequência \\
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab20-6-d.jpg} \\
+	Parte imaginária de $ \pme{\bbeta} $ em função da frequência \\	\end{figure}%
+\end{minipage} \\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab20-6-e.jpg} \\
+	Módulo de $ \pme{\bbeta} $ em função da frequência \\
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab20-6-f.jpg} \\
+	Ângulo de $ \pme{\bbeta} $ em função da frequência \\
+	\end{figure}%
+\end{minipage} \\
+\hlin
+
+\clearpage
+
+6.7)
+\begin{equation*}
+	\begin{split}
+	\vec{E} = E_0 \cos(\omega t - \vec{k} \cdot \vec{r}) \a{z} \qquad \left\{ \begin{array}{lcl} E_0 & = & 5.0 \; V \; m^{-1} \\ \omega & = & \pi \times 10^6 \; rd \; s^{-1} \\ \vec{k} & = & (3.0 \a{x} - 2.0 \a{y}) \; m^{-1} \end{array} \right. \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\a{k} & = \frac{\vec{k}}{|\vec{k}|} \\
+	& = \frac{3.0 \a{x} - 2.0 \a{y}}{\sqrt{3.0^2 + 2.0^2}} \\
+	& = 0.60 \a{x} - 0.40 \a{y} \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\vecphasor{H} & = \frac{\vec{k}}{\jmath \omega \pme{\bbmu}} \times \vecphasor{E} \\
+	& = \frac{(3.0 \a{x} - 2.0 \a{y}) \; m^{-1}}{\jmath \pi \times 10^6 \; rd \; s^{-1} \times \kve{mu}} \times 5.0 \phasor{E} \a{z} \; V \; m^{-1} \qquad \Aboxed{\phasor{E} = \cos(\omega t - \vec{k} \cdot \vec{r})} \\
+	& = j 6.3 \phasor{E} (0.60 \a{y} + 0.40 \a{x}) \; A \; m^{-1} \\
+	& = 6.3 \phasor{H} (0.60 \a{y} + 0.40 \a{x}) \; A \; m^{-1} \qquad \Aboxed{\phasor{H} = \cos \left( \omega t - \vec{k} \cdot \vec{r} + \frac{\pi}{2} \right)} \\
+	\end{split}
+\end{equation*}
+\hlin
+
+\clearpage
+
+6.8)
+\begin{equation*}
+	\begin{split}
+	\vec{H} = H_0 \cos(\omega t - \vec{k} \cdot \vec{r} + \phi) \a{z} \qquad \left\{ \begin{array}{lcl} H_0 & = & 100.0 \; mA \; m^{-1} \\ \omega & = & 2 \pi \times 10^7 \; rd \; s^{-1} \\ \vec{k} & = & \beta \a{x} \; m^{-1} \\ \phi & = & \frac{\pi}{4} \end{array} \right. \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\vecphasor{E} & = -\frac{\vec{k}}{\pme{\bbsigma} + \jmath \omega \pme{\bbepsilon}} \times \vecphasor{H} \\
+	& = - \frac{\beta \a{x}}{\jmath 2 \pi \times 10^7 \; rd \; s^{-1} \times \kve{ep}} \times 0.1 \phasor{H} \a{z} \; A \; m^{-1} \\
+	& \qquad \Aboxed{\phasor{H} = \cos(\omega t - \beta x + \phi)} \\
+	& = - j 180 \beta \phasor{H} \a{y} \; V \; m^{-1} \\
+	& = 180 \phasor{E} \a{y} \; V \; m^{-1} \qquad \Aboxed{\phasor{E} = \cos \left( \omega t - \beta x - \phi \right)} \\
+	\end{split}
+\end{equation*}
+\hlin
+
+\clearpage
+
+6.9)
+\begin{equation*}
+	\begin{split}
+	\vlap \vec{E} & = \vlap (\phasor{E}(z) \a{x}) \\
+	& = \vla{0}{\phasor{E}(z)}{0} \\
+	& = \vec{0} + \left( \la{\phasor{E}(z)} \right) \a{x} + \vec{0} \\
+	& = \left( 0 + \ppz{\phasor{E}(z)} + 0 \right) \a{x} \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\vlap \vec{E} - k^2 \vec{E} & = \vec{0} \implies \left( \ppz{\phasor{E}(z)} \right) \a{x} = (\jmath \beta)^2 \phasor{E}(z) \a{x} \\
+	\ppz{\phasor{E}(z)} & = (\jmath \beta)^2 \phasor{E}(z) \implies \phasor{E}(z) = \phasor{E_0} e^{\pm \jmath \beta z} \\
+	\vecphasor{E} & = \phasor{E_0} e^{\pm \jmath \beta z} \a{x} \\
+	\end{split}
+\end{equation*}
+\hlin
+
+\clearpage
+
+6.10)
+\begin{equation*}
+	\begin{split}
+	\left. \begin{array}{lcl} E_0 & = & 1.0 \; V \; m^{-1} \\ f & = & 100 \; MHz \\ \a{k} & = & \a{y} \\ \vecphasor{E} & = & \phasor{E}_0 \a{z} \end{array} \right\} \qquad \implies \vecphasor{E} = E_0 \cos(2 \pi f t - k y) \a{z} \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\omega & = 2 \pi f \\
+	& = 2 \pi 100 \; MHz \\
+	& = 2 \times 10^8 \pi \; rd \; s^{-1} \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	k & = \omega \sqrt{\pme{\bbmu} \times \pme{\bbepsilon}} \\
+	& = 2 \times 10^8 \pi \; rd \; s^{-1} \sqrt{\kve{mu} \kve{ep}} \\
+	& = 2.1 \; m^{-1} \\\\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\vecphasor{H} & = - \jmath \sqrt{\frac{\pme{\bbepsilon}}{\pme{\bbmu}}} \; \a{k} \times \vecphasor{E} \\
+	& = - \jmath \sqrt{\frac{\kve{ep}}{\kve{mu}}} \; \a{y} \times 1.0 \phasor{E} \a{z} \; V \; m^{-1} \\
+	& = - \jmath \; 2.7 \times 10^{-3} \cos(2 \times 10^8 \pi t - 2.1 \; y) \; \a{x} \; A \; m^{-1} \\
+	& = 2.7 \cos \left( 2 \times 10^8 \pi t - 2.1 \; y - \frac{\pi}{2}\right) \; \a{x} \; mA \; m^{-1} \\
+	\end{split}
+\end{equation*}
+\hlin
+
+\clearpage
+
+6.11)
+\begin{equation*}
+	\begin{split}
+	\vec{H} = 100 \cos(\omega t - 10y) \a{z} \; mA \; m^{-1} \qquad \implies \left\{ \begin{array}{lcl} H_0 & = & 0.1 \; A \; m^{-1} \\ \vec{k} & = & 10 \a{y} \; m^{-1} \end{array} \right. \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	v & = \sqrt{\frac{1}{\pme{\bbmu} \pme{\bbepsilon}}} \\
+	& = \sqrt{\frac{1}{\pme{\bbmu_0} \pme{\bbepsilon}^{(r)} \pme{\bbepsilon_0}}} \\
+	& = \sqrt{\frac{1}{\kve{mu} \times 16 \times \kve{ep}}} \\
+	& = 7.5 \times 10^7 \; m \; s^{-1} \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\omega & = 2 \pi f \\
+	& = 2 \pi \frac{v}{\lambda} \\
+	& = 2 \pi v \frac{k}{2 \pi} \\
+	& = v k \\
+	& = 7.5 \times 10^7 \; m \; s^{-1} \times 10 \; m^{-1} \\
+	& = 7.5 \times 10^8 \; rd \; s^{-1} \\
+	\end{split}
+\end{equation*}
+\hhlin
+
+\clearpage
+
+\begin{equation*}
+	\begin{split}
+	E & = \jmath \sqrt{\frac{\pme{\bbmu}}{\pme{\bbepsilon}}} H \\
+	& = \jmath \sqrt{\frac{\pme{\bbmu_0}}{\pme{\bbepsilon}^{(r)} \pme{\bbepsilon_0}}} H \\
+	& = \jmath \sqrt{\frac{\kve{mu}}{16 \times \kve{ep}}} \times 0.1 \phasor{H} \; A \; m^{-1} \\
+	& = \jmath 9.4 \cos(7.5 \times 10^8 t - 10y) \; A \; m^{-1} \\
+	& = 9.4 \cos \left( 7.5 \times 10^8 t - 10y + \frac{\pi}{2} \right) \; A \; m^{-1} \\
+	\end{split}
+\end{equation*}
+\hlin
+
+\clearpage
+
+6.12)
+\begin{equation*}
+	\begin{split}
+	 \left. \begin{array}{lcl} \vec{E} = 120 \pi \cos(6 \pi \times 10^6 t - 0.080 \pi y) \a{z} \; V \; m^{-1} \\ \vec{H} = 2.00 \cos(6 \pi \times 10^6 t - 0.080 \pi y) \a{x} \; A \; m^{-1} \end{array} \right\} \implies \left\{ \begin{array}{lcl} E_0 & = & 120 \pi \; V \; m^{-1} \\ H_0 & = & 2.00 \; A \; m^{-1} \\ \vec{k} & = & 0.080 \pi \a{y} \; m^{-1} \\ \omega & = & 6 \pi \times 10^6 \; rd \; s^{-1} \end{array} \right. \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\frac{\pme{\bbmu}}{\pme{\bbepsilon}} = \left( \frac{E_0}{H_0} \right)^2 \qquad \implies \pme{\bbmu} = \pme{\bbepsilon} \left( \frac{E_0}{H_0} \right)^2 \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	k = \omega \sqrt{\pme{\bbmu} \pme{\bbepsilon}} \implies \pme{\bbmu} \pme{\bbepsilon} & = \frac{k^2}{\omega^2} \\
+	\left[ \pme{\bbepsilon} \left( \frac{E_0}{H_0} \right)^2 \right] \pme{\bbepsilon} & = \frac{k^2}{\omega^2} \\
+	\pme{\bbepsilon}^2 & = \left( \frac{k H_0}{\omega E_0} \right)^2 \\
+	\pme{\bbepsilon}^{(r)} \pme{\bbepsilon_0} & = \frac{k H_0}{\omega E_0} \\
+	\pme{\bbepsilon}^{(r)} & = \frac{k H_0}{\pme{\bbepsilon_0} \omega E_0} \\
+	\pme{\bbepsilon}^{(r)} & = \frac{0.080 \pi \; m^{-1} \times 2.00 \; A \; m^{-1}}{\kve{ep} \times 6 \pi \times 10^6 \; rd \; s^{-1} \times 120 \pi \; V \; m^{-1}} \\
+	& = 8.0 \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\pme{\bbmu} & = \pme{\bbepsilon} \left( \frac{E_0}{H_0} \right)^2 \\
+	\pme{\bbmu_0} \pme{\bbmu}^{(r)} & = \pme{\bbepsilon_0} \pme{\bbepsilon}^{(r)} \left( \frac{E_0}{H_0} \right)^2 \\
+	\pme{\bbmu}^{(r)} & = \frac{\pme{\bbepsilon_0} \pme{\bbepsilon}^{(r)}}{\pme{\bbmu_0}} \left( \frac{E_0}{H_0} \right)^2 \\
+	& = \frac{\kve{ep} \times 8.0}{\kve{mu}} \left( \frac{120 \pi \; V \; m^{-1}}{2.00 \; A \; m^{-1}} \right)^2 \\
+	& = 2.0
+	\end{split}
+\end{equation*}
+\hlin
+
+
+\clearpage
+
+6.13)
+\begin{equation*}
+	\begin{split}
+	k^2 & = \jmath \omega \pme{\bbmu} (\pme{\bbsigma} + \jmath \omega \pme{\bbepsilon}) \\
+	& = \omega \pme{\bbmu} (\jmath \pme{\bbsigma} - \omega \pme{\bbepsilon}) \qquad \implies \left\{ \begin{array}{lcl} |k^2| & = & \omega \pme{\bbmu} \sqrt{\pme{\bbsigma}^2 + \omega^2 \pme{\bbepsilon}^2} \\ \\ \arg(k^2) & = & \arg(\pme{- \omega \pme{\bbepsilon} + \jmath \bbsigma} ) \\ \\ & & \left( \frac{\pi}{2} \le \arg(k^2) \le \pi \right) \end{array} \right. \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	|k| & = \sqrt{|k^2|} \\
+	& = \sqrt{\omega \pme{\bbmu} \sqrt{\pme{\bbsigma}^2 + \omega^2 \pme{\bbepsilon}^2}} \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\arg(k) & = \frac{1}{2} \arg(k^2) \implies \left\{ \begin{array}{lcl} \cos(\arg(k)) & = & \sqrt{\frac{1 + \cos(\arg(k^2))}{2}} \\ \sin(\arg(k)) & = & \sqrt{\frac{1 - \cos(\arg(k^2))}{2}} \\ \\ & & \left(0 \le \arg(k^2) \le \frac{\pi}{2} \right) \end{array} \right. \\
+	\end{split}
+\end{equation*}
+\hhlin
+
+\clearpage
+
+\begin{equation*}
+	\begin{split}
+	\alpha & = \Re({k}) \\
+	& = |k| \cos(\arg(k)) \\
+	& = \sqrt{\omega \pme{\bbmu} \sqrt{\pme{\bbsigma}^2 + \omega^2 \pme{\bbepsilon}^2}} \sqrt{\frac{1 + \cos(\arg(k^2))}{2}} \\
+	& = \sqrt{\omega \pme{\bbmu} \sqrt{\pme{\bbsigma}^2 + \omega^2 \pme{\bbepsilon}^2}} \; \sqrt{\dfrac{1 - \dfrac{\omega \pme{\bbepsilon}}{\sqrt{\pme{\bbsigma}^2 + \omega^2 \pme{\bbepsilon}^2}}}{2}} \\
+	& = \sqrt{\frac{\omega \pme{\bbmu}}{2} \left( \sqrt{\pme{\bbsigma}^2 + \omega^2 \pme{\bbepsilon}^2} - \omega \pme{\bbepsilon} \right)} \\
+	& = \sqrt{\frac{\omega^2 \pme{\bbmu} \pme{\bbepsilon}}{2} \left( \sqrt{ \left[ \frac{\pme{\bbsigma}}{\omega \pme{\bbepsilon}} \right]^2 + 1} - 1 \right)} \\
+	& = \omega \sqrt{\frac{\pme{\bbmu} \pme{\bbepsilon}}{2} \left( \sqrt{ 1 + \left[ \frac{\pme{\bbsigma}}{\omega \pme{\bbepsilon}} \right]^2} - 1 \right)} \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\beta & = \Im({k}) \\
+	& = |k| \sin(\arg(k)) \\
+	& = \sqrt{\omega \pme{\bbmu} \sqrt{\pme{\bbsigma}^2 + \omega^2 \pme{\bbepsilon}^2}} \sqrt{\frac{1 - \cos(\arg(k^2))}{2}} \\
+	& = \sqrt{\omega \pme{\bbmu} \sqrt{\pme{\bbsigma}^2 + \omega^2 \pme{\bbepsilon}^2}} \; \sqrt{\dfrac{1 + \dfrac{\omega \pme{\bbepsilon}}{\sqrt{\pme{\bbsigma}^2 + \omega^2 \pme{\bbepsilon}^2}}}{2}} \\
+	& = \omega \sqrt{\frac{\pme{\bbmu} \pme{\bbepsilon}}{2} \left( \sqrt{ 1 + \left[ \frac{\pme{\bbsigma}}{\omega \pme{\bbepsilon}} \right]^2} + 1 \right)} \\
+	\end{split}
+\end{equation*}
+\hlin
+
+\clearpage
+
+6.14)
+O programa é o seguinte:
+\lstinputlisting[caption=calcparms.m]{calcparms.m}
+\hlin
+
+\clearpage
+
+6.15)
+\begin{equation*}
+	\begin{split}
+	\alpha & \approx \frac{\pme{\bbsigma}}{2} \sqrt{\frac{\pme{\bbmu}}{\pme{\bbepsilon}}} \\
+	& = \frac{\pme{\bbsigma}}{2} \sqrt{\frac{\pme{\bbmu}}{\pme{\bbepsilon}^{(r)} \pme{\bbepsilon}_0}} \\
+	& = \frac{1.0 \times 10^{-3} \; S \; m^{-1}}{2} \sqrt{\frac{\kve{mu}}{(3.0 - \jmath 0.015)\times \kve{ep}}} \\
+	& = (0.11 + \jmath 0.00027) \; m^{-1} \\
+	\end{split}
+\end{equation*}
+O gráfico é o seguinte (a escala do eixo de frequências é logarítmica):
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab20-15.jpg} \\
+	Módulo de $ \alpha $ em função da frequência \\
+\end{figure}
+A condutividade é muito elevada para que a aproximação seja satisfatória. Apenas por volta de 600 kHz o erro de aproximação se encontra na faixa de $ \pm 2 \% $. \\
+\hlin
+
+\clearpage
+
+6.16)
+\begin{equation*}
+	\begin{split}
+	\left. \begin{array}{lcl} \alpha & = & 61 \; m^{-1} \\ \beta & = & 64 \; m^{-1} \end{array} \right\} \qquad \Aboxed{\textit{Calculado pelo programa-solução da questão 6.14}} \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\pme{\bbeta} & = \sqrt{\dfrac{\pme{\bbmu}}{\pme{\bbepsilon} - \jmath \dfrac{\pme{\bbsigma}}{\omega}}} \\
+	& = \sqrt{\dfrac{\pme{\bbmu}^{(r)} \pme{\bbmu_0}}{\pme{\bbepsilon}^{(r)} \pme{\bbepsilon_0} - \jmath \dfrac{\pme{\bbsigma}}{2 \pi f}}} \\
+	& = \sqrt{\dfrac{100.0 \times \kve{mu}}{1.0 \times \kve{ep} - \jmath \dfrac{0.00964 \; S \; m^{-1}}{2 \pi \times 100 \; MHz}}} \\
+	& = (2300 + j 1300) \; \Omega \\
+	& = 2700 \phase 30^{\circ} \; \Omega \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\phasor{E} & = \pme{\bbeta} \phasor{H} \\
+	& = \pme{\bbeta} H_0 e^{-\alpha z} \cos(\omega t - \beta z) \\
+	& = 2700 \phase 30^{\circ} \; \Omega \times 1.0 \; mA \; m^{-1} e^{-61 \; m{-1} \; z} \cos( 2 \pi \times 10^8 t - 64 \; m^{-1} \; z) \\
+	& = 2.7 e^{-61z} \cos \left( 2 \pi \times 10^8 t - 64 z + \frac{\pi}{6} \right) \; V \; m^{-1}  \\
+	\end{split}
+\end{equation*}
+\hlin
+
+\clearpage
+
+6.17)
+O programa apenas calcula os valores, e a plotagem deve ser feita manualmente e individualmente para cada material. Isso é necessário porque as características de cada um são muito diferentes. O programa e os gráficos são os seguintes (a escala de frequências é logarítmica):
+\lstinputlisting[caption=ploteta.m]{ploteta.m}
+
+\clearpage
+
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab20-17-a.jpg} \\
+	Módulo de $ \pme{\bbeta} $ do cobre em função da frequência \\
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	O ângulo de $ \pme{\bbeta} $ do cobre é igual a 45\textdegree \; em toda a faixa \\
+	\end{figure}%
+\end{minipage}\\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab20-17-c.jpg} \\
+	Módulo de $ \pme{\bbeta} $ da água do mar em função da frequência \\
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	O ângulo de $ \pme{\bbeta} $ da água do mar é igual a 90\textdegree \; em toda a faixa \\
+	\end{figure}
+\end{minipage}\\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	O módulo de $ \pme{\bbeta} $ do vidro é igual a 120 \textOmega \; em toda a faixa \\
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	O ângulo de $ \pme{\bbeta} $ do vidro é igual a 90\textdegree \; em toda a faixa \\
+	\end{figure}%
+\end{minipage}\\
+\hlin
+
+\clearpage
+
+6.18)
+\begin{equation*}
+	\begin{split}
+	\lim_{\pme{\bbsigma} \to \infty} \alpha & = \lim_{\pme{\bbsigma} \to \infty} \left[ \omega \sqrt{ \dfrac{\pme{\bbmu} \pme{\bbepsilon}}{2} \left\{ \sqrt{1 + \left( \dfrac{\pme{\bbsigma}}{\omega \pme{\bbepsilon}} \right)^2} - 1 \right\} } \right] \\
+	& = \omega \sqrt{ \dfrac{\pme{\bbmu} \pme{\bbepsilon}}{2} \left\{ \dfrac{\pme{\bbsigma}}{\omega \pme{\bbepsilon}} \right\} } \\
+	& = \sqrt{ \dfrac{\omega \pme{\bbmu} \pme{\bbsigma}}{2}} \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\lim_{\pme{\bbsigma} \to \infty} \beta & = \lim_{\pme{\bbsigma} \to \infty} \left[ \omega \sqrt{ \dfrac{\pme{\bbmu} \pme{\bbepsilon}}{2} \left\{ \sqrt{1 + \left( \dfrac{\pme{\bbsigma}}{\omega \pme{\bbepsilon}} \right)^2} + 1 \right\} } \right] \\
+	& = \omega \sqrt{ \dfrac{\pme{\bbmu} \pme{\bbepsilon}}{2} \left\{ \dfrac{\pme{\bbsigma}}{\omega \pme{\bbepsilon}} \right\} } \\
+	& = \sqrt{ \dfrac{\omega \pme{\bbmu} \pme{\bbsigma}}{2}} \\
+	\end{split}
+\end{equation*}
+\hlin
+
+\clearpage
+
+6.19)
+\begin{equation*}
+	\begin{split}
+	\left. \begin{array}{lcl} \alpha & = & 6.0 \times 10^{-5} \; m^{-1} \\ \beta & = & 0.066 \; m^{-1} \end{array} \right\} \qquad \Aboxed{\textit{Calculado pelo programa-solução da questão 6.14}} \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\pme{\bbeta} & = 120 \phase 90^{\circ} \; \Omega \qquad \Aboxed{\textit{Calculado pelo programa-solução da questão 6.17}} \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\vec{H} & = \frac{1}{\pme{\bbeta}} \vec{E} \\
+	& = \frac{1}{\pme{\bbeta}} \pme{\bbeta} E_0 e^{-\alpha z} \cos(\omega t - \beta z) (\a{k} \times \a{E}) \\
+	& = \frac{1}{120 \phase 90^{\circ} \; \Omega} \times 20.0 \; V \; m^{-1} e^{6.0 \times 10^{-5} \; m{-1} \; z} \cos( 2 \pi \times 10^6 t - 0.066 \; m^{-1} \; z) (\a{y} \times \a{z} \\
+	& = - 3.4 e^{6.0 \times 10^{-5} \; z} \cos \left( 2 \pi \times 10^6 t - 0.066 z - \frac{\pi}{2} \right) \; V \; m{-1} \a{x} \\
+	\end{split}
+\end{equation*}
+\hlin
+
+\clearpage
+
+6.20)
+\begin{equation*}
+	\begin{split}
+	\pme{\bbdelta}_{Cu} & =\sqrt{\dfrac{1}{\alpha_{Cu}}} \\
+	& = \sqrt{\dfrac{1}{\pi f \pme{\bbmu}_{Cu} \pme{\bbsigma}_{Cu}}} \\
+	& = \sqrt{\frac{1}{\pi \times 1 \; GHz \; \times \kve{mu} \times 59.6 \times 10^6 \; S \; m{-1}}} \\
+	& = 2.06 \times 10^{-6} \; m \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\pme{\bbdelta}_{Au} & = \sqrt{\dfrac{1}{\pi f \pme{\bbmu}_{Au} \pme{\bbsigma}_{Au}}} \\
+	& = \sqrt{\frac{1}{\pi \times 1 \; GHz \; \times \kve{mu} \times 45.2 \times 10^6 \; S \; m{-1}}} \\
+	& = 2.44 \times 10^{-6} \; m \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\pme{\bbdelta}_{Ag} & = \sqrt{\dfrac{1}{\pi f \pme{\bbmu}_{Au} \pme{\bbsigma}_{Ag}}} \\
+	& = \sqrt{\frac{1}{\pi \times 1 \; GHz \; \times \kve{mu} \times 63.0 \times 10^6 \; S \; m{-1}}} \\
+	& = 2.01 \times 10^{-6} \; m \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\pme{\bbdelta}_{Ni} & = \sqrt{\dfrac{1}{\pi f \pme{\bbmu}_{Au} \pme{\bbsigma}_{Ni}}} \\
+	& = \sqrt{\frac{1}{\pi \times 1 \; GHz \; \times 600 \times \kve[mu] \times 10^{-10} \; H \; m^{-1} \; \times 14.5 \times 10^6 \; S \; m{-1}}} \\
+	& = 1.71 \times 10^{-7} \; m \\
+	\end{split}
+\end{equation*}
+\hlin
+
+\clearpage
+
+6.21)
+\begin{table}[H]
+    \begin{tabular}{|c|c|c|c|c|c|}
+		\hline
+        \textbf{f} & \textbf{\textalpha \; (m\textsuperscript{-1})} & \textbf{\textbeta \; (m\textsuperscript{-1})} & \textbf{$ \pme{\bbeta} $ \textOmega} & \textbf{u\textsubscript{p}} & \textbf{\textdelta} \\
+		\hline
+		$ 1 $ Hz  & $ 1.20 $  & $ 1.2 $   & $ 1.81 \times 10^{-5} \phase 45 ^{\circ} $ & & $ 83.3 $ cm \\
+		$ 1	$ kHz & $ 38.9 $  & $ 38.9 $  & $ 5.72 \times 10^{-4} \phase 45 ^{\circ} $ & & $ 25.7 $ mm \\
+		$ 1 $ MHz & $ 1200 $  & $ 1200 $  & $ 1.81 \times 10^{-2} \phase 45 ^{\circ} $ & & $ 0.833 $ mm \\
+		$ 1 $ GHz & $ 38900 $ & $ 38900 $ & $ 5.72 \times 10^{-1} \phase 45 ^{\circ} $ & & $ 25.7 $ \textmu m \\
+		\hline
+    \end{tabular}
+\end{table}
+Os valores da tabela foram calculados pelos programas-solução das questões 6.14 e 6.15. \\
+\hlin
+6.22)
+\begin{equation*}
+	\begin{split}
+	\left. \begin{array}{lcl} \alpha & = & 5.85 \; m^{-1} \\ \beta & = & 5.85 \; m^{-1} \end{array} \right\} \qquad \Aboxed{\textit{Calculado pelo programa-solução da questão 6.14}} \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\pme{\bbeta} & = 0.115 \phase 45^{\circ} \; \Omega \qquad \Aboxed{\textit{Calculado pelo programa-solução da questão 6.17}} \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\vec{H} & = \frac{1}{\pme{\bbeta}} \vec{E} \\
+	& = \frac{1}{\pme{\bbeta}} E_0 e^{-\alpha z} \cos(\omega t - \beta z) (\a{k} \times \a{E}) \\
+	& = \frac{1}{0.115 \phase 45^{\circ} \; \Omega} \times 1.0 \; V \; m^{-1} e^{-5.85 \; m{-1} \; z} \cos( \pi \times 10^6 t - 5.85 \; m^{-1} \; z) (\a{z} \times \a{x}) \\
+	& = 8.70 e^{5.85 \; z} \cos \left( \pi \times 10^6 t - 5.85 z - \frac{\pi}{4} \right) \; V \; m^{-1} \a{y} \\
+	\end{split}
+\end{equation*}
+\hlin
+
+\clearpage
+
+6.23)
+\begin{equation*}
+	\begin{split}
+	\vec{E} = 10 e^{-200 z} \cos(2 \pi \times 10^9 \; t - 200 z) \a{x} \; mV \; m{-1} \; \a{x} \qquad \left\{ \begin{array}{lcl} E_0 & = & 10 \; mV \; m^{-1} \\ f & = & \times 10^9 \; Hz \\ \vec{k} & = & (200 + \jmath 200) \a{z} \; m^{-1} \end{array} \right. \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\pme{\bbeta} & = \frac{\jmath \pme{\bbmu} \omega}{k} \\
+	& = \frac{\jmath \kve{mu} \times 2 \pi \times 10^9 \; rd \; s^{-1}}{200 + \jmath 200} \\
+	& = 28 \phase 45^{\circ} \; \Omega \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\vec{H} & = \frac{1}{\pme{\bbeta}} \vec{E} \\
+	& = \frac{1}{\pme{\bbeta}} E_0 e^{-\alpha z} \cos(\omega t - \beta z) (\a{k} \times \a{E}) \\
+	& = \frac{1}{28 \phase 45^{\circ} \; \Omega} \times 10 \; mV \; m^{-1} e^{- 200 \; m{-1} \; z} \cos( \pi \times 10^6 t - 5.85 \; m^{-1} \; z) (\a{z} \times \a{x}) \\
+	& = 0.36 e^{- 200 \; z} \cos \left(2 \pi \times 10^9 t - 200 z - \frac{\pi}{4} \right) \; mV \; m^{-1} \a{y} \\
+	\end{split}
+\end{equation*}
+\hlin
+
+\clearpage
+
+6.24)
+\begin{equation*}
+	\begin{split}
+	\alpha_{Cu} & = \sqrt{\pi f \pme{\bbmu}_{Cu} \pme{\bbsigma}_{Cu}} \\
+	& = \sqrt{\pi \times 1 \; GHz \; \times \kve{mu} \times 59.6 \times 10^6 \; S \; m{-1}} \\
+	& = 4.85 \times 10^{5} \; m^{-1} \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\alpha_{Ni} & = \sqrt{\pi \times 1 \; GHz \; \times 600 \times \kve[mu] \times 10^{-10} \; H \; m^{-1} \; \times 14.5 \times 10^6 \; S \; m{-1}} \\
+	& = 5.84 \times 10^{6} \; m^{-1} \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\alpha z = \alpha_{Cu} \ell + \alpha_{Ni} (z - \ell) \implies \alpha \delta & = \alpha_{Cu} \ell + \alpha_{Ni} (\delta - \ell) \\
+	1 & = \alpha_{Cu} \ell + \alpha_{Ni} \delta - \alpha_{Ni} \ell) \\
+	1 & = (\alpha_{Cu} - \alpha_{Ni}) \ell + \alpha_{Ni} \delta \\
+	\wasytherefore \; \delta & = \frac{1 - (\alpha_{Cu} - \alpha_{Ni}) \ell}{\alpha_{Ni}} \\
+	& = \frac{1 - (4.85 \times 10^{5} \; m^{-1} - 5.84 \times 10^{6} \; m^{-1}) \times 1.0 \times 10^{-6} \; m}{5.84 \times 10^{6} \; m^{-1}} \\
+	& = 1.09 \times 10^{-6} \; m \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\delta = 2.06 \times 10^{-6} \; m \qquad \Aboxed{\textit{Calculado na questão 6.20)}} \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\alpha z = \alpha_{Cu} \ell + \alpha_0 (z - \ell) \implies \alpha \delta & = \alpha_{Cu} \ell + \alpha_0 (\delta - \ell) \\
+	1 & = \alpha_{Cu} \ell + 0 \qquad \Aboxed{\textit{Não existe solução neste caso.}} \\
+	\end{split}
+\end{equation*}
+\hlin
+
+\clearpage
+
+6.25)
+\begin{equation*}
+	\begin{split}
+	R^{(cc)} = \dfrac{\ell}{\pme{\bbsigma} S} \implies \dfrac{R^{(cc)}}{\ell} & = \dfrac{1}{\pme{\bbsigma} S} \\
+	& = \dfrac{4}{\pme{\bbsigma} \pi d^2} \\
+	& = \dfrac{4}{ 5.96 \times 10^7 \; S \; m^{-1} * \pi (4 \; mm)^2} \\
+	& = 1.34 \; m \Omega \; m^{-1} \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	R^{(s)} & = \sqrt{\dfrac{\pi f \pme{\bbmu}}{\pme{\bbsigma}}} \\
+	& = \sqrt{\dfrac{\pi \times 10^9 \; Hz \times \kve{mu}}{ 5.96 \times 10^7 \; S \; m^{-1}}} \\
+	& = 8.14 \; m \Omega \; m^{-2} \\
+	\end{split}
+\end{equation*}
+\hlin
+
+\clearpage
+
+6.26)
+\begin{equation*}
+	\begin{split}
+	H = 12.0 \cos \left( \pi \times 10^6 \; t - \beta z + \frac{\pi}{6} \right) \; A \; m{-1} \; \a{x} \qquad \left\{ \begin{array}{lcl} H_0 & = & 12.0 \; A \; m^{-1} \\ \omega & = & \pi \times 10^6 \; rd \; s^{-1} \\ \a{k} & = & \a{z} \\ \alpha & = & 0 \end{array} \right. \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\pme{\bbeta} & = \sqrt{\frac{\pme{\bbmu_0}}{\pme{\bbepsilon_0}}} \\
+	& = \sqrt{\frac{\kve{mu}}{\kve{ep}}} \\
+	& = 377 \; \Omega \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	P & = \dfrac{E_0 ^2}{2 |\pme{\bbeta}|} e^{- 2 \alpha z} \cos \theta_{\pme{\bbeta}} \\
+	& = \dfrac{(\pme{\bbeta} H_0) ^2}{2 |\pme{\bbeta}|} e^{- 2 \alpha z} \cos \theta_{\pme{\bbeta}} \\
+	& = \dfrac{|\pme{\bbeta}| H_0^2}{2} e^{- 2 \alpha z} \cos \theta_{\pme{\bbeta}} \\\\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	W & = P S \\
+	& = \dfrac{|\pme{\bbeta}| H_0^2}{2} e^{- 2 \alpha z} \cos \theta_{\pme{\bbeta}} \; S \\
+	& = \dfrac{377 \times (12.0)^2}{2} e^{0} \cos(0) \; S \\
+	& = 27.1 \; kW \\
+	\end{split}
+\end{equation*}
+\hlin
+
+\clearpage
+
+6.27)
+\begin{equation*}
+	\begin{split}
+	\left. \begin{array}{lcl} \alpha & = & 0 \\ \beta & = & 18 \; m^{-1} \end{array} \right\} \qquad \Aboxed{\textit{Calculado pelo programa-solução da questão 6.14}} \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\pme{\bbeta} & = 260 \phase 90^{\circ} \; \Omega \qquad \Aboxed{\textit{Calculado pelo programa-solução da questão 6.17}} \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	vec{E} & = E_0 \phasor{E} \a{E} \\
+	& = E_0 e^{- \alpha z} \cos(\omega t - \beta z) \a{y} \\
+	& = 1.0 \; V \; m^{-1} \; e^{0} \cos(2 \pi \times 600 \; MHz \; t - 260 \; m^{-1} z) \a{y} \\
+	& = 1.0 \cos(1.8 \times 10^9 \; t - 18 z) \a{y} \; V \; m^{-1} \\
+	\end{split}pi * 1.2
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\vec{H} & = \frac{1}{\pme{\bbeta}} \vec{E} \\
+	& = \frac{1}{260 \phase 90^{\circ}} \times 1.0 \cos(1.8 \times 10^9 \; t - 18 z) (\a{z} \times \a{y}) \\
+	& = - 3.9 \cos \left(1.8 \times 10^9 t - 18z - \frac{\pi}{2} \right) \; mA \; m^{-1} \a{x} \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\vec{P} & = \vec{E} \times \vec{H} \\
+	& = \left[ 1.0 \cos(1.8 \times 10^9 \; t - 18 z) \a{y} \; V \; m^{-1} \right] \times ... \\ \
+	& \qquad \times \left[- 3.9 \cos \left(1.8 \times 10^9 t - 18z - \frac{\pi}{2} \right) \; mA \; m^{-1} \a{x} \right] \\
+	& = 3.9 \cos \left( \frac{}{} 1.8 \times 10^9 \; t - 18 z \right) \cos \left( 1.8 \times 10^9 t - 18z - \frac{\pi}{2} \right) \; mW \; m^{-2} \a{z} \\
+	\end{split}
+\end{equation*}
+\hlin
+
+\clearpage
+
+6.29)
+\begin{equation*}
+	\begin{split}
+	\vec{P} & = \frac{P}{S} \; S \; \cos \theta \\
+	& = \frac{P}{S} \; \ell_1 \; \ell_2 \; \cos \theta \\
+	& = 150 \; W \; m^{-2} \times 0.6 \; m \times 1.6 \; m \times 1 \\
+	& =144 \; W \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\vec{P} & = \frac{P}{S} \; \ell_1 \; \ell_2 \; \cos \theta \\
+	& = 150 \; W \; m^{-2} \times 0.6 \; m \times 1.6 \; m \times \cos 45^{\circ} \\ 
+	& = 125 \; W \\
+	\end{split}
+\end{equation*}
+
+\end{resposta}
+
+\end{document}

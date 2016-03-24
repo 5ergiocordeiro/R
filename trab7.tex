@@ -1,0 +1,323 @@
+\documentclass[12pt,fleqn]{amsart}
+\usepackage{enumitem}
+\usepackage{xstring}
+\usepackage{graphicx}
+\usepackage[a4paper]{geometry}
+\usepackage[portuguese,brazilian]{babel}
+\usepackage[ansinew]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[scaled]{helvet}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+\usepackage{fmtcount}
+\usepackage{float}
+
+
+\title{Segurança Cibernética}
+\date{}
+\author{Mateus M. Coelho, Sérgio Cordeiro, Alan Oliveira}
+
+
+\newenvironment{lista}{
+	\vspace{-5mm}
+	\begin{itemize}}{
+	\end{itemize}	
+	\vspace{-5mm}}
+
+\newenvironment{listaf}{
+	\vspace{-5mm}
+	\begin{itemize}}{
+	\end{itemize}}
+
+\newenvironment{listae}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=(\roman*)}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}	
+	\vspace{-5mm}}
+
+\newenvironment{listaef}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=(\roman*)}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}}
+	
+\newcommand{\newbibit}[6]{\bibitem[#1]{#2}#3, {\bf #4}. Disponível em \url{#5}, acesso em #6.}
+\newcommand{\newbibpp}[5]{\bibitem[#1]{#2}#3, {\bf #4}, \emph{in} #5.}
+\newcommand{\newbibbk}[5]{\bibitem[#1]{#2}#3, {\bf #4}, #5.}
+\newcommand{\newbibip}[6]{\bibitem[#1]{#2}#3, {\bf #4}, \emph{in} #5, disponível em \url{#6}.}
+
+\newenvironment{iquote}{\begin{quote}\itshape}{\end{quote}}
+
+
+\begin{document}
+\setlength{\parskip}{1em}
+\setlength{\jot}{10pt}
+
+\maketitle
+
+\section*{Introdução}
+COMPLETAR.
+
+\section*{artigo: \textbf{\textit{Cybersecurity Essentials for Electric Operators}}}
+\subsection*{Introdução}
+Quem pôde acompanhar o Jornal Nacional exibido no último dia 18 viu como um hacker divulgou que invadiria o sistema de controle de um avião em pleno vôo. A polícia federal dos Estados Unidos, o FBI, só chegou ao hacker Chris Roberts devido ao fato dele ter publicado em redes sociais que acessaria os sistemas de vídeo da aeronave e o sistema que controla as máscaras de despressurização de gás. Chris afirmou que entre 2011 e 2014 invadiu mais de 15 vezes os sistemas de controle de aviões, chegou a mudar a altitude e a rota de um vôo e também fez com que um avião voasse ligeiramente de lado; tudo foi possível devido ao fato de Chris ter roubado os códigos de segurança da aeronave durante a realização de um vôo. O FBI investiga o caso para apurar se as alegações são verdadeiras. Com matérias assim devemos questionar: até onde estamos seguros do ponto de vista cibernético? quais são nossas maiores armas de defesa? \\
+Esse artigo ajuda a compreender as práticas de segurança digital pelo mundo e os ataques cibernéticos que já foram realizados, bem como as principais causas destes ataques. \\
+Uma das principais fontes de suprimentos mundial é a energia elétrica. Um ataque ao setor elétrico de uma nação que não possui um sistema consistente de proteção para evitar e/ou reestabelecer o fornecimento após um ataque pode acarretar em grandes transtornos. A Segurança Cibernética tem sido um problema negligenciado por operadores de infra-estrutura crítica por quase duas décadas - mas agora, com a possibilidade de ataque aos avançados sistemas de controle industrial  é imperativo para operadores de sistemas elétricos tratar pontos fracos críticos da sua rede e sua segurança operacional. \\
+O setor elétrico está no topo da lista dos ataques a sistemas de controle industriais. \\
+O primeiro ataque realizado a uma usina nuclear foi no Iran entre os anos de 2009 e 2010. Esse ataque destruiu algumas máquinas e interrompeu a operação da usina durante meses. O ataque foi realizado pelo Stuxnet e acabou obrigando o país a estudar o ocorrido para poder restaurar a operação da usina. \\
+Após os ataques no Iran, foram realizadas tentativas de ataques nas instituições financeiras do Estados Unidos. A ação realizada para conter os ataques viralisados foi a adoção de um planejamento ativo de segurança cibernética, onde a motivação é conhecer as possíveis ameaças para contra-atacá-las.
+\subsection*{Categorias de Hackers}
+Um mapeamento realizado já traça o perfil de possíveis ameaças cibernéticas e hoje temos 04 ameaças conhecidas que descrevemos a seguir:
+\subsubsection*{Estado-Nação}
+Um dos mais temidos hackers, ou qualquer outra organização, é o tipo Estado-Nação. Este tipo possui elevados recursos financeiros e consequentemente maior capacidade para lançar um ataque sofisticado, podendo mantê-lo por um prolongado período se necessário. Há significante diferença na forma de atacar, variando de acordo com o objetivo. Exemplos: a China vem fazendo ataques sofisticados e eficientes há décadas nos Estados Unidos em busca de reunir informações sobre as operações, pesquisas e desenvolvimento, planos de negócios, propriedade intelectual, e não com o objetivo de interromper sistemas ou destruir equipamentos. O Irã é exatamente o oposto, por objetivar a destruição ou interrupção do funcionamento de qualquer atividade.
+\subsubsection*{Hackvitivistas}
+O mais conhecido e influenciável grupo hacktivista é o Anonymous, que passou por uma série de 3 anos de ataques aleatórios a empresas e organizações governamentais baseado em várias motivações. A motivação principal é a publicidade, ou exposição pública, porém o dano causado pode ser sério, particularmente se dados internos das empresas ou instituições atacadas forem capturados e/ou expostos.
+\subsubsection*{Individuo}
+Os ataques cibernéticos podem ser conduzidos por um indivíduo sozinho por motivos que variam desde ganho financeiro, por vingança ou simplesmente um desejo de provar que ele pode hackear determinada empresa. Como hoje existem muitos softwares maliciosos de prateleira que qualquer pessoa pode comprar online e modificá-lo para uso particular, o indivíduo é uma ameaça real, não muito para sistemas de controle industriais, mas para redes corporativas internas. A mais séria ameaça via "indivíduo" é o funcionário desonesto que pode ter acesso a sistemas importantes da empresa. 
+\subsubsection*{Crime organizado}
+O crime organizado desempenha um papel substancial no submundo dos hackers, particularmente quando se trata do desenvolvimento de robôs virtuais (redes de PCs infectados), desenvolvimento e venda de softwares maliciosos, venda de dados roubados ou acesso remoto a redes corporativas. A motivação principal, obviamente, é o dinheiro. Os ataques são feitos não para destruir a máquina, mas para obter informações ou acessos a redes que possam ser vendidos posteriormente.
+\subsection*{Ameaças de ataques cibernéticos}
+Existem 2 vetores de ataques para o hacker industrial: os ICS (Sistemas de Controles Industriais), que controlam os processos físicos de uma planta ou concessionária, e os computadores internos da rede usados para operações não críticas e tarefas administrativas. O pior cenário para um operador de sistema elétrico é uma brecha no ICS, mas um ataque na rede interna pode ser também altamente danoso, particularmente se esta rede se conecta com o ICS. \\
+Um sistema de controle industrial pode ser atacado de 3 maneiras:
+\begin{listae}
+	\item Ataque ao computador da rede interno do operador que possui uma porta que não seja isolada do sistema de controle industrial;
+	\item Descoberta de conexão de internet direta com alguma porta do ICS;
+	\item Obtenção de acesso no local físico do sistema de controle industrial.
+\end{listae}
+O ICS é certamente o prêmio para o hacker, mas a rede interna da instalação elétrica pode ser também uma mina de ouro. Muitas vezes é mais fácil para o hacker manter presença neste tipo de rede do que em nos sistemas de controle industriais. \\
+A rede interna pode ser atacada de várias maneiras. A mais comum é o ataque "phishing", no qual um email é enviado aos empregados com um anexo infectado ou link, sendo mais eficientes quando são utilizadas mídias sociais para obter informações pessoais que tornam o contato mais convincente. Outra maneira comum de obter acesso é encontrar uma falha na segurança de rede, que pode ser uma senha fraca, VPN mal gerenciada, segurança de internet insuficiente, etc. \\
+A invasão de um sistema de controle de uma planta industrial pode representar a o acesso aos dados sigilosos da instalação, onde os mesmos podem ser divulgados ou até mesmo vendidos para concorrentes, ainda há as ameaças de instalação de vírus que deixaram abertas as possibilidades de ataques e acompanhamento em tempo real dos passos deta instalação interferindo diretamente no seu controle diário. \\
+\subsection*{Estudos de caso com lições para a indústria elétrica}
+Nos últimos três anos o ataque as instalações elétricas de uma empresa ganharam mais destaque junto as ameaças, os operadores passam por grandes ameaças e vamos verificar as mais recentes ao longo do Globo:
+\subsubsection*{Stuxnet}
+Primeiramente noticiado em 2010, é considerado o mais avançado ataque cibernético industrial já descoberto. Desenvolvido por um estado-nação, é muito sofisticado, com a habilidade de infectar um ICS e sobrescrevê-lo com um programa de autodestruição. Infectou o sistema de enriquecimento nuclear do Irã e destruiu 30% das suas centrífugas. Lição: ICS e SCADA são sistemas inseguros por natureza, pois foram desenvolvidos sem os conceitos de segurança cibernética.
+\subsubsection*{Flame}
+Descoberto em 2012, foi considerado o mais sofisticado software malicioso da história. É uma complexa ferramenta de espionagem eletrônica que transformava os computadores em espiões para seus operadores remotos. Foi desenvolvido puramente para a espionagem cibernética e usado largamente mirando computadores do governo. Lição: É importante que operadores de sistemas elétricos tenham diretrizes rígidas para flash drives.
+\subsubsection*{Duqu}
+Descoberto em 2011, é muito parecido com o Stuxnet e foi outro avançado software malicioso utilizado essencialmente como um espião, que obtinha informações sobre as vulnerabilidades da rede para permitir ataques futuros. Lição: É importante monitorar se há extração de dados para interromper um ataque imediatamente após seu início.
+\subsubsection*{Nitro}
+Descoberto em 2011, é um Trojan que utilizou ataques de emails de phishing para conseguir acesso à rede de 29 grandes empresas químicas. Uma vez dentro das redes, ele permitiu o acesso remoto do hacker aos sistemas de computadores, permitindo a extração de arquivos e dados confidenciais. Lição: ataques não sofisticados também podem ser altamente efetivos e custosos para operadores de sistemas elétricos.
+\subsubsection*{Shamoon}
+É um vírus iraniano direcionado ao setor de energia internacional, que se espalha rapidamente pela rede e apaga dados de computadores antes de danificá-los definitivamente. Lição: funcionários desonestos podem representar uma ameaça substancial aos operadores de sistemas elétricos. Políticas de restrição de acesso devem ser implementadas, de forma que os funcionários tenham acesso apenas aos dados necessários à realização de sua função. Além disso, é importante planejar a recuperação de desastres e testá-los antes de vivenciar um problema deste tipo, de forma a minimizar o impacto de um possível ataque.
+\subsection*{Problemas de longo prazo para operadores do sistema elétrico}
+Os operadores de sistemas elétricos necessitam considerar 4 problemas crônicos que irão existir por algum tempo: 
+\subsubsection*{Falhas zero-day}
+São falhas ou bugs em um programa ou software que ninguém tem conhecimento. Não há um meio real de se prevenir de um zero-day nos softwares ou sistemas adquiridos de desenvolvedores de software terceirizados.
+\subsubsection*{Sistemas ICS projetados sem segurança cibernética}
+Sistemas ICS e SCADA são inseguros por natureza. Foram originalmente desenvolvidos quando o acesso via internet a esses sistemas não era considerado um risco. Muitos deles vêem com senhas padronizadas do fabricante ou impossibilitam a troca de senhas de acesso. A substituição destes sistemas não é viável.
+\subsubsection*{Erros de empregados}
+Um empregado não é um expert em segurança, podendo vir a abrir qualquer email, clicar em qualquer link, visitar qualquer site da internet, comprometendo assim a rede.
+\subsubsection*{Dificuldade de atribuição}
+É quase impossível atribuir a qual país, organização ou pessoa veio cada ataque cibernético, com 100% de certeza. Muitos crimes não serão investigados ou identificados os responsáveis, podendo os ataques vir a acontecer novamente. O foco do plano de segurança cibernética deveria ser na prevenção.
+\subsection*{Conselhos de segurança}
+Operadores do sistema elétrico necessitam tomar medidas proativas de segurança cibernética para reduzir as ameaças que podem ocorrer. \\
+Um bom plano de segurança cibernética é aquele que busca a prevenção de ameaças antes delas atingirem as máquinas dos empregados, e é capaz de conter o dano e previnir que a infecção se espalhe após um ataque bem sucedido. \\
+Apenas o atendimento às normas de segurança não deve ser considerado como suficiente, pois são a barreira mínima do que deve ser feito para proteger sua organização das avançadas e persistentes ameaças.
+Considerando a sofisticada natureza dos atuais ataques cibernéticos e as crônicas fraquesas dos sistemas ICS e SCADA, existem nove elementos essenciais para um robusto programa de segurança cibernética para operadores do sistema elétrico:
+\begin{listae}
+	\item Isolação física (air-gapping) para todos os sistemas de controle industrial
+	\item Atualização inicial e periódica de todas as senhas e códigos de acesso a ICS e sistemas SCADA
+	\item Proibição do uso de drives USB de terceiros na rede da companhia
+	\item Segmentação das redes e das informações
+	\item Configuração de listas brancas (white lists) para softwares e programas nos computadores de executivos
+	\item Implementar defesas robustas no perímetro da rede, para proteger tanto a intrusão quanto a evação de informações
+	\item Verificar se não há redes Wi-Fi conectadas na rede principal
+	\item Determinar um plano de recuperação ou resposta para situações nas quais a rede for comprometida
+	\item Treinamento dos empregados
+\end{listae}
+\subsection*{Conclusão}
+COMPLETAR.
+
+\section*{artigo: \textbf{\textit{Smart Grid Cyber Security}}}
+artigo complementar consultado:
+\begin{itemize}
+	\item \textit{Markets for Cybercrime Tools and Stolen Data} - Rand Corporation (\url{http://www.rand.org/pubs/research_reports/RR610.html})
+\end{itemize}
+\subsection*{Introdução}
+Montar um plano de negócio para segurança em smart-grids é difícil devido a incertezas quanto ao tipo e gravidade das ameaças, a quem deve pagar o investimento e aos custos reais do esforço. Existem ainda barreiras institucionais e culturais ao trabalho. O trabalho examinado tem como objetivo analisar todas essas dificuldades e propor respostas a elas. \\
+O artigo pode ser dividido em duas partes: na primeira, expoõem-se os conceitos importantes de segurança cibernética, e na segunda, propõem-se soluções, ou, mais propriamente, ferramentas para tratar as principais dificuldades encontradas.
+\subsection*{Conceitos}
+Os \textbf{objetivos} das práticas de segurança cibernética em smart-grids devem ser os seguintes:
+\begin{itemize}
+	\item proteção da infraestrutura crítica envolvida na geração e distribuição de eletricidade
+	\item proteção do sigilo dos dados dos consumidores
+\end{itemize}
+Um sistema seguro deve exibir as seguintes \textbf{propriedades}:
+\begin{itemize}
+	\item Confidencialidade dos dados
+	\item Disponibilidade dos serviços
+	\item Integridade dos dados
+	\item Autenticação
+	\item Imputabilidade
+\end{itemize}
+As \textbf{ameaças} à segurança podem ser divididas em:
+\begin{itemize}
+	\item ataque malicioso
+	\item acidentes (erros humanos, desastres naturais, falhas no equipamento)
+\end{itemize}
+As \textbf{dificuldades} que identificadas neste momento são:
+\begin{itemize}
+	\item Limitação de recursos
+	\item Limitação de conhecimento técnico
+	\item Reduzido relato de incidentes
+	\item Poucas parcerias governo-indústria
+	\item Pequena coordenação entre diversas agências governamentais
+	\item Existência de sistemas legados
+	\item Necessidade de pessoal altamente especializado 
+	\item Avanço tecnológico dos atacantes maliciosos
+\end{itemize}
+Entre elas, acreditamos que a existência de sistemas legados não vá desaparecer ou diminuir com o tempo. Com relação ao 	avanço tecnológico dos atacantes maliciosos, o artigo complementar estudado mostra que já existe uma economia subterrânea baseada na exploração de software malicioso.
+\subsection*{Ferramentas}
+Os três principais grupos de medidas são a regulação, a análise de risco e a defesa em profundidade.
+\subsubsection*{Regulação}
+\begin{itemize}
+	\item Ataca a rejeição organizacional
+	\item Já utilizada em TI comercial
+	\item Difícil de se executar devido à diversidade das situações
+	\item Pode causar problemas colaterais (por exemplo, influenciar na escolha do equipamento usado)
+	\item Pode "engessar" demais os agentes
+\end{itemize}
+\subsubsection*{Análise de risco}
+\begin{itemize}
+	\item Ataca a dificuldade de se elaborar um orçamento realista
+	\item Já utilizada em TI comercial
+	\item Benefício consiste em prevenção de custos
+	\item Depende de relatos de incidentes
+	\item Na prática, difícil de se executar
+	\item Deve ser executada continuamente
+\end{itemize}
+\subsubsection*{Defesa em profundidade}
+\begin{itemize}
+	\item Já utilizada em TI comercial
+	\item Um passo adiante da pura regulação
+	\item Proporciona flexibilidade aos agentes
+	\item Deve ser combinada com boas práticas reconhecidas pela indústria
+\end{itemize}
+O Cigrè propôs um conjunto de medidas que o ISGAN também adotou:
+\begin{itemize}
+	\item Implementar um processo de gerenciamento de risco
+	\item Estabelecer a política de segurança
+	\item Alocar os recursos necessários
+	\item Educar e involver as pessoas
+\end{itemize}
+\subsection*{Conclusão}
+O conjunto de medidas proposto pelo ISGAN, baseado em suas pesquisas e também no trabalho realizado anteriormente pelo Cigrè, constituem um bom começo para se implantar a segurança cibernética na automação do sistema elétrico. Uma limitação óbvia é que ele só contempla as primeiras etapas da tarefa; uma outra é que elas são bastante genéricas. O trabalho precisa ser continuamente refinado com agregação de informações derivadas pela experiência concreta e propostas de medidas mais avançadas e mais específicas. 
+
+\section*{artigo: \textbf{NERC CIP e SMART Grid: Como eles se encaixam?}}
+\subsection*{Introdução}
+As normas NERC CIP e a implementação de Smart Grids parecem ser complementares e inter-relacionadas. As duas lidam com expansão e integração de tecnologias de informação avançadas e comunicações para operações de serviços públicos. \\
+Tecnologias de redes inteligentes lidam com o controle do uso da eletricidade pelos consumidores e afetam de forma abrangente a confiabilidade e eficiência do sistema de distribuição de energia visto que a eletricidade está cada vez mais incorporada no cotidiano e nas operações de negócios críticos. Assim, as redes inteligentes necessitam ser desenvolvidas com segurança contra invasões cibernéticas, mau uso e operações sem cuidado. \\
+As normas NERC CIP são os melhores modelos de referência sobre como a integridade desses sistemas podem ser alcançadas para operações avançadas de redes de energia e assim poderem ser aplicadas para toda a infraestrutura das redes inteligentes.
+Na prática, entretanto, frequentemente essas iniciativas não são muito alinhadas, até mesmo desconectadas. Algumas separações são relacionadas às definições, algumas lidam com diferenças reais de tecnologia e outras com diferenças em tratamentos regulatórios. Empresas concessionárias podem ter benefícios quando são aplicadas práticas comuns entre essas áreas, tanto no curto quanto no longo prazo. \\
+\subsection*{Contrastes em várias áreas}
+A relação entre redes inteligentes e NERC CIP depende muito de como as redes inteligentes são definidas. Definições mais amplas de redes inteligentes abrangem todas as aplicações de tecnologias de informática e comunicação para a melhoria das operações da rede, incluindo sistemas de transmissão de backbone e sistemas associados de automação de subestações e gerenciamento de fasores. Definições mais específicas enfatizam aplicações tais como infraestrutura de medição avançada (AMI), respostas sob demanda (DR) e gerenciamento de interrupções de energia – todas elas mais relacionadas no nível de distribuição do sistema de potência. \\
+Muitas empresas adotam uma estratégia de fuga das normas NERC CIP, que consiste na minimização do escopo de conformidade da norma através da minimização do número de subestações críticas e evitando a classificação de ativos críticos como cyberativos por não possuírem conexões roteáveis ou do tipo dial-up. Esta é um nítido contraste em relação ao espírito das redes inteligentes que promovem o uso generalizado de arquiteturas abertas e baseadas em comunicação IP. \\
+NERC CIP se concentra principalmente em ativos operados e de propriedade de concessionárias de energia, particularmente sistemas primários e ativos de subestações de energia. Em contraste, sistemas de redes inteligentes incluem dispositivos de propriedade dos clientes e redes de comunicação também de propriedade de clientes. Além disso, podem lidar com questões de privacidade (ex. AMI) que não estão previstas no NERC CIP. \\
+\subsection*{Semelhanças e potenciais oportunidades compartilhadas}
+Por que as concessionárias de energia devem coordenar esforços e como fazê-lo? Existem várias respostas positivas:
+\begin{listae}
+	\item As curvas de aprendizado em cibersegurança são semelhantes;
+	\item Muitas áreas de ameaça sobrepõem-se onde as melhores práticas de processos e tecnologia são comumente aplicadas;
+	\item Existem oportunidades no compartilhamento da ampla área de infraestrutura de comunicação, presumindo-se que os problemas de conformidade não interiram;
+	\item A potencialidade de alinhamento regulatório, evitando a duplicação de normas e estruturas de conformidade.
+\end{listae}
+A conformidade com a NERC CIP é a primeira grande iniciativa que força as concessionárias de Transmissão e Distribuição a avançarem rápido através da curva de aprendizado da segurança cibernética.
+Uma outra oportunidade imediata é o compartilhamento de infraestrutura de WANs – Wide Area Network entre subestações e centros de controle, atendendo desde a automação tradicional de subestações até as novas aplicações de redes inteligentes.\\
+Uma área final para a atividade coordenada entre redes inteligentes e NERC CIP é a contínua  definição dos padrões em conjunto. A NERC CIP fase 2 está sendo redigida e provavelmente vai ser mais amplamente aplicável no âmbito dos sistemas de transmissão, mas poderá definir níveis diferentes de ameaça para diferentes tipos de ativos e prover uma maior flexibilidade para situações de baixo risco. \\
+\subsection*{Conclusão}
+NERC CIP e as redes inteligentes possuem muitos temas em comum e objetivos em direção à modernização dos sistemas de automação e comunicações das concessionárias. Possuem também questões contrastantes e frequentemente envolvem indivíduos diferentes da concessionária e, em alguns casos, diferentes organizações operacionais. A curva de aprendizagem é muito íngreme, os recursos muito preciosos e o tempo muito curto para não se aproveitar dos elementos comuns entre eles. \\
+Segurança cibernética é um elemento essencial de todas as iniciativas em redes inteligentes. NERC CIP é um bom começo para definir estratégias de segurança cibernética, está sendo refinado constantemente, mas é aplicável para apenas parte da operação das redes inteligentes. Concessionárias, fornecedores de tecnologia e formuladores de políticas têm papéis importantes para acelerar a entrega das redes da próxima geração. \\
+
+\section*{artigo: \textit{Analysis of the Siemens WinCC/PCS7 “Stuxnet” Malware for Industrial Control System Professionals}}
+artigos complementares consultados:
+\begin{itemize}
+	\item \textit{To Kill a Centrifuge. A Technical Analysis of What Stuxnet’s Creators Tried to Achieve} - R. Langner (\url{http://www.langner.com/en/wp-content/uploads/2013/11/To-kill-a-centrifuge.pdf})
+	\item \textit{A Forensic Dissection of Stuxnet} - Nachenberg (\url{http://www.ttivanguard.com/ttivanguard_cfmfiles/pdf/sanjose12/sanjose12session7117.pdf})
+\end{itemize}
+\subsection*{Introdução}
+Este artigo tem como finalidade demonstrar as principais características do Stuxnet, que se trata de um vírus projetado para a invasão do sistema SCADA que controla a planta de enriquecimento de Urânio de Natanz (Irã). Os sistemas desenvolvidos pela empresa alemã Siemens e pela norte americana Microsoft são suas principais fontes de ataque. Trata-se do mais complexo vírus criado para atacar sistemas: consegue programar e sabotar diversos processos industriais, o primeiro ataque registrado a um sistema SCADA na história. Descoberto em 2010, vem sendo analisado até hoje; posteriormente, descobriu-se uma versão anterior, datada de 2005. O Stuxnet foi provavelmente desenvolvido por um estado nacional. \\
+Foram desenvolvidas, pelos principais fabricantes de antivírus, ferramentas capazes de identificar a infecção e eliminá-la. Para prevenção de novas infecções, recomenda-se:
+\begin{itemize}
+	\item Antivírus/Instalação Lista Branca: Aplicável para todos os sistemas operacionais Windows. 
+	\item Nos computadores mais vulneráveis recomenda-se que sejam instalados um antivírus ou software de lista branca
+	\item Drivers USB devem ser evitados em sistemas operacionais Windows
+	\item Se necessário o uso de drives USB, pré-qualificá-los antes de instalá-los em um computador. 
+	\item Autorun deve ser desabilitado para todos os drivers, devido ao fato das primeiras versões do Stuxnet terem sido carregados através desta funcionalidade
+	\item Desabilitar a exibição de ícones de atalhos
+	\item Desativar o serviço WebClient
+	\item Desativar a conta do convidado; o invasor deve ser autenticado para ter acesso à rede
+\end{itemize}
+\subsection*{Descrição}
+Para se instalar num hospedeiro, o Stuxnet explora 4 vulnerabilidades do Windows desconhecidas à época, que lhe permitem se propagar através de portas USB e/ou pela rede Ethernet local. Explora também  características específicas da plataforma Siemens para infectar arquivos contendo programas em linguagem STEP 7. Finalmente, explora características específicas da planta alvo para localizar o alvo e atingi-lo, sabotando o processo. \\
+Diversas versões de Windows, incluindo Windows 2000, Windows XP, Windows Server 2003, Windows Vista, Windows Server 2008 e Windows 7 são vulneráveis ao ataque. Todos os sistemas da Siemens utilizando o software de programação STEP 7 são vulneráveis. \\
+O ciclo de vida do software é o seguinte:
+\begin{itemize}
+	\item inserido em PCs de empresas de engenharia no Irã por meio de drives USB
+	\item conecta-se a um centro de controle remoto
+	\item infecta novas máquinas pela rede Ethernet ou por meio de drives USB
+	\item quando encontra uma estação de engenharia Siemens, infecta arquivos específicos da plataforma
+	\item quando se encontra na planta alvo, infecta os PLCs
+	\item periodicamente, executa a ação de ataque
+\end{itemize}
+Efetivamente, consiste em duas partes:
+\begin{itemize}
+	\item um verme (\emph{worm}) que propaga a infecção
+	\begin{itemize}
+		\item Explora as vulnerabilidades do sistema para se instalar e se propagar
+		\item Verifica se deve instalar o núcleo
+		\item Comunica-se com o centro de controle remoto para receber atualizações e instruções e registrar suas ações
+	\end{itemize}
+	\item um núcleo, que executa o ataque
+	\begin{itemize}
+		\item Infecta DLL da Siemens que faz interface entre o PC e o PLC
+		\item Infecta arquivos de programa Step 7 quando o programador é executado
+		\item Programa infectado é eventualmente copiado para o PLC pelo programador
+		\item Após a infecção, o ataque é executado periodicamente pelo programa infectado
+	\end{itemize}
+\end{itemize}		
+Além de verme, tem características de vírus e de \emph{rootkit}, além de ser polimórfico. O verme se comporta de forma tradicional; a única característica notável é o fato de explorar muitas vulnerabilidades inéditas à época. O núcleo é a parte que apresenta maiores novidades:
+\begin{itemize}
+	\item Infecta o PLC, não apenas o PC
+	\item Explora vulnerabilidades da plataforma Siemens:
+	\begin{itemize}
+		\item senha fixa entre o WinCC e o SQLServer
+		\item blocos podem ser criptografados
+	\end{itemize}
+	\item Explora características específicas da planta alvo:
+	\begin{itemize}
+		\item Endereços de I/O determinados
+		\item Processo de controle de velocidade das centrífugas
+		\item Processo de regulação de pressão nas centrífugas (versão antiga)
+	\end{itemize}
+\end{itemize}
+O ataque existe em duas versões, a mais antiga e a mais nova. Na versão antiga, o Stuxnet fechava determinadas válvulas de forma a fazer aumentar a pressão em algumas centrífugas, impedia a abertura das válvulas de alívio de pressão e apresentava ao operador dados falsos sobre o processo, para evitar intervenção manual. Na versão recente, ele aumentava o setpoint do inversor em 40\% ou diminuia para uma velocidade muito baixa; depois de alguns minutos, voltava ao normal. Em ambas as versões, executava o ataque com pequenas frequência e duração, para evitar ser identificado.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{figura_1.jpg}
+\end{figure}
+O objetivo do ataque era danificar o equipamento no médio prazo. Não se tem confirmação do sucesso do ataque, mas aparentemente 10\% das centrífugas foram danificadas.
+\subsection*{Conclusão}
+O ataque do Stuxnet não poderia ter sido evitado por meios tradicionais. Os danos (e talvez também a infecção) seriam evitados por meio de boas práticas de engenharia.
+As defesas tradicionais, que consistem em \emph{hardening}/\emph{patching}/atualizações de software/firmware, segregação/segmentação das redes, monitoramento da rede, bloqueio de portas USB, equipe de resposta a incidentes, anti-virus/descobridor de \emph{rootkits}, AAA e certificados digitais, não poderiam ter evitado o ataque. Por outro lado, medidas como:
+\begin{itemize}
+	\item Virtualização de desktops (VDI) e de servidores (na reinicialização sempre se lê uma imagem não corrompida)
+	\item Uso de controle de versão centralizado (controle do que foi alterado de uma versão para a outra)
+	\item Uso de relés de segurança, válvulas auto-operadas, sistemas redundantes, maior monitoramento (robustez do projeto de automação)
+	\item Dimensionamento correto dos equipamentos (robustez dos projetos elétrico e mecânico)
+	\item Uso de software de código aberto, que facilita a análise
+\end{itemize}
+poderiam ter evitado ou minimizado seus efeitos.
+
+\section*{Conclusão}
+COMPLETAR.
+
+\end{document}

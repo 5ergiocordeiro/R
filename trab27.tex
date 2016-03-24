@@ -1,0 +1,417 @@
+% Trabalho de Sistemas e Sinais
+% Versão 0.00.01 - 13/03/2016 - Mostrada ao Giovanni como cumprimento da primeira fase.
+% Versão 0.00.02 
+% Preparado para MiKTeX 2.9. Gerar arquivo PDF com pdflatex.
+\documentclass[journal]{IEEEtran}
+\usepackage{enumitem}
+\usepackage{xstring}
+\usepackage{graphicx}
+\graphicspath{{../pdf/}{../jpeg/}}
+\DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+\usepackage[a4paper]{geometry}
+\usepackage[portuguese,brazilian]{babel}
+\usepackage[ansinew]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{comment}
+% Fontes
+\usepackage{textgreek}
+\usepackage{yfonts}
+\usepackage{microtype}
+\usepackage{calligra}
+\usepackage{lmodern}
+\usepackage{bookman}
+\usepackage[scaled]{helvet}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage[hyphens]{url}
+%\usepackage{hyperref}
+\usepackage{cite}
+\usepackage{fmtcount}
+% Formatação
+\usepackage{sidecap}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{matlab-prettifier}
+% Símbolos matemáticos
+%\usepackage{amsmath}
+\usepackage[cmex10]{amsmath}
+\interdisplaylinepenalty=2500
+\usepackage{amssymb}
+\usepackage{wasysym}
+\usepackage{mathtools}
+\usepackage{bbm}
+\usepackage{mbboard}
+\usepackage{steinmetz}
+% Desenhos
+\usepackage{tikz}
+\usepackage{circuitikz}
+
+
+\title{Análise de Séries Temporais Utilizando a Transformada de Wavelet \\ \huge{Aplicações no Diagnóstico de Falhas de Motores de Indução}}
+\date{}
+\author{Sérgio Cordeiro}
+
+
+\newenvironment{listae}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{0mm}
+	\begin{enumerate}}{
+	\end{enumerate}	
+	\vspace{0mm}}
+
+\newenvironment{listaef}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{0mm}
+	\begin{enumerate}}{
+	\end{enumerate}}
+
+\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
+
+\DeclareMathOperator{\La}{\mathcal{L}}					% Transformada de Laplace
+\DeclareMathOperator{\De}{\boldsymbol{\delta}}			% Função impulso
+\DeclareMathOperator{\dDe}{\boldsymbol{\dot{\delta}}}	% Derivada da função impulso
+\newcommand{\dt}[1]{\frac{d {#1}}{dt}}					% derivada temporal
+\newcommand{\ddt}[1]{\frac{d^2 {#1}}{dt^2}}				% derivada segunda temporal
+\newcommand{\dtau}[1]{\frac{d {#1}}{d \tau}}			% derivada temporal
+\newcommand{\ddtau}[1]{\frac{d^2 {#1}}{d \tau^2}}		% derivada segunda temporal
+
+
+% Linhas divisórias
+\newcommand{\hhhlin}{\noindent\hfil\rule{0.25\textwidth}{.2pt}\hfil\newline}
+\newcommand{\hhlin}{\noindent\hfil\rule{0.5\textwidth}{.4pt}\hfil\newline}
+\newcommand{\hlin}{\noindent\hfil\rule{\textwidth}{.8pt}\hfil\newline}
+
+% Citações
+\newcommand{\newbibit}[6]{\bibitem[#1]{#2}#3, {\bf #4}. Disponível em \url{#5}, acesso em #6.}
+\newcommand{\newbibpp}[5]{\bibitem[#1]{#2}#3, {\bf #4}, \emph{in} #5.}
+\newcommand{\newbibbk}[5]{\bibitem[#1]{#2}#3, {\bf #4}, #5.}
+\newcommand{\newbibip}[6]{\bibitem[#1]{#2}#3, {\bf #4}, \emph{in} #5, disponível em \url{#6}.}
+\newcommand{\newbiboc}[4]{\bibitem[#1]{#2}#3, \textit{op. cit.}, #4.}
+\newcommand{\newbibsi}[7]{\bibitem[#1]{#2}#3, {\bf #4} : {#5}. Disponível em \url{#6}, acesso em #7.}
+
+\newenvironment{iquote}{\begin{quote}\itshape}{\end{quote}}
+
+\renewcommand*\contentsname{Sumário}
+\setcounter{secnumdepth}{3}
+
+\BeforeBeginEnvironment{figure}{\vskip-1ex}
+\AfterEndEnvironment{figure}{\vskip-4ex}
+
+\begin{document}
+
+\maketitle
+
+\def\keywords{ CBM, Manutenção Baseada em Condição, Manutenção Preditiva, Transformada de Wavelet, Análise de Séries Temporais, Máquinas Rotativas, Motores de Indução, Diagnóstico Automatizado}
+\begin{abstract}
+%\boldmath
+Este trabalho aborda a análise de séries temporais por meio da Transformada de Wavelet para o diagnóstico e para o prognóstico de falhas em motores de indução, que são as máquinas rotativas predominantes na área industrial. \\
+\end{abstract}
+\begin{IEEEkeywords}
+	\keywords.
+\end{IEEEkeywords}
+
+
+\section{Introdução}
+Os últimos anos testemunharam uma mudança profunda na estratégia de manutenção adotada pela indústria, em favor da chamada Manutenção Preditiva, ou Manutenção Baseada em Condição (CBM: \textit{Condition Based Maintenance}). Essa abordagem se baseia no monitoramento em tempo real do maquinário, de forma a obter-se diagnóstico preciso de tendência a falhas. Tal diagnóstico subsidia a programação e a otimização da manutenção, com o objetivo de evitar falhas imprevistas e manter os custos da manutenção em limites aceitáveis. Além do diagnóstico, que aponta falhas iminentes, é desejável que as técnicas executem também um prognóstico, que aponta as ações corretivas e os resultados esperados. Uma ampla descrição das técnicas de diagnóstico e prognóstico podem ser encontradas em \cite{JARDINE 2006}. \\
+A análise de sinais é uma das ferramentas mais importantes nesse contexto. Seu objetivo é extrair, sintetizar e interpretar a informação contida em sinais provenientes de sensores instalados nas máquinas. A Transformada Rápida de Fourier (FFT) é uma das técnicas mais bem estabelecidas e mais usadas. Ela oferece baixo custo computacional e permite fácil análise de sinais estacionários. \\
+Entre os equipamentos industriais, as máquinas rotativas ocupam posição de destaque, pela sua importância e ubiquidade. Entre as técnicas de diagnóstico, as wavelets se destacam pela sua capacidade de manter alta resolução em ampla faixa de frequências de análise. Com isso, prestam-se melhor que a FFT à análise de sinais não-estacionários. Componentes não-estacionários nos sinais são comuns, devido a mudanças nas condições operacionais ou como consequência dos próprios defeitos sob análise. Em vista disso, tais componentes contêm uma grande quantidade de informação, que se deve tratar com as ferramentas apropriadas. \\
+
+\section{Revisão Bibliográfica}
+\cite{JARDINE 2006} é uma obra bastante abrangente e muito citada, mas não trata especificamente da Transformada de Wavelet nem de máquinas rotativas. Tal foco está presente tanto em \cite{PENG 2004} quanto em \cite{YAN 2014}, que por esse motivo foram mais consultados na pesquisa; pode-se, até certo ponto, entender este último artigo como uma atualização do anterior. \cite{YAN 2014} relata alguns desenvolvimentos recentes na teoria de wavelets e novas aplicações da técnica em CBM surgidas no período (2004-2014). \cite{PENG 2004} havia feito o mesmo para o período (1990-2004). \\
+A maioria das aplicações consolidadas, não apenas da Transformada de Wavelets, mas de todas as técnicaas de análise de sinais, se refere ao diagnóstico de defeitos mecânicos. \cite{PENG 2004} cita apenas uma aplicação referente a diagnóstico de defeitos elétricos em  motores de indução; esse número cresce para 
+\cite{SZABÓ 2004} detalha uma dessas aplicações: o emprego da DWT na análise da assinatura de corrente de motores (MCSA: \textit{Motor Current Signature Analysis) de indução de rotor bobinado trifásico de 3 kW. Mediram-se as correntes sob diversos regimes de carga e em condições normais e na presença da falta de uma fase no rotor. Foram escolhidos a wavelet de Daubechies e o toolbox de wavelets do MATLAB para analisar os sinais. O defeito de manifestou na faixa de frequências de 32 a 64 Hz. A manifestação é menos clara quando o motor está menos carregado. No entanto, os autores não compararam seus resultados com os da ferramenta mais tradicional, a FFT;além disso, a falha estudada foi do tipo imprevisível, que não se presta a prevenção via CBM. Por outro lado, o estudo possui a virtude de ter usado equipamentos reais, em lugar de meramente simulados. \\
+\cite{KAHN }{Wavelet Based Diagnosis and Protection of Electric Motors}{M. Abdesh Shafiel Kafiey KHAN and M. Azizur RAHMAN} oferece um panorama de todas as técnicas em voga para diagnóstico de falhas em motores elétricos, e em seguida passa a focar as baseadas em wavelets, inclusive algumas que conjugam a elas ferramentas de inteligência artificial, como ANNs e SVMs. Depois descreve em detalhes uma aplicação real, que emprega a wavelet de Daubechies para analisar a corrente de estator em alguns motores elétricos; entre eles, um de gaiola de 1 hp e outro de rotor bobinado de 1.5 hp. O trabalho mostrou que o vetor de características permite não apenas detectar defeitos, mas classificá-los entre falta de fase e curto para terra. Tanto a detecção quanto a classificação foram feitas por uma rede neural. Apesar dos méritos desse estudo, trata-se também de defeitos que não interessam ao processo de CBM. \\
+
+
+
+
+
+\cite{KAHN 2010}{Wavelet Based Diagnosis and Protection of Electric Motors}{M. Abdesh Shafiel Kafiey KHAN and M. Azizur RAHMAN}{(2010) Fault Detection, Wei Zhang (Ed.), ISBN: 978-953-307-037-7, InTech, Available from:
+http://www.intechopen.com/books/fault-detection/wavelet-based-diagnosis-and-protection-of-electric-motors}
+{SZABÓ 2004}{Loránd Szabó, Károly Ágoston Biró, Jenõ Barna Dobai, Dénes Fodor, József Vass}{Wavelet Transform Approach to Rotor Faults Detection in Induction Motors}{INES 2004}{http://www.ines-conf.org/ines-conf/75_INES2004.pdf}
+
+
+\section{Wavelets}
+A Transformada de Wavelets é uma ferramenta matemática que converte um sinal do domínio do tempo para um domínio misto tempo/frequência, ou tempo/escala-de-tempo, como também se diz. Para tanto, o sinal é decomposto em uma série de wavelets, cada uma delas com uma amplitude e uma frequência determinadas, mas com a mesma forma geral; tal forma geral é frequentemente chamada de wavelet-mãe, e as wavelets geradas a partir dela, wavelets-filhas ou família de wavelets. A wavelet-mãe deve ser selecionada de acordo com a aplicação. Para que uma função matemática possa servir como wavelet, ela deve possuir caráter oscilatório e concentrar sua energia em um curto período de tempo. \\
+A formulação inicial foi dada por Morlet e Grossman em 1984. Em 1985, Meyer construiu uma wavelet-mãe que oferecia boas propriedades matemáticas tanto com relação ao tempo quanto com relação à frequência. Em 1986, Meyer e Mallat desenvolveram a ideia da Análise com Múltipla Resolução (MRA: \textit{Multi-resolution Analysis}), que facilita a tarefa de obter wavelets-mãe ortogonais. Pouco tempo depois, conseguiu-se descobrir um algoritmo para a versão digital. \\
+As Transformadas de Wavelets podem ser categorizadas como:
+\begin{listae}[2]
+	\item Transformada de Wavelet Contínua (CWT: \textit{Continuous Wavelet Transform})
+	\item Transformada de Wavelet Discreta (DWT: \textit{Discrete Wavelet Transform})
+	\item Transformada de Wavelet Empacotada (WPT: \textit{Wavelet Packet Transform})
+	\item Transformada de Wavelet de Segunda Geração (SGWT: \textit{Second Generation Wavelet Transform})
+	\item Transformada de Wavelet Contínua em Árvore Dupla (DT-CWT: \textit{Dual-Tree Continuous Wavelet Transform})
+	\item undecimated discrete wavelet transform (UDWT)
+\end{listae}
+
+\subsection{CWT}
+A CWT de um sinal $ x(t) $, aqui denotada por $ \mathpzc{X}(s,\tau) $, é dada pela correlação do sinal com a família de wavelets $ \Psi^* \left( \frac{t}{s} \right) $ geradas a partir da wavelet-mãe $ \psi(t) $ \footnote{Alguns autores escrevem $ |s| $ no lugar de $ s $, mas isso é desnecessário porque $ s $ nunca é negativo}:
+\begin{align}
+	\mathpzc{X}(s,\tau) = \frac{1}{\sqrt{s}} \int_{-\infty}{^\infty} x(t) \; \Psi ^* \left( \frac{t - \tau}{s} \right) \; dt \qquad s,\tau \in \mathbb{R} \land s > 1 \label{EqCWT}
+\end{align}
+onde \textsuperscript{*} indica conjugado complexo. Em \ref{EqCWT}, $ s $ pode ser entendido como um fator de escala e $ \tau $, como um deslocamento no tempo. O fator normalizador $ \sqrt{s} $ é importante porque faz com que todas as wavelets-filhas possuam a mesma energia. \\
+A Transformada de Wavelets é similar à Transformada de Fourier, ao representar um sinal como uma soma de componentes, apenas com a família de wavelets substituindo as funções senoidais no papel de bases ortonormais. \\
+A Transformada de Fourier de $ \mathpzc{X}(s,\tau) $, que projeta a CWT no domínio da frequência real, é dada por \footnote{Aqui se empregou a chamada versão normalizada da Transformada de Fourier}:
+\begin{align}
+	\hat{\mathpzc{X}}(s,f) & = \mathcal{F} \{ \mathpzc{X}(s,\tau) \} \notag \\
+	& = \frac{1}{2 \pi \sqrt{s}} \int_{-\infty}{^\infty} \left[  \int_{-\infty}{^\infty} x(t) \; \Psi ^* \left( \frac{t - \tau}{s} \right) \; dt \right] e^{-2 \pi f \tau} \; d \tau \notag \\
+	& = \sqrt{s} \; \hat{X}(f) \hat{\Psi} ^* (sf) \label{EqFCWT} \\
+\end{align}
+onde $ \hat{} $ denotada a Transformada de Fourier. A partir de \ref{EqFCWT}, é possível obter a transformação inversa, projetando a CWT no domínio do tempo:
+\begin{align}
+	\mathpzc{x}(s,\tau) & = \mathcal{F}^{-1} \{ \hat{\mathpzc{X}}(s,f) \} \notag \\
+	& = \mathcal{F}^{-1} \{ \sqrt{s} \; \hat{X}(f) \hat{\Psi} ^*( sf) \} \notag \\
+	& = \sqrt{s} \; x(t) * \mathcal{F}^{-1} \{ \hat{\Psi} ^* (sf) \} \label{EqtCWT} \\
+\end{align}
+A equação \ref{EqtCWT} corresponde a um filtro passa-faixa cuja resposta em frequência é dada por $ \hat{\Psi}(sf) $. \\
+Do ponto de vista físico, o módulo de $ \mathpzc{X} $ corresponde à energia de $ x(t) $. Um gráfico do quadrado desse módulo é chamado \textbf{escalograma}, e encontra amplo uso no diagnóstico de defeitos. A fase de $ \mathpzc{X} $, por sua vez, indica com grande precisão os momentos em que acontecem descontinuidades no sinal. 
+
+\subsection{DWT e WPT}
+A DWT é uma discretização da CWT que consiste em tomar apenas valores de $ s \text { e } \tau $ tais que:
+\begin{align}
+	\begin{split}
+	s & = s_0^m \\
+	\tau = n \tau_0^n \\
+	\end{split}
+	\qquad
+	\begin{split}
+	n,m \in \mathbb{N} \\
+	s_0 > 1 \\
+	\tau_0 > 0 \\
+	\end{split}
+\end{align}
+mantendo a fórmula \ref{EqCWT}. As wavelets-filhas são ortogonais se $ s_0 \text{ e } \tau_0 $ forem bem escolhidos. A DWT exige menos esforço computacional que a CWT, ao custo de alguma perda de informação. Uma maneira de se obter a DWT de um sinal, por meio de filtros espelhados em quadratura (QMF: \textit{Quadrature Mirror Filter}) é descrita em {MALLAT 1989}. A primeira filtragem gera uma sequência $ a^1[n] $ de coeficientes de baixa frequência e outra, $ d[n] $, de coeficientes de alta frequência; novas etapas aplicadas aos coeficientes de baixa frequência geram as sequências $ a^p[n] \text{ e } d^p[n] \text{, sendo } p $ o número de filtragens. A cada filtragem, o comprimento das sequências cai pela metade, porque são descartadas as amostras que se tornaram redundantes de acordo com o teorema da amostragem. \\
+A WPT é uma variação da DWT, desenvolvida em 1992 por Coifman, Meyer e Wickerhauser, em que os componentes de alta frequência também são decompostos. As sequências resultantes de cada etapa de filtragem são chamadas $ aa^p[k] \text{, } ad^p[k] \text{, } da^p[k] \text{ e } dd^p[k] \text{, sendo } p $ o número da etapa. O processo está descrito em \ref{COIFMAN 1992}. A WPT permite decompor o mesmo sinal em mais de uma maneira, proporcionando uma representação mais adaptável ao problema a resolver. \\
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab27wpt.jpg} \\
+	a) Geração da DWT \tab b) Geração da WPT \\
+\end{figure}%
+
+
+Uma das aplicações da WPT é a extração de características do sinal, por meio da montagem de um vetor de características (\textit{feature vector}) $ \matriz{f} $ a partir das sequências de nível 2:
+\begin{align}
+	\begin{split}
+	\matriz{f} & = \begin{bmatrix} f_1 \\ f_2 \\ f_3 \\ f_4 \end{bmatrix} \\
+	\end{split}
+	\qquad
+	\begin{split}
+	f_1 & = \sqrt{ \frac{2}{N} \sum_{k = 1}^{\frac{N}{2} aa^2[n] } } \\
+	f_2 & = \sqrt{ \frac{2}{N} \sum_{k = 1}^{\frac{N}{2} ad^2[n] } } \\
+	f_3 & = \sqrt{ \frac{2}{N} \sum_{k = 1}^{\frac{N}{2} da^2[n] } } \\
+	f_4 & = \sqrt{ \frac{2}{N} \sum_{k = 1}^{\frac{N}{2} dd^2[n] } } \\
+	\end{split}
+\end{align}
+
+\subsection{SGWT}
+A SGWT é um alternativa à DWT que obtém os coeficientes por meio de uma operação conhecida como \textit{lifting}, em lugar de filtragem, como é o caso da DWT. O processo é descrito em \cite{SWELDENS 1998} e \cite{CLAYPOOLE 1999}. O \textit{lifting} proporciona uma otimização, no sentido de capturar a maior quantidade de informação com o mínimo de coeficientes. A implementação é mais fácil e computacionalmente mais barata que a da DWT. \\
+
+\subsection{DT-CWT}
+Todas as variantes da CWT anteriores possuem a característica indesejável de apresentar variações grandes nos coeficientes em função de pequenos deslocamentos no sinal de entrada. Isso se deve à natureza não-linear dos processos de amostragem, \textit{lifting}, etc. A DT-CWT não apresenta essa característica, por isso vem sendo apontada como uma boa alternativa para análise de transientes. \\
+
+\subsection{Escolha da wavelet-mãe}
+A escolha ótima da função wavelet-mãe é objeto de pesquisa constante. Em geral, são usadas técnicas estatísticas e de otimização na seleção. Em alguns casos, a wavelet não é escolhida a partir de funções matemáticas conhecidas, e sim construída numericamente a partir da resposta ao impulso do sistema a ser analisado. Também é possível usar mais de uma wavelet-mãe ao mesmo tempo. \\
+É desejável que as wavelets-filhas sejam funções ortogonais. O processo de geração de tais funções resulta em uma associada, $ \phi() $, que é conhecida como \textbf{função de escalamento}, e que é responsável por gerar uma base que é usada para decomposição e reconstrução do sinal. As figuras abaixo são a wavelet de Daubechies e sua associada.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab27db3.jpg} \\
+	a) Wavelet de Daubechies \tab b) Função de escalamento associada \\ 
+\end{figure}%
+
+
+basis functions, which are required during the decomposition or reconstruction of a signal.
+Figures 7(a) and 7(b) show the Daubechies (‘db3’) wavelet function and its scaling function,
+respectively. In certain application, it is necessary to use real and symmetric wavelets. One
+way to get the symmetric wavelets is to construct two sets of bi-orthogonal wavelets, which
+are wavelet function  ? ?
+, m n
+t ? and it’s dual ? ?
+,
+ˆ m n t
+? . The first set is used during the
+decomposition, and the other one is used during the reconstruction process. F
+
+Um dos critérios existentes é o \textit{minimum description length data}, descrito por \cite{Hamid 2002}.
+
+
+{Hamid 2002}Hamid, E. Y. & Kawasaki, Z. I. (2002). Wavelet based data compression of power system
+disturbances using the minimum description length data, IEEE Transactions on
+Power Delivery, Vol. 17, No. 2, pp. 460–466.
+
+ 
+\section{A Transformada de Wavelets no diagnóstico de falhas}
+A Transformada de Wavelets, em qualquer de suas versões, possibilita a análise de sinais não-periódicos, que é difícil com a Transformada de Fourier. Estudos (por exemplo, \cite{KIM 2007,PENG 2004}) mostram que para tal aplicação ela é superior à Transformada de Fourier de Tempo Curto(STFT) e à Distribuição de Wigner-Ville (WVD). \\
+A STFT apresenta dois inconvenientes principais: perda de resolução em altas frequências por empregar uma janela de tempo de largura constante, devido ao chamado \textit{Princípio da Incerteza} característico da Transformada de Fourier; e não usar uma base ortogonal, o que dificulta encontrar um algoritmo de cálculo eficiente para os coeficientes. Por isso, ela é usada muito pouco, tendo sua utilidade restrita a sinais quase-estacionários. \\
+A WVD, por outro lado, tem boas características matemáticas, mas em alguns casos pode haver interferência entre os componentes, o que torna a interpretação do resultado muito difícil; a filtragem da interferência, por outro lado, resulta em perda de informação. Além disso, seu custo computacional é ainda maior que o da STFT. \\
+A Transformada de Wavelets também apresenta algumas limitações: em primeiro lugar, como ela se origina em uma correlação, está sujeita a efeitos como embaçamento (\textit{blurring}); em segundo lugar, aliasing e interferências podem ocorrer em alguns casos, embora com menos intensidade que com a WVD; finalmente, o espectro é bastante sensível a ruído. \\
+A WPT é capaz ainda de detectar desvios na frequência dos sinais característicos de uma falha ao longo do tempo, proporcionando informação a respeito de aumento da tendência à falha; além disso, como determinados defeitos se manifestam em frequências conhecidas, a WPT pode ser gerada de maneira a mostra de forma detalhada apenas as bandas mais interessantes, otimizando o custo computacional do monitoramento. A SGWT, por sua vez, vem sendo empregada cada vez mais, em função de seu custo mais baixo.\\
+A primeira aplicação conhecida do uso de wavelets para diagnóstico de máquinas rotativas deve-se a Wang e
+McFadden, que as empregaram para analisar sinais de vibração de engrenagens. \\
+
+
+
+
+\section{Metodologia da pesquisa}
+Na primeira fase do trabalho, particularizou-se o tema da pesquisa. Para tanto, dado o tema principal, uso da Transformada de Wavelet para análise de séries temporais, selecionou-se um grupo de 5 artigos técnicos de alto nível para constar da bibliografia de referência. O processo de pre-seleção encontra-se detalhado no item \ref{SelArtigos}. A partir desse conjunto de artigos, optou-se por limitar a pesquisa às aplicações de diagnóstico de falhas em motores de indução, pelos seguintes motivos:
+\begin{listae}[1]
+	\item A disponibilidade de referências bibliográficas de alto nível.
+	\item A existência de interesse econômico no tema por parte da indústria.
+	\item A possibilidade e facilidade de aplicação prática do investigado, a ser explorada em trabalhos futuros.
+	\item A possibilidade de expandir o estudo, em trabalhos futuros, de forma a abarcar outros tipos de máquinas rotativas.
+\end{listae}
+
+\subsection{Bibliografia de referência} \label{BibRef}
+A bibliografia de referência foi organizada a partir de uma pre-seleção de artigos técnicos relevantes e de alto nível. O processo está descrito no item \ref{SelArtigos}. Durante a pesquisa, material adicional foi incluído conforme a necessidade.
+
+\subsubsection{Artigos} \label{SelArtigos}
+Os artigos técnicos foram pre-selecionados de acordo com os seguintes critérios:
+\begin{listae}[1]
+	\item Ano de publicação: publicações mais recentes receberam prioridade.
+	\item Número de citações: artigos mais frequentemente citados receberam prioridade.
+	\item Propósito: procurou-se mesclar artigos de naturezas diversas.
+\end{listae}
+Para tanto, foi necessário analisar apenas os metadados de cada um. Ao final do processo, os escolhidos foram os seguintes \footnote{A lista completa de arquivos encontra-se no anexo \ref{ssecnum:Anexo1}}:
+\begin{listae}[2]
+	\item 4: Trata-se de uma revisão do assunto, e também é o artigo mais citado da lista. Com a sua escolha, o artigo 3, que também é uma revisão, foi descartado, apesar de também ostentar muitas citações.
+	\item 7: Trata-se de outra revisão, mas muito mais recente, e que ainda assim possui bom número de citações. Sua inclusão teve o propósito de obter-se uma visão mais recente do tema tratado pelo anterior.
+	\item 9: Trata-se de um artigo com bom número de citações e específico para diagnóstico de falhas em motores de indução.
+	\item 19: Trata-se de um artigo pouco citado, mas bastante recente, e também específico para falhas em motores de indução. Sua inclusão teve o propósito de obter-se uma visão mais recente do tema tratado pelo anterior.
+	\item 17: Trata-se de um artigo muito citado, não específico para motores de indução e sim para máquinas rotativas em geral. Sua inclusão teve o propósito de obter-se uma visão mais geral do assunto.
+\end{listae}
+O conjunto de artigos pre-selecionado atende bem aos critérios de relevância e atualidade. \\
+Para fins de documentação, o \ref{Anexo1} apresenta todos os artigos cujos metadados foram examinados para a pre-seleção.
+
+\section{Anexos}
+\subsection{Lista completa de artigos} \label{Anexo1}
+A tabela e a lista que seguem apresentam os artigos cujos metadados foram analisados na fase de pre-seleção. Os artigos pre-selecionados estão realçados. O número de citações foi obtido no \texttt{Google Scholar}.
+\begin{table}[H]
+    \begin{tabular}{|c|c|c|c|}
+		\hline
+        \textbf{Número} & \textbf{Ano} & \textbf{Disponibilidade} & \textbf{Citações}\\
+		\hline
+		1 & 2015 & Gratuito & 2 \\
+		2 & 2013 & ResearchGate & 4 \\
+		3 & 2004 & ResearchGate & 698 \\
+		4 & 2006 & Elsevier & 1776 \\ 
+		5 & 2005 & Gratuito & 10 \\
+		6 & 2010 & Gratuito & 20 \\
+		7 & 2014 & ResearchGate & 160 \\
+		8 & 2008 & Gratuito & 56 \\
+		9 & 2004 & IEEE & 134 \\
+		10 & 2011 & Gratuito & 4 \\
+		11 & 2007 & ResearchGate & 36 \\
+		12 & 2011 & Gratuito & 25 \\
+		13 & 2013 & Gratuito & 2 \\
+		14 & 2015 & ResearchGate & 5 \\
+		15 & 2013 & Gratuito & 2 \\
+		16 & 2005 & Gratuito & 107 \\
+		17 & 2007 & Elsevier & 244 \\
+		18 & 2011 & Gratuito & 2 \\	
+		19 & 2014 & Gratuito & 5 \\
+		20 & 2007 & Gratuito & 40 \\
+		21 & 2001 & Gratuito & 5 \\
+		22 & 2011 & Gratuito & 22 \\
+		23 & 2009 & ResearchGate & 45 \\
+		24 & 2005 & Gratuito & 15 \\
+		25 & 2004 & Gratuito & 10 \\
+		26 & 2002 & Gratuito & 28 \\
+		27 & 2012 & Gratuito & 21 \\
+		28 & 2004 & Gratuito & 169 \\
+		\hline
+    \end{tabular}
+\end{table}
+\begin{listae}[1]
+	\item Ruqiang Yan, Mengxiao Shan, Jianwei Cui e Yahui Wu - Mutual Information-Assisted Wavelet Function Selection for Enhanced Rolling Bearing Fault Diagnosis - Shock and Vibration, Vol. 2015, Article ID 794921.
+	\item Zhenyou Zhang, Yi Wang e Kesheng Wang - Intelligent fault diagnosis and prognosis approach for rotating machinery integrating wavelet transform, principal component analysis, and artificial neural networks - Journal of Advanced Manufacturing Technology, Sep. 2013.
+	\item Z.K. Peng, F.L. Chu - Application of the wavelet transform in machine condition monitoring and fault diagnostics: a review with bibliography - Mechanical Systems and Signal Processing, Vol. 18, Issue 2, March 2004, pp. 199 a 221.
+	\item Z.K. Peng, F.L. Chu - Application of the wavelet transform in machine condition monitoring and fault diagnostics: a review with bibliography - Mechanical Systems and Signal Processing, Vol. 18, Issue 2, March 2004, pp. 199 a 221.
+	\item \textbf{Andrew K.S. Jardine, Daming Lin e Dragan Banjevic - A review on machinery diagnostics and prognostics implementing condition-based maintenance - Mechanical Systems and Signal Processing, Vol. 20, Issue 7, Oct. 2006, pp. 1483 a 1510}
+	\item Hongyu Yang - Automatic Fault Diagnosis of Rolling Element Bearings Using Wavelet Based Pursuit Features - School of Mechanical, Manufacturing and Medical Engineering, Queensland University of Technology, Oct. 2004
+	\item Lixin Gao, Zhiqiang Ren, Wenliang Tang, Huaqing Wang e Peng Chen - Intelligent gearbox diagnosis methods based on SVM, wavelet lifting and RBR - Sensors 2010, 10, pp. 4602 a 4621.
+	\item \textbf{Ruqiang Yan, Robert X. Gao, Xuefeng Chen  - Wavelets for fault diagnosis of rotary machines: A review with applications - Signal Processing, Vol. 96, Part A, Mar. 2014, pp. 1 a 15}
+	\item Pratesh Jayaswal, A. K. Wadhwani e K. B. Mulchandani - Machine Fault Signature Analysis - International Journal of Rotating Machinery, Vol. 2008, Article ID 58398.
+	\item \textbf{T. W. S. Chow, Shi Hai - Induction machine fault diagnostic analysis with wavelet technique - IEEE Transactions on Industrial Electronics, Vol. 51, Issue 3, Jun. 2004, pp. 558 a 565}
+	\item Derek Kanneg, Wilson Wang - A Wavelet Spectrum Technique for Machinery Fault Diagnosis - Journal of Signal and Information Processing, 2011, 2, pp. 322 a 329.
+	\item Li Li, Liangsheng Qu, Xianghui Liao - Haar wavelet for machine fault diagnosis - Mechanical Systems and Signal Processing, Vol. 21, Issue 4, May 2007, pp. 1773 a 1786.
+	\item Khalaf Salloum Gaeid e Hew Wooi Ping - Wavelet fault diagnosis and tolerant of induction motor: A review - International Journal of the Physical Sciences Vol. 6(3), pp. 358-376, Feb. 2011
+	\item Pu Shi, Zheng Chen e Yuriy Vagapov - Wavelet Transform based Broken Rotor-bar Fault detection and Diagnosis Performance Evaluations - International Journal of Computer Applications, Vol. 69, No. 14, May 2013.
+	\item M. Kang, J. Kim e J. M. Kim - An FPGA-Based Multicore System for Real-Time Bearing Fault Diagnosis Using Ultrasampling Rate AE Signals - IEEE Transactions on Industrial Electronics, Vol. 62, Issue 4, Oct. 2014, pp. 2319 a 2329.
+	\item A. Santhana Raj e N. Murali - Morlet Wavelet UDWT Denoising and EMD based Bearing Fault Diagnosis - Electronics, Vol. 17, No. 1, Jun. 2013.
+	\item Ruqiang Yan e Robert X. Gao - An efficient approach to machine health diagnosis based on harmonic wavelet packet transform - Robotics and Computer-Integrated Manufacturing 21, 2005, pp. 291 a 301.
+	\item \textbf{Qiao Hu, Zhengjia He, Zhousuo Zhang, Yanyang Zi - Fault diagnosis of rotating machinery based on improved wavelet package transform and SVMs ensemble - Mechanical Systems and Signal Processingm, Vol. 21, Issue 2, Feb. 2007, pp. 688 a 705}
+	\item Andrzej Klepka - Wavelet Based Signal Demodulation Technique for Bearing Fault Detection - Mechanics and Mechanical Engineering, Vol. 15, No. 4, 2011, pp. 63 a 71.
+	\item \textbf{Jeevanand Seshadrinath, Bhim Singh e Bijaya Ketan Panigrahi - Incipient Interturn Fault Diagnosis in Induction Machines Using an Analytic Wavelet-Based Optimized Bayesian Inference - IEEE Transactions on Neural Networks and Learning systems, Vol. 25, No. 5, May 2014.}
+	\item Jie Liu, Wilson Wang, Farid Golnaraghi e Kefu Liu - Wavelet spectrum analysis for bearing fault diagnostics - Measurement Science and Technology 19, 2008.
+	\item H. Ahmadi, R. Tafreshi, F. Sassani e G. Dumont - On the Performance of Informative Wavelets for Classification and Diagnosis of Machine Faults - Y. Y. Tang et al. (Eds.): Berlin, Springer-Verlag, 2001, pp. 369 a 381.
+	\item Yun-Jie Xu, Shu-Dong Xiu - A New and Effective Method of Bearing Fault Diagnosis Using Wavelet Packet Transform Combined with Support Vector Machine -Journal of Computers, Vol. 6, No. 11, Nov. 2011.
+	\item N. Saravanan e K.I. Ramachandran - Fault diagnosis of spur bevel gear box using discrete wavelet features and Decision Tree classification - Expert Systems with Applications, Vol. 36, Issue 5, Jul. 2009, pp. 9564 a 9573.
+	\item Jirí Vass e Cristina Cristalli - Optimization of Morlet Wavelet for Mechanical Fault Diagnosis - 12th International Congress on Sound and Vibration, Jul. 2005.
+	\item Loránd Szabó, Jeno Barna Dobai, Károly Ágoston Biró - Discrete Wavelet Transform Based Rotor Faults Detection Method for Induction Machines - International Journal of Engineering Research and Applications, Special Issue \textit{International Conference on Industrial Automation and Computing, Apr. 2014}.
+	\item Howard A. Gaberson - The Use of Wavelets for Analyzing Transient Machinery Vibration - Sound and Vibration, Sep. 2002.
+	\item Hocine Bendjama, Salah Bouhouche e Mohamed Seghir Boucherit -  Application of Wavelet Transform for Fault Diagnosis in Rotating Machinery - International Journal of Machine Learning and Computing, Vol. 2, No. 1, Feb. 2012.
+	\item Peter W. Tse, Wen-xian Yang e H.Y. Tam - Machine fault diagnosis through an effective exact wavelet analysis - Journal of Sound and Vibration 277, 2004, pp. 1005 a 1024.
+\end{listae}
+
+\iffalse
+Lista completa de artigos
+1 {Mutual Information-Assisted Wavelet Function Selection for Enhanced Rolling Bearing Fault Diagnosis}{http://www.hindawi.com/journals/sv/2015/794921/}
+2 {Intelligent fault diagnosis and prognosis approach for rotating machinery integrating wavelet transform, principal component analysis, and artificial neural networks}{https://www.researchgate.net/profile/Zhenyou_Zhang/publication/257337401_Intelligent_fault_diagnosis_and_prognosis_approach_for_rotating_machinery_integrating_wavelet_transform_principal_component_analysis_and_artificial_neural_networks/links/546471040cf2c0c6aec51f02.pdf}
+3 {Application of the wavelet transform in machine condition monitoring and fault diagnostics: a review with bibliography}{http://www.sciencedirect.com/science/article/pii/S088832700300075X}
+4 {JARDINE 2006}{A review on machinery diagnostics and prognostics implementing condition-based maintenance}{http://www.sciencedirect.com/science/article/pii/S0888327005001512}
+5 {Automatic Fault Diagnosis of Rolling Element Bearings Using Wavelet Based Pursuit Features}{http://eprints.qut.edu.au/16062/1/Hongyu_Yang_Thesis.pdf}
+6 {Intelligent gearbox diagnosis methods based on SVM, wavelet lifting and RBR}{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3292134/pdf/sensors-10-04602.pdf}
+7 {Wavelets for fault diagnosis of rotary machines: A review with applications}{http://www.sciencedirect.com/science/article/pii/S0165168413001588}
+8 {Machine Fault Signature Analysis}{http://downloads.hindawi.com/journals/ijrm/2008/583982.pdf}
+9 {Induction machine fault diagnostic analysis with wavelet technique}{http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=1302332}
+10 {A Wavelet Spectrum Technique for Machinery Fault Diagnosis}{http://www.scirp.org/journal/PaperDownload.aspx?paperID=8311}
+11 {Haar wavelet for machine fault diagnosis}{http://www.sciencedirect.com/science/article/pii/S0888327006001415}
+12 {Wavelet fault diagnosis and tolerant of induction motor: A review}
+13 {Wavelet Transform based Broken Rotor-bar Fault detection and Diagnosis Performance Evaluations}
+14 {An FPGA-Based Multicore System for Real-Time Bearing Fault Diagnosis Using Ultrasampling Rate AE Signals}{http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=6915902}
+15 {Morlet Wavelet UDWT Denoising and EMD based Bearing Fault Diagnosis}
+16 {An efficient approach to machine health diagnosis based on harmonic wavelet packet transform}
+17 {Fault diagnosis of rotating machinery based on improved wavelet package transform and SVMs ensemble}{http://www.sciencedirect.com/science/article/pii/S0888327006000306}
+18 {Wavelet Based Signal Demodulation Technique for Bearing Fault Detection}
+19 {Incipient Interturn Fault Diagnosis in Induction Machines Using an Analytic Wavelet-Based Optimized Bayesian Inference}
+20 {Wavelet spectrum analysis for bearing fault diagnostics}
+21 {On the Performance of Informative Wavelets for Classification and Diagnosis of Machine Faults}
+22 {A New and Effective Method of Bearing Fault Diagnosis Using Wavelet Packet Transform Combined with Support Vector Machine}
+23 {Fault diagnosis of spur bevel gear box using discrete wavelet features and Decision Tree classification}{http://www.sciencedirect.com/science/article/pii/S0957417408004909}
+24 {OPTIMIZATION OF MORLET WAVELET FOR MECHANICAL FAULT DIAGNOSIS}
+25 {Discrete Wavelet Transform Based Rotor Faults Detection Method for Induction Machines}{www.ijera.com/special_issue/.../AS1081115.pdf}
+{The Use of Wavelets for Analyzing Transient Machinery Vibration}
+{Application of Wavelet Transform for Fault Diagnosis in
+Rotating Machinery}
+28 {Machine fault diagnosis through an effective exact wavelet analysis}
+
+{KIM 2007}{B.S. Kim, S.H. Lee, M.G. Lee, J. Ni, J.Y. Song, C.W. Lee, A comparative
+study on damage detection in speed-up and coast-down process of
+grinding spindle-typed rotor-bearing system, Journal of Materials
+Processing Technology 187–188 (2007) 30–36.
+{SWELDENS 1998}{W. Sweldens, The lifting scheme: a construction of second genera-
+tion wavelets, SIAM Journal on Mathematical Analysis 29 (2) (1998)
+511–546.}
+{CLAYPOOLE 1999}{R. Claypoole, Adaptive Wavelet Transform via Lifting (Thesis),
+Computer Engineering, Rice University, 1999.}
+{MALLAT 1989}{S. Mallat, A theory of multiresolution signal decomposition: the
+wavelet representation, IEEE Transactions on Pattern Analysis and
+Machine Intelligence 11 (7) (1989) 674–693.}
+{COIFMAN 1992}{R.R. Coifman, M.V. Wickerhauser, Entropy-based algorithms for
+best basis selection, IEEE Transactions on Information Theory 38 (2)
+(1992) 713–718.}
+
+
+\fi
+
+%begin{thebibliography}{30}
+
+%\end{thebibliography}
+
+\end{document}

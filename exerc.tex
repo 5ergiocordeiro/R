@@ -1,0 +1,498 @@
+% Documento em formato LaTex, testado com MikTex 2.9.
+
+\documentclass[12pt,fleqn]{amsart}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage[a4paper]{geometry}
+\usepackage[portuguese,brazilian]{babel}
+\usepackage[ansinew]{inputenc}
+\usepackage[scaled]{helvet}
+\usepackage{hyperref}
+\usepackage{steinmetz}
+\usepackage{tikz}
+\usepackage{circuitikz}
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{xstring}
+
+
+\title{Novas Tecnologias II - Exercícios I}
+\date{}
+\author{Mateus M. Coelho, Sérgio Cordeiro, Alan Oliveira}
+
+
+\newenvironment{lista}{
+	\vspace{-5mm}
+	\begin{itemize}}{
+	\end{itemize}	
+	\vspace{-5mm}}
+
+\newenvironment{listaf}{
+	\vspace{-5mm}
+	\begin{itemize}}{
+	\end{itemize}}
+
+\newenvironment{listae}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}	
+	\vspace{-5mm}}
+
+\newenvironment{listaef}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}}
+	
+\newenvironment{pergunta}{
+	\fontfamily{phv}
+	\selectfont}
+
+\newenvironment{resposta}{
+	\fontfamily{pbk}
+	\selectfont}
+
+
+\begin{document}
+\setlength{\parskip}{1em}
+\setlength{\jot}{10pt}
+
+
+\maketitle
+
+
+\section*{Respostas}
+
+\pergunta{1) Qual foi o primeiro projeto que envolveu os estudos de sistemas de medição fasorial no Brasil? \\}
+\resposta{Foi um protótipo chamado \emph{\textbf{MedFasee baixa tensão}}, implantado entre 2003 e 2006 pela Universidade Federal de Santa Catarina(UFSC), com PMUs instaladas nas redes de baixa tensão da UFSC, da PUC RS e da UTFPE \cite{Becker 2010}.}
+
+\pergunta{2) De que se tratam as normas IEEE C37.118.1, C37.118.2, C37.242 e C37.244? \\}
+\resposta{A norma \emph{\textbf{C37.118.1-2011 - IEEE Standard for Synchrophasor Measurements for Power Systems}} define métodos para medição e avaliação de sincrofasores, frequência e taxa de mudança de frequência, bem como os requisitos para compliance. Ou seja, define as funcionalidades esoperadas de uma PMU, sem especificar detalhes de sua construção física \cite{IEEE 2011 1}.
+A norma \emph{\textbf{C37.118.2-2011 - IEEE Standard for Synchrophasor Data Transfer for Power Systems}} define um método para transferência de medições de sincrofasores, em tempo real, entre equipamentos do sistema de potência (PMUs, PDCs e outros). O protocolo de comunicações a ser usado não é definido; a norma especifica apenas coisas como tipos, formatos e utilização das mensagens \cite{IEEE 2011 2}. \\
+A \emph{\textbf{C37.242-2013 - IEEE Guide for Synchronization, Calibration, Testing, and Installation of Phasor Measurement Units (PMUs) for Power System Protection and Control}} é um guia para sincronização, calibração, teste, and instalação de PMUs, de acordo com a aplicação em vista \cite{IEEE 2013 1}. \\
+A \emph{\textbf{C37.244-2013 - IEEE Guide for Phasor Data Concentrator Requirements for Power System Protection, Control, and Monitoring}} especifica as características funcionais e de desempenho de um PDC, e orienta sobre os procedimentos de teste \cite{IEEE 2013 2}.}
+
+\pergunta{3) Quais são as principais diferenças entre a Rede Elétrica tradicional e a Rede Inteligente? \\}
+\resposta{A rede tradicional possui as seguintes características:
+\begin{lista}
+  \item Geração Centralizada
+  \item Fluxo de potência unidirecional
+  \item Controle centralizado das conexões
+  \item Comportamento preditivo
+\end{lista}
+A rede inteligente, por outro lado, apresenta:
+\begin{listaf}
+  \item Geração em qualquer lugar
+  \item Carga como elemento ativo
+  \item Comportamento caótico
+  \item Fluxo de potência em todas as direções
+\end{listaf}}
+
+\pergunta{4) Quais são os componentes básicos dos Sistemas de Medição Fasorial (SMF)? \\}
+\resposta{Os componentes são os seguintes:
+\begin{listaef}[1]
+  \item PMU (\emph{Phasor Measurement Unit}): Unidade de Medição Fasorial
+  \item Fonte de sincronização (em geral, um servidor de tempo baseado em GPS
+  \item Rede de comunicação
+  \item PDC (\emph{Phasor Data Concentrator}): Concentrador de Dados Fasoriais
+  \item Aplicações
+  \begin{enumerate}
+    \item básicas: aquisição, tratamento, armazenamento e visualização de dados
+	\item monitoramento do sistema elétrico: análise de oscilações eletromecânicas, estimação de estados, monitoramento da frequência e da defasagem angular, avaliação da estabilidade de tensão, monitoramento do estado operacional
+	\item controle e proteção: controle de emergência, controle de fluxo de carga na geração distribuída, amortecimento de oscilações
+  \end{enumerate}
+  \item IHM: Interface Homem-Máquina
+\end{listaef}}
+
+\pergunta{5) O que o PDC deve fazer ao detectar que há erros de transmissão de dados, atrasos na transmissão, inconsistência em etiquetas de tempo e perda de sincronismo de PMUs?}
+\resposta{
+\begin{listaef}[1]
+  \item Erros de transmissão
+  \begin{enumerate}  
+    \item Descartar ou reparar o frame defeituoso
+	\item Solicitar um novo frame
+  \end{enumerate}
+  \item Atrasos na transmissão
+  \begin{enumerate}  
+    \item Tratar a instabilidade no fluxo de dados (com filas, por exemplo)
+  \end{enumerate}
+  \item Inconsistência em etiquetas de tempo
+  \begin{enumerate}  
+    \item Detectar quando a etiqueta de tempo está corrompida
+    \item Determinar o tempo correto da etiqueta
+  \end{enumerate}
+  \item Perda de sincronismo de PMUs
+  \begin{enumerate}  
+    \item Determinar o erro na etiqueta de tempo
+  \end{enumerate}
+\end{listaef}}
+
+\pergunta{6) Relacionado ao banco de dados do SMF, qual procedimento você sugere que seja seguido pelo PDC para solucionar o problema de perdas de dados ou de medições imprecisas? \\}
+\resposta{Como o PDC deve ser um mero concentrador de dados, ele não deve tentar solucionar esses problemas. O PDC nunca conseguirá adivinhar quais aplicações utilizarão os dados, e cada uma delas terá necessidades específicas. O tratamento dos erros, portanto, deve ser feito por cada aplicação separadamente. A introdução de tratamento dos erros ao nível do concentrador resultaria numa dependência do PDC em relação às aplicações do SMF, que seria um enorme problema.
+
+Além disso, os algoritmos requeridos para uma boa correção são muito complexos, e sobrecarregariam o PDC. \cite{Chow 2014}, por exemplo, menciona algoritmos de otimização convexos, como \emph{nuclear norm minimization}, \emph{singular value thresholding} (SVT) e \emph{information cascading matrix completion} (ICMC).}
+
+\pergunta{7) Cite as aplicações propostas pelo SMFS Nacional. \\}
+\resposta{Além das aplicações básicas citadas na resposta à questão 4 (item 5.1), são as seguintes:
+\begin{lista}
+  \item Análise de estabilidade eletromecânica (SOM: Monitoração de Oscilações do Sistema)
+  \item Avaliação Avançada de Estabilidade de Tensão (EVSA)
+  \item Monitoração do Ângulo de Fase de Tensão (VPAM)
+  \item Estimação de estado
+  \item Monitoração do Limite de Carregamento de Linha (LLLM)
+  \item Monitoração de Harmônicos para Grandes Áreas (WAHM)
+  \item Análise de Contingência On-line (OLCA)
+  \item Proteções de Sistema para Grandes Áreas (WASP)
+  \item Controle de Sistema para Grandes Áreas (WASC)
+\end{lista}
+Todas essas aplicações dependem do aumento do nível de observabilidade do sistema.}
+
+\pergunta{8) Quais das aplicações você acha que são fundamentais para o bom funcionamento do sistema elétrico? Por quê? \\}
+\resposta{As quatro primeiras aplicações previstas pelo SMFS (questão 7) são fundamentais para o bom funcionamento do sistema elétrico nas condições atuais, porque trata-se de um sistema interligado muito grande, o que torna difícil a análise com base apenas em ferramentas tradicionais (estáticas). Além disso, todo sistema elétrico está sujeito a oscilações de baixa frequência, difíceis de se detectar com a instrumentação convencional \footnotemark[1]. Essas oscilações podem atingir grande amplitude, uma vez que o amortecimento presente no sistema é muito baixo. \\
+O objetivo das demais aplicações mencionadas na questão 7 é apenas aumentar a eficiência operacional do sistema elétrico, o que, apesar de também ser importante, não é fundamental. \\
+No futuro, com o aumento da geração distribuída e a diversificação das fontes de energia, a situação tende a piorar e serão necessárias mais aplicações avançadas.}
+\footnotetext[1]{Além poderem ser provocadas pela ocorrência de uma falta de grandes proporções, segundo \cite{Pessaro 2010} "tais oscilações [...] podem ser causadas por diferentes motivos como, por exemplo, incrementos de carga lentos e sucessivos [...], contingências, dependência da frequência do torque eletromecânico ou ainda a atuação rápida de um controlador de tensão [...].". Também se sabe que elas podem ser causadas pela saturação do núcleo dos transformadores \cite{Chakravarthy e Nayar 1996}. O caráter não-linear do fenômeno também dificulta a análise teórica (para maiores detalhes, ver \cite{Pal e Chaudhuri 2005}).}.
+
+\pergunta{9) Para as aplicações descritas, quais grandezas devem ser armazenadas e/ou apresentadas em
+tempo real por meio de uma tela para o operador do sistema elétrico? \\}
+\resposta{Pelo menos as seguintes grandezas devem ser armazenadas:
+\begin{lista}
+  \item Fasores de tensão e corrente em cada barra
+  \item Frequência
+  \item Taxa de variação da frequência
+\end{lista}
+Para apresentação ao operador, é preciso calcular valores médios dessas grandezas em um intervalo de tempo razoável (por exemplo, 10 segundos), de forma a evitar flutuações não-significativas e desagradáveis. Além disso, é aconselhável oferecer a opção de visualização por meio de gráficos de tendência. }
+
+\pergunta{10) O que significam as siglas: WAMS, WAMPS, WAMCS e WAMPACS?}
+\resposta{\begin{listaf}
+  \item WAMS (\emph{Wide Area Measurement System}): Sistema de Medições de Grande Área (WAMS); trata-se do monitoramento do sistema elétrico em tempo real
+  \item WAMPS (\emph{Wide Area Measurement and Protection System}): Sistema de Medições e Proteção de Grande Área (WAMS); trata-se da incorporação de funções de proteção ao WAMS
+  \item WAMCS (\emph{Wide Area Monitoring and Control System}): Sistema de Monitoramento e Controle de Grande Área (WAMS); trata-se da incorporação de funções de controle em tempo real ao WAMS
+  \item WAMPACS (\emph{Wide Area Monitoring, Protection and Control System}): Sistema de Monitoramento, Proteção e Controle de Grande Área (WAMS); trata-se da incorporação de funções de proteção e de controle em tempo real ao WAMS
+\end{listaf}}
+
+\pergunta{11) Na sua opinião, quais são os maiores ganhos do monitoramento de grandes áreas? \\}
+\resposta{O monitoramento de grandes áreas permite a detecção de problemas que não podem ser identificados por meio do monitoramento tradicional, que se dá ao nível local (oscilografias, SOE, etc.). Um exemplo são as oscilações de baixa frequência, mencionadas na resposta à questão 8; essas oscilações eram virtualmente desconhecidas no passado, devido à ausência de monitoramento global.
+Além disso, certas anomalias são facilmente detectáveis ao nível local, mas a investigação das suas causas não é. Um exemplo é a diminuição excessiva da frequência da rede, fenômeno que se manifesta igualmente em todos os pontos do sistema. }
+
+\pergunta{12) Descreva o que deve ser feito para que não haja erro na determinação do ângulo de fase do fasor
+quando a frequência não é igual à nominal (60 Hz). \\}
+\resposta{Deve ser considerada apenas a diferença de ângulos de fase entre barras interligadas, porque nelas a frequência é sempre a mesma. Sendo assim, ambos os ângulos de fase serão medidos com o mesmo erro, e no cálculo da diferença angular esse erro desaparecerá. }
+
+\pergunta{13) Quais as principais fontes de incertezas nas medições que podem prejudicar a exatidão do SMF?}
+\resposta{\begin{listaf}
+  \item Canais de instrumentação
+  \item Transformadores de instrumentos (TIs)
+  \item Cargas nos secundários dos TIs
+  \item Cabos de conexão dos TIs aos medidores
+  \item Sistemas de sincronização entre PMUs
+  \item Assimetrias sistêmicas
+\end{listaf}}
+
+\newpage
+\pergunta{14) Calcule o Erro Vetorial Total (TVE) dos fasores abaixo, considerando que fasor teórico é 6 + j8, e
+determine quais destes erros estão dentro dos padrões estipulados pela Norma C37.118.
+\begin{listaef}[2]
+  \item $ 8 + j6 $
+    \begin{equation*}
+      \begin{split}
+        \mathrm{TVE} & = \frac{|X_m - X_r|}{|X_r|} \\
+        & = \frac{|(8 + j6) - (6 + j8)|}{|6 + j8|} \\
+        & = \frac{|2 - j2|}{|6 + j8|} \\
+        & = \sqrt{\frac{2^2 + 2^2}{6^2 + 8^2}} \\
+        & = \sqrt{\frac{4 + 4}{36 + 64}} \\
+        & = \sqrt{\frac{8}{100}} \\
+        & = 0,3
+      \end{split}
+    \end{equation*}
+    \resposta{TVE fora do padrão. \\}
+\newpage
+  \item $ 10,09 \phase{53,13^{\circ}} $
+    \begin{equation*}
+      \begin{split}
+        \mathrm{TVE} & = \frac{|X_m - X_r|}{|X_r|} \\
+        & = \frac{|[10,09 \cdot \cos(53,13^{\circ})+ j 10,09 \cdot \sin(53,13^{\circ})] - (6 + j8)|}{|6 + j8|} \\
+        & = \frac{|(6,054 + j8,072) - (6 + j8)|}{|6 + j8|} \\
+        & = \frac{|0,054 + j0,072|}{|6 + j8|} \\
+        & = \sqrt{\frac{0,054^2 + 0,072^2}{6^2 + 8^2}} \\
+        & = \sqrt{\frac{0,0029 + 0,0052}{36 + 64}} \\
+        & = 0,0090
+      \end{split}
+    \end{equation*}
+    \resposta{TVE dentro do padrão. \\}
+  \item $ 10 \phase{52,58^{\circ}} $
+    \begin{equation*}
+      \begin{split}
+        \mathrm{TVE} & = \frac{|X_m - X_r|}{|X_r|} \\
+        & = \frac{|[10 \cdot \cos(52,58^{\circ})+ j 10 \cdot \sin(52,58^{\circ})] - (6 + j8)|}{|6 + j8|} \\
+        & = \frac{|(6,077 + j7,942) - (6 + j8)|}{|6 + j8|} \\
+        & = \frac{|0,077 - j0,058|}{|6 + j8|} \\
+        & = \sqrt{\frac{0,0059 + 0,0034}{36 + 64}} \\
+        & = 0,0096
+      \end{split}
+    \end{equation*}
+    \resposta{TVE dentro do padrão. \\}
+  \item $ 7,07 + j7,07 $
+    \begin{equation*}
+      \begin{split}
+        \mathrm{TVE} & = \frac{|X_m - X_r|}{|X_r|} \\
+        & = \frac{|(7,07 + j7,07) - (6 + j8)|}{|6 + j8|} \\
+        & = \frac{|1,07 - j0,93|}{|6 + j8|} \\
+        & = \sqrt{\frac{1,07^2 + 0,93^2}{6^2 + 8^2}} \\
+        & = 0,142
+      \end{split}
+    \end{equation*}
+    \resposta{TVE fora do padrão. \\}
+  \item $ 9,91 \phase{52,93^{\circ}} $
+    \begin{equation*}
+      \begin{split}
+        \mathrm{TVE} & = \frac{|X_m - X_r|}{|X_r|} \\
+        & = \frac{|[9,91 \cdot \cos(52,93^{\circ})+ j 9,91 \cdot \sin(52,93^{\circ})] - (6 + j8)|}{|6 + j8|} \\
+        & = \frac{|-0,026 - j0,093|}{|6 + j8|} \\
+        & = 0,0096
+      \end{split}
+    \end{equation*}
+    \resposta{TVE dentro do padrão. \\}	
+\end{listaef}}
+
+\pergunta{15) Considere a tensão senoidal: $v(t) = 180 \cos (120 \pi t - 60^{\circ}) \; V$
+\begin{listaef}[2]
+  \item Qual é a amplitude máxima da tensão? \[ \hat{V} = 180 \; V \]
+  \item Qual é a frequência em Hz? \[  f = 60 \; Hz \]
+  \item Qual é a frequência em radianos por segundo? \[ \omega = 120 \pi \; rd/s \]
+  \item Qual é o ângulo de fase em graus? \[ \phi = -60^{\circ} \]
+  \item Qual é o período em milissegundos? \[ T = \frac{1}{f} = 16,7 \; ms \]
+  \item Qual é a primeira vez, após t = 0, que v = 180 V? \\
+     \[ \text{Quando } 120 \pi t = 60^{\circ} \text{, ou seja, quando } t = \frac{60^{\circ}}{120 \pi} = 167 \; ms \]
+  \item Qual é o valor eficaz da tensão? \[ V_{ef} = \frac{1}{\sqrt{2}} \; \hat{V} = 127 \; V \]
+  \item Transforme a tensão v(t) em fasor. \[ \dot{V} = 180 \phase{-60^{\circ}} \]
+\end{listaef}
+ 
+\pergunta{16) Considerando que a tensão senoidal apresentada na questão 16 seja conectada em série com um
+resistor de 40, um indutor de 212,2 mH e um capacitor de 53,05 F, resolva os itens: \\}
+\begin{listaef}[2]
+  \item Desenhe o circuito equivalente no domínio da frequência.
+    \begin{figure}[H]
+      \begin{center}
+        \begin{circuitikz}
+          \draw (0,0)
+          to[V,v=$\dot{V}$] (0,2)
+          to[R=R] (2,2)
+          to[L=$jX_L$] (4,2)
+          to[C=$-jX_C$] (6,2)
+          to[short] (6,0);	  
+	      \draw (0,0)
+          to[short,i<=$\dot{I}$] (6,0);	  
+        \end{circuitikz}
+        \\ \resposta{Circuito no domínio da frequência}
+      \end{center}
+    \end{figure}
+  \item Calcule a corrente fasorial.
+    \begin{align*}
+      X_L & = \omega L = 120 \pi \cdot 212,2 mH = 80 \; \Omega \\
+      X_C & = \frac{1}{\omega C} = \frac{1}{120 \pi \cdot 53,05 \mu F} = 50 \; \Omega \\
+      Z   & = R + jX_L - jX_C = 40 + j80 - j50 = 40 + j30 = 50 \phase{37^{\circ}} \; \Omega \\
+      \dot{I} & = \frac{\dot{V}}{Z} = \frac{180 \phase{-60^{\circ}}}{50 \phase{37^{\circ}}} = 3,6 \phase{-97^{\circ}} \; A
+    \end{align*}
+  \item Determine o valor eficaz da corrente. \[ I_{ef} = \frac{1}{\sqrt{2}} \; \hat{I} = 2,55 \; A \]
+  \item Determine a expressão de regime permanente para i(t).
+    \[i(t) = 3,6 \cos(120 \pi t - 97^{\circ}) \; A \]
+  \item Calcule a diferença angular entre a tensão e a corrente em graus e em microssegundos.
+    \begin{align*}
+      \Delta(\phi) & = \phi_V - \phi_I = -60^{\circ} + 97^{\circ} = 37^{\circ} \\
+      \Delta(t) & = \frac{\Delta_{\phi}}{360^{\circ}} \; T = %
+	    \frac{37^{\circ}}{360^{\circ}} \cdot 4,16 \; ms = 430 \; \mu s
+    \end{align*}
+\end{listaef}
+
+\newpage
+\pergunta{17) Indique o valor da profundidade da não-observabilidade da rede elétrica de trinta barras do IEEE (figura 1) para três situações:
+\begin{listaef}[3]
+  \item Instalação de PMUs nas barras 6, 12 e 25.
+  \item Instalação de PMUs nas barras 6, 15 e 25.
+  \item Instalação de PMUs nas barras 4, 10, 15 e 27.
+\end{listaef}
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=0.9\textwidth]{figura1.jpg}
+  \\ Figura 1 – Rede Elétrica de 30 Barras do IEEE.
+\end{figure}}
+\resposta{\begin{listaef}[3]
+  \newpage
+  \item Neste caso, a profundidade de não-observabilidade de cada barra é a seguinte:
+    \begin{table}[H]
+      \begin{tabular}{||c|c||}
+		\hline
+        Barra & Profundidade \\
+		\hline
+         1    & 1 \\
+         2    & 0 \\
+         3    & 1 \\
+         4    & 0 \\
+         5    & 1 \\
+         6    & 0 \\
+         7    & 0 \\
+         8    & 0 \\
+         9    & 0 \\
+        10    & 0 \\
+        11    & 1 \\
+        12    & 0 \\
+        13    & 0 \\
+        14    & 0 \\
+        15    & 0 \\
+        16    & 0 \\
+        17    & 1 \\
+        18    & 1 \\
+        19    & 2 \\
+        20    & 1 \\
+        21    & 1 \\
+        22    & 1 \\
+        23    & 1 \\
+        24    & 0 \\
+        25    & 0 \\
+        26    & 0 \\
+        27    & 0 \\
+        28    & 0 \\
+        29    & 1 \\
+        30    & 1 \\
+		\hline
+      \end{tabular}
+    \end{table}
+	O valor máximo presente na tabela é 2; essa é a profundidade da não-observabilidade do sistema nas condições dadas. \\
+  \newpage
+  \item Neste caso, a profundidade de não-observabilidade de cada barra é a seguinte:
+    \begin{table}[H]
+      \begin{tabular}{||c|c||}
+		\hline
+        Barra & Profundidade \\
+		\hline
+         1    & 1 \\
+         2    & 0 \\
+         3    & 1 \\
+         4    & 0 \\
+         5    & 1 \\
+         6    & 0 \\
+         7    & 0 \\
+         8    & 0 \\
+         9    & 0 \\
+        10    & 0 \\
+        11    & 1 \\
+        12    & 0 \\
+        13    & 1 \\
+        14    & 0 \\
+        15    & 0 \\
+        16    & 1 \\
+        17    & 1 \\
+        18    & 0 \\
+        19    & 1 \\
+        20    & 1 \\
+        21    & 1 \\
+        22    & 1 \\
+        23    & 0 \\
+        24    & 0 \\
+        25    & 0 \\
+        26    & 0 \\
+        27    & 0 \\
+        28    & 0 \\
+        29    & 1 \\
+        30    & 1 \\
+		\hline
+      \end{tabular}
+    \end{table}
+	A profundidade da não-observabilidade do sistema nas condições dadas é 1. \\
+  \newpage
+  \item Instalação de PMUs nas barras 4, 10, 15 e 27.
+    \begin{table}[H]
+      \begin{tabular}{||c|c||}
+		\hline
+        Barra & Profundidade \\
+		\hline
+         1    & 1 \\
+         2    & 0 \\
+         3    & 0 \\
+         4    & 0 \\
+         5    & 1 \\
+         6    & 0 \\
+         7    & 1 \\
+         8    & 1 \\
+         9    & 0 \\
+        10    & 0 \\
+        11    & 1 \\
+        12    & 0 \\
+        13    & 1 \\
+        14    & 0 \\
+        15    & 0 \\
+        16    & 1 \\
+        17    & 0 \\
+        18    & 0 \\
+        19    & 1 \\
+        20    & 0 \\
+        21    & 0 \\
+        22    & 0 \\
+        23    & 0 \\
+        24    & 1 \\
+        25    & 0 \\
+        26    & 1 \\
+        27    & 0 \\
+        28    & 0 \\
+        29    & 0 \\
+        30    & 0 \\
+		\hline
+      \end{tabular}
+    \end{table}
+	A profundidade da não-observabilidade do sistema nas condições dadas é 1. \\
+\end{listaef}}
+
+
+\begin{thebibliography}{15}
+
+\bibitem[Becker 2010]{Becker 2010}
+I. BECKER, {\bf Experiências do Projeto MedFasee},
+{\em Workshop sobre soluções de Medição Fasorial Sincronizada,
+Florianópolis 27-28/01/2010}.
+Disponível em \url{http://abil.eln.gov.br/DOC/MEDICAO_FASORIAL/WORKSHOP_ELN_REASON/1-WS_Reason_Decker_AP1.pdf}, acesso em 29/03/2015.
+
+\bibitem[Chakravarthy e Nayar 1996]{Chakravarthy e Nayar 1996}
+S. K. CHAKRAVARTHY e C.V. NAYAR, {\bf Quasiperiodic (QP) oscillations in electrical power systems}, \emph{International Journal of Electrical Power \& Energy Systems}, Vol. 18, Issue 8, November 1996, pp. 483–492.
+Disponível em \url{http://www.sciencedirect.com/science/article/pii/0142061596000087}, acesso em 02/04/2015.
+
+\bibitem[Chow et. ali. 2014]{Chow  et. ali. 2014}
+S. K. CHOW et ali., {\bf Analysis of Large Amount of PMU Data and Voltage Stability Analysis of Wind Farms using
+PMU Data}, \emph{COPPE/UFRJ PMU Symposium}, Dezembro 2014.
+Disponível em \url{http://www.eps.ee.kth.se/personal/luigiv/events/brazil-workshop2014/III%20Workshop%20PMU_Chow.pdf}, acesso em 05/04/2015.
+
+\bibitem[IEEE 2011, 1]{IEEE 2011 1}
+IEEE Power and Energy Society, {\bf C37.118.1-2011 - IEEE Standard for Synchrophasor Measurements for Power Systems}.
+Disponível em \url{http://standards.ieee.org/findstds/standard/C37.118.1-2011.html}, acesso em 29/03/2015.
+
+\bibitem[IEEE 2011, 2]{IEEE 2011 2}
+IEEE Power and Energy Society, {\bf C37.118.2-2011 - IEEE Standard for Synchrophasor Data Transfer for Power Systems}.
+Disponível em \url{http://standards.ieee.org/findstds/standard/C37.118.2-2011.html}, acesso em 29/03/2015.
+
+\bibitem[IEEE 2013, 1]{IEEE 2013 1}
+IEEE Power and Energy Society, {\bf C37.242-2013 - IEEE Guide for Synchronization, Calibration, Testing, and Installation of Phasor Measurement Units (PMUs) for Power System Protection and Control}.
+Disponível em \url{http://standards.ieee.org/findstds/standard/C37.242-2013.html}, acesso em 29/03/2015.
+
+\bibitem[IEEE 2013, 2]{IEEE 2013 2}
+IEEE Power and Energy Society, {\bf C37.244-2013 - IEEE Guide for Phasor Data Concentrator Requirements for Power System Protection, Control, and Monitoring}.
+Disponível em \url{http://standards.ieee.org/findstds/standard/C37.244-2013.html}, acesso em 29/03/2015.
+
+\bibitem[Pal e Chaudhuri 2005]{Pal e Chaudhuri 2005}
+B. PAL e B. CHAUDHURI, {\bf Robust Control in Power Systems}, Cap. 2, Springer, ISBN 978-0-387-25949-9.
+Disponível em \url{http://www.springer.com/cda/content/document/cda_downloaddocument/9780387259499-c2.pdf?SGWID=0-0-45-308320-p49643830}, acesso em 02/04/2015.
+
+\bibitem[Pessaro 2010]{Pessaro 2010}
+M. PESSARO, {\bf Análise de Segurança do Sistema Elétrico Brasileiro (Região Sul/Sudeste) considerando oscilações sustentadas}.
+Disponível em \url{https://www.academia.edu/2108394/AN%C3%81LISE_DESEGURAN%C3%87A_DO_SISTEMA_EL%C3%89TRICO_BRASILEIRO_REGI%C3%83O_SUL_SUDESTE_CONDISERANDO_OSCILA%C3%87%C3%95ES_SUSTENTADAS}, acesso em 02/04/2015.
+
+\end{thebibliography}
+
+
+\end{document}

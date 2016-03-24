@@ -1,0 +1,524 @@
+% Primeira lista de exercícios de Métodos Numéricos
+% Preparado para MiKTeX 2.9. Gerar arquivo PDF com pdflatex.
+% Revisão 1
+\documentclass[12pt,fleqn]{amsart}
+\usepackage{enumitem}
+\usepackage{xstring}
+\usepackage[pdftex]{graphicx}
+\usepackage[a4paper]{geometry}
+\usepackage[english,brazilian]{babel}
+\usepackage[ansinew]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{comment}
+\usepackage{bigfoot}
+% Fontes
+\usepackage{textgreek}
+\usepackage{yfonts}
+\usepackage{microtype}
+\usepackage{calligra}
+\usepackage{lmodern}
+\usepackage{bookman}
+\usepackage[scaled]{helvet}
+%\usepackage{courier}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+%\usepackage{hyphenat}
+%\hyphenation{mate-mática recu-perar}
+\usepackage{fmtcount}
+\usepackage[nonumberlist,acronym,sort=def]{glossaries}
+% Formatação
+\usepackage{sidecap}
+\usepackage{fixltx2e}
+\usepackage{float}
+\usepackage{listings}
+\usepackage[numbered,framed]{matlab-prettifier}
+\usepackage{multirow}
+\usepackage{pdflscape}
+% Símbolos matemáticos
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{wasysym}
+\usepackage{mathtools}
+\usepackage{bbm}
+\usepackage{mbboard}
+
+
+\title{Métodos Numéricos - Lista de Exercícios I}
+\date{18/03/2016 Revisão 1}
+\author{Sérgio Cordeiro}
+
+\renewcommand*\contentsname{Sumário}
+
+\newenvironment{inthisrev}{
+	\color{blue}
+	}{
+	\color{black}
+	}
+
+\newenvironment{myquote}{
+	\begin{quote}
+	\fontfamily{lmr} \selectfont
+	{\huge ``}}{{\huge ''}
+	\end{quote}
+	}
+
+\newenvironment{pergunta}{
+	\par
+	\trivlist
+	\fontfamily{phv}
+	\selectfont
+	\item\arabic{prob_num}. 
+	}{
+	\endtrivlist
+	}
+
+\newenvironment{resposta}{
+	\trivlist
+    \vspace{3pt}
+	\fontfamily{pbk}
+	\selectfont
+	\item
+	}{
+	\vspace{3pt}
+	\noindent\makebox[\linewidth]{\rule{\paperwidth}{1pt}}
+	\endtrivlist
+	\stepcounter{prob_num}
+	}
+
+\newenvironment{lista}{
+	\vspace{-5mm}
+	\begin{itemize}}{
+	\end{itemize}	
+	\vspace{-5mm}}
+
+\newenvironment{listaf}{
+	\vspace{-5mm}
+	\begin{itemize}}{
+	\end{itemize}}
+
+\newenvironment{listae}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}	
+	\vspace{-5mm}}
+
+\newenvironment{listaef}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}}
+
+
+\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
+
+\newcommand{\newbibit}[6]{\bibitem[#1]{#2}#3, {\bf #4}. Disponível em \url{#5}, acesso em #6.}
+\newcommand{\newbibpp}[5]{\bibitem[#1]{#2}#3, {\bf #4}, \emph{in} #5.}
+\newcommand{\newbibbk}[5]{\bibitem[#1]{#2}#3, {\bf #4}, #5.}
+\newcommand{\newbibip}[6]{\bibitem[#1]{#2}#3, {\bf #4}, \emph{in} #5, disponível em \url{#6}.}
+\newcommand{\newbiboc}[4]{\bibitem[#1]{#2}#3, \textit{op. cit.}, #4.}
+\newcommand{\newbibsi}[7]{\bibitem[#1]{#2}#3, {\bf #4} : {#5}. Disponível em \url{#6}, acesso em #7.}
+
+\newenvironment{iquote}{\begin{quote}\itshape}{\end{quote}}
+
+\BeforeBeginEnvironment{figure}{\vskip-1ex}
+\AfterEndEnvironment{figure}{\vskip-4ex}
+
+% Linhas divisórias
+\newcommand{\hhhlin}{\noindent\hfil\rule{0.25\textwidth}{.2pt}\hfil\newline}
+\newcommand{\hhlin}{\noindent\hfil\rule{0.5\textwidth}{.4pt}\hfil\newline}
+\newcommand{\hlin}{\noindent\hfil\rule{\textwidth}{.8pt}\hfil\newline}
+
+% Listagens
+\newcommand{\listingsO}{\lstset{language=Octave,literate={^}{\textasciicircum}1,frame=single,style=Matlab-editor,basicstyle={\tiny},breaklines=true,numbers=left,numberstyle={\color{red}},numbersep=9pt,showstringspaces=false,keepspaces=false,tabsize=2}}
+\newcommand{\listingsC}{\lstset{language=C,frame=single,basicstyle={\tiny},breaklines=true,numbers=left,numberstyle={\color{red}},numbersep=9pt,showstringspaces=false,keepspaces=false,tabsize=2}}
+\newcommand{\listingsG}{\lstset{language=Ada,frame=none,basicstyle={\ttfamily\bfseries},numbers=none,tabsize=2,mathescape}}
+
+\renewcommand{\glossarymark}[1]{}
+\glsnogroupskiptrue
+\makeglossaries
+\makeindex
+\setglossarystyle{list}
+
+
+% Perguntas
+\newcommand{\perguntaa}{Desenvolva um algoritmo em C para realizar a multiplicação de duas matrizes. Não se esqueçam de verificar se a multiplicação é possível antes de realizá-la. Teste os resultados obtidos com aqueles gerados pelo MATLAB. Considerar precisão simples e precisão estendida. Para comparar os resultados calcule a norma 2 da matriz resultado. Comente!}
+\newcommand{\perguntab}{Desenvolva um algoritmo em C para resolver sistemas lineares triangulares (Superior e Inferior). Teste os resultados obtidos com aqueles gerados pelo MATLAB. Considerar precisão simples e precisão estendida. Para comparar os resultados calcule a norma 2 da matriz resultado. Comente!}
+\newcommand{\perguntac}{Desenvolva um algoritmo em C para resolver sistemas lineares utilizando eliminação de Gauss com pivoteamento. Como subproduto calcule o determinante da matriz. Considerar precisão simples e precisão estendida. Para comparar os resultados calcule a norma 2 da matriz resultado. Comente!}
+\newcommand{\perguntad}{Apresente uma pesquisa sobre aplicação de sistemas lineares nas seguintes áreas: Eletromagnetismo, controle, SEP, modelagem de sistemas. Apresente no mínimo 4 aplicações por área, faça uma breve descrição de cada uma delas destacando as características das matrizes e os métodos utilizados para a solução do sistema.}
+
+\newglossaryentry{Clustering}{
+  name={Aglutinação},
+  text={Aglutinação},  
+  description={É a tarefa de particionar um conjunto de forma que os elementos de cada conjunto apresentam máxima similaridade, de acordo com algum critério predefinido. Também conhecida pelo termo em inglês \textit{clustering}}
+  }%
+\newglossaryentry{knapsack}{
+  name={Técnicas \textit{knapsack}},
+  text={Técnicas \textit{knapsack}},
+  description={São técnicas para solução do problema alcunhado de \textit{knapsack}, de selecionarem-se os itens mais valiosos de uma coleção}
+  }%
+\newglossaryentry{k-means}{
+  name={\textit{k-means}},
+  text={\textit{k-means}},
+  description={É uma técnica de \glslink{Clustering}{aglutinação} que usa alguma média dos valores dos elementos como critério para particionamento}
+  }%
+\newglossaryentry{MatBanda}{
+  name={Matriz em banda},
+  text={Matriz em banda},
+  description={Também chamada de matriz diagonalmente dominante, é aquela matriz esparsa em que apenas elementos próximos à diagonal principal são não-nulos}
+  }%
+\newglossaryentry{PCA}{
+  name={\textit{Principal Component Analysis}},
+  text={PCA},
+  description={É uma técnica que transforma um conjunto de $ n $ observações \textfrak{o}\textsubscript{i} $ \in $ \textfrak{O}, cada uma delas consistindo do valor medido de uma variável \textfrak{v}\textsubscript{j} $ \in $ \textfrak{V}, em um conjunto de $ n $ observações \textfrak{p}\textsubscript{i} $ \in $ \textfrak{P}, cada uma delas consistindo do valor referente a uma variável \textfrak{u}\textsubscript{j} $ \in $ \textfrak{U}, de forma que o número de elementos de \textfrak{U} seja menor que o número de variáveis originais e o mínimo de informação seja perdido no processo}
+  }%
+\newglossaryentry{SVM}{
+  name={\textit{Support Vector Machines}},
+  text={SVM},
+  description={É uma técnica de aprendizado de máquina supervisionado que aprende a classificar objetos com base em etiquetas a eles associadas, tornando-se então capaz de classificar objetos desprovidos de etiquetas}
+  }%
+\newacronym[see={[Glossary:]{PCA}}]{PCAa}{PCA}{\glslink{PCA}{\textit{Principal Component Analysis}}}%
+\newacronym[see={[Glossary:]{SVM}}]{SVMa}{SVM}{\glslink{SVM}{\textit{Support Vector Machines}}}%
+
+\begin{document}
+
+\setlength{\parskip}{1em}
+\setlength{\jot}{10pt}
+\setlength{\parindent}{0pt}
+
+\maketitle
+
+\tableofcontents
+
+\newcounter{prob_num}
+\setcounter{prob_num}{1}
+
+\clearpage
+
+\section{Exercícios}
+
+\begin{pergunta}
+\perguntaa{}
+\end{pergunta}
+\begin{resposta}
+O programa abaixo gera, no MATLAB, duas matrizes com valores aleatórios, grava os valores em disco, calcula o produto e a norma 2 da matriz-resultado.
+\listingsO
+\lstinputlisting[caption=geramat.m,language=Octave]{geramat.m}
+O programa \textbf{\texttt{exercmat.c}}, em anexo, escrito em C, lê as matrizes geradas pelo MATLAB, calcula o produto e a norma 2 da matriz-resultado para diversas precisões (32, 64 e 80 bits)e para alguns valores de $ n $ (rank das matrizes). Basta digitar:
+\listingsG
+\begin{lstlisting}[language=Ada]
+	exercmat 1 $ \textit{n} $
+\end{lstlisting}
+Os resultados obtidos estão tabelados a seguir.
+\begin{table}[H]
+    \begin{tabular}{|c|c|c|c|}
+		\hline
+        \textbf{n} & \textbf{precisão} & \textbf{origem} & \textbf{norma 2} \\
+		\hline
+		$ 3 $ & dupla & MATLAB & $ 1.782348 $ \\
+		$ 3 $ & simples & C & $ 1.793582 $ \\
+		$ 3 $ & dupla & C & $ 1.793582 $ \\
+		$ 3 $ & estendida & C & $ 1.793582 $ \\
+		$ 30 $ & dupla & MATLAB & $ 232.297907 $ \\
+		$ 30 $ & simples & C & $ 232.651062 $ \\
+		$ 30 $ & dupla & C & $ 232.651093 $ \\
+		$ 30 $ & estendida & C & $ 232.651093 $ \\
+		$ 300 $ & dupla & MATLAB & $ 22497.289165 $ \\
+		$ 300 $ & simples & C & $ 22501.390625 $ \\
+		$ 300 $ & dupla & C & $ 22501.443224 $ \\
+		$ 300 $ & estendida & C & $ 22501.443224 $ \\
+		\hline
+    \end{tabular}
+\end{table}
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntab{}
+\end{pergunta}
+\begin{resposta}
+O programa abaixo gera, no MATLAB, dois sistemas triangulares com valores aleatórios, um superior e outro inferior, grava os valores em disco e os resolve por meio do cálculo da inversa. Ele também calcula a norma 2 da matriz-coluna-resultado.
+\listingsO
+\lstinputlisting[caption=geramattri.m,language=Octave]{geramattri.m}
+O programa \textbf{\texttt{exercmat.c}}, em anexo, escrito em C, lê as matrizes geradas pelo MATLAB, resolve os sistemas e calcula a norma 2 da matriz-coluna-resultado para diversas precisões (32, 64 e 80 bits) e para alguns valores de $ n $ (rank das matrizes). Basta digitar:
+\listingsG
+\begin{lstlisting}[language=Ada]
+	exercmat 2 $ \textit{n} $
+\end{lstlisting}
+Os resultados obtidos estão tabelados a seguir.
+\begin{table}[H]
+    \begin{tabular}{|c|c|c|c|c|}
+		\hline
+        & & & \multicolumn{2}{|c|}{\textbf{norma 2}} \\
+        \textbf{n} & \textbf{precisão} & \textbf{origem} & \textbf{TS} & \textbf{TI} \\
+		\hline
+		$ 3 $ & dupla & MATLAB & $ 7.698141 $ & $ 6.230213 $ \\
+		$ 3 $ & simples & C & $ 7.698142 $ & $ 6.230213 $ \\
+		$ 3 $ & dupla & C & $ 7.698141 $ & $ 6.230213 $ \\
+		$ 3 $ & estendida & C & $ 7.698141 $ & $ 6.230213 $ \\
+		$ 30 $ & dupla & MATLAB & $ 5223.534435 $ & $ 23824.246320 $ \\
+		$ 30 $ & simples & C & \inthisrev{$ 5223.534668 $} & \inthisrev{$ 23824.248047 $} \\
+		$ 30 $ & dupla & C & $ 5223.534435 $ & \inthisrev{$ 23824.248557 $} \\
+		$ 30 $ & estendida & C & $ 5223.534435 $ & $ 23824.246320 $ \\
+		$ 300 $ & dupla & MATLAB & $ 1.075 \times 10^{56} $ & $ 2.105 \times 10^{55} $ \footnotemark[1] \\
+		$ 300 $ & simples & C & \textit{overflow} & \textit{overflow} \\
+		$ 300 $ & dupla & C & $ 1.075 \times 10^{56} $ & $ 2.105 \times 10^{55} $ \footnotemark[1] \\
+		$ 300 $ & estendida & C & $ 1.075 \times 10^{56} $ & $ 2.105 \times 10^{55} $ \footnotemark[1] \\
+		\hline
+    \end{tabular}
+\end{table}
+\footnotetext[1]{Os valores são diferentes mas, como são muito grandes, a diferença não pôde ser mostrada, porque aparece apenas nos últimos dígitos.}
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntac{}
+\end{pergunta}
+\begin{resposta}
+O programa abaixo gera, no MATLAB, um sistema com valores aleatórios, grava-o em disco, resolve-o por meio da matriz inversa e calcula o determinante e a norma 2 da matriz-coluna-resultado.
+\listingsO
+\lstinputlisting[caption=gerasis.m,language=Octave]{gerasis.m}
+O programa \textbf{\texttt{exercmat.c}}, em anexo, escrito em C, lê o sistema gerado pelo MATLAB, resolve-o pela técnica de eliminação de Gauss com pivoteamento e calcula o determinante e a norma 2 da matriz-coluna-resultado para diversas precisões (32, 64 e 80 bits) e para alguns valores de $ n $ (rank das matrizes). Basta digitar:
+\listingsG
+\begin{lstlisting}[language=Ada]
+	exercmat 3 $ \textit{n} $
+\end{lstlisting}
+
+Os resultados obtidos estão tabelados a seguir.
+\begin{table}[H]
+    \begin{tabular}{|c|c|c|c|c|}
+		\hline
+        \textbf{n} & \textbf{precisão} & \textbf{origem} & \textbf{determinante} & \textbf{norma 2} \\
+		\hline
+		$ 3 $ & dupla & MATLAB & $ -0.112721 $ & $ 4.464723 $ \\
+		$ 3 $ & simples & C & $ -0.112721 $ & $ 4.464724 $ \\
+		$ 3 $ & dupla & C & $ -0.112721 $ & $ 4.464723 $ \\
+		$ 3 $ & estendida & C & $ -0.112721 $ & $ 4.464723 $ \\
+		$ 30 $ & dupla & MATLAB & $ 26.168290 $ & $ 1.938658 $ \\
+		$ 30 $ & simples & C & \inthisrev{$ 26.168304 $} & $ 1.938658 $ \\
+		$ 30 $ & dupla & C & $  26.168290 $ & $ 1.938658 $ \\
+		$ 30 $ & estendida & C & $ 26.168290 $ & $ 1.938658 $ \\
+		$ 300 $ & dupla & MATLAB & $ 2.694 \times 10^{145} $ \footnotemark[2] & $ 25.915637 $ \\
+		$ 300 $ & simples & C & \textit{overflow} & \inthisrev{$ 25.915474 $} \\
+		$ 300 $ & dupla & C & $ 2.694 \times 10^{145} $ \footnotemark[2] & $ 25.915637 $ \\
+		$ 300 $ & estendida & C & $ 2.694 \times 10^{145} $ \footnotemark[2] & $ 25.915637 $ \\
+		\hline
+    \end{tabular}
+\end{table}
+\end{resposta}
+\footnotetext[2]{Idem nota 1.}
+\clearpage
+
+\begin{landscape}
+\begin{pergunta}
+\perguntad{}
+\end{pergunta}
+\begin{resposta}
+A tabela abaixo apresenta as aplicações de sistemas lineares, as características das matrizes e os métodos usados para solução, considerando as áreas citadas. \\ \\
+\textbf{Eletromagnetismo}
+\tiny
+\begin{table}[H]
+    \begin{tabular}{|c|c|c|c|}
+		\hline
+%		\addlinespace
+        \textbf{Aplicação} & \textbf{Características} & \multicolumn{2}{|c|}{\textbf{Métodos de Solução}} \\
+        & \textbf{das Matrizes} & \textbf{Problema} & \textbf{Sistemas} \\
+		\hline
+		\multirow{4}{*}{Análise de sinais de radar} & Densas & \multirow{4}{*}{Método dos Momentos} & \\
+		& Simétricas & & Eliminação Gaussiana \\ & Complexas & & \cite{DONGARRA 2010} \\ & Não-Hermitianas & & \\
+		\hline
+		\multirow{4}{*}{Radiação e espalhamento} & \multirow{4}{*}{Densas} & \multirow{4}{*}{Método dos Momentos} & Interpoladores de Lagrange \\
+		& & & Precondicionadores \\ & & & Métodos Iterativos \\ & & & \cite{GIBSON 2015,RYLANDER 2013} \\
+		\hline
+		Solução das Equações de Maxwell & \multirow{2}{*}{Grandes} & \multirow{2}{*}{Método das Diferenças Finitas} & Métodos Iterativos \\
+		no Domínio do Tempo & & & \cite{GIBSON 2015} \\
+		\hline
+		\multirow{5}{*}{Cálculo de correntes parasitas} & Grandes & \multirow{5}{*}{Método dos Elementos Finitos} & \\
+		& Esparsas & & \\ & Simétricas & & Decomposição espectral \\ & \gls{MatBanda} & & \cite{GIBSON 2015,RYLANDER 2013} \\ & Definidas-positivas & & \\	
+		\hline
+    \end{tabular}
+\end{table}
+
+\clearpage
+
+\normalsize
+\textbf{SEP}
+\tiny
+\begin{table}[H]
+    \begin{tabular}{|c|c|c|c|}
+		\hline
+        \textbf{Aplicação} & \textbf{Características} & \multicolumn{2}{|c|}{\textbf{Métodos de Solução}} \\
+        & \textbf{das Matrizes} & \textbf{Problema} & \textbf{Sistemas} \\
+		\hline
+		\multirow{4}{*}{Estimativa de estado harmônico} & Sistemas subdeterminados & Inferência estatística & Mínimos quadrados \\
+		& Presença de ruído & Filtragem adaptativa & Decomposição SVD \\
+		& Observabilidade parcial & Simulação de Monte Carlo & \cite{ZHOU 2009,YU 2005} \\ & & Maximização de esparsidade & \cite{LIAO 2006,ARUMUGAM 2011} \\
+		\hline
+		\multirow{2}{*}{Estimativa de estado transitório} & Observabilidade parcial & Inferência estatística & Métodos Iterativos \\ & Sistemas não-lineares & Linearização & \cite{YU 2005} \\ 
+		\hline
+		\multirow{4}{*}{Análise de fluxo de potência} & Sistemas subdeterminados & \multirow{2}{*}{Matriz admitância (Ybus)} & \\
+		& Simétricas & & Eliminação Gaussiana \\ & Definidas-positivas & \multirow{2}{*}{Matriz impedância (Zbus)} & Gauss-Seidel \\ & \gls{MatBanda} & & \cite{BENEDITO 2013} \\
+		\hline
+		Verificação de projeto & Esparsas & Diminuição de rank & Métodos Iterativos \\
+		de redes de distribuição & Grandes & \gls{knapsack} & \cite{FERZLI 2007} \\
+		\hline
+    \end{tabular}
+\end{table}
+\clearpage
+
+\normalsize
+\textbf{Controle}
+\tiny
+\begin{table}[H]
+    \begin{tabular}{|c|c|c|c|}
+		\hline
+        \textbf{Aplicação} & \textbf{Características} & \multicolumn{2}{|c|}{\textbf{Métodos de Solução}} \\
+        & \textbf{das Matrizes} & \textbf{Problema} & \textbf{Sistemas} \\
+		\hline
+		\multirow{2}{*}{Solução das equações de estado} & Densas & \multirow{2}{*}{Transformada Z} & Inversão \\
+		& Pequenas & & \cite{PHILLIPS 1995} \\ 
+		\hline
+		\multirow{2}{*}{Controle ótimo} & Densas & \multirow{2}{*}{Mínimos Quadrados} & Inversão \\
+		& Pequenas & & \cite{PHILLIPS 1995} \\
+		\hline
+		Projeto de filtros, controladores & Densas & \multirow{2}{*}{Transformada bilinear} & Inversão \\
+		e observadores & Pequenas & & \cite{PHILLIPS 1995} \\ 		
+		\hline
+		\multirow{2}{*}{Identificação de sistemas} & Densas & \multirow{2}{*}{Regressão polinomial} & Inversão \\
+		& Pequenas & & \cite{PHILLIPS 1995} \\ 
+		\hline		
+    \end{tabular}
+\end{table}
+
+\normalsize
+\textbf{Modelamento}
+\tiny
+\begin{table}[H]
+    \begin{tabular}{|c|c|c|c|}
+		\hline
+        \textbf{Aplicação} & \textbf{Características} & \multicolumn{2}{|c|}{\textbf{Métodos de Solução}} \\
+        & \textbf{das Matrizes} & \textbf{Problema} & \textbf{Sistemas} \\
+		\hline
+		\multirow{3}{*}{Aproximação de funções} & Densas & \multirow{3}{*}{Análise de subespaços} & Decomposição QR \\
+		& Grandes & & Decomposição SVD \\ & & & \cite{OVERSCHEE 1996} \\ 
+		\hline
+		\multirow{3}{*}{Classificação} & Densas & & \\
+		& Grandes & Regressão logística & Métodos Iterativos \\ 
+		& Valores discretos & \acrshort{SVMa} & \cite{LIN 2008} \\
+		\hline
+		\multirow{2}{*}{\gls{Clustering}} & Densas & \gls{k-means} & Mínimos Quadrados \\
+		& Grandes & Aglomeração hierárquica & \cite{STEINBACH 2000} \\ 
+		\hline
+		\multirow{2}{*}{Descoberta de parâmetros} & Densas & \multirow{2}{*}{\acrshort{PCAa}} & Decomposição SVD \\
+		& Simétricas & & \cite{MOORE 1981} \\ 
+		\hline
+    \end{tabular}
+\end{table}
+\end{resposta}
+\end{landscape}
+
+\section{Análise e conclusões}
+Os resultados expostos nas tabelas referentes aos exercícios 1 a 3 mostram que, em todos os casos, pode ser notada uma ligeira diferença entre a precisão simples e a dupla. Essa diferença se torna mais nítida à medida que o tamanho do problema aumenta. A precisão estendida, por outro lado, não parece trazer benefícios com relação à precisão dupla. Todos esses efeitos são previstos pela teoria. \\
+Além da perda de precisão, em problemas maiores ocorre também o problema de \textit{overflow}, quando o valor não pode ser representado com o número de bits disponível. \\
+Não foram examinados os efeitos da utilização de precisão quádrupla ou óctupla, porque o \textit{hardware} disponível para os testes não as suporta diretamente e, assim, as funções precisariam ser implementadas unicamente por meio de bibliotecas de \textit{software}, o que tornaria a execução muito lenta. Pelo mesmo motivo, não foi investigada a precisão variável. \\
+A tabela abaixo apresenta o esforço computacional necessário para solução de cada problema, de acordo com o tamanho da entrada. Os números ajudam a avaliar o motivo dos erros de arredondamento. Percebe-se que a operação cujo custo cresce mais rapidamente com o tamanho de problema é a multiplicação de matrizes; para essa operação os erros devem também aumentar mais sensivelmente do que para as demais.
+\begin{table}[H]
+    \begin{tabular}{|c|c|c|c|}
+		\hline
+        \textbf{Problema} & \multicolumn{3}{|c|}{\textbf{Número de operações}} \\
+		& $ m = 3 $ & $ m = 30 $ & $ m = 300 $ \\
+		\hline
+		Multiplicação de duas matrizes & $ 27 $ & $ 27000 $ & $ 27000000 $ \\
+		Solução de sistema triangular & \inthisrev{$ 21 $} & \inthisrev{$ 1020 $} & \inthisrev{$ 91200 $} \\
+		Eliminação Gaussiana & \inthisrev{$ 48 $} & \inthisrev{$ 19551 $} & \inthisrev{$ 18137046 $} \\
+		Cálculo do determinante & \inthisrev{$ 3 $} & $ \inthisrev{30} $ & $ \inthisrev{300} $ \\
+		\hline
+    \end{tabular}
+\end{table}
+
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{1pt}}
+
+\clearpage
+
+\section{Anexos}
+Os seguintes arquivos constam do anexo (arquivo \textbf{\texttt{exercmat1.zip}}):
+\begin{lista}
+	\item arquivo fonte em C \textbf{\texttt{exercmat.c}}
+	\item arquivos fonte em MATLAB:
+	\begin{itemize}
+		\item \textbf{\texttt{geramat.m}}: problema 1
+		\item \textbf{\texttt{geramattri.m}}: problema 2
+		\item \textbf{\texttt{gerasis.m}}: problema 3
+	\end{itemize}		
+	\item arquivos de dados:
+	\begin{itemize}
+		\item MatA\textit{n} e MatB\textit{n}: problema 1
+		\item TS\textit{n} e TI\textit{n}: problema 2
+		\item S\textit{n}: problema 3
+	\end{itemize}	
+\end{lista}
+
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{1pt}}
+
+\clearpage
+
+\glsaddall
+\printglossaries
+%\printglossary[type=main]
+%\printglossary[type=\acronymtype]
+
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{1pt}}
+
+\clearpage
+
+\begin{thebibliography}{30}
+
+\newbibit{ARUMUGAM 2011}{ARUMUGAM 2011}{Ugasciny ARUMUGAM,Nursyarizal Mohd NOR e Mohd Faris ABDULLAH}{A Brief Review on Advances of Harmonic State Estimation Techniques in Power Systems}{http://www.ijiee.org/papers/34-I040.pdf}{05/03/2016}
+
+\newbibit{BENEDITO 2013}{BENEDITO 2013}{Raphael Augusto de Souza BENEDITO}{Fluxo de Potência (de Carga)}{http://paginapessoal.utfpr.edu.br/raphaelbenedito}{05/03/2016}
+
+\newbibit{DONGARRA 2010}{DONGARRA 2010}{Jack DONGARRA e Piotr LUSZCZEK}{Reducing the time to tune parallel dense linear algebra routines with partial execution and performance modelling}{http://www.netlib.org/lapack/lawnspdf/lawn235.pdf}{05/03/2016}
+
+\newbibpp{FERZLI 2007}{FERZLI 2007}{Imad A. Ferzli, Naser Farid e Lars Kruse}{Early power grid verification under circuit current uncertainties}{Low Power Electronics and Design (ISLPED), 2007 ACM/IEEE International Symposium, 27-29 Aug. 2007, pp. 116 a 121}
+
+\newbibbk{GIBSON 2015}{GIBSON 2015}{Walton GIBSON}{The Method of Moments in Electromagnetics}{CRC Press, 2015}
+
+\newbibit{LIAO 2006}{LIAO 2006}{LIAO Huaiwei}{Power System Harmonic State Estimation and Observability Analysis via Sparsity Maximization}{https://www.andrew.cmu.edu/user/hliao/paper/liao-hse-pwrs.pdf}{05/03/2016}
+
+\newbibpp{LIN 2008}{LIN 2008}{LIN Chih-Jen, WENG Ruby C. e S. Sathiya KEERTHI}{Trust Region Newton Method for Logistic Regression}{The Journal of Machine Learning Research, Volume 9, Sep. 2008, pp. 627 a 650}
+
+\newbibpp{MOORE 1981}{MOORE 1981}{B. MOORE}{Principal component analysis in linear systems: Controllability, observability, and model reduction}{IEEE Transactions on Automatic Control, Volume 26, Issue 1, ISSN 0018-9286, pp. 17 a 32}
+
+\newbibbk{OVERSCHEE 1996}{OVERSCHEE 1996}{Peter van OVERSCHEE e Bart de MOOR}{Subspace Identification for Linear Systems}{Kluwer Academic Publishers, Boston, 1996, ISBN 13:978-1-4613-8061-0}
+
+\newbibbk{PHILLIPS 1995}{PHILLIPS 1995}{Charles L. PHILLIPS e H. Troy NAGLE}{Digital Control System Analysis and Design}{Prentice Hall, Englewood Cliffs, 1995, 3 \textsuperscript{rd} Ed.}
+
+\newbibbk{RYLANDER 2013}{RYLANDER 2013}{Thomas RYLANDER, Pär INGELSTRÖM e Anders BONDESON}{Computational Electromagnetics}{Springer, New York, 2013, 2\textsuperscript{nd} Ed., ISBN 978-1-4614-5350-5: Chap. 1, pp. 1 a 3}
+
+\newbibit{STEINBACH 2000}{STEINBACH 2000}{Michael STEINBACH, George KARYPIS e Vipin KUMAR}{A Comparison of Document Clustering Techniques}{https://www.cs.cmu.edu/~dunja/KDDpapers/Steinbach_IR.pdf}{10/03/2016}
+
+\newbibit{YU 2005}{YU 2005}{YU Kent}{Harmonic State Estimation and Transient State Estimation}{http://ir.canterbury.ac.nz/bitstream/10092/1108/1/thesis_fulltext.pdf}{05/03/2016}
+
+\newbibit{ZHOU 2009}{ZHOU 2009}{ZHOU Niancheng, LIN Li e ZHU Jizhong}{An Approach to Harmonic State Estimation of Power System}{http://www.scirp.org/journal/PaperDownload.aspx?paperID=730}{05/03/2016}
+
+\end{thebibliography}
+
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{1pt}}
+
+Programas testados com \textbf{Octave} 4.0.0 e \textbf{MinGW} C 4.8.2: \\
+\url{https://www.gnu.org/software/octave/} \\
+\url{https://www.mingw.org} \\
+Texto formatado com \textbf{pdflatex} em ambiente \textbf{MiKTeX} 2.9: \\
+\url{http://miktex.org/download/} \\ \\
+\end{document}

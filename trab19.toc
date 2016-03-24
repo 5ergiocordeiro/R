@@ -1,0 +1,10 @@
+\select@language {brazilian}
+\contentsline {section}{\tocsection {}{1}{Introdu\c c\~ao}}{2}{section.1}
+\contentsline {section}{\tocsection {}{2}{Equa\c c\~oes de Maxwell em coordenadas esf\'ericas}}{3}{section.2}
+\contentsline {subsection}{\tocsubsection {}{2.1}{Forma das equa\c c\~oes para o problema proposto}}{3}{subsection.2.1}
+\contentsline {subsection}{\tocsubsection {}{2.2}{Forma das equa\c c\~oes em coordenadas esf\'ericas}}{3}{subsection.2.2}
+\contentsline {section}{\tocsection {}{3}{Solu\c c\~ao do problema}}{4}{section.3}
+\contentsline {subsection}{\tocsubsection {}{3.1}{Solu\c c\~ao das equa\c c\~oes}}{4}{subsection.3.1}
+\contentsline {subsection}{\tocsubsection {}{3.2}{Implementa\c c\~ao}}{8}{subsection.3.2}
+\contentsline {subsection}{\tocsubsection {}{3.3}{An\'alise dos resultados}}{10}{subsection.3.3}
+\contentsline {section}{\tocsection {}{}{Refer\^encias}}{16}{section*.2}

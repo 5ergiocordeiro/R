@@ -1,0 +1,36 @@
+    \documentclass{article}
+    \usepackage{tikz}  
+    \usepackage{tikz-3dplot}
+
+    \begin{document}
+
+    %Angle Definitions
+    %-----------------
+
+    %set the plot display orientation
+    %synatax: \tdplotsetdisplay{\theta_d}{\phi_d}
+    \tdplotsetmaincoords{60}{110}
+
+    \pgfmathsetmacro{\rvec}{2}
+    \pgfmathsetmacro{\thetavecc}{60}
+    \begin{tikzpicture}[tdplot_main_coords]
+    \coordinate (O) at (0,0,0);
+    %draw the main coordinate system axes
+	\foreach \t in {-5,...,6} {
+		\tdplotsetthetaplanecoords{\t*30}
+		\begin{scope}[opacity=0.6,dotted]
+			\draw[tdplot_rotated_coords] (\rvec,0,0) arc (0:360:\rvec);
+		\end{scope}
+		\begin{scope}
+			\draw[tdplot_rotated_coords] (\rvec,0,0) arc (0:\thetavecc:\rvec);
+		\end{scope}
+		}
+
+
+
+    \end{tikzpicture}
+
+
+    \end{document}
+
+

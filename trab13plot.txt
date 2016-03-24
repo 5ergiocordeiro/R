@@ -1,0 +1,50 @@
+function trab13plot()
+	% Problema 1
+	% letra a
+	R = 1;
+	z = linspace(-10*R,10*R,100);
+	r = R^2 + z.^2;
+	E = z.* r.^(-3/2);
+	m = 100/max(E);
+	figure(1); clf; plot(z,E*m);
+		title("Intensidade do campo elétrico em função de z");
+		xlabel("z");
+		ylabel("%E_{max}");
+	print -djpg trab13figabca.jpg;
+	% letra b
+	% geral	
+	R = 1;
+	z = linspace(-4*R,4*R,100);
+	r = R^2 + z.^2;
+	E = (sign(z) - (z.* r.^(-1/2)));
+	m = 100/max(E);
+	figure(1); clf; plot(z,E*m);
+		title("Intensidade do campo elétrico em função de z");
+		xlabel("z");
+		ylabel("%E_{max}");
+		xlim([-4*R 4*R]);
+	print -djpg trab13figabcb1.jpg;
+	% detalhe
+	R = 1;
+	z = linspace(-0.5*R,0.5*R,100);
+	r = R^2 + z.^2;
+	E = (sign(z) - (z.* r.^(-1/2)));
+	m = 100/max(E);
+	figure(2); clf; plot(z,E*m);
+		title("Intensidade do campo elétrico próximo a z = 0");
+		xlabel("z");
+		ylabel("%E_{max}");
+		xlim([-0.5*R 0.5*R]);
+	print -djpg trab13figabcb2.jpg;
+	% Problema 2
+	L = 1;
+	y = linspace(-4*L,4*L,100);
+	u = y./L;
+	f = sqrt(4 * u.^2 + 1);
+	V = log((f.+1)./(f.-1));
+	m = 100/max(V);
+	figure(1); clf; plot(u,V*m);
+		title("Potencial elétrico em função de y/L");
+		xlabel("y/L");
+		ylabel("%V_{max}");
+	print -djpg trab13figabd.jpg;

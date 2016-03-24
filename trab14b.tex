@@ -1,0 +1,1397 @@
+% 07/09/2015
+
+\newcommand{\plotres}{}				% Usar \newcommand{\plotres}{180} para desenho de superfícies em alta resolução
+
+\documentclass[12pt,fleqn]{amsart}
+\usepackage{enumitem}
+\usepackage{xstring}
+\usepackage{graphicx}
+\usepackage[a4paper]{geometry}
+\usepackage[portuguese,brazilian]{babel}
+\usepackage[ansinew]{inputenc}
+\usepackage[T1]{fontenc}
+% Fontes
+\usepackage{yfonts}
+\usepackage{microtype}
+\usepackage{calligra}
+\usepackage{lmodern}
+\usepackage{bookman}
+\usepackage[scaled]{helvet}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+\usepackage{fmtcount}
+\usepackage{glossaries}
+% Formatação
+\usepackage{sidecap}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{matlab-prettifier}
+% Figuras geométricas
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\usepackage{pgfplots}
+\usetikzlibrary{calc,fadings,decorations.pathreplacing,3d}
+\usetikzlibrary{arrows}
+\usetikzlibrary{positioning}
+% Símbolos matemáticos
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{wasysym}
+\usepackage{mathtools}
+\usepackage{bbm}
+\usepackage{mbboard}
+\usepackage{boolexpr}
+
+
+\title{Teoria Eletromagnética - Lista de Exercícios II}
+\date{}
+\author{Sérgio Cordeiro}
+
+\newenvironment{inthisrev}{
+	\color{blue}
+	}{
+	\color{black}
+	}
+
+\newenvironment{myquote}{
+	\begin{quote}
+	\fontfamily{lmr} \selectfont
+	{\huge ``}}{{\huge ''}
+	\end{quote}
+	}
+
+\newenvironment{pergunta}{
+	\par
+	\trivlist
+	\fontfamily{phv}
+	\selectfont
+	\item\arabic{prob_num}. 
+	}{
+	\endtrivlist
+	}
+
+\newenvironment{resposta}{
+	\trivlist
+    \vspace{3pt}
+	\fontfamily{pbk}
+	\selectfont
+	\item
+	}{
+	\vspace{3pt}
+	\noindent\makebox[\linewidth]{\rule{\paperwidth}{1pt}}
+	\endtrivlist
+	\stepcounter{prob_num}
+	}
+
+\newenvironment{listae}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}	
+	\vspace{-5mm}}
+
+\newenvironment{listaef}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}}
+
+\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
+
+\renewcommand{\thesubsection}{\textbf{\arabic{subsection}}}
+\renewcommand{\thesection}{\color{red}}
+
+\newcommand{\newbibit}[6]{\bibitem[#1]{#2}#3, {\bf #4}. Disponível em \url{#5}, acesso em #6.}
+\newcommand{\newbibpp}[5]{\bibitem[#1]{#2}#3, {\bf #4}, \emph{in} #5.}
+\newcommand{\newbibbk}[5]{\bibitem[#1]{#2}#3, {\bf #4}, #5.}
+\newcommand{\newbibip}[6]{\bibitem[#1]{#2}#3, {\bf #4}, \emph{in} #5, disponível em \url{#6}.}
+\newcommand{\newbiboc}[4]{\bibitem[#1]{#2}#3, \textit{op. cit.}, #4.}
+\newcommand{\newbibsi}[7]{\bibitem[#1]{#2}#3, {\bf #4} : {#5}. Disponível em \url{#6}, acesso em #7.}
+
+
+\newenvironment{iquote}{\begin{quote}\itshape}{\end{quote}}
+
+% Símbolos de funções
+\DeclareMathOperator{\sinc}{\mbox{sinc}}				% Função sinc
+\DeclareMathOperator{\sgn}{\mbox{sgn}}					% Função sinal
+\DeclareMathOperator{\atan}{\mbox{arctan}}				% Função arco-tangente
+\DeclareMathOperator{\acos}{\mbox{arccos}}				% Função arco-cosseno
+% Símbolos de elementos infinitesimais
+\newcommand {\dpx}[1]{\boldsymbol{\delta {#1}}}
+% Símbolos de constantes escalares (ex. carga do eletron: \ke{e})
+\newcommand {\ke}[1]{\text{\large \textfrak{#1}}}
+% Valores de constantes escalares (ex. carga do eletron: \kve{e})
+\newcommand {\kve}[1]{
+  \IfStrEqCase{#1}{
+    {e}{1,602 \times 10^{-19} \; C}
+    {mu}{4 \pi \times 10^{-7} \; H \; m^{-1}}
+    {ep}{8,854 \times 10^{-12} \; F \; m^{-1}}	
+    {c}{2,998 \times 10^{8} \; m \; s^{-1}}
+	}
+  \text{\large \textfrak{#1}}}
+% Símbolos de parâmetros escalares do problema
+ \newcommand{\ppe}[1]{\boldsymbol{#1}}					% genérico
+ \newcommand{\dcv}[1]{\ppe{\boldsymbol{\rho}_{v_{#1}}}}			% Densidade volumétrica de carga
+ \newcommand{\dcs}[1]{\ppe{\boldsymbol{\rho}_{S_{#1}}}}			% Densidade superficial de carga
+ \newcommand{\dcl}[1]{\ppe{\boldsymbol{\rho}_{l_{#1}}}}			% Densidade linear de carga
+% Símbolos de propriedades escalares do meio
+% Para letras gregas, usar o nome especial (precedido por 'bb')
+%(ex. condutividade: \pme{\bbsigma})
+\newcommand {\pme}[1]{\mathbb{#1}}
+% Símbolos de propriedades tensoriais do meio
+% Para letras gregas, usar o nome especial (precedido por 'bb')
+%(ex. condutividade: \pmm{\bbsigma})
+\newcommand {\pmm}[1]{\pmb{\mathbb{#1}}}
+% Expressões de elementos diferenciais
+% Elemento de volume em coordenadas esféricas
+\newcommand {\dve}{r^2 \sin \theta \; dr \; d \theta \; d \phi}
+% Elemento de superfície em coordenadas cilíndricas
+\newcommand {\dsc}{\rho \; d \phi \; dz \; \a{\rho} + dz \; d \rho \; \a{\phi} + \rho \; d \rho \; d \phi \; \a{z}}
+% Elemento de superfície em coordenadas esféricas
+\newcommand {\dse}{r^2 \sin \theta \; d \theta \; d \phi \; \a{r} + r \sin \theta \; dr \; d \phi \; \a{\theta} + r \; dr \; d \theta \; \a{\phi}}
+% Elemento de deslocamento em coordenadas cilíndricas
+\newcommand {\dlc}{d \rho \; \a{\rho} + \rho \; d \phi \; \a{\phi} + dz \; \a{z}}
+% Elemento de deslocamento em coordenadas esféricas
+\newcommand {\dle}{dr \; \a{r} + r \; d \theta \; \a{\theta} + r \sin \theta \; d \phi \; \a{\phi} + dz \; \a{z}}
+% Conversão de vetores unitários
+\newcommand {\convarc}{\sin \theta \; \a{\rho} + \cos \theta \; \a{z}}
+\newcommand {\convark}{\sin \theta \; \cos \phi \; \a{x} + \sin \theta \; \sin \phi \; \a{y} + \cos \theta \; \a{z}}
+\newcommand {\convatc}{\cos \theta \; \a{\rho} - \sin \theta a; \a{z}}
+\newcommand {\convatk}{\cos \theta \; \cos \phi \; \a{x} + \cos \theta \; \sin \phi \; \a{y} - \sin \theta \; \a{z}}
+\newcommand {\convapk}{- \sin \phi \; \a{x} + \cos \phi \; \a{y}}
+\newcommand {\convahk}{\cos \phi \; \a{x} + \sin \phi \; \a{y}}
+\newcommand {\convaxc}{\cos \phi \; \a{\rho} - \sin \phi \; \a{\phi}}
+\newcommand {\convayc}{\sin \phi \; \a{\rho} + \cos \phi \; \a{\phi}}
+\newcommand {\convaxe}{\sin \theta \; \cos \phi \; \a{r} + \cos \theta \; \cos \phi \; \a{\theta} - \sin \phi \; \a{\phi}}
+\newcommand {\convaye}{\sin \theta \; \sin \phi \; \a{r} + \cos \theta \; \sin \phi \; \a{\theta} + \cos \phi \; \a{\phi}}
+\newcommand {\convaze}{\cos \theta \; \a{r} - \sin \theta \; \a{\theta}}
+\newcommand {\convahe}{\sin \theta \; \a{r} + \cos \theta \; \a{\theta}}
+% Conversão de coordenadas
+\newcommand {\convrc}{\sqrt{\rho^2 + z^2}}
+\newcommand {\convrk}{\sqrt{x^2 + y^2 + z^2}}
+\newcommand {\convtc}{\atan(\rho,z)}
+\newcommand {\convtk}{\acos(z,\sqrt{x^2 + y^2 + z^2})}
+\newcommand {\convpk}{\atan(y,x)}
+\newcommand {\convhk}{\sqrt{x^2 + y^2}}
+\newcommand {\convhe}{r \sin \theta}
+\newcommand {\convyc}{\rho \sin \phi}
+\newcommand {\convxe}{r \sin \theta \; \cos \phi}
+\newcommand {\convye}{r \sin \theta \; \sin \phi}
+\newcommand {\convze}{r \cos \theta}
+% Símbolos de operadores diferencias
+\newcommand{\grad}{\vec{\nabla}}
+\renewcommand{\div}{\grad \cdot}
+\newcommand{\rot}{\grad \times}
+\newcommand{\lap}{\nabla^2}
+\newcommand{\vlap}{\grad^2}
+\newcommand{\pd}[2]{\frac{\partial {#1}}{\partial {#2}}}
+\newcommand{\px}[1]{\frac{\partial {#1}}{\partial x}}
+\newcommand{\py}[1]{\frac{\partial {#1}}{\partial y}}
+\newcommand{\pz}[1]{\frac{\partial {#1}}{\partial z}}
+\newcommand{\pt}[1]{\frac{\partial {#1}}{\partial t}}
+\newcommand{\prho}[1]{\frac{\partial {#1}}{\partial \rho}}
+\newcommand{\pphi}[1]{\frac{\partial {#1}}{\partial \phi}}
+\newcommand{\pr}[1]{\frac{\partial {#1}}{\partial r}}
+\newcommand{\ptheta}[1]{\frac{\partial {#1}}{\partial \theta}}
+\newcommand{\ppx}[1]{\frac{\partial^2 {#1}}{\partial x^2}}
+\newcommand{\ppy}[1]{\frac{\partial^2 {#1}}{\partial y^2}}
+\newcommand{\ppz}[1]{\frac{\partial^2 {#1}}{\partial z^2}}
+\newcommand{\ppphi}[1]{\frac{\partial^2 {#1}}{\partial \phi^2}}
+\newcommand{\ppr}[1]{\frac{\partial ^2 {#1}}{\partial r^2}}
+\renewcommand{\a}[1]{\hat{a}_{#1}}
+\newcommand{\ga}[3]{\px{#1} \a{x} + \py{#2} \a{y} + \pz{#3} \a{z}}
+\newcommand{\gc}[3]{\prho{#1} \a{\rho} + \frac{1}{\rho} \pphi{#2} \a{\phi} + \pz{} \a{z}}
+\newcommand{\gr}[3]{\pr{#1} \a{r} + \frac{1}{r \sin \theta} \pphi{#2} \a{\phi} + \frac{1}{r} \ptheta{#3} \a{\theta}}
+\newcommand{\de}[3]{\frac{1}{r^2} \pr{} r^2 \; {#1} \; \a{r} + \frac{1}{r \sin \theta} \pphi{} \; {#2} \; \a{\phi} + \frac{1}{r \sin \theta} \ptheta{} \sin \theta \; {#3} \; \a{\theta}}
+\newcommand{\dc}{\frac{1}{\rho} \prho{} \rho \; \a{\rho} + \frac{1}{\rho} \pphi{} \; \a{\phi} + \pz{} \a{z}}
+\newcommand{\la}[3]{\ppx{#1} + \ppy{#2} + \ppz{#3}}
+\newcommand{\lc}[3]{\frac{1}{\rho} \prho{} \rho \prho{#1} + \frac{1}{\rho^2} \ppphi{#2} + \ppz{#3}}
+\newcommand{\lr}[3]{\frac{1}{r^2} \pr{} r^2 \pr{#1} + \frac{1}{r^2 \sin \theta} \ptheta{} \sin \theta \ptheta{#2} + \frac{1}{r^2 \sin^2 \theta} \ppphi{#3}}
+\newcommand{\vla}[3]{\ppx{#1} \a{x} + \ppy{#2} \a{y} + \ppz{#3} \a{z}}
+\renewcommand{\ra}[3]{\left( \py{#3} - \pz{#2} \right) \a{x} + \left( \pz{#1} - \px{#3} \right) \a{y} + \left( \px{#2} - \py{#1} \right) \a{z}}
+% Símbolos de operadores integrais
+\newcommand {\iv}[1]{\iiint \limits_{#1}}
+\newcommand {\ivv}[6]{\int_{#1}^{#2} \int_{#3}^{#4} \int_{#5}^{#6}}
+\newcommand {\is}[1]{\iint \limits_{#1}}
+\newcommand {\ios}[1]{\oiint \limits_{#1}}
+\newcommand {\iss}[4]{\int_{#1}^{#2} \int_{#3}^{#4}}
+\newcommand {\il}[1]{\int \limits_{#1}}
+\newcommand {\ill}[2]{\int_{#1}^{#2}}
+% Linhas divisórias
+\newcommand{\hhhlin}{\noindent\hfil\rule{0.25\textwidth}{.2pt}\hfil\newline}
+\newcommand{\hhlin}{\noindent\hfil\rule{0.5\textwidth}{.4pt}\hfil\newline}
+\newcommand{\hlin}{\noindent\hfil\rule{\textwidth}{.8pt}\hfil\newline}
+% Matriz coluna (3x1)
+\newcommand{\bigmc}[3]{\left( \begin{matrix} {#1} \\ {#2} \\ {#3} \end{matrix} \right)}
+\newcommand{\bigmci}[1]{\left( \begin{matrix} {#1}_1 \\ {#1}_2 \\ {#1}_3 \end{matrix} \right)}
+% Matriz linha (1x3)
+\newcommand{\bigml}[3]{\left( \begin{matrix} {#1} & {#2} & {#3} \end{matrix} \right)}
+\newcommand{\bigmli}[1]{\left( \begin{matrix} {#1}_1 & {#1}_2 & {#1}_3 \end{matrix} \right)}
+% Matriz quadrada (3x3)
+\newcommand{\bigmq}[9]{\left( \begin{matrix} {#1} & {#2} & {#3} \\ {#4} & {#5} & {#6} \\ {#7} & {#8} & {#9} \end{matrix} \right)}
+\newcommand{\bigmqi}[1]{\left( \begin{matrix} {#1}_{1,1} & {#1}_{1,2} & {#1}_{1,3} \\ {#1}_{2,1} & {#1}_{2,2} & {#1}_{2,3} \\ {#1}_{3,1} & {#1}_{3,2} & {#1}_{3,3} \end{matrix} \right)}
+\newcommand{\bigmqd}[9]{\left| \begin{matrix} {#1} & {#2} & {#3} \\ {#4} & {#5} & {#6} \\ {#7} & {#8} & {#9} \end{matrix} \right|}
+\newcommand{\bigmqid}[1]{\left| \begin{matrix} {#1}_{1,1} & {#1}_{1,2} & {#1}_{1,3} \\ {#1}_{2,1} & {#1}_{2,2} & {#1}_{2,3} \\ {#1}_{3,1} & {#1}_{3,2} & {#1}_{3,3} \end{matrix} \right|}
+
+
+% Figuras geométricas 3D
+% Eixos coordenados
+\newcommand{\drawaxes}[1]{
+    \begin{scope}[solid,->,opacity={#1}]
+        \draw (0,0,0) -- (3,0,0) node[anchor=south west]{$x$};
+        \draw (0,0,0) -- (0,3,0) node[right]{$y$};
+        \draw (0,0,0) -- (0,0,3) node[above]{$z$};
+	\end{scope}
+	}
+% Cone com vértice na origem
+\newcommand{\drawcone}[9]{
+    \pgfmathsetmacro\nn{#1}
+	\pgfmathsetmacro\ox{#3}
+	\pgfmathsetmacro\oy{#4}
+	\pgfmathsetmacro\oz{#5}
+	\pgfmathsetmacro\re{#6}
+	\pgfmathsetmacro\ac{#7}
+    \pgfmathsetmacro\n{2*\nn}
+    \pgfmathsetmacro\ni{\nn/2}
+    \pgfmathsetmacro\nf{1.5*\nn}	
+    \pgfmathsetmacro\rh{\re*sin(\ac)}
+    \pgfmathsetmacro\h{\re*cos(\ac)}
+    \foreach \t in {1,...,\n} {
+        \filldraw[fill=white,dotted,opacity={#2}] (0,0,0) -- ({\rh*cos((\t+1)*pi/\nn r)},{\rh*sin((\t+1)*pi/\nn r)},\h) -- ({\rh*cos(\t*pi/\nn r)},{\rh*sin(\t*pi/\nn r)},\h) -- cycle;
+		}
+	\IfStrEq{#8}{}{
+ 		\path[draw] plot[domain=0:2*pi,samples=\n] ({\rh*cos(\x r)}, {\rh*sin(\x r)}, \h);	
+		}{
+		\foreach \t in {1,...,\nn} {
+			\filldraw[fill={#8},opacity={#9}] ({\rh*cos((\t+1)*pi/\nn r)},{\rh*sin((\t+1)*pi/\nn r)},\h) -- ({\rh*cos(\t*pi/\nn r)},{\rh*sin(\t*pi/\nn r)},\h) -- ({\rh*cos(\t*pi/\nn r)},-{\rh*sin(\t*pi/\nn r)},\h) -- ({\rh*cos((\t+1)*pi/\nn r)},-{\rh*sin((\t+1)*pi/\nn r)},\h) -- cycle;
+			}
+		\foreach \t in {\ni,...,\nf} {
+			\draw[opacity={#9}] ({\rh*cos((\t+1)*pi/\nn r)},{\rh*sin((\t+1)*pi/\nn r)},\h) -- ({\rh*cos(\t*pi/\nn r)},{\rh*sin(\t*pi/\nn r)},\h) -- (-{\rh*cos(\t*pi/\nn r)},{\rh*sin(\t*pi/\nn r)},\h) -- (-{\rh*cos((\t+1)*pi/\nn r)},{\rh*sin((\t+1)*pi/\nn r)},\h) -- cycle;
+			}
+		}
+	}
+% Esfera com centro na origem
+\newcommand{\drawsphere}[8]{
+    \pgfmathsetmacro\nn{#1}
+	\pgfmathsetmacro\ox{#3}
+	\pgfmathsetmacro\oy{#4}
+	\pgfmathsetmacro\oz{#5}
+	\pgfmathsetmacro\re{#6}
+	\pgfmathsetmacro\ac{#7}
+    \pgfmathsetmacro\tcc{int \ac/10}	
+	\begin{scope}[dotted,opacity={#2}]
+		\foreach \t in {0,...,11} {
+			\tdplotsetthetaplanecoords{\t*30}
+			\draw[tdplot_rotated_coords] (\re,0,0) arc (0:360:\re);
+		}
+		\foreach \t in {0,...,6} {
+			\pgfmathsetmacro\tc{\t*30-90}	
+			\draw plot[domain=0:2*pi,samples=\n] ({\re*cos(\tc)*cos(\x r)}, {\re*cos(\tc)*sin(\x r)}, {\re*sin(\tc)});
+		}
+	\end{scope}
+	\IfStrEq{#7}{}{}{				% ATENÇÃO: Não substituir #7 por \ac
+		\begin{scope}[opacity={#8}]
+			\foreach \t in {0,...,35} {
+				\tdplotsetthetaplanecoords{\t*10}
+				\draw[tdplot_rotated_coords] (\re,0,0) arc (0:\ac:\re);
+			}
+			\foreach \t in {0,...,\tcc} {
+				\pgfmathsetmacro\tc{\t*10+90}	
+				\draw plot[domain=0:2*pi,samples=\n] ({\re*cos(\tc)*cos(\x r)}, {\re*cos(\tc)*sin(\x r)}, {\re*sin(\tc)});
+			}
+		\end{scope}
+		}
+	}
+% Elementos diferenciais
+% Área diferencial orientada segundo o eixo r
+\newcommand \drawdsr[3]{
+	\pgfmathsetmacro\re{#1}
+	\pgfmathsetmacro\t{#2}
+    \pgfmathsetmacro\p{#3}
+    \pgfmathsetmacro\xi{\re*sin(\t)*cos(\p)}
+    \pgfmathsetmacro\yi{\re*sin(\t)*sin(\p)}
+    \pgfmathsetmacro\zi{\re*cos(\t)}
+    \pgfmathsetmacro\xf{1.2*\xi}
+    \pgfmathsetmacro\yf{1.2*\yi}
+    \pgfmathsetmacro\zf{1.2*\zi}
+	\IfStrEq{\plotres}{}{}{	
+		\tdplotsetpolarplotrange{\t-5}{\t+5}{\p-5}{\p+5}
+		\tdplotsphericalsurfaceplot{\plotres}{\plotres}{\re}{red!25}{red!25}{}{}{}
+		}
+	\draw [thick,->,red] (\xi,\yi,\zi) -- (\xf,\yf,\zf) node[right]{$\vec{dS_r}$};
+	}
+% Área diferencial orientada segundo o eixo Z
+\newcommand \drawdsz[3]{
+	\pgfmathsetmacro\x{#1}
+	\pgfmathsetmacro\y{#2}
+    \pgfmathsetmacro\z{#3}
+    \pgfmathsetmacro\xi{\x-0.15}
+    \pgfmathsetmacro\xf{\x+0.15}
+    \pgfmathsetmacro\yi{\y-0.15}
+    \pgfmathsetmacro\yf{\y+0.15}
+	\pgfmathsetmacro\zf{\z*1.2}
+    \filldraw[red,fill=red!25] (\xi,\yi,\z) -- (\xi,\yf,\z) -- (\xf,\yf,\z) -- (\xf,\yi,\z) -- cycle ;
+    \draw [thick,->,red] (\x,\y,\z) -- (\x,\y,\zf) node[right]{$\vec{dS_z}$};
+	}
+
+% Figura Exercício 2.4.2-a
+\newcommand{\drawfigbdba}{
+\begin{tikzpicture}[math3d,tdplot_main_coords,scale=3]
+	\pgfmathsetmacro\re{2}
+	\pgfmathsetmacro\ac{45}
+    \pgfmathsetmacro\h{\re*cos(\ac)}
+	\pgfmathsetmacro\rere{\re/2}
+    \pgfmathsetmacro\axax{3*\rere}
+    \pgfmathsetmacro\ay{\axax*sin(\ac)}	
+    \pgfmathsetmacro\az{\axax*cos(\ac)}
+	% Eixos x,y e z
+	\drawaxes{0.2}
+	% /% Cone interno sem tampa
+	\drawcone{20}{0.4}{0}{0}{0}{2}{45}{}{}
+	% Esfera externa com calota destacada
+	\drawsphere{20}{0.6}{0}{0}{0}{2}{45}{0.6}
+	% Grandezas
+    \begin{scope}[solid,->,thick,blue]
+        \draw (0,0,0) node[below]{O} -- (\rh,0,\h) node[below,pos=0.5]{$a$};
+	\end{scope}
+    \begin{scope}[solid,opacity=0.2]
+        \draw (0,\rh,\h) -- (0,\ay,\az);
+	\end{scope}
+	\tdplotsetthetaplanecoords{90}
+	\draw[blue,thick,tdplot_rotated_coords] (2.5,0,0) arc (0:45:2.5) node[pos=0.5,above]{$\theta_0$};
+	\pgfmathsetmacro\tab{35}
+	\pgfmathsetmacro\pab{65}
+	\pgfmathsetmacro\xab{\re*sin(\tab)*cos(\pab)}
+	\pgfmathsetmacro\yab{\re*sin(\tab)*sin(\pab)}
+	\pgfmathsetmacro\zab{\re*cos(\tab)}
+	% Elementos diferenciais
+	\drawdsr{\re}{\tab}{\pab}
+	% Carga e densidade de fluxo
+    \draw [very thick,->,violet] (0,0,0) node[right]{q} -- (\xab,\yab,\zab) node[right,pos=0.5]{$\vec{D}$};
+\end{tikzpicture}
+}
+% Figura Exercício 2.4.2-b
+\newcommand{\drawfigbdbb}{
+\begin{tikzpicture}[math3d,tdplot_main_coords,scale=1.5]
+	\pgfmathsetmacro\re{2}
+	\pgfmathsetmacro\ac{45}
+    \pgfmathsetmacro\h{\re*cos(\ac)}
+	\pgfmathsetmacro\rere{\re/2}
+    \pgfmathsetmacro\axax{3*\rere}
+    \pgfmathsetmacro\ay{\axax*sin(\ac)}	
+    \pgfmathsetmacro\az{\axax*cos(\ac)}
+	% Eixos x,y e z
+	\drawaxes{0.2}
+	/% Cone interno com tampa
+	\drawcone{20}{0.4}{0}{0}{0}{2}{45}{gray!25}{0.6}
+	% Esfera externa
+	\drawsphere{20}{0.6}{0}{0}{0}{2}{}{}
+	% Grandezas
+    \begin{scope}[solid,->,thick,blue]
+        \draw (0,0,0) -- (0,0,\h) node[above]{$z_0$};	
+        \draw (0,0,\h) -- (0,-\rh,\h) node[below]{$\rho$};
+        \draw (0,0,0) node[below]{O} -- (\rh,0,\h) node[below,pos=0.5]{$a$};
+	\end{scope}
+    \begin{scope}[solid,opacity=0.2]
+        \draw (0,\rh,\h) -- (0,\ay,\az);
+	\end{scope}
+	\tdplotsetthetaplanecoords{90}
+	\draw[blue,thick,tdplot_rotated_coords] (2.5,0,0) arc (0:\ac:2.5) node[pos=0.5,above]{$\theta_0$};
+	\pgfmathsetmacro\xab{0.35}
+	\pgfmathsetmacro\yab{0.35}
+	\drawdsz{\xab}{\yab}{\h}
+	% Cargas e campos
+	% Carga e densidade de fluxo
+    \draw [very thick,->,violet] (0,0,0) node[right]{q} -- (\xab,\yab,\h) node[right,pos=0.5]{$\vec{D}$};
+\end{tikzpicture}
+}
+% Figura Exercício 2.4.3-b
+\newcommand{\drawfigbdcb}{
+\begin{tikzpicture}[math3d,tdplot_main_coords,scale=3]
+	\pgfmathsetmacro\re{2}
+	\pgfmathsetmacro\ac{135}
+    \pgfmathsetmacro\h{\re*cos(\ac)}
+	\pgfmathsetmacro\rere{\re/2}
+    \pgfmathsetmacro\axax{3*\rere}
+    \pgfmathsetmacro\ay{\axax*sin(\ac)}	
+    \pgfmathsetmacro\az{\axax*cos(\ac)}
+	% Eixos x,y e z
+	\drawaxes{0.2}
+	/% Cone interno com tampa
+	\drawcone{20}{0.4}{0}{0}{0}{2}{135}{gray!15}{0.4}
+	% Esfera externa
+	% \drawsphere{20}{0.6}{0}{0}{0}{2}{}{}
+	% Grandezas
+    \begin{scope}[solid,->,thick,blue]
+        \draw (0,0,0) -- (0,0,\h) node[below]{$z_0$};	
+        \draw (0,0,\h) -- (0,-\rh,\h) node[below]{$\rho$};
+        \draw (0,0,0) node[anchor=north west]{O} -- (\rh,0,\h) node[above,pos=0.5]{$a$};
+	\end{scope}
+    \begin{scope}[solid,opacity=0.2]
+        \draw (0,\rh,\h) -- (0,\ay,\az);
+	\end{scope}
+	\tdplotsetthetaplanecoords{90}
+	\draw[blue,thick,tdplot_rotated_coords] (2.5,0,0) arc (0:\ac:2.5) node[pos=0.5,above]{$\theta_0$};
+	\pgfmathsetmacro\xab{0.35}
+	\pgfmathsetmacro\yab{0.35}
+	\drawdsz{\xab}{\yab}{\h}
+	% Cargas e campos
+	% Carga e densidade de fluxo
+    \draw [very thick,->,violet] (0,0,0) node[right]{q} -- (\xab,\yab,\h) node[right,pos=0.5]{$\vec{D}$};
+\end{tikzpicture}
+}
+
+% Perguntas
+\newcommand{\perguntaaa}{A densidade volumétrica (ou volumar) de carga $ \dcv{} $ da nuvem eletrônica de um átomo de hidrogênio pode ser representada por $ \frac{\ke{e} }{2^2 3^8 \pi a^7} \; r^4 e^{-\frac{2r}{3a}} \sin^4 \theta $ , onde a é uma constante (o raio de Bohr) e r é a coordenada radial esférica medida a partir do próton, cuja carga é $ \ke{e} $. Calcule a carga: a) da nuvem eletrônica; b) do átomo.}
+\newcommand{\perguntaab}{Uma partícula puntiforme (ou pontual) de carga q encontra-se a uma distância h de um plano condutor ilimitado. A densidade superficial da carga induzida no plano por essa partícula é: $ \dcs{} = - \frac{q}{2 \pi} \frac{h}{(\rho^2 + h^2)^\frac{3}{2}} $ , onde $ \rho $ é a coordenada cilíndrica radial medida a partir da perpendicular que passa pela partícula. Determine a carga total induzida no plano.}
+\newcommand{\perguntaac}{Uma partícula puntiforme de carga q, distante h do centro de uma esfera condutora de raio a < h, induz, na superfície desta, uma distribuição de cargas cuja densidade é: $ - \frac{q}{4 \pi a^2} \frac{a}{h} \frac{1 - \left( \frac{a}{h} \right)^2}{\left[ 1 - 2  \left( \frac{a}{h} \right) \cos \theta + \left( \frac{a}{h} \right)^2 \right]^\frac{3}{2}} $ , onde $ \theta $ é a coordenada esférica polar medida a partir do eixo que liga o centro da esfera à carga puntiforme. Calcule a carga total induzida na esfera.}
+\newcommand{\perguntaad}{Um fio circular de espessura desprezível e raio a está carregado com uma densidade linear dada por: $ \dcl{0} \sin^3 (n \phi) $ , onde $ \dcl{0} $ é uniforme, n é um inteiro e $ \phi $ é o ângulo polar em coordenadas cilíndricas. Dê a carga total do fio.}
+\newcommand{\perguntaae}{Em termos de delta de Dirac, exprima a densidade volumétrica das distribuições de cargas dos seguintes exercícios: a) 2), com o plano z = 0 sobre o plano carregado; b) 3); c) 4) em coordenadas cilíndricas; d) 4) em coordenadas esféricas.}
+\newcommand{\perguntaaf}{Quatro partículas puntiformes, de mesma carga q, situam-se nos vértices de um quadrado do plano xy com centro na origem e com lados, de comprimento 2a, paralelos aos eixos desse plano. Determine: a) a expressão cartesiana da densidade volumétrica de cargas; b) a carga total, integrando a densidade de cargas.}
+\newcommand{\perguntaag}{Uma carga puntiforme q oscila ao longo do eixo cartesiano z segundo a equação $ q(t) = a \cos \omega t $ , onde a e $ \omega $ são uniformes e constantes. Dê a expressão da densidade volumétrica instantânea da distribuição.}
+\newcommand{\perguntaah}{Uma distribuição superficial de cargas, com densidade uniforme $ \dcl{0} $, ocupa três planos ilimitados mutuamente ortogonais. Escolha o sistema de coordenadas mais adequado ao problema e: a) exprima em termos dele a densidade volumétrica de cargas; b) calcule, por integração, a carga total existente dentro de um cubo de aresta L, com centro na interseção dos planos e com faces paralelas e eles.}
+\newcommand{\perguntaai}{Uma superfície cônica carregada tem raio a, altura h e o vértice para baixo. Nesse sistema, a densidade superficial de carga é $ \dcs{0} \cos \left( \frac{\pi z}{2h} \right) $ , onde $ \dcs{0} $ é uniforme. Determine: a) a equação cilíndrica da superfície cônica; b) o elemento de carga, em função da coordenada z; c) a carga total da distribuição.}
+\newcommand{\perguntaaj}{A superfície esférica carregada, de equação S: r = a, gira em torno do eixo z com velocidade angular $ \omega $ . Determine a densidade superficial da corrente assim gerada, usando a: a) densidade volumétrica de cargas; b) densidade linear da corrente superficial.}
+\newcommand{\perguntaak}{Com a distribuição de correntes do exercício 10), determine a corrente que atravessa qualquer semiplano meridiano, usando a densidade: a) superficial de corrente; b) linear de corrente.}
+\newcommand{\perguntaal}{Num disco plano de espessura desprezível e raio a, distribui-se uniformemente uma carga q. O disco gira em torno do seu eixo de simetria com velocidade angular $ \omega $ . Num sistema de coordenadas cilíndricas coaxiais e concêntricas ao disco, determine a:
+a) equação da superfície carregada; b) densidade linear de corrente; c) corrente elementar gerada pela rotação do elemento de carga situado entre $ \rho $ e $ \rho + d \rho $ ; d) corrente gerada pela rotação do disco; e) corrente do item d) em termos do período T de rotação do disco.}
+\newcommand{\perguntaam}{A superfície cônica do exercício 9) tem agora uma distribuição de cargas uniforme, com densidade $ \dcs{0} $, e gira em torno do seu eixo de simetria com velocidade angular $ \omega $ . Determine a: a) expressão da densidade linear de corrente; b) corrente gerada pela rotação do cone.}
+\newcommand{\perguntaan}{Uma corrente superficial, com densidade linear uniforme de módulo K, escoa sobre o plano xy na direção ây. Determine a:
+a) expressão cartesiana da densidade superficial de corrente; b) corrente que atravessa um segmento de comprimento L da bissetriz do primeiro quadrante no plano xy.}
+\newcommand{\perguntaao}{Com a carga oscilante do exercício 7), determine a: a) expressão cartesiana da densidade superficial de corrente; b) corrente instantânea que atravessa qualquer ponto do eixo z.}
+\newcommand{\perguntaba}{Desenvolva um algoritmo (Matlab) para cálculo do campo elétrico e do potencial elétrico para uma distribuição qualquer de cargas. Considere o ponto de observação qualquer. Apresente o código, resultados comentados para um exemplo.}
+\newcommand{\perguntabb}{Calcule e faça um gráfico da intensidade de campo elétrico ao longo do eixo x para as seguintes configurações de cargas: (Comente todos os resultados). \\
+a)	Um dipolo elétrico alinhado ao longo do eixo x, com cargas de 140 pC,  carga positiva em (-60,0) mm e carga negativa em (60,0) mm ; \\
+b)	2 cargas  positivas iguais de 140 pC  localizadas em (-60; 0) mm e  (60; 0) ; \\
+c)	4 cargas pontuais Q, -Q, Q e – Q, com |Q|= 100 pC, localizadas respectivamente em (3; 3) mm, (-3; 3) mm (-3; -3) mm e (3; -3) mm ( vértices de um quadrado de lado 6 mm, com centro na origem do sistema de coordenadas). }
+\newcommand{\perguntabc}{Para as distribuições de carga a seguir apresente o gráfico do campo elétrico ao longo do eixo z. Comente os resultados. \\
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{figtrab13bc.jpg} \\
+\end{figure}
+}
+\newcommand{\perguntabd}{Para a distribuição de carga a seguir apresente o gráfico do potencial elétrico ao longo do eixo y em função de y/L. \\
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{figtrab13bd.jpg} \\
+\end{figure}
+} 
+\newcommand{\perguntabe}{(a) calcule o fluxo elétrico através de uma superfície quadrada de lado 2L devido a uma carga +Q a uma distância perpendicular L do centro da superfície, como na figura. (b) Usando o resultado obtido em (b), se agora a carga está no centro de um cubo, qual é o fluxo saindo das seis faces das superfície fechada. \\
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{figtrab13be.jpg} \\
+\end{figure}
+}
+\newcommand{\perguntaca}{Problemas 5.9 a 5.15 do Livro do Sadiku (comente resultados).}
+\newcommand{\perguntacb}{Resolver exemplos do livro do Cheng 3.12, 3.14-3.16. (comente resultados).}
+\newcommand{\perguntacc}{Ler seções 3.10.2 e 3.10.3 do livro do Cheng e resolver exemplo 3.21. (comente resultados).}
+\newcommand{\perguntacd}{Resolver problemas do livro do Cheng 3.25 e 3.28. (comente resultados).}
+\newcommand{\perguntace}{Problema do Capacitor cilíndrico.}
+\newcommand{\perguntacf}{Problema de Linha de Tranamissão.}
+
+
+\begin{document}
+\setlength{\parskip}{1em}
+\setlength{\jot}{10pt}
+\setlength{\parindent}{0pt}
+
+\tikzset{math3d/.style= {x={(-1cm,-1cm)}, y={(3cm,0cm)}, z={(0cm,3cm)}}}
+\lstset{language=Octave,frame=single,style=Matlab-editor,basicstyle={\tiny},breaklines=true,numbers=left,numberstyle={\color{red}},numbersep=9pt,showstringspaces=false,keepspaces=false,tabsize=2}
+
+\newcounter{prob_num}
+
+\maketitle
+
+\section*{Parte 1}
+\setcounter{prob_num}{1}
+\begin{pergunta}
+\perguntaaa{}
+\end{pergunta}
+\begin{resposta}
+a)
+\begin{equation*}
+	\begin{split}
+	Q_e & = \iv{} \dcv{} \; dv \\
+	& = \iv{} \frac{\ke{e} }{2^2 3^8 \pi a^7} \; r^4 e^{-\frac{2r}{3a}} \sin^4 \theta \; dv \\
+	& = \ivv{0}{2 \pi}{0}{\pi}{0}{\infty} - \frac{\ke{e} }{2^2 3^8 \pi a^7} \; r^4 e^{-\frac{2r}{3a}} \sin^4 \theta \; \dve \\	
+	& = \ivv{0}{2 \pi}{0}{\pi}{0}{\infty} - \frac{\ke{e} }{2^2 3^8 \pi a^7} \; r^6 e^{-\frac{2r}{3a}} \sin^5 \theta \; dr \; d\theta \; d\phi \\
+	& = \ivv{0}{2 \pi}{0}{\pi}{0}{\infty} - \frac{\ke{e} }{2^2 3^8 \pi} \; \left[ \frac{r}{a} \right]^6 e^{-\frac{2}{3} \left[ \frac{r}{a} \right]} \sin^5 \theta \; d \left[ \frac{r}{a} \right] \; d\theta \; d\phi \\
+	& = \ivv{0}{2 \pi}{0}{\pi}{0}{\infty} - \frac{\ke{e} }{2^2 3^8 \pi} \; u^6 e^{-\frac{2}{3} u} \sin^5 \theta \; du \; d\theta \; d\phi & \left( u = \frac{r}{a} \right)\\	
+	& = \ivv{0}{2 \pi}{0}{\pi}{0}{\infty} A u^6 e^{- B u} \sin^5 \theta \; du \; d\theta \; d\phi & \left( A = - \frac{\ke{e} }{2^2 3^8 \pi}, \; B = \frac{2}{3} \right) \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\int_{0}^{\infty} A u^6 e^{- B u} \sin^5 \theta \; du & = A \sin^5 \theta \left[ e^{-Bu} \left( \frac{u^6}{B} + \frac{6 u^5}{B^2} + \frac{30 u^4}{B^3} + \frac{120 u^3}{B^4} + \right. \right. ... \\
+	& \qquad + \left. \left. \left. \frac{360 u^2}{B^5} + \frac{720 u}{B^6} + \frac{720}{B^7} \right) \right]  \right|_{\infty}^{0} \\
+	& = A \sin^5 \theta \left[ \frac{720}{B^7} - 0 \right] \\
+	& = - \frac{\ke{e} }{2^2 3^8 \pi} \sin^5 \theta \left[ 720 \left( \frac{3}{2} \right)^7 \right] \\
+	& = - \frac{15 \ke{e} }{32 \pi} \sin^5 \theta \\
+	& = C \sin^5 \theta & \left( C = - \frac{15 \ke{e} }{32 \pi} \right) \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\int_{0}^{\pi} C \sin^5 \theta d \theta & = C \left. \left[ - \frac{5}{8} \cos \theta + \frac{5}{48} \cos 3 \theta - \frac{1}{80} \cos 5 \theta \right] \right|_{0}^{\pi} \\
+	& = C \left[ - \frac{5}{8} \cos \pi + \frac{5}{48} \cos 3 \pi - \frac{1}{80} \cos 5 \pi + \frac{5}{8} \cos 0 - \frac{5}{48} \cos 0 + \frac{1}{80} \cos 0 \right] \\
+	& = C \left[ \frac{5}{8} - \frac{5}{48} + \frac{1}{80} + \frac{5}{8} - \frac{5}{48} + \frac{1}{80} \right] \\
+	& = \frac{16}{15} C \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\int_{0}^{2 \pi} \frac{16}{15} C \; d \phi & = \frac{16}{15} C \left. \left[  \phi \right] \right|_{0}^{2 \pi} \\
+	& = \frac{16}{15} C \; [2 \pi - 0] \\
+	& = \frac{32}{15} \pi C \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	Q_e & = \frac{32}{15} \pi C \\
+	& = \frac{32}{15} \pi \left( - \frac{15 \ke{e} }{32 \pi} \right) \\
+	& = - \ke{e} \\
+	\end{split}
+\end{equation*}
+\hlin
+b)
+\begin{equation*}
+	\begin{split}
+	Q_t & = Q_e + Q_p \\
+	& = -\ke{e} + N_{H} \; \ke{e} \qquad \qquad \Aboxed{N_H \text{: número atômico do hidrogênio} } \\
+	& = -\ke{e} + 1 \cdot \ke{e} \\
+	& = 0 \\
+	\end{split}
+\end{equation*}
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntaab{}
+\end{pergunta}
+\begin{resposta}
+\begin{equation*}
+	\begin{split}
+	Q & = \is{S_z} \dcs{} \; dS_z \\
+	& = \iss{0}{2 \pi}{0}{\infty} - \frac{q}{2 \pi} \frac{h}{(\rho^2 + h^2)^\frac{3}{2}} \; \rho \; d \rho \; d \phi \\
+	& = \iss{0}{2 \pi}{0}{\infty} - \frac{q h}{4 \pi} (u + h^2)^{-\frac{3}{2}} \; du \; d \phi & \left( u = \rho^2 \right)
+	\\
+	& = \int_0^{2 \pi} - \frac{q h}{4 \pi} \left. \left[  -2 (u + h^2)^{-\frac{1}{2}} \right] \right|_0^{\infty}  \; d \phi \\
+	& = \int_0^{2 \pi} \frac{q h}{4 \pi} [ 0 - 2 h^{-1} ]  \; d \phi \\
+	& = \int_0^{2 \pi} - \frac{q}{2 \pi}  \; d \phi \\
+	& = - \frac{q}{2 \pi} \left. \left[  \phi \right] \right|_0^{2 \pi} \\
+	& = - \frac{q}{2 \pi} [ 2 \pi - 0 ] \\
+	& = - q \\
+	\end{split}
+\end{equation*}
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntaac{}
+\end{pergunta}
+\begin{resposta}
+\begin{equation*}
+	\begin{split}
+	Q & = \is{S_r} \dcs{} \; dS_r \\
+	& = \iss{0}{2 \pi}{0}{\pi} - \frac{q}{4 \pi a^2} \frac{a}{h} \frac{1 - \left( \frac{a}{h} \right)^2}{\left[ 1 - 2  \left( \frac{a}{h} \right) \cos \theta + \left( \frac{a}{h} \right)^2 \right]^\frac{3}{2}} \left. \left[ r^2 \sin \theta \; d \theta \; d \phi \right] \right|_{r = a} \\
+	& = \iss{0}{2 \pi}{0}{\pi} - \frac{q}{4 \pi a h } \frac{h^2 - a^2}{\left[ h^2 - 2 ah \cos \theta + a^2 \right]^\frac{3}{2}} h [ a^2 \sin \theta \; d \theta \; d \phi ]\\
+	& = \iss{0}{2 \pi}{0}{\pi} - \frac{q}{8 \pi h} \frac{h^2 - a^2}{\left[ h^2 - 2 ah \cos \theta + a^2 \right]^\frac{3}{2}} [ 2 a h \sin \theta \; d \theta ] \; d \phi \\
+	& = \int_{0}^{2 \pi} \int_{-2ah}^{2ah} - \frac{q}{8 \pi h} \frac{h^2 - a^2}{\left[ h^2 + u + a^2 \right]^\frac{3}{2}} \; du \; d \phi & \left( u = - 2 a h \cos \theta \right) \\
+	& = \int_{0}^{2 \pi} \int_{-2ah}^{2ah} - \frac{q [h^2 - a^2]}{8 \pi h} \left[ h^2 + u + a^2 \right]^{-\frac{3}{2}} \; du \; d \phi \\
+	& = \int_{0}^{2 \pi} - \frac{q [h^2 - a^2]}{4 \pi h} \left( \left. \left[ h^2 + u + a^2 \right]^{-\frac{1}{2}} \right|_{2ah}^{-2ah} \right) d \phi \\
+	& =  - \frac{q [h^2 - a^2]}{4 \pi h} \left( \left[ h^2 - 2ah + a^2 \right]^{-\frac{1}{2}} - \left[ h^2 + 2ah + a^2 \right]^{-\frac{1}{2}} \right) \; \left.  \phi \right|_{0}^{2 \pi} \\
+	& =  - \frac{q [h^2 - a^2]}{4 \pi h} \left( \left[ h - a \right]^{-1} - \left[ h + a \right]^{-1} \right) \; (2 \pi - 0 ) \\
+	& =  - \frac{q}{2 h} \left([ h + a ] - [ h - a ] \right) \\
+	& = - \frac{a}{h} q
+	\end{split}
+\end{equation*}
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntaad{}
+\end{pergunta}
+\begin{resposta}
+\begin{equation*}
+	\begin{split}
+	Q & = \il{l_\phi} \dcl{} \; dl_\phi \\
+	& = \ill{0}{2 \pi} \dcl{}_0 \sin^3 (n \phi) \left. \left[  \rho \; d \phi \right] \right|_{\rho = a} \\
+	& = \int_{0}^{2 \pi} \dcl{}_0 a \sin^3 (n \phi) \; d \phi \\
+	& = \dcl{}_0 \frac{a}{12n} \left.  \left[ \cos (3 n \phi) - 9 \cos (n \phi) \right] \right|_{0}^{2 \pi} \\
+	& = \dcl{}_0 \frac{a}{12n} \left(  \left[ \cos (6 n \pi) - 9 \cos (2 n \pi) \right] - \left[ \cos (0) - 9 \cos (0) \right] \right) \\
+	& = \dcl{}_0 \frac{a}{12n} ( 1 - 9 - 1 + 9 ) \\
+	& = 0 \\
+	\end{split}
+\end{equation*}
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntaae{}
+\end{pergunta}
+\begin{resposta}
+a)
+\begin{equation*}
+	\begin{split}
+	\dcv{} (\vec{r}) & = \dcs{}  (\rho) \delta(z) \\
+	\end{split}
+\end{equation*}	
+\hlin
+b)
+\begin{equation*}
+	\begin{split}
+	\dcv{} (\vec{r}) & = \dcs{} (\theta) \delta(r - a) \\
+	\end{split}
+\end{equation*}
+\hlin
+c)
+\begin{equation*}
+	\begin{split}
+	\dcv{} (\vec{r}) = \dcl{} (\phi) \delta(\rho - a) \delta(z) \\
+	\end{split}
+\end{equation*}
+\hlin
+d)
+ \begin{equation*}
+	\begin{split}
+	\dcv{} (\vec{r}) & = \dcl{} (\phi) \left. \frac{1}{r_l^2 \sin \theta} \delta(r - r_l) \delta \left(  \theta - \theta_l \right) \right|_{r_l = a, \theta_l = \frac{\pi}{2}} \\
+	& = \dcl{} (\phi) \frac{1}{a^2} \delta(r - a) \delta \left( \theta - \frac{\pi}{2} \right) \\
+	& \Aboxed{\textit{ou, alternativamente}} \\
+	\dcv{} (\vec{r}) & = \dcl{} (\phi) \left. \frac{1}{r_l^2} \delta(r - r_l) \delta \left(  \cos \theta - \cos \theta_l \right) \right|_{r_l = a, \theta_l = \frac{\pi}{2}} \\
+	& = \dcl{} (\phi) \frac{1}{a^2} \delta(r - a) \delta \left( \cos \theta \right) \\
+	\end{split}
+\end{equation*}
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntaaf{}
+\end{pergunta}
+\begin{resposta}
+a)
+\begin{equation*}
+	\begin{split}
+	\dcv{} (\vec{r}) & = \sum_{n = 1}^{4} \dcv{n} \\
+	& = \sum_{n = 1}^{4} q_n \delta(x - x_n) \delta(y - y_n) \delta(z) \\
+	& = q_n [ \delta(x - a) \delta(y - a) + \delta(x + a) \delta(y - a) + \delta(x + a) \delta(y + a) + ... \\
+	& \qquad + \delta(x - a) \delta(y + a) ] \delta(z) \\
+	\end{split}
+\end{equation*}
+\hlin
+b)
+\begin{equation*}
+	\begin{split}
+	Q_t = \iv{} \dcv{} dv \\
+	& = \ivv{-\infty}{\infty}{-\infty}{\infty}{-\infty}{\infty} q_n [ \delta(x - a) \delta(y - a) + \delta(x + a) \delta(y - a) + ... \\
+	& \qquad + \delta(x + a) \delta(y + a) + \delta(x - a) \delta(y + a) ] \delta(z) \; dx \; dy \; dz \\
+	& = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} q_n [ \delta(x - a) \delta(y - a) + \delta(x + a) \delta(y - a) + ... \\
+	& \qquad + \delta(x + a) \delta(y + a) + \delta(x - a) \delta(y + a) ] \; dx \; dy \\
+	& = \int_{-\infty}^{\infty} q_n [ \delta(x - a) + \delta(x + a) + \delta(x + a) + \delta(x - a) ] \; dx \\
+	& = q_n [ 1 + 1 + 1 + 1 ] \\
+	& = 4q \\
+	\end{split}
+\end{equation*}
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntaag{}
+\end{pergunta}
+\begin{resposta}
+\begin{equation*}
+	\begin{split}
+	\dcv{} (\vec{r}) & = q \delta(x) \delta(y) \delta(z - z_q) \\
+	& = q \delta(x) \delta(y) \delta(z - a \cos [\omega t])  \\
+	\end{split}
+\end{equation*}
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntaah{}
+\end{pergunta}
+\begin{resposta}
+a)
+\begin{equation*}
+	\begin{split}
+	\dcv{} (\vec{r}) & = \sum_{n = 1}^{3} \dcv{n} \\
+	& = \sum_{n = 1}^{3} \dcs{n} \delta(a_n) \\
+	& = \sum_{n = 1}^{3} \dcs{0} \delta(a_n) \\
+	& = \dcs{0} [ \delta(x) + \delta(y) + \delta(z) ] \\
+	\end{split}
+\end{equation*}
+\hlin
+\clearpage
+b)
+\begin{equation*}
+	\begin{split}
+	Q_L & = \iv{L} \dcv{} (\vec{r}) \; dv \\
+	& = \iv{L} \dcs{0} [ \delta(x) + \delta(y) + \delta(z) ] \; dx \; dy \; dz \\
+	& = \int_{-\frac{L}{2}}^{\frac{L}{2}} \int_{-\frac{L}{2}}^{\frac{L}{2}} \int_{-\frac{L}{2}}^{\frac{L}{2}} \dcs{0} [ \delta(x) + \delta(y) + \delta(z) ] \; dx \; dy \; dz \\
+	& = \int_{-\frac{L}{2}}^{\frac{L}{2}} \int_{-\frac{L}{2}}^{\frac{L}{2}} \int_{-\frac{L}{2}}^{\frac{L}{2}} \dcs{0} \delta(x) \; dx \; dy \; dz + \int_{-\frac{L}{2}}^{\frac{L}{2}} \int_{-\frac{L}{2}}^{\frac{L}{2}} \int_{-\frac{L}{2}}^{\frac{L}{2}} \dcs{0} \delta(y) \; dx \; dy \; dz + ... \\
+	& \qquad + \int_{-\frac{L}{2}}^{\frac{L}{2}} \int_{-\frac{L}{2}}^{\frac{L}{2}} \int_{-\frac{L}{2}}^{\frac{L}{2}} \dcs{0} \delta(z) \; dx \; dy \; dz \\
+	& = \int_{-\frac{L}{2}}^{\frac{L}{2}} \int_{-\frac{L}{2}}^{\frac{L}{2}} \int_{-\frac{L}{2}}^{\frac{L}{2}} \dcs{0} \delta(x) \; dy \; dz \; dx + \int_{-\frac{L}{2}}^{\frac{L}{2}} \int_{-\frac{L}{2}}^{\frac{L}{2}} \int_{-\frac{L}{2}}^{\frac{L}{2}} \dcs{0} \delta(y) \; dz \; dx \; dy + ... \\
+	& \qquad + \int_{-\frac{L}{2}}^{\frac{L}{2}} \int_{-\frac{L}{2}}^{\frac{L}{2}} \int_{-\frac{L}{2}}^{\frac{L}{2}} \dcs{0} \delta(z) \; dx \; dy \; dz \\
+	& = \int_{-\frac{L}{2}}^{\frac{L}{2}} \int_{-\frac{L}{2}}^{\frac{L}{2}} \dcs{0} \cdot 1 \cdot \; dy \; dz + \int_{-\frac{L}{2}}^{\frac{L}{2}} \int_{-\frac{L}{2}}^{\frac{L}{2}} \dcs{0} \cdot 1 \cdot \; dz \; dx + ... \\
+	& \qquad + \int_{-\frac{L}{2}}^{\frac{L}{2}} \int_{-\frac{L}{2}}^{\frac{L}{2}} \dcs{0} \cdot 1 \cdot \; dx \; dy \\
+	& = \int_{-\frac{L}{2}}^{\frac{L}{2}} \dcs{0} \; dy \; \left.  z \right|_{-\frac{L}{2}}^{\frac{L}{2}} + \int_{-\frac{L}{2}}^{\frac{L}{2}} \dcs{0} \; dz \; \left.  x \right|_{-\frac{L}{2}}^{\frac{L}{2}} + \int_{-\frac{L}{2}}^{\frac{L}{2}} \dcs{0} \; dx \; \left.  y \right|_{-\frac{L}{2}}^{\frac{L}{2}} \\
+	& = \int_{-\frac{L}{2}}^{\frac{L}{2}} \dcs{0} \; dy [\frac{L}{2} + \frac{L}{2} ] + \int_{-\frac{L}{2}}^{\frac{L}{2}} \dcs{0} \; dz [\frac{L}{2} + \frac{L}{2} ] + \int_{-\frac{L}{2}}^{\frac{L}{2}} \dcs{0} \; dx [\frac{L}{2} + \frac{L}{2} ] \\
+	& = \int_{-\frac{L}{2}}^{\frac{L}{2}} \dcs{0} \; L \: dy + \int_{-\frac{L}{2}}^\frac{L}{2} \dcs{0} \; L \; dz + \int_{-\frac{L}{2}}^{\frac{L}{2}} \dcs{0} \; L \; dx \\
+	& \qquad \qquad \vdots \\
+	\end{split}
+\end{equation*}
+\clearpage
+ \begin{equation*}
+	\begin{split}
+	& \qquad \qquad \vdots \\
+	Q_L = \dcs{0} \; L \; \left.  y \right|_{-\frac{L}{2}}^{\frac{L}{2}} + \dcs{0} \; L \; \left.  z \right|_{-\frac{L}{2}}^{\frac{L}{2}} + \dcs{0} \; L \; \left.  x \right|_{-\frac{L}{2}}^{\frac{L}{2}} \\
+	& = \dcs{0} \; L^2 + \dcs{0} \; L^2 + \dcs{0} \; L^2 \\
+	& = 3 \dcs{0} \; L^2 \\
+	\end{split}
+\end{equation*}
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntaai{}
+\end{pergunta}
+\begin{resposta}
+a)
+\begin{equation*}
+	\begin{split}
+	S & : \begin{cases} \left.  \rho \right|_{z = 0} = 0 \\ \left.  \rho \right|_{z = h} = a \\ \rho = Az + B \end{cases} \\
+	S & : \rho - \frac{a}{h} \; z = 0 \\
+	\end{split}
+\end{equation*}
+\hlin
+b)
+ \begin{equation*}
+	\begin{split}
+	dq & = \dcs{} dS \\
+	& = \dcs{0} \cos \left( \frac{\pi z}{2h} \right) \sqrt{ ( d \rho )^2 + (dz)^2 } \; \rho \; d \phi \\
+	& = \dcs{0} \cos \left( \frac{\pi z}{2h} \right) \sqrt{ \left(\frac{a}{h} dz \right)^2 + (dz)^2 } \; \frac{a}{h} z \; \phi\\
+	& = \frac{a}{h} \; \dcs{0} \cos \left( \frac{\pi z}{2h} \right) \sqrt{ \left(\frac{a}{h} \right)^2 + 1 } \; z \; dz \; d \phi \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\dpx{q} & = \int_0^{2 \pi} dq \\
+	& = \int_0^{2 \pi} \frac{a}{h} \; \dcs{0} \cos \left( \frac{\pi z}{2h} \right) \sqrt{ \left(\frac{a}{h} \right)^2 + 1 }  \; z \; dz \; d \phi \\
+	& = \dcs{0} \frac{a}{h} \; \cos \left( \frac{\pi z}{2h} \right) \sqrt{ \left(\frac{a}{h} \right)^2 + 1 } \; z \; dz \; \left.  \phi \right|_0^{2 \pi} \\
+	& = \frac{2 \pi a}{h^2} \sqrt{ a^2 + h^2 } \dcs{0} \cos \left( \frac{\pi z}{2h} \right) \; z \; dz 
+	\end{split}
+\end{equation*}
+\hlin
+\clearpage
+c)
+\begin{equation*}
+	\begin{split}
+	Q & = \int_0^{h} \dpx{q} \\
+	& = \int_0^{h} \frac{2 \pi a}{h^2} \sqrt{ a^2 + h^2 } \dcs{0} \cos \left( \frac{\pi z}{2h} \right) \; z \; dz \\
+	& = \frac{2 \pi a}{h^2} \sqrt{ a^2 + h^2 } \dcs{0} \left( \frac{2h}{\pi} \right)^2 \left. \left[ \frac{\pi z}{2h} \sin \left( \frac{\pi z}{2h} \right) + \cos  \left( \frac{\pi z}{2h} \right) \right] \right|_0^{h} \\
+	& = \frac{2 \pi a}{h^2} \sqrt{ a^2 + h^2 } \dcs{0} \left( \frac{2h}{\pi} \right)^2 \left[ \frac{\pi h}{2h} \sin \left( \frac{\pi h}{2h} \right) + \cos  \left( \frac{\pi h}{2h} \right) - \frac{0}{2h} \sin \left( \frac{0}{2h} \right) - \cos \left( \frac{0}{2h} \right) \right] \\
+	& = \frac{8 a}{\pi} \sqrt{ a^2 + h^2 } \dcs{0} \left[ \frac{\pi}{2} + 0 - 0 - 1 \right] \\
+	& = \frac{4( \pi - 2 )}{\pi} \; a \sqrt{ a^2 + h^2 } \; \dcs{0} \\
+	\end{split}
+\end{equation*}
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntaaj{}
+\end{pergunta}
+\begin{resposta}
+a)
+ \begin{equation*}
+	\begin{split}
+	\vec{J} & = \dcv{} \vec{u}_S \qquad \qquad \Aboxed{\vec{u}_S \text{: velocidade linear na superfície S} } \\
+	& = \frac{\dpx{q}}{dv} u_S \a{\phi} \\
+	& = \frac{\dcs{} dS}{dv} \omega \rho \a{\phi} \\
+	& = \dcs{0} \delta(r - a) \omega a \sin \theta \a{\phi} \\
+	\end{split}
+\end{equation*}
+\hlin
+b)
+ \begin{equation*}
+	\begin{split}
+	\vec{k} & = \dcs{} \vec{u}_S \\
+	& = \dcs{0} \omega a \sin \theta \a{\phi} \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\vec{J} & = \vec{k} \frac{dS}{dv} \\
+	& = \dcs{0} \omega a \sin \theta \a{\phi} \delta(r - a) \\
+	\end{split}
+\end{equation*}
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntaak{}
+\end{pergunta}
+\begin{resposta}
+a)
+\begin{equation*}
+	\begin{split}
+	i & = \is{S} \vec{J} \cdot \vec{dS} \\
+	& = \is{S} [\dcs{0} \delta(r - a) \omega a \sin \theta \a{\phi}] \cdot [ \dse ] \\
+	& = \int_{0}^{\pi} \dcs{0} \omega a \sin \theta \; a \; d \theta \\
+	& = \dcs{0} \omega a^2 \; \left.  \cos \theta \right|_{\pi}^{0} \\
+	& = \dcs{0} \omega a^2 \; [1 + 1 ] \\
+	& = 2 \omega a^2 \dcs{0} \\
+	\end{split}
+\end{equation*}
+\hlin
+b)
+\begin{equation*}
+	\begin{split}
+	i & = \il{C} \vec{k} \cdot (\a{N} \times \vec{dl}_C ) \qquad \qquad \Aboxed{\a{N} \text{: vetor unitário normal à  superfície S} } \\
+	& = \il{C} [\dcs{0} \omega a \sin \theta \a{\phi}] \cdot [\a{r} \times a \; d \theta \; \a{\theta}] \\
+	& = \il{C} [\dcs{0} \omega a \sin \theta \a{\phi}] \cdot [a \; d \theta \; \a{\phi}] \\	
+	& = \int_{0}^{\pi} \dcs{0} \omega a^2 \sin \theta \; d \theta \\
+	& = 2 \omega a^2 \dcs{0} \\
+	\end{split}
+\end{equation*}
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntaal{}
+\end{pergunta}
+\begin{resposta}
+a)
+\begin{equation*}
+	\begin{split}
+	S & : \begin{cases} \rho \le a \\ z = 0 \end{cases} \\
+	\end{split}
+\end{equation*}
+\hlin
+b)
+\begin{equation*}
+	\begin{split}
+	\vec{k} & = \dcs{} \vec{u}_S \\
+	& = \frac{q}{S} \omega \rho \a{\phi} \\
+	& = \frac{q}{\pi a^2} \omega \rho \a{\phi} \\
+	\end{split}
+\end{equation*}
+\hlin
+c)
+\begin{equation*}
+	\begin{split}
+	\dpx{i} & = \vec{k} \cdot \vec{\dpx{S}} \\
+	& = \frac{q}{\pi a^2} \omega \rho \a{\phi} \cdot \dpx{S} \a{\phi} \\
+	& = \frac{q}{\pi a^2} \omega \rho \a{\phi} \cdot (d \rho \a{\phi}) \\
+	& = \frac{q}{\pi a^2} \omega \rho \; d \rho \\	
+	\end{split}
+\end{equation*}
+\hlin
+\clearpage
+d)
+\begin{equation*}
+	\begin{split}
+	i & = \iv{S} \dpx{i} \\
+	& = \int_{0}^{a} \frac{q}{\pi a^2} \omega \rho \; d \rho \\	
+	& = \frac{q}{\pi a^2} \omega \left. \frac{1}{2} \rho^2 \right|_{0}^{a} \\
+	& = \frac{q}{2 \pi a^2} \omega a^2 \\
+	& = \frac{q \omega}{2 \pi} \\	
+	\end{split}
+\end{equation*}
+\hlin
+e)
+\begin{equation*}
+	\begin{split}
+	i & = \frac{q \omega}{2 \pi} \\
+	& = \frac{q}{T} \\
+	\end{split}
+\end{equation*}
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntaam{}
+\end{pergunta}
+\begin{resposta}
+a)
+\begin{equation*}
+	\begin{split}
+	\vec{k} & = \dcs{} \vec{u}_S \\
+	& = \dcs{0} u_S \a{\phi} \\
+	& = \dcs{0} \omega \rho \a{\phi} \\
+	& = \dcs{0} \omega \frac{a}{h} z \a{\phi} \\	
+	\end{split}
+\end{equation*}
+\hlin
+\clearpage
+b)
+\begin{equation*}
+	\begin{split}
+	i = \il{C} \vec{k} \cdot (\a{N} \times \vec{dl}_C ) \\
+	\end{split}
+\end{equation*}
+\hhhlin
+\begin{equation*}
+	\begin{split}
+	\a{N} = \frac{\grad S}{|\grad S|} \\
+	\end{split}
+\end{equation*}
+\hhhlin
+\begin{equation*}
+	\begin{split}
+	\grad S & = \left( \gc{}{}{} \right) \left[ \rho - \frac{a}{h} z \right] \\
+	& = \a{\rho} - \frac{a}{h} \a{z} \\
+	\end{split}
+\end{equation*}
+\hhhlin
+\begin{equation*}
+	\begin{split}
+	\a{N} & = \frac{\grad S}{|\grad S|} \\
+	& = \frac{\a{\rho} - \frac{a}{h} \a{z}}{\sqrt{1 + \left(\frac{a}{h} \right)^2}} \\
+	& = \frac{h \a{\rho} - a \a{z}}{\sqrt{h^2 + a^2}} \\
+	\end{split}
+\end{equation*}
+\hhhlin
+\clearpage
+\begin{equation*}
+	\begin{split}
+	i & = \il{C} \vec{k} \cdot (\a{N} \times \vec{dl}_C ) \\
+	& = \il{C} \dcs{0} \omega \frac{a}{h} z \a{\phi} \cdot \left( \left[ \frac{h \a{\rho} - a \a{z}}{\sqrt{h^2 + a^2}} \right] \times [d \rho \a{\rho} + dz \a{z} ] \right) \\
+	& = \il{C} \dcs{0} \omega \frac{a}{h} z \a{\phi} \cdot \left( - \left[ \frac{h \; dz \a{\phi} + a \; d \rho \a{\phi}}{\sqrt{h^2 + a^2}} \right] \right) \\
+	& = - \il{C} \dcs{0} \omega \frac{a}{h} z \; \frac{h \; dz + a \; d \rho}{\sqrt{h^2 + a^2}} \\
+	& = - \il{C} \dcs{0} \omega \frac{a}{h} z \; \frac{h \; dz + a \frac{a}{h} dz}{\sqrt{h^2 + a^2}} \\
+	& = - \int_{0}^{h} \dcs{0} \omega \frac{a}{h^2} \frac{h^2 + a^2}{\sqrt{h^2 + a^2}} \; z \; dz\\	
+	& = - \dcs{0} \omega \frac{a}{h^2} \sqrt{h^2 + a^2} \; \left. \frac{1}{2} z^2 \right|_{0}^{h} \\
+	& = - \dcs{0} \omega \frac{a}{2 h^2} \sqrt{h^2 + a^2} \; h^2 \\
+	& = - \frac{a \omega \dcs{0}}{2} \sqrt{h^2 + a^2} \\
+	\end{split}
+\end{equation*}
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntaan{}
+\end{pergunta}
+\begin{resposta}
+a)
+\begin{equation*}
+	\begin{split}
+	\vec{J} & = \vec{k} \delta(z) \\
+	& = k \a{y} \delta(z) \\
+	\end{split}
+\end{equation*}
+\hlin
+b)
+\begin{equation*}
+	\begin{split}
+	i & = \il{C} \vec{k} \cdot (\a{N} \times \vec{dl}) \\
+	& = \il{C} k \a{y} \cdot \left( [\a{z}] \times [dx \; \a{x} + dy \; \a{y}] \right) \\
+	& = \il{C} k \a{y} \cdot \left( dx \; \a{y} - dy \; \a{x}] \right) \\
+	& = \int_{0}^{\frac{L}{\sqrt{2}}} k dx \\
+	& = k \; \left.  \right|_{0}^{\frac{L}{\sqrt{2}}} \\
+	& = \frac{k L}{\sqrt{2}} \\
+	\end{split}
+\end{equation*}
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntaao{}
+\end{pergunta}
+\begin{resposta}
+a)
+\begin{equation*}
+	\begin{split}
+	\vec{J} & = \dcv{} \vec{u} \qquad \qquad \Aboxed{\vec{u} \text{: velocidade da partícula} } \\
+	& = q \delta(x) \delta(y) \delta(z - a \cos [\omega t]) u \a{z} \\
+	& = q \delta(x) \delta(y) \delta(z - a \cos [\omega t]) \frac{dz}{dt} \a{z} \\
+	& = q \delta(x) \delta(y) \delta(z - a \cos [\omega t]) \frac{d}{dt} (a \cos[\omega t] ) \a{z} \\
+	& = q \delta(x) \delta(y) \delta(z - a \cos [\omega t]) (- a \omega \sin [\omega t] ) \a{z} \\
+	& = - q \omega a \delta(x) \delta(y) \delta(z - a \cos [\omega t]) \sin [\omega t] \a{z} \\
+	\end{split}
+\end{equation*}
+\hlin
+b)
+\begin{equation*}
+	\begin{split}
+	i & = \is{S} \vec{J} \cdot \vec{dS} \\
+	& = \is{S} (- q \omega a \delta(x) \delta(y) \delta(z - a \cos [\omega t]) \sin [\omega t] \a{z}) \cdot (dx \; dy \; \a{z}) \\	
+	& = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} (- q \omega a \delta(x) \delta(y) \delta(z - a \cos [\omega t]) \sin [\omega t] \; dx \; dy \\
+	& = - q \omega a \delta(z - a \cos [\omega t]) \sin [\omega t] \\
+	\end{split}
+\end{equation*}
+\end{resposta}
+
+\clearpage
+
+\section*{Parte 2}
+\setcounter{prob_num}{1}
+\iffalse
+\begin{pergunta}
+\perguntaba{}
+\end{pergunta}
+\begin{resposta}
+Código:
+\lstinputlisting[caption=calcevk.m]{calcevk.m}
+Exemplo: \\
+\end{resposta}
+
+\begin{pergunta}
+\perguntabb{}
+\end{pergunta}
+\begin{resposta}
+\end{resposta}
+\fi
+
+\begin{pergunta}
+\perguntabc{}
+\end{pergunta}
+\begin{resposta}
+a)
+\begin{equation*}
+	\begin{split}
+	\vec{dE} & = \frac{dq}{4 \pi \pme{\bbepsilon_0} r^2} \; \a{r} \\
+	& = \frac{dq}{4 \pi \pme{\bbepsilon_0} (R^2 + z^2) } \; \a{r} \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\vec{E} & = \int \limits_{C} \vec{dE} \qquad \qquad \Aboxed{C \text{: anel carregado}} \\
+	& = \int \limits_{C} \vec{dE}_x + \int \limits_{C} \vec{dE}_y + \int \limits_{C} \vec{dE}_z \\
+	& = 0 + 0 + \int \limits_{C} \vec{dE}_z \qquad \Aboxed{\textit{devido à simetria do problema}} \\
+	& = \int \limits_{C} \frac{dq}{4 \pi \pme{\bbepsilon_0} (R^2 + z^2) } \; cos(\theta) \; \a{z} \\
+	& = \int \limits_{C} \frac{dq}{4 \pi \pme{\bbepsilon_0} (R^2 + z^2) } \; \frac{z}{\sqrt{R^2 + z^2}} \; \a{z} \\
+	& = \frac{Q}{4 \pi \pme{\bbepsilon_0}} \; z \; (R^2 + z^2)^{-\frac{3}{2}} \; \a{z} \qquad \Aboxed{Q \text{: carga total no anel}} \\
+	\end{split}
+\end{equation*}
+\clearpage
+O campo elétrico tem sempre a direção $ \a{z} $ e o sentido de acordo com o sinal de $ z $ . A intensidade varia conforme $ \left( z \; (R^2 + z^2)^{-\frac{3}{2}} \right) $: para $ z $ grande, diminui segundo $ z^{-2} $ , como se o anel carregado fosse uma carga puntual; para $ z $ pequeno, aumenta segundo $ z $. A intensidade atinge o máximo para $ z = R \sqrt{2} $ , como se pode ver no gráfico a seguir.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{trab13figbca.jpg}
+\end{figure}
+\hlin
+\clearpage
+b)
+\begin{equation*}
+	\begin{split}
+	\vec{E} & = \int \limits_S \vec{dE} \qquad \qquad \Aboxed{S \text{: disco carregado}} \\
+	& = \int \limits_S \frac{dq}{4 \pi \pme{\bbepsilon_0}} \; z \; (\rho^2 + z^2)^{-\frac{3}{2}} \; \a{z} \qquad \Aboxed{\textit{conforme o anterior}} \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	dq & = \dcs{} \; dS \qquad \qquad \Aboxed{\dcs{} \text{: densidade superficial de carga}} \\
+	& = \frac{Q}{S} \; (2 \pi \rho \; d \rho) \qquad \Aboxed{\textit{considerando } \dcs{} \text{ constante}} \\
+	& = \frac{Q}{\pi R^2} \; (2 \pi \rho \; d \rho) \qquad \Aboxed{Q \text{: carga total no disco}} \\
+	& = \frac{2Q}{R^2} \; \rho \; d \rho \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\vec{E} & = \int \limits_S \left(\frac{2Q}{R^2} \; \rho \; d \rho \right) \; \frac{1}{4 \pi \pme{\bbepsilon_0}} \; z \; (\rho^2 + z^2)^{-\frac{3}{2}} \; \a{z} \\
+	& = \frac{Q z}{2 \pi R^2 \pme{\bbepsilon_0}} \int_{0}^{R} \rho \; (\rho^2 + z^2)^{-\frac{3}{2}} \; d \rho \; \a{z} \\
+	& = \frac{Q z}{2 \pi R^2 \pme{\bbepsilon_0}} \left. \left[ (\rho^2 + z^2)^{-\frac{1}{2}} \right] \right|_{R}^{0} \; \a{z} \\
+	& = \frac{Q z}{2 \pi R^2 \pme{\bbepsilon_0}} \left[ (z^2)^{-\frac{1}{2}} - (R^2 + z^2)^{-\frac{1}{2}} \right] \; \a{z} \\
+	& = \frac{Q}{2 \pi R^2 \pme{\bbepsilon_0}} \left[ \sgn(z) - \frac{z}{\sqrt{R^2 + z^2}} \right] \; \a{z} \\
+	\end{split}
+\end{equation*}
+\clearpage
+O campo elétrico tem sempre a direção $ \a{z} $ e sentido conforme o sinal de $ z $ . A intensidade varia conforme $ \left( 1 - \frac{z}{\sqrt{R^2 + z^2}} \right) $: para $ z $ grande, diminui segundo $ z^{-2} $ , como se o disco fosse uma carga puntual; para $ z $ muito pequeno, é praticamente constante, como se o disco fosse uma placa infinita. Em $ z = 0 $ há uma descontinuidade, como se pode ver nos gráficos abaixo.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{trab13figbcb1.jpg}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{trab13figbcb2.jpg}
+\end{figure}
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntabd{}
+\end{pergunta}
+\clearpage
+\begin{resposta}
+\begin{equation*}
+	\begin{split}
+	\vec{E} & = \int \limits_{\ell} dV \\
+	& = \int \limits_{\ell} \frac{dq}{4 \pi \pme{\bbepsilon_0} r'} \\
+	& = \int \limits_{\ell} \frac{ \dcl{} dx }{4 \pi \pme{\bbepsilon_0} \sqrt{y^2 + x^2}} \qquad \qquad \Aboxed{\dcl{} \text{: densidade linear de carga}} \\
+	& = \int \limits_{\ell} \frac{Q}{\ell} \; \frac{dx}{4 \pi \pme{\bbepsilon_0} \sqrt{y^2 + x^2}} \qquad \Aboxed{\textit{considerando } \dcl{} \textit{ constante}} \\
+	& = \frac{Q}{4 \pi \pme{\bbepsilon_0} \ell} \int_{-\frac{\ell}{2}}^{\frac{\ell}{2}}  (y^2 + x^2)^{-\frac{1}{2}} \; dx \\
+	& = \frac{Q}{4 \pi \pme{\bbepsilon_0} \ell} \; \left. \left[ \ln \left((y^2 + x^2)^{\frac{1}{2}} + x \right) \right] \right|_{-\frac{\ell}{2}}^{\frac{\ell}{2}} \\
+	& = \frac{Q}{4 \pi \pme{\bbepsilon_0} \ell} \; \left[ \ln \left( \sqrt{y^2 + \frac{\ell^2}{4}} + \frac{\ell}{2} \right) - \ln \left( \sqrt{y^2 + \frac{\ell^2}{4}} - \frac{\ell}{2} \right) \right] \\
+	& = \frac{Q}{4 \pi \pme{\bbepsilon_0} \ell} \; \ln \left( \frac{\sqrt{y^2 + \frac{\ell^2}{4}} + \frac{\ell}{2}}{\sqrt{y^2 + \frac{\ell^2}{4}} - \frac{\ell}{2}} \right) \\
+	& = \frac{Q}{4 \pi \pme{\bbepsilon_0} \ell} \; \ln \left( \frac{\sqrt{4u^2 + 1} + 1}{\sqrt{4u^2 + 1} - 1} \right) \qquad \qquad \Aboxed{u = \frac{y}{l}} \\
+	\end{split}
+\end{equation*}
+\clearpage
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{trab13figbcd.jpg}
+\end{figure}
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntabe{}
+\end{pergunta}
+\clearpage
+\begin{resposta}
+a)
+\begin{equation*}
+	\begin{split}
+	\Psi & = \int \limits_S \vec{D} \cdot \vec{dS} \qquad \qquad \Aboxed{S \text{: placa quadrada}} \\
+	& = \int \limits_S \pme{\bbepsilon_0} \vec{E} \cdot (dx \; dz \; \a{y}) \\
+	& = \int \limits_S \pme{\bbepsilon_0} \; \left( \frac{Q}{4 \pi \pme{\bbepsilon_0} r^2} \; \a{r} \right) \; \cdot (dx \; dz \; \a{y}) \\
+	& = \int \limits_S \frac{Q}{4 \pi r^2} \; \frac{\ell}{r} \; dx \; dz \\
+	& = \int_{-\ell}^{\ell} \int_{-\ell}^{\ell} \frac{Q \ell}{4 \pi} \; (\ell^2 + x^2 + z^2)^{-\frac{3}{2}} \; dx \; dz \\
+	& = \int_{-\ell}^{\ell} \frac{Q \ell}{4 \pi} \; dx \; \left. \left[ z (\ell^2 + x^2)^{-1} (\ell^2 + x^2 + z^2)^{-\frac{1}{2}} \right] \right|_{-\ell}^{\ell} \\
+	& = \int_{-\ell}^{\ell} \frac{Q \ell}{4 \pi} \; dx \; \left[ \ell (\ell^2 + x^2)^{-1} (\ell^2 + x^2 + \ell^2)^{-\frac{1}{2}} + \ell (\ell^2 + x^2)^{-1} (\ell^2 + x^2 + \ell^2)^{-\frac{1}{2}} \right] \\
+	& = \int_{-\ell}^{\ell} \frac{Q \ell^2}{2 \pi} \; (\ell^2 + x^2)^{-1} (2 \ell^2 + x^2)^{-\frac{1}{2}}  \; dx \\
+	& = \frac{Q \ell^2}{2 \pi} \; \frac{1}{\ell^2} \; \left. \left[ \atan \left(x (2 \ell^2 + x^2)^{-\frac{1}{2}} \right) \right] \right|_{-\ell}^{\ell} \\
+	& = \frac{Q}{2 \pi} \; \left[ \atan \left(\ell (2 \ell^2 + \ell^2)^{-\frac{1}{2}} \right) - \atan \left(-\ell (2 \ell^2 + \ell^2)^{-\frac{1}{2}} \right) \right] \\
+	& = \frac{Q}{2 \pi} \; \left[ \atan \left(\frac{1}{\sqrt{3}} \right) - \atan \left(- \frac{1}{\sqrt{3}} \right) \right] \\
+	& = \frac{Q}{2 \pi} \; 2 \frac{\pi}{6} \\
+	& = \frac{Q}{6}
+	\end{split}
+\end{equation*}
+b)
+\begin{equation*}
+	\begin{split}
+	\Psi_t & = \sum_{i = 1}^{6} \Psi_{S_i} \qquad \qquad \Aboxed{S_i \text{: faces do cubo}} \\
+	& = \sum_{i = 1}^{6} \frac{Q}{6} \\
+	& = 6 * \frac{Q}{6} \\
+	& = Q \\
+	\end{split}
+\end{equation*}
+\end{resposta}
+
+\clearpage
+
+\section*{Parte 3}
+
+\setcounter{prob_num}{1}
+
+\iffalse
+\begin{pergunta}
+\perguntaca{}
+\end{pergunta}
+\begin{resposta}
+\end{resposta}
+
+\begin{pergunta}
+\perguntacb{}
+\end{pergunta}
+\begin{resposta}
+\end{resposta}
+
+\begin{pergunta}
+\perguntacc{}
+\end{pergunta}
+\begin{resposta}
+\end{resposta}
+
+\begin{pergunta}
+\perguntacd{}
+\end{pergunta}
+\begin{resposta}
+\end{resposta}
+\fi
+
+\begin{pergunta}
+\perguntace{}
+\end{pergunta}
+\begin{resposta}
+O problema de encontrar a capacitância de um capacitor cilíndrico coaxial foi resolvido da seguinte maneira por Maxwell \footnote{No material que segue, $ \log $ indica o logaritmo natural ($ \ln $).} :
+\begin{myquote}
+Seja $ a $ o raio da superfície externa de um cilindro condutor e $ b $ o raio da superfície interna de um cilindro oco coaxial ao primeiro \footnote{Na verdade, $ b $ deve ser o raio do cilindro externo e $ a $, o do interno}. Sejam seus potenciais $ A $ e $ B $, respectivamente. Então, desde que o potencial $ V $ neste caso é uma função de $ r $, a distância ao eixo, a equação de Laplace se torna
+\begin{align*}
+	& & \ppr{V} + \frac{1}{r} \pr{V} = 0 \text{,}
+\end{align*}
+daí $ V = C_1 + C_2 \log r $. \\
+Como $ V = A $ quando $ r = a $, e $ V = B $ quando $ r = b $,
+\begin{align*}
+	& & V = \frac{A \log \frac{b}{r} + B \log \frac{r}{a}}{\log \frac{b}{a}} \text{.}
+\end{align*}
+Se $ \sigma_1 $, $ \sigma_2 $ são as densidades superficiais das superfícies interna e externa,
+\begin{align*}
+	& & 4 \pi \sigma_1 = \frac{A - B}{a \log \frac{b}{a}} \text{,} \qquad 4 \pi \sigma_2 = \frac{B - A}{b \log \frac{b}{a}}
+\end{align*}
+Se $ E_1 $ e $ E_2 $ são as cargas em um pedaço de comprimento $ l $, medido ao longo do eixo, dos dois cilindros, 
+\begin{align*}
+	& & E_1 = 2 \pi a l \sigma_1 = \frac{1}{2} \frac{A - B}{\log \frac{b}{a}} l = - E_2 \text{.}
+\end{align*}
+A capacitância de um comprimento $ l $ do cilindro interior é portanto
+\begin{align*}
+	& & \frac{1}{2} \frac{l}{\log \frac{b}{a}} \text{.}
+\end{align*}
+Se o espaço entre os cilindros for ocupado por um dielétrico de capacitância específica \footnote{Hoje se diz "constante dielétrica".} $ K $ em vez de ar, então a capacitância do cilindro interno será
+\begin{align*}
+	& & \frac{1}{2} \frac{l K}{\log \frac{b}{a}} \text{.}
+\end{align*}
+A energia da distribuição elétrica na parte indicada do cilindro infinito será \\
+$ \begin{aligned}
+	\qquad \qquad \qquad \qquad \qquad \qquad \frac{1}{2} \frac{l K (A - B)^2}{\log \frac{b}{a}} \text{.}
+\end{aligned} $ \footnote{\cite{MAXWELL 1873 1}}
+\end{myquote}
+Hoje usamos um sistema normalizado, por isso os valores encontrados devem ser multiplicados por $ 4 \pi \pme{\bbepsilon_0} $, resultando em:
+\begin{align*}
+	C & = \frac{2 \pi l \pme{\bbepsilon}}{\ln \left( \frac{b}{a} \right) } \\
+	W_E & = \frac{2 \pi l \pme{\bbepsilon} (A - B)^2}{\ln \left( \frac{b}{a} \right) }
+\end{align*}
+O problema pode ser resolvido de outra forma: assumindo uma carga arbitrária nas superfícies e a partir daí calculando a diferença de potencial gerada, para depois encontrar a capacitância resultante \cite{SADIKU 2000 1}. Considerando o cilindro interior carregado com a carga $ q $, teremos:
+\begin{align*}
+	q  & = \oint \limits_{S} \vec{D} \cdot \vec{dS} \\
+	& = D \; S \\
+	& = D \; 2 \pi \rho l \implies D = \frac{q}{2 \pi \rho l}
+\end{align*}
+\hhlin
+\begin{align*}
+	V_{ab} & = - \int_{b}^{a} \vec{E} \cdot \vec{dl} \\
+	& = - \int_{b}^{a} E \; d \rho \\
+	& = - \int_{b}^{a} \frac{1}{\pme{\bbepsilon}} D \; d \rho \\
+	& = - \int_{b}^{a} \frac{1}{\pme{\bbepsilon}} \frac{q}{2 \pi \rho l} \; d \rho \\
+	& = \frac{q}{2 \pi \pme{\bbepsilon} l} \; \left. \left[ \frac{}{} \ln(\rho) \right] \right|_{a}^{b}  \\
+	& = \frac{q}{2 \pi \pme{\bbepsilon} l} \; \ln \left( \frac{b}{a} \right)
+\end{align*}
+\hhlin
+\begin{align*}
+	C & = \frac{q}{V_a - V_b} \\
+	& = \frac{q}{V_{ab}} \\
+	& = \frac{2 \pi \pme{\bbepsilon} l}{\ln \left( \frac{b}{a} \right)} \\
+\end{align*}
+\hhlin
+\begin{align*}
+	W_E & = \frac{1}{2} \; q \; V_{ab} \\
+	& = \frac{1}{2} \; q \; \frac{q}{2 \pi \pme{\bbepsilon} l} \; \ln \left( \frac{b}{a} \right) \\
+	& = \frac{q^2}{4 \pi \pme{\bbepsilon} l} \; \ln \left( \frac{b}{a} \right) \\
+\end{align*}
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntacf{}
+\end{pergunta}
+\begin{resposta}
+a) Seja $ L $ um fio condutor reto, de diâmetro $ 2a $ e comprimento infinito, suspenso a uma altura $ h $ do chão, considerado uma superfície equipotencial. Supondo um segmento de comprimento $ l $ carregado uniformemente com uma carga $ q $ , pelo método das imagens devemos considerar a existência de uma linha $ L' $ com densidade linear de carga $ - \frac{q}{l} $ a uma profundidade $ - h $, perfeitamente paralela ao fio. O campo elétrico em um ponto qualquer $ P = \{x, y, z\} $ será dado por \cite{SADIKU 2000 2}:
+\begin{align*}
+	z \le 0 \implies \vec{E} & = \vec{0} \\
+	0 \le z \le (h - a) \implies \vec{E} & = \vec{E}_{L} + \vec{E}_{L'} \\
+	& = \frac{q}{2 \pi l \pme{\bbepsilon_0} r_{L}^2} \vec{r_L} - \frac{q}{2 \pi l \pme{\bbepsilon_0} r_{L'}^2} \vec{r_{L'}} \\
+	& = \frac{q}{2 \pi l \pme{\bbepsilon}} \; \left( \frac{x \a{x} + (z - h) \a{z}}{x^2 + (z - h)^2} - \frac{x \a{x} + (z + h) \a{z}}{x^2 + (z + h)^2} \right) \\
+	& \qquad \Aboxed{\textit{Por simetria, } E_y = 0} \\
+	(h - a) \le z \le (h + a) \implies \vec{E} & = \vec{0} \\	
+	z \ge (h + a) \implies \vec{E} & = \frac{q}{2 \pi l \pme{\bbepsilon}} \; \left( \frac{x \a{x} + (z - h) \a{z}}{x^2 + (z - h)^2} - \frac{x \a{x} + (z + h) \a{z}}{x^2 + (z + h)^2} \right)
+\end{align*}
+\hhlin
+\clearpage
+\begin{align*}
+	z \le 0 \implies V_P & = 0 \\
+	0 \le z \le (h - a) \implies V_P & = - \int \limits_{\ell} \vec{E} \cdot \vec{d \ell}  \\
+	& = - \int_{0}^{z} \frac{q}{2 \pi l \pme{\bbepsilon}} \; \left( \frac{x \a{x} + (z - h) \a{z}}{x^2 + (z - h)^2} \right. - ... \\
+	& \qquad \left. - \frac{x \a{x} + (z + h) \a{z}}{x^2 + (z + h)^2} \right) \cdot (dz \; \a{z}) \\
+	& = - \frac{q}{2 \pi l \pme{\bbepsilon}} \int_{0}^{z} \left( \frac{z - h}{x^2 + (z - h)^2} - \frac{z + h}{x^2 + (z + h)^2} \right) \; dz \\
+	& = - \frac{q}{2 \pi l \pme{\bbepsilon}} \left\{ \int_{0}^{z} \frac{z - h}{x^2 + (z - h)^2} \; dz - \int_{0}^{z} \frac{z + h}{x^2 + (z + h)^2} \; dz \right\} \\
+	& = - \frac{q}{2 \pi l \pme{\bbepsilon}} \left\{ \int_{-h}^{z-h} \frac{u}{x^2 + u^2} \; du - \int_{h}^{z+h} \frac{v}{x^2 + v^2} \; dv \right\} \\
+	& \qquad \qquad \qquad \qquad \qquad \boxed{u = z - h, v = z + h} & \\
+	& = - \frac{q}{2 \pi l \pme{\bbepsilon}} \left\{ \left. \left[ \frac{1}{2} \ln (x^2 + u^2) \right] \right|_{-h}^{z-h} - \left. \left[  \frac{1}{2} \ln(x^2 + v^2) \right] \right|_{h}^{z+h} \right\} \\
+	& = - \frac{q}{4 \pi l \pme{\bbepsilon}} \left\{ \ln \left( \frac{x^2 + (z - h)^2}{x^2 + h^2} \right) - \ln \left( \frac{x^2 + (z + h)^2}{x^2 + h^2} \right) \right\} \\
+	& = \frac{q}{4 \pi l \pme{\bbepsilon}} \ln \left( \frac{x^2 + (z + h)^2}{x^2 + (z - h)^2} \right) \\
+	(h - a) \le z \le (h + a) \implies V_P & = 0 \\
+	z \ge (h + a) \implies V_P & = \frac{q}{4 \pi l \pme{\bbepsilon}} \ln \left( \frac{x^2 + (z + h)^2}{x^2 + (z - h)^2} \right)
+\end{align*}
+\hhlin
+\clearpage
+\begin{align*}
+	V_{L} & = V_{\{0,0,h-a\}} \\
+	& = \frac{q}{4 \pi l \pme{\bbepsilon}} \ln \left( \frac{0^2 + (h - a + h)^2}{0^2 + (h - a - h)^2} \right) \\
+	& = \frac{q}{4 \pi l \pme{\bbepsilon}} \ln \left( \frac{(2h - a)^2}{a^2} \right) \\
+	& = \frac{q}{2 \pi l \pme{\bbepsilon}} \ln \left( \frac{2h - a}{a} \right)	
+\end{align*}
+\begin{align*}
+	C & = \frac{q}{V_L} \\
+	& = \dfrac{2 \pi l \pme{\bbepsilon}}{\ln \left( \frac{2h - a}{a} \right)}
+\end{align*}
+\hhlin
+\begin{align*}
+	W & = \frac{1}{2} q V \\
+	& = \frac{1}{2} q \; \frac{q}{2 \pi l \pme{\bbepsilon}} \ln \left( \frac{2h - a}{a} \right)	\\
+	& = \frac{q^2}{4 \pi l \pme{\bbepsilon}} \ln \left( \frac{2h - a}{a} \right)
+\end{align*}
+\hlin
+b) Seja $ L $ um fio condutor reto, de comprimento infinito, paralelo a outro fio idêntico $ L' $ a uma distância $ d $. O resultado do item anterior permite dizer que a capacitância e a energia acumulada são dados pelas mesmas expressões, com a mera substituição de $ h $ por $ \frac{d}{2} $ . Assim,
+\begin{align*}
+	V_{L} & = \frac{q}{2 \pi l \pme{\bbepsilon}} \ln \left( \frac{d - a}{a} \right)	\\
+	C & = \frac{2 \pi l \pme{\bbepsilon}}{\ln \left( \frac{d - a}{a} \right)} \\
+	W & = \frac{q^2}{4 \pi l \pme{\bbepsilon}} \ln \left( \frac{d - a}{a} \right)
+\end{align*}
+\hlin
+\clearpage
+c) Para configurações mais complexas, basta combinar o resultado dos itens anteriores para encontrar expressões para $ C $ e $ W $, uma vez que a linearidade do problema permite empregar o princípio de superposição e somar os potenciais gerados por cada fio sobre os demais para encontrar o potencial total. \\
+Por exemplo, no caso de uma linha de transmissão trifásica,  composta por 3 condutores paralelos de diâmetro $ 2a $, distantes $ d $ e a uma altura $ h $ do solo, podemos escrever:
+\begin{align*}
+	V_{L_1} & = V_{L_1L_1} + V_{L_1L_2} + V_{L_1L_3} \\
+	& = V{\{0,0,h-a\}} + V{\{d,0,h-a\}} + V{\{2d,0,h-a\}} \\ 
+	& = \frac{q}{4 \pi l \pme{\bbepsilon}} \left[ \ln \left( \frac{(2h - a)^2}{a^2} \right) + \ln \left( \frac{d^2 + (2h - a)^2}{d^2 + a^2} \right) + \ln \left( \frac{4d^2 + (2h + a)^2}{4d^2 + a^2} \right) \right] \\
+	& = \frac{q}{4 \pi l \pme{\bbepsilon}} \ln \left( \frac{(2h - a)^2 [d^2 + (2h - a)^2] [4d^2 + (2h + a)^2]}{a^2 [d^2 + a^2][4d^2 + a^2]} \right) \\
+\end{align*}
+
+\end{resposta}
+
+\begin{thebibliography}{15}
+
+\newbibbk{MACEDO 1988 1}{MACEDO 1988 1}{Annita MACEDO}{Eletromagnetismo}{Guanabara, 1988, Cap. 2, pp. 30 a 44}
+
+\newbiboc{MACEDO 1988 2}{MACEDO 1988 2}{Annita MACEDO}{Formulário, pp. 619 a 628}
+
+\newbibbk{MAXWELL 1873 1}{MAXWELL 1873 1}{James C. MAXWELL}{A Treatise On Electricity And Magnetism}{Vol. I, Clarendon Press, 1873, Chapter VIII, it. 126, pp. 154 a 155}
+
+\newbibbk{SADIKU 2000 1}{SADIKU 2000 1}{Matthew N. O. SADIKU}{Elements of Electromagnetics}{Oxford University Press, 3 \textsuperscript{rd} Ed., 2000, Chapter 6.5, p. 227}
+
+\newbiboc{SADIKU 2000 2}{SADIKU 2000 2}{Matthew N. O. SADIKU}{Chapter 6.6, pp. 242 a 243}
+
+A solução de algumas integrais indefinidas foi obtida no site \textbf{Wolfram Alpha}: \url{http://www.wolframalpha.com/widget/widgetPopup.jsp?p=v&id=7d800d10b8bfcd949b17866c0679e786}. \\
+Os gráficos foram preparados pelo \textbf{Octave} 4.0.0 (\url{https://www.gnu.org/software/octave/}). \\
+O texto foi formatado com \textbf{pdflatex} em ambiente MiKTeX 2.9 (\url{http://miktex.org/download/}).
+
+\end{thebibliography}
+
+\end{document}
+% 13b, 2.3.1

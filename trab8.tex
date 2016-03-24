@@ -1,0 +1,139 @@
+\documentclass[12pt,fleqn]{amsart}
+\usepackage{enumitem}
+\usepackage{xstring}
+\usepackage{graphicx}
+\usepackage[a4paper]{geometry}
+\usepackage[portuguese,brazilian]{babel}
+\usepackage[ansinew]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[scaled]{helvet}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+\usepackage{fmtcount}
+\usepackage{float}
+
+\title{Smart grids}
+\date{}
+\author{Mateus M. Coelho, Sérgio Cordeiro, Alan Oliveira}
+
+
+\newenvironment{lista}{
+	\vspace{-5mm}
+	\begin{itemize}}{
+	\end{itemize}	
+	\vspace{-5mm}}
+
+\newenvironment{listaf}{
+	\vspace{-5mm}
+	\begin{itemize}}{
+	\end{itemize}}
+
+\newcommand{\newbibit}[4]{\bibitem[#1]{#2}#3, {\bf #4}.}
+\renewcommand{\thesubsection}{\vspace{5mm} \textbf{\arabic{subsection}}}
+
+\begin{document}
+\setlength{\parskip}{1em}
+\setlength{\jot}{10pt}
+
+\maketitle
+
+
+\section*{Especificação da “subestação do futuro”}
+Com base na especificação real de uma SE para o projeto Sinobras \cite{Abengoa}, apresentamos a nossa visão do que seria aplicável a uma subestação em um futuro próximo. Para maior brevidade, apresentamos a seguir apenas as alterações que sugerimos aplicar ao documento analisado com vistas a adequá-lo ao estado da arte. \\
+Algumas alterações se justificam em virtude de o caso estudado tratar de uma SE industrial, enquanto nossa especificação se aplicaria a outros tipos também, ou seja, tentamos elaborar algo aplicável a subestações de concessionária (transmissão e distribuição), industriais e mesmo prediais (hospitais, estádios, etc.). Conforme o tipo de SE e outras condições específicas, alguns itens podem ser desconsiderados.
+
+\subsection*{Seção 4, fl. 5}
+\begin{listaf}
+	\item Incluir normas pertinentes referentes a segurança cibernética (ANSI/ISA 99 e NERC CIP).
+	\item Incluir norma IEC 61968 e/ou IEC 61970, conforme tratar-se de SE de distribuição ou de transmissão pertencente a concessionária.
+\end{listaf}
+
+\subsection*{Seção 5, fl. 7}
+\begin{listaf}
+	\item Incluir gerador de emergência com capacidade de auto-diagnóstico, comunicando-se em Ethernet e protocolo SNMP v.2 ou v.3.
+	\item Incluir sistema de combate a incêndio automatizado, integrado a uma central de segurança (CFTV, intrusão e incêndio).
+	\item No caso de uma SE industrial, incluir o fornecimento de um no-break compatível com a demanda dos equipamentos eletrônicos, comunicando-se em Ethernet e protocolo SNMP v.2 ou v.3.
+	\item No caso de uma SE de concessionária, incluir o fornecimento de um banco de baterias capaz de auto-diagnóstico, comunicando-se em Ethernet e protocolo SNMP v.2 ou v.3.
+	\item Se aplicável \footnotemark[1], especificar PMUs dedicadas ou IEDs com capacidade de medição de sincrofasores conforme IEEE C37.118.
+	\item Incluir roteador IPv6, com capacidade de estabelecimento de VPNs baseadas em IPSec ou TLS (\textit{Transport Layer Security}), prevenção/detecção de intrusões (IPS/IDS) e, se aplicável, \textit{firewall} com inspeção de estado.
+	\item Em caso de SE de distribuição, o roteador deve ser capaz de se comunicar no protocolo usado pelos medidores inteligentes adotados pela concessionária.
+\end{listaf}
+\footnotetext[1]{Isto é, se for uma SE de concessionária e sua localização na rede, bem como outras condições operacionais que não é possível analisar com a informação disponível, determinar que devem ser coletados sincrofasores.}
+
+\subsection*{Seção 6.1, fl. 8}
+\begin{listaf}
+	\item Incluir monitoramento de temperatura nos paineis
+	\item Incluir monitoramento de arco elétrico nos paineis, como opcional destacado \footnotemark[2].
+	\item Especificar que o monitoramento dos paineis deve se comunicar por meio de Ethernet e TCP/IP.
+\end{listaf}
+\footnotetext[2]{Como isso poderia elevar indevidamente o custo dos equipamentos, é preciso que sejam elaboradas duas propostas separadas, uma delas contemplando essa funcionalidade e a outra não.}
+
+\subsection*{Seção 6.2.6, fl. 11}
+\begin{listaf}
+	\item Especificar que deverá haver uma malha de aterramento exclusiva para os equipamentos eletrônicos.
+\end{listaf}
+
+\subsection*{Seção 8, fl. 21}
+\begin{listaf}
+	\item Especificar que o sistema deverá coletar até o 50º harmônico.
+	\item Especificar que a precisão da coleta deve ser de 0.5\%.	
+\end{listaf}
+
+\subsection*{Seção 8.4, fl. 23}
+\begin{listaf}
+	\item Trocar a especificação de interface serial RS-232 para GigabitEthernet.
+	\item Especificar o protocolo de comunicação padrão do IEEE para aquisição de oscilografias (COMTRADE: IEEE C37.111-1999).
+\end{listaf}
+
+\subsection*{Seção 9.1.2, fl. 25 a 26}
+\begin{listaf}
+	\item Especificar que deve ser atendida a revisão 2 da norma IEC 61850.
+	\item Remover a opção do protocolo STP (\textit{Spanning Tree Protocol}).
+	\item Em caso de SE de transmissão, especificar PRP (\textit{Parallel Redundancy Protocol}) para redundância.
+	\item Remover a opção de gerenciamento via Telnet e Web, incluindo SSH (\textit{Secure Shell}).
+	\item Remover a opção de gerenciamento via SNMP v.1, deixando as outras.
+	\item Incluir PTP (\textit{Precision Time Protocol}) para sincronização.
+	\item Remover a menção ao SMTP (\textit{Simple Mail Transfer Protocol}), que não é necessário.
+	\item Incluir RADIUS (\textit{Remote Authentication Dial In User Service)}) para autenticação de usuários.	
+	\item Incluir OpenFlow para reconfiguração dinâmica.
+	\item Incluir capacidade para leitura de parâmetros de configuração em um servidor durante a partida.
+\end{listaf}
+
+\subsection*{Seção 9.1.3, fl. 26}
+\begin{listaf}
+	\item Especificar que deve ser usado OPC UA, em lugar de OPC, para comunicação com sistemas externos.
+\end{listaf}
+
+\subsection*{Seção 9.1.4, fl. 26}
+\begin{listaf}
+	\item Trocar a especificação de interface serial EIA-232 para GigabitEthernet.
+	\item Incluir PTP (\textit{Precision Time Protocol}) entre as opções de sincronização. Esse protocolo deve ser uma exigência, não uma opção como os demais.
+\end{listaf}
+
+\subsection*{Seção 9.1.6, fl. 26}
+\begin{listaf}
+	\item Remover o texto existente e inserir a exigência de uso de dispositivos primários inteligentes (\textit{process bus}).
+	\item Acrescentar a exigência de se utilizarem transformadores de intrumento (TCs e TPs) ópticos.
+	\item Inserir exigência de um repositório central para armazenamento das configurações dos dispositivos, com software de controle de versão.
+	\item Se as dimensões da SE o permitirem, especificar a montagem do tipo eletrocentro em \textit{container}.
+	\item Determinar que o desenvolvimento do software aplicativo siga a IEC 61850.
+	\item Em caso de SE industrial, determinar que o sistema SCADA siga a IEEE C37.1-2007.
+	\item Explicitar que não devem ser usados equipamentos como remotas e PLCs, apenas IEDs.
+\end{listaf}
+
+\subsection*{Seção 9.2, fl. 27}
+\begin{listaf}
+	\item Inserir análise de gás para supervisão dos transformadores, integrado ao SPCS.
+\end{listaf}
+
+\subsection*{Seção 15, fl. 34}
+\begin{listaf}
+	\item Alterar o período mínimo de garantia para 5 anos.
+\end{listaf}
+
+\begin{thebibliography}{15}
+\newbibit{Abengoa}{Abengoa}{ABENGOA Brasil}{SUBESTAÇÃO 230kV: SUBESTAÇÀO SINOBRAS - ESPECIFICAÇÃO TÉCNICA}
+\end{thebibliography}
+
+
+\end{document}

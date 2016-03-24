@@ -1,0 +1,606 @@
+% Segunda lista de exercícios de Sistemas e Sinais
+% Preparado para MiKTeX 2.9. Gerar arquivo PDF com pdflatex.
+\documentclass[12pt,fleqn]{amsart}
+\usepackage{enumitem}
+\usepackage{xstring}
+\usepackage{graphicx}
+\usepackage[a4paper]{geometry}
+\usepackage[portuguese,brazilian]{babel}
+\usepackage[ansinew]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{comment}
+% Fontes
+\usepackage{textgreek}
+\usepackage{yfonts}
+\usepackage{microtype}
+\usepackage{calligra}
+\usepackage{lmodern}
+\usepackage{bookman}
+\usepackage[scaled]{helvet}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+\usepackage{fmtcount}
+% Formatação
+\usepackage{sidecap}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{matlab-prettifier}
+% Símbolos matemáticos
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{wasysym}
+\usepackage{mathtools}
+\usepackage{bbm}
+\usepackage{mbboard}
+\usepackage{steinmetz}
+% Desenhos
+\usepackage{tikz}
+\usepackage{circuitikz}
+
+
+\title{Sistemas e Sinais - Exercício II}
+\date{}
+\author{Sérgio Cordeiro}
+
+
+\newenvironment{pergunta}{
+	\par
+	\trivlist
+	\fontfamily{phv}
+	\selectfont
+	\item\arabic{prob_num}. 
+	}{
+	\endtrivlist
+	}
+
+\newenvironment{resposta}{
+	\trivlist
+    \vspace{3pt}
+	\fontfamily{pbk}
+	\selectfont
+	\item
+	}{
+	\vspace{3pt}
+	\noindent\makebox[\linewidth]{\rule{\paperwidth}{1pt}}
+	\endtrivlist
+	\stepcounter{prob_num}
+	}
+
+\newenvironment{listae}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}	
+	\vspace{-5mm}}
+
+\newenvironment{listaef}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}}
+
+\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
+
+\DeclareMathOperator{\La}{\mathcal{L}}					% Transformada de Laplace
+\DeclareMathOperator{\De}{\boldsymbol{\delta}}			% Função impulso
+\DeclareMathOperator{\dDe}{\boldsymbol{\dot{\delta}}}	% Derivada da função impulso
+\newcommand{\dt}[1]{\frac{d {#1}}{dt}}					% derivada temporal
+\newcommand{\ddt}[1]{\frac{d^2 {#1}}{dt^2}}				% derivada segunda temporal
+\newcommand{\dtau}[1]{\frac{d {#1}}{d \tau}}			% derivada temporal
+\newcommand{\ddtau}[1]{\frac{d^2 {#1}}{d \tau^2}}		% derivada segunda temporal
+
+
+% Linhas divisórias
+\newcommand{\hhhlin}{\noindent\hfil\rule{0.25\textwidth}{.2pt}\hfil\newline}
+\newcommand{\hhlin}{\noindent\hfil\rule{0.5\textwidth}{.4pt}\hfil\newline}
+\newcommand{\hlin}{\noindent\hfil\rule{\textwidth}{.8pt}\hfil\newline}
+
+% Citações
+\newcommand{\newbibit}[6]{\bibitem[#1]{#2}#3, {\bf #4}. Disponível em \url{#5}, acesso em #6.}
+\newcommand{\newbibpp}[5]{\bibitem[#1]{#2}#3, {\bf #4}, \emph{in} #5.}
+\newcommand{\newbibbk}[5]{\bibitem[#1]{#2}#3, {\bf #4}, #5.}
+\newcommand{\newbibip}[6]{\bibitem[#1]{#2}#3, {\bf #4}, \emph{in} #5, disponível em \url{#6}.}
+\newcommand{\newbiboc}[4]{\bibitem[#1]{#2}#3, \textit{op. cit.}, #4.}
+\newcommand{\newbibsi}[7]{\bibitem[#1]{#2}#3, {\bf #4} : {#5}. Disponível em \url{#6}, acesso em #7.}
+
+\newenvironment{iquote}{\begin{quote}\itshape}{\end{quote}}
+
+% Perguntas
+\newcommand{\perguntaa}{Simular o sistema descrito pela equação abaixo (oscilador de diferença dada), nas situações de entrada nula e de entrada forçada, e analisar os resultados:
+\begin{align}
+	\ddt{x} + 0.2 \dt{x} - x + x^3 = 0.3 \cos(\omega t) \label{Eq1a}
+\end{align}
+}
+\newcommand{\perguntab}{Simular o sistema descrito pela equação abaixo (oscilador de van der Pol), nas situações de entrada nula e de entrada forçada, e analisar os resultados:
+\begin{align}
+	\ddt{x} - \frac{1}{3} (1 - x^2) \dt{x} + x = A \sin(\omega t) \label{Eq2a}
+\end{align}
+}
+\newcommand{\perguntac}{Considerando o processo de modulação em amplitude (AM), interpretar a alteração do espectro de frequências do sinal original:
+}
+\newcommand{\perguntad}{Considerando o circuito elétrico abaixo e entrada de sinal em degrau:
+\begin{figure}[H]
+    \begin{center}
+		\begin{circuitikz}
+			\draw (0,0)
+			to[V,v=$ V(s) \text{ = } \dfrac{1}{s} \text{ }$] (0,2)
+			to[R=R] (2,2)
+			to[L=$ L \text{ = } 0.1 \; H$ ] (4,2)
+			to[C=$ C \text{ = } \frac{1}{8} \; F $] (6,2)
+			to[short] (6,0);	  
+			\draw (0,0)
+			to[short,i<=$ I(s) $] (6,0);	  
+        \end{circuitikz} \\
+    \end{center}
+\end{figure}
+\begin{listae}[2]
+	\item Traçar a curva de tensão no capacitor em função do tempo para diversos valores de R.
+	\item Justificar, analisando a situação no domínio da frequência, por que a subida da tensão fica mais lenta com o aumento de R.
+	\item Traçar a curva de tensão no indutor em função do tempo para diversos valores de R.
+	\item Analisar o comportamento da tensão no indutor no domínio da frequência.
+\end{listae}
+}
+
+
+\begin{document}
+\setlength{\parskip}{1em}
+\setlength{\jot}{10pt}
+\setlength{\parindent}{0pt}
+
+\maketitle
+
+\newcounter{prob_num}
+\setcounter{prob_num}{1}
+
+
+\begin{pergunta}
+\perguntaa{}
+\end{pergunta}
+\begin{resposta}
+A equação \ref{Eq1a} deve ser reescrita da seguinte maneira para simulação:
+\begin{align}
+	\ddt{x} = 0.3 \cos(\omega t) - 0.2 \dt{x} + x - x^3 \label{Eq1b}
+\end{align}
+O diagrama correspondente à equação \ref{Eq1b} é o seguinte:
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab26a1.jpg} \\
+\end{figure}%
+A resposta natural é obtida alterando-se para zero o multiplicador da fonte de sinal na entrada e estabelecendo valores não nulos para o estado inicial. Os gráficos da amplitude de $ x $ em função do tempo para os dois tipos de resposta são exibidos abaixo. Como mostram as figuras, a frequência do sinal de entrada influi pouco na forma da saída, que se torna mais estável com o aumento de $ \omega $. A resposta mostra uma característica fortemente oscilatória, mesmo na ausência de sinal de entrada e com estado inicial quase nulo. \\
+
+\clearpage
+
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab26a2.jpg} \\
+	Resposta forçada do oscilador,\\
+	com $ \omega = 2 \; mHz $ \\
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab26a3.jpg} \\
+	Resposta forçada do oscilador, \\
+	com $ \omega = 20 \; Hz $ \\
+	\end{figure}%
+\end{minipage} \\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab26a4.jpg} \\
+	Resposta forçada do oscilador, \\
+	com $ \omega = 0.2 \; Hz $ \\
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab26a5.jpg} \\
+	Resposta forçada do oscilador, \\
+	com $ \omega = 2 \; Hz $ \\
+	\end{figure}%
+\end{minipage} \\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab26a6.jpg} \\
+	Resposta natural do oscilador, \\
+	com $ x(0) = 0.1, \; x'(0) = 0 $ \\
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab26a7.jpg} \\
+	Resposta natural do oscilador, \\
+	com $ x(0) = 0, \; x'(0) = 1 $ \\
+	\end{figure}%
+\end{minipage} \\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab26a8.jpg} \\
+	Resposta natural do oscilador, \\
+	com $ x(0) = - 0.1, \; x'(0) = - 0.5 $ \\
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab26a9.jpg} \\
+	Resposta natural do oscilador, \\
+	com $ x(0) = 1, \; x'(0) = 0 $ \\
+	\end{figure}%
+\end{minipage} \\
+
+\clearpage
+
+As figuras abaixo ilustram o comportamento de $ \frac{dx}{dt} $ para resposta natural. Um fenômeno interessante ocorre quando $ x'(0) = 0 $ e $ x(0) = 1 $: as oscilações desaparecem; trata-se de um ponto de equilíbrio instável. \\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab26a10.jpg} \\
+	Resposta natural $ x(t) $ \\
+	com $ x(0) = 1, \; x'(0) = 2 $ \\
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab26a11.jpg} \\
+	Resposta natural $ x'(t) $ \\
+	com $ x(0) = 1, \; x'(0) = 2 $ \\
+	\end{figure}%
+\end{minipage} \\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab26a12.jpg} \\
+	Resposta natural $ x(t) $ \\
+	com $ x(0) = 1, \; x'(0) = 0 $ \\
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab26a13.jpg} \\
+	Resposta natural $ x'(t) $ \\
+	com $ x(0) = 1, \; x'(0) = 0 $ \\
+	\end{figure}%
+\end{minipage} \\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab26a14.jpg} \\
+	Resposta natural $ x(t) $ \\
+	com $ x(0) = 2, \; x'(0) = 0 $ \\
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab26a15.jpg} \\
+	Resposta natural $ x'(t) $ \\
+	com $ x(0) = 2, \; x'(0) = 0 $ \\
+	\end{figure}%
+\end{minipage} \\
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntab{}
+\end{pergunta}
+\begin{resposta}
+A equação \ref{Eq2a} deve ser reescrita da seguinte maneira para simulação:
+\begin{align}
+	\ddt{x} = A \sin(\omega t) + \frac{1}{3} (1 - x^2) \dt{x} - x \label{Eq2b}
+\end{align}
+O diagrama correspondente à equação \ref{Eq2b} é o seguinte:
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab26b1.jpg} \\
+\end{figure}%
+A resposta natural é obtida alterando-se para zero o valor de $ A $ e estabelecendo valores não nulos para o estado inicial. Os gráficos da amplitude de $ x $ em função do tempo para os dois tipos de resposta são exibidos abaixo. Como mostram as figuras, o oscilador possui basicamente 3 regiões de funcionamento:
+\begin{listae}[3]
+	\item uma onde a resposta é linear, ou próxima disso
+	\item uma onde a resposta é oscilatória
+	\item uma onde a resposta não é limitada (instável)
+\end{listae}
+A frequência e a amplitude do sinal de entrada, bem como o estado inicial, determinam em que região o oscilador cairá. O aumento de $ A \text{, } \omega \text{, } x(0) \text{ e } x'(0) $ tornam o circuito menos estável. \\
+
+\clearpage
+
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab26b2.jpg} \\
+	Resposta forçada do oscilador, \\
+	com $ A = 1, \; \omega = 1 \; mHz $ \\
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab26b3.jpg} \\
+	Resposta forçada do oscilador, \\
+	com $ A = 1, \; \omega = 0.1 \; Hz $ \\
+	\end{figure}%
+\end{minipage} \\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab26b4.jpg} \\
+	Resposta forçada do oscilador, \\
+	com $ A = 1, \; \omega = 1 \; Hz $ \\
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab26b5.jpg} \\
+	Resposta forçada do oscilador, \\
+	com $ A = 0.5, \; \omega = 1 \; Hz $ \\
+	\end{figure}%
+\end{minipage} \\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab26b6.jpg} \\
+	Resposta forçada do oscilador, \\
+	com $ A = 0.33, \; \omega = 1 \; Hz $ \\
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab26b7.jpg} \\
+	Resposta forçada do oscilador, \\
+	com $ A = 0.33, \; \omega = 0.75 \; Hz $ \\
+	\end{figure}%
+\end{minipage} \\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab26b8.jpg} \\
+	Resposta natural do oscilador, \\
+	com $ x(0) = -1, \; x'(0) = 0 $ \\
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab26b9.jpg} \\
+	Resposta natural do oscilador, \\
+	com $ x(0) = 0, \; x'(0) = 1 $ \\
+	\end{figure}%
+\end{minipage} \\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab26b10.jpg} \\
+	Resposta natural do oscilador, \\
+	com $ x(0) = 1, \; x'(0) = -1 $ \\
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab26b11.jpg} \\
+	Resposta natural do oscilador, \\
+	com $ x(0) = 0.5, \; x'(0) = 0.5 $ \\
+	\end{figure}%
+\end{minipage} \\
+
+As figuras abaixo ilustram o comportamento de $ \frac{dx}{dt} $ para resposta natural. Verifica-se que a resposta é limitada para os casos em que $ x(t) $ também o é. \\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab26b12.jpg} \\
+	Resposta natural $ x(t) $ \\
+	com $ x(0) = 0.1, \; x'(0) = 0 $ \\
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab26b13.jpg} \\
+	Resposta natural $ x'(t) $ \\
+	com $ x(0) = 0.1, \; x'(0) = 0 $ \\
+	\end{figure}%
+\end{minipage} \\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab26b14.jpg} \\
+	Resposta natural $ x(t) $ \\
+	com $ x(0) = 0.1, \; x'(0) = 0.1 $ \\
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab26b15.jpg} \\
+	Resposta natural $ x'(t) $ \\
+	com $ x(0) = 0.1, \; x'(0) = 0.1 $ \\
+	\end{figure}%
+\end{minipage} \\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab26b16.jpg} \\
+	Resposta natural $ x(t) $ \\
+	com $ x(0) = 0.2, \; x'(0) = 0.2 $ \\
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab26b17.jpg} \\
+	Resposta natural $ x'(t) $ \\
+	com $ x(0) = 0.2, \; x'(0) = 0.2 $ \\
+	\end{figure}%
+\end{minipage} \\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab26b18.jpg} \\
+	Resposta natural $ x(t) $ \\
+	com $ x(0) = 0.9, \; x'(0) = 0.9 $ \\
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab26b19.jpg} \\
+	Resposta natural $ x'(t) $ \\
+	com $ x(0) = 0.9, \; x'(0) = 0.9 $ \\
+	\end{figure}%
+\end{minipage} \\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab26b20.jpg} \\
+	Resposta natural $ x(t) $ \\
+	com $ x(0) = 1.0, \; x'(0) = 1.0 $ \\
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab26b21.jpg} \\
+	Resposta natural $ x'(t) $ \\
+	com $ x(0) = 1.0, \; x'(0) = 1.0 $ \\
+	\end{figure}%
+\end{minipage} \\
+
+
+
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntac{}
+\end{pergunta}
+\begin{resposta}
+Na modulação em amplitude tradicional, o sinal $ f(t) $ é multiplicado por uma portadora $ g(t) $ cuja forma geral é $ g(t) = A \cos(\omega_c t) \text{, com } \omega_c >> \omega_u \text{, onde } \omega_u $ é a maior das frequências presentes em $ f(t) $. O sinal modulado $ h(t) $ pode ser escrito, então, como $ h(t) = f(t) \; g(t) $. \\
+No domínio da frequência, a multiplicação no domínio do tempo corresponde a uma convolução, assim $ H(s) = F(s) * G(s) $. Como $ \omega_c >> \omega_u $, podemos ignorar a resposta transitória e considerar apenas a frequência real. Nesse caso, $ H(\omega) = F(\omega) * G(\omega) $; o espectro original de frequências $ F(\omega) $ é, assim, transformado no espectro $ H(\omega) $. \\
+Como $ g(t) $ é, conhecido, podemos calcular $ G(\omega) $. Como a transformada de Laplace $ \La \{ g(t) \} $ só é definida se $ \Re{s} > 0] $ no caso de funções senoidais, é melhor usar a transformada de Fourier \footnote{Aqui foi adotada como convenção a transformada não normalizada.}:
+\begin{align*}
+	G(\omega) & = \int_{-\infty}^{\infty} g(t) \; e^{-\jmath \omega t} \; dt \\
+	& = \int_{-\infty}^{\infty} A \cos(\omega_c t) \; e^{-\jmath \omega t} \; dt \\
+	& = A \int_{-\infty}^{\infty} \frac{1}{2} \left( e^{\jmath \omega_c t} + e^{- \jmath \omega_c t} \right) \; e^{-\jmath \omega t} \; dt \\
+	& = A\left[ \int_{-\infty}^{\infty} e^{-\jmath (\omega - \omega_c) t} \; dt + \int_{-\infty}^{\infty} e^{-\jmath (\omega + \omega_c) t} \; dt \right] \\
+	& = \left\{ \begin{matrix} 0 & \omega \ne \pm \omega_c \\ \\ \pi A \De{}(\omega) & \omega = \pm \omega_c \end{matrix} \right. \\
+	& = \pi A \left[ \frac{}{} \De{}(\omega - \omega_c) + \De{}(\omega + \omega_c) \right]
+\end{align*}
+e então calcular $ H(\omega) $, observando a propriedade da convolução com o impulso:
+\begin{align*}
+	H(\omega) & = F(\omega) * G(\omega) \\
+	& = F(\omega) * \pi A \left[ \frac{}{} \De{}(\omega - \omega_c) + \De{}(\omega + \omega_c) \right] \\
+	& = \pi A \left[ \frac{}{} F(\omega - \omega_c) + F(\omega + \omega_c) \right]
+\end{align*}
+O espectro do sinal modulado, $ H(\omega) $, possui duas componentes, cada uma delas com a mesma forma do espectro do sinal original, e centradas em $ \xi = \pm \omega_c $. O sinal original possui frequências na faixa $ - \omega_u \le \omega \le \omega_u $, portanto a largura de banda $ \mathrm{BW}_f = 2 \omega_u = 4 \pi f_u \text{, com } f_u = \frac{\omega_u}{2 \pi} $. Se considerarmos um limite inferior $ \omega_l \text{ para } |\omega| \text{, então } \mathrm{BW}_s = 2 (\omega_u - \omega_l) $. Neste caso, pode-se falar de duas bandas separadas, uma banda inferior onde $ - \omega_u \le \omega \le - \omega_l $ e uma superior onde $ \omega_s \le \omega \le \omega_u $. Evidentemente, a largura de banda total permanece a mesma; na saída, $ \mathrm{BW}_h = 2 \mathrm{BW}_f $ em todos os casos. \\
+Como $ \omega_c > \omega_u $, apenas a componente centrada em $ \omega_c $ é fisicamente real. Ademais, as componentes $ \omega < 0 $ carregam informação redundante com relação às componentes $ \omega > 0 $. Isso torna vantajoso suprimir uma delas antes da transmissão, de forma a economizar energia e diminuir a necessidade de largura de banda do transmissor. Essa alternativa é conhecida como \textit{single sideband} (SSB), em oposição à tradicional, conhecida como \textit{double sideband} (DSB). \\
+Em adição às bandas laterais, aparece em $ H(\omega) $ uma componente $ \xi = \omega_c $ correspondente aos momentos de silêncio, em que o sinal f(t) não está presente e assim pode-se dizer que $ \omega = 0 $. Essa componente também não carrega informação nenhuma e, portanto, pode ser suprimida; tal alternativa é conhecida como \textit{supressed carrier} (SC) \cite{LATHI 1998}. \\
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntad{}
+\end{pergunta}
+\begin{resposta}
+As funçôes de transferência do circuito são as seguintes:
+\begin{align}
+	G_C(s) & = \frac{V_C(s)}{V(s)} \notag \\
+	& = \dfrac{\frac{1}{Cs}}{R + Ls + \frac{1}{Cs}} \notag \\
+	& = \dfrac{\frac{1}{C}}{Rs + Ls^2 + \frac{1}{C}} \notag \\
+	& = \frac{8}{0.1 s^2 + Rs + 8} 
+\end{align}
+e
+\begin{align}
+	G_L(s) & = \frac{V_L(s)}{V(s)} \notag \\
+	& = \dfrac{Ls}{R + Ls + \frac{1}{Cs}} \notag \\
+	& = \dfrac{Ls^2}{Rs + Ls^2 + \frac{1}{C}} \notag \\
+	& = \frac{0.1s^2}{0.1 s^2 + Rs + 8} 
+\end{align}
+
+\clearpage
+
+O diagrama de simulação correspondente ao circuito é o seguinte:
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab26d1.jpg} \\
+\end{figure}%
+Os resultados obtidos para diversos valores de $ R $, entrada em degrau e estado inicial nulo estão ilustrados nas figuras abaixo. À medida que $ R $ aumenta, a resposta vai ficando mais estável e mais lenta. \\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab26d2.jpg} \\
+	$ R = 0.1 \; \Omega $ \\
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab26d3.jpg} \\
+	$ R = 1 \; \Omega $ \\
+	\end{figure}%
+\end{minipage} \\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab26d4.jpg} \\
+	$ R = 1.5 \; \Omega $ \\
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab26d5.jpg} \\
+	$ R = 3 \; \Omega $ \\
+	\end{figure}%
+\end{minipage} \\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab26d6.jpg} \\
+	$ R = 4.5 \; \Omega $ \\
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab26d7.jpg} \\
+	$ R = 6 \; \Omega $ \\
+	\end{figure}%
+\end{minipage} \\
+Analisando a situação no domínio da frequência, pode-se dizer que o aumento de $ R $ provoca uma diminuição da frequência de ressonância do circuito. Como a função de transferência $ G_C(s) $ é a de um filtro passa-baixas, o resultado é que as altas frequências vão sendo cada vez mais suprimidas, o que explica a subida mais lenta de $ V_C(t) $. Já a função de $ G_L(s) $ é a de um filtro passa-altas, por isso a diminuição da frequência de ressonância do circuito não afeta muito o espectro de $ V_L(\omega) $, a não ser para valores muito baixos de $ R $, que fazem com que o circuito apresente oscilações. \\
+\end{resposta}
+
+\begin{thebibliography}{30}
+
+\newbibbk{LATHI 1998}{LATHI 1998}{Bhagawandas Pannalai LATHI}{Signal Processing and Linear Systems}{Cambridge Berkeley Press, Carmichael, 1998, ISBN 0-941413-35-7, Chap. 4.7, pp. 277 a 289}
+
+\end{thebibliography}
+
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{1pt}}
+
+Simulação realizada com \textbf{Scilab} 5.5.2: \\
+\url{https://www.scilab.org} \\
+Texto formatado com \textbf{pdflatex} em ambiente \textbf{MiKTeX} 2.9: \\
+\url{http://miktex.org/download/} \\ \\
+\end{document}

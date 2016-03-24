@@ -1,0 +1,10 @@
+\select@language {brazilian}
+\contentsline {section}{\tocsection {}{1}{Introdu\c c\~ao}}{2}{section.1}
+\contentsline {section}{\tocsection {}{}{SMP com nuvens comerciais de computadores}}{2}{section*.2}
+\contentsline {subsection}{\tocsubsection {}{}{Amazon}}{2}{section*.3}
+\contentsline {section}{\tocsection {}{}{Exemplos de problemas que podem usar SMP}}{3}{section*.4}
+\contentsline {subsection}{\tocsubsection {}{1.1}{C\'alculo de fun\c c\~ao transcendental}}{3}{subsection.1.1}
+\contentsline {subsection}{\tocsubsection {}{1.2}{Multiplica\c c\~ao de matrizes}}{4}{subsection.1.2}
+\contentsline {subsection}{\tocsubsection {}{1.3}{C\'alculo do Laplaciano em duas dimens\~oes}}{4}{subsection.1.3}
+\contentsline {section}{\tocsection {}{}{Implementa\c c\~ao dos exemplos}}{4}{section*.5}
+\contentsline {section}{\tocsection {}{}{Refer\^encias}}{4}{section*.6}

@@ -1,0 +1,590 @@
+\documentclass[12pt,fleqn]{amsart}
+\usepackage{enumitem}
+\usepackage{xstring}
+\usepackage{graphicx}
+\usepackage[a4paper]{geometry}
+\usepackage[portuguese,brazilian]{babel}
+\usepackage[ansinew]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textgreek}
+% Fontes
+\usepackage{yfonts}
+\usepackage{microtype}
+\usepackage{calligra}
+\usepackage{lmodern}
+\usepackage{bookman}
+\usepackage[scaled]{helvet}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+\usepackage{fmtcount}
+%\usepackage{glossaries}
+% Formatação
+\usepackage{sidecap}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{matlab-prettifier}
+% Figuras geométricas
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\usepackage{pgfplots}
+\usetikzlibrary{calc,fadings,decorations.pathreplacing,3d}
+\usetikzlibrary{arrows}
+\usetikzlibrary{positioning}
+% Símbolos matemáticos
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{wasysym}
+\usepackage{mathtools}
+\usepackage{bbm}
+\usepackage{mbboard}
+\usepackage{boolexpr}
+
+
+\title{Espalhamento eletromagnético por uma esfera condutora elétrica perfeita}
+\author{Sérgio Cordeiro}
+\date{}
+
+\renewcommand*\contentsname{Sumário}
+
+\newcommand{\Fourier}[1]{\mathbb{#1}(\omega) e^{j \omega t}}
+\newcommand{\FunR}[1]{\vec{#1}(x,y,z)}
+\newcommand{\phasor}[1]{\mathpzc{#1}}
+\newcommand{\FourFunR}[1]{\left( \phasor{#1} \FunR{#1} \right)}
+\newcommand{\h}[1]{\mbox{h}_{#1}^{(2)}}		% Função de Hankel esférica de segunda espécie
+\newcommand{\Hhat}[1]{\hat{\mbox{H}}_{#1}^{(2)}(\alpha)}
+\newcommand{\jota}[1]{\mbox{j}_{#1}}		% Função de Bessel esférica de primeira espécie
+\newcommand{\Jhat}[1]{\hat{\mbox{J}}_{#1}(\alpha)}
+\newcommand{\Pl}[1]{\mbox{P}_{#1}^{(1)}(\gamma)}
+\renewcommand{\P}[1]{\mbox{P}_{#1}}			% Função de Legendre associada
+
+\newenvironment{inthisrev}{
+	\color{blue}
+	}{
+	\color{black}
+	}
+
+\newenvironment{myquote}{
+	\begin{quote}
+	\fontfamily{lmr} \selectfont
+	{\huge ``}}{{\huge ''}
+	\end{quote}
+	}
+
+\newenvironment{pergunta}{
+	\par
+	\trivlist
+	\fontfamily{phv}
+	\selectfont
+	\item\arabic{prob_num}. 
+	}{
+	\endtrivlist
+	}
+
+\newenvironment{resposta}{
+	\trivlist
+    \vspace{3pt}
+	\fontfamily{pbk}
+	\selectfont
+	\item
+	}{
+	\vspace{3pt}
+	\noindent\makebox[\linewidth]{\rule{\paperwidth}{1pt}}
+	\endtrivlist
+	\stepcounter{prob_num}
+	}
+
+\newenvironment{listae}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}	
+	\vspace{-5mm}}
+
+\newenvironment{listaef}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}}
+
+\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
+
+%\renewcommand{\thesubsection}{\textbf{\arabic{subsection}}}
+%\renewcommand{\thesection}{\color{red}}
+\makeatletter
+\def\subsubsection{\@startsection{subsubsection}{3}%
+  \z@{.5\linespacing\@plus.7\linespacing}{.1\linespacing}%
+  {\normalfont\itshape}}
+\makeatother\renewcommand{\thesubsubsection}{}
+
+\newcommand{\newbibit}[6]{\bibitem[#1]{#2}#3, {\bf #4}. Disponível em \url{#5}, acesso em #6.}
+\newcommand{\newbibpp}[5]{\bibitem[#1]{#2}#3, {\bf #4}, \emph{in} #5.}
+\newcommand{\newbibbk}[5]{\bibitem[#1]{#2}#3, {\bf #4}, #5.}
+\newcommand{\newbibip}[6]{\bibitem[#1]{#2}#3, {\bf #4}, \emph{in} #5, disponível em \url{#6}.}
+\newcommand{\newbiboc}[4]{\bibitem[#1]{#2}#3, \textit{op. cit.}, #4.}
+\newcommand{\newbibsi}[7]{\bibitem[#1]{#2}#3, {\bf #4} : {#5}. Disponível em \url{#6}, acesso em #7.}
+
+\newenvironment{iquote}{\begin{quote}\itshape}{\end{quote}}
+
+\BeforeBeginEnvironment{figure}{\vskip-1ex}
+\AfterEndEnvironment{figure}{\vskip-4ex}
+
+% Símbolos de funções
+\DeclareMathOperator{\sinc}{\mbox{sinc}}				% Função sinc
+\DeclareMathOperator{\sgn}{\mbox{sgn}}					% Função sinal
+\DeclareMathOperator{\atan}{\mbox{arctan}}				% Função arco-tangente
+\DeclareMathOperator{\acos}{\mbox{arccos}}				% Função arco-cosseno
+\DeclareMathOperator{\J}{\mbox{J}}						% Função de Bessel de primeira espécie
+\DeclareMathOperator{\Y}{\mbox{Y}}						% Função de Bessel de segunda espécie
+\let\H\relax
+\DeclareMathOperator{\H}{\mbox{H}}						% Função de Hankel
+% Símbolos de elementos infinitesimais
+\newcommand {\dpx}[1]{\boldsymbol{\delta {#1}}}
+% Símbolos de constantes escalares (ex. carga do eletron: \ke{e})
+\newcommand {\ke}[1]{\text{\large \textfrak{#1}}}
+% Valores de constantes escalares (ex. carga do eletron: \kve{e})
+\newcommand {\kve}[1]{
+  \IfStrEqCase{#1}{
+    {e}{1,602 \times 10^{-19} \; C}
+    {mu}{4 \pi \times 10^{-7} \; H \; m^{-1}}
+    {ep}{8,854 \times 10^{-12} \; F \; m^{-1}}	
+    {c}{2,998 \times 10^{8} \; m \; s^{-1}}
+	}
+  \text{\large \textfrak{#1}}}
+% Símbolos de parâmetros escalares do problema
+ \newcommand{\ppe}[1]{\boldsymbol{#1}}					% genérico
+ \newcommand{\dcv}[1]{\ppe{\boldsymbol{\rho}_{v_{#1}}}}			% Densidade volumétrica de carga
+ \newcommand{\dcs}[1]{\ppe{\boldsymbol{\rho}_{S_{#1}}}}			% Densidade superficial de carga
+ \newcommand{\dcl}[1]{\ppe{\boldsymbol{\rho}_{l_{#1}}}}			% Densidade linear de carga
+% Símbolos de propriedades escalares do meio
+% Para letras gregas, usar o nome especial (precedido por 'bb')
+%(ex. condutividade: \pme{\bbsigma})
+\newcommand {\pme}[1]{\mathbb{#1}}
+% Símbolos de propriedades tensoriais do meio
+% Para letras gregas, usar o nome especial (precedido por 'bb')
+%(ex. condutividade: \pmm{\bbsigma})
+\newcommand {\pmm}[1]{\pmb{\mathbb{#1}}}
+% Expressões de elementos diferenciais
+% Elemento de volume em coordenadas esféricas
+\newcommand {\dve}{r^2 \sin \theta \; dr \; d \theta \; d \phi}
+% Elemento de superfície em coordenadas cilíndricas
+\newcommand {\dsc}{\rho \; d \phi \; dz \; \a{\rho} + dz \; d \rho \; \a{\phi} + \rho \; d \rho \; d \phi \; \a{z}}
+% Elemento de superfície em coordenadas esféricas
+\newcommand {\dse}{r^2 \sin \theta \; d \theta \; d \phi \; \a{r} + r \sin \theta \; dr \; d \phi \; \a{\theta} + r \; dr \; d \theta \; \a{\phi}}
+% Elemento de deslocamento em coordenadas cilíndricas
+\newcommand {\dlc}{d \rho \; \a{\rho} + \rho \; d \phi \; \a{\phi} + dz \; \a{z}}
+% Elemento de deslocamento em coordenadas esféricas
+\newcommand {\dle}{dr \; \a{r} + r \; d \theta \; \a{\theta} + r \sin \theta \; d \phi \; \a{\phi} + dz \; \a{z}}
+% Símbolos de operadores diferencias
+\newcommand{\grad}{\vec{\nabla}}
+\renewcommand{\div}{\grad \cdot}
+\newcommand{\rot}{\grad \times}
+\newcommand{\lap}{\nabla^2}
+\newcommand{\vlap}{\grad^2}
+\newcommand{\pd}[2]{\frac{\partial {#1}}{\partial {#2}}}
+\newcommand{\px}[1]{\frac{\partial {#1}}{\partial x}}
+\newcommand{\py}[1]{\frac{\partial {#1}}{\partial y}}
+\newcommand{\pz}[1]{\frac{\partial {#1}}{\partial z}}
+\newcommand{\pt}[1]{\frac{\partial {#1}}{\partial t}}
+\newcommand{\prho}[1]{\frac{\partial {#1}}{\partial \rho}}
+\newcommand{\pphi}[1]{\frac{\partial {#1}}{\partial \phi}}
+\newcommand{\pr}[1]{\frac{\partial {#1}}{\partial r}}
+\newcommand{\ptheta}[1]{\frac{\partial {#1}}{\partial \theta}}
+\newcommand{\ppx}[1]{\frac{\partial^2 {#1}}{\partial x^2}}
+\newcommand{\ppy}[1]{\frac{\partial^2 {#1}}{\partial y^2}}
+\newcommand{\ppz}[1]{\frac{\partial^2 {#1}}{\partial z^2}}
+\newcommand{\pppz}[1]{\frac{\partial^3 {#1}}{\partial z^3}}
+\newcommand{\ppt}[1]{\frac{\partial^2 {#1}}{\partial t^2}}
+\newcommand{\pprho}[1]{\frac{\partial^2 {#1}}{\partial \rho^2}}
+\newcommand{\ppprho}[1]{\frac{\partial^3 {#1}}{\partial \rho^3}}
+\newcommand{\ppphi}[1]{\frac{\partial^2 {#1}}{\partial \phi^2}}
+\newcommand{\pppphi}[1]{\frac{\partial^3 {#1}}{\partial \phi^3}}
+\renewcommand{\a}[1]{\hat{a}_{#1}}
+\newcommand{\ga}[3]{\px{#1} \a{x} + \py{#2} \a{y} + \pz{#3} \a{z}}
+\newcommand{\gc}[3]{\prho{#1} \a{\rho} + \frac{1}{\rho} \pphi{#2} \a{\phi} + \pz{} \a{z}}
+\newcommand{\gr}[3]{\pr{#1} \a{r} + \frac{1}{r \sin \theta} \pphi{#2} \a{\phi} + \frac{1}{r} \ptheta{#3} \a{\theta}}
+\newcommand{\de}[3]{\frac{1}{r^2} \pr{} r^2 \; {#1} \; \a{r} + \frac{1}{r \sin \theta} \pphi{} \; {#2} \; \a{\phi} + \frac{1}{r \sin \theta} \ptheta{} \sin \theta \; {#3} \; \a{\theta}}
+\newcommand{\dc}{\frac{1}{\rho} \prho{} \rho \; \a{\rho} + \frac{1}{\rho} \pphi{} \; \a{\phi} + \pz{} \a{z}}
+\newcommand{\la}[3]{\ppx{#1} + \ppy{#2} + \ppz{#3}}
+\newcommand{\lc}[3]{\frac{1}{\rho} \prho{} \rho \prho{#1} + \frac{1}{\rho^2} \ppphi{#2} + \ppz{#3}}
+\newcommand{\lr}[3]{\frac{1}{r^2} \pr{} r^2 \pr{#1} + \frac{1}{r^2 \sin \theta} \ptheta{} \sin \theta \ptheta{#2} + \frac{1}{r^2 \sin^2 \theta} \ppphi{#3}}
+\newcommand{\vla}[3]{\ppx{#1} \a{x} + \ppy{#2} \a{y} + \ppz{#3} \a{z}}
+\newcommand{\vlc}[3]{\left[ \lap{#1} - \frac{1}{\rho^2} \left( {#1} + 2 \pphi{#2} \right) \right] \a{\rho} + \left[ \lap{#2} + \frac{1}{\rho^2} \left( 2 \pphi{#1} - {#2} \right) \right] \a{\phi} + \left[ \lap{#3} \right] \a{z}}
+\renewcommand{\ra}[3]{\left( \py{#3} - \pz{#2} \right) \a{x} + \left( \pz{#1} - \px{#3} \right) \a{y} + \left( \px{#2} - \py{#1} \right) \a{z}}
+% Linhas divisórias
+\newcommand{\hhhlin}{\noindent\hfil\rule{0.25\textwidth}{.2pt}\hfil\newline}
+\newcommand{\hhlin}{\noindent\hfil\rule{0.5\textwidth}{.4pt}\hfil\newline}
+\newcommand{\hlin}{\noindent\hfil\rule{\textwidth}{.8pt}\hfil\newline}
+
+
+\begin{document}
+\setlength{\parskip}{1em}
+\setlength{\jot}{10pt}
+\setlength{\parindent}{0pt}
+
+\lstset{language=Octave,frame=single,style=Matlab-editor,basicstyle={\tiny},breaklines=true,numbers=left,numberstyle={\color{red}},numbersep=9pt,showstringspaces=false,keepspaces=false,tabsize=2}
+
+\begin{abstract}
+O presente trabalho versa sobre a determinação dos campos no entorno de uma esfera condutora perfeita, localizada no espaço livre, sobre a qual incide uma onda eletromagnética viajante plana; sob essas condições ideais, soluções analíticas podem ser encontradas. Para tal geometria do problema, essas soluções envolvem funções transcendentais: as conhecidas funções de Bessel e Hankel esféricas. \\
+Os conceitos e derivações menos comuns são apresentados em detalhe; para os mais comuns remete-se à bibliografia de referência. Este trabalho complementa o anterior, "\textit{Espalhamento eletromagnético por um cilindro condutor elétrico perfeito}", no qual se encontram as derivações mais básicas.
+\end{abstract}
+
+\maketitle
+
+\tableofcontents
+
+%\addcontentsline{toc}{section}{Unnumbered Section}
+
+\section{Introdução}
+As equações de Maxwell\footnote{Neste trabalho, a notação segue de perto a das principais referência, mas diverge em pontos onde buscamos maior clareza ou precisão.}:
+\begin{align}
+	\div \vec{D} & = 0 \label{EqCan1} \\
+	\div \vec{B} & = 0 \label{EqCan2} \\
+	\rot \vec{E} & = - \pme{\bbmu} \pt{\vec{H}} \label{EqCan3} \\
+	\rot \vec{H} & =  \pme{\bbsigma} \vec{E} + \pme{\bbepsilon} \pt{\vec{H}} \label{EqCan4}
+\end{align}
+podem ser manipuladas de forma a obter-se um conjunto de equações de onda vetoriais:
+\begin{align}
+	\vlap \vec{E} & = \pme{\bbmu} \pme{\bbsigma} \pt{\vec{E}} + \pme{\bbmu} \pme{\bbepsilon} \ppt{\vec{E}} \label{EqOnda1} \\
+	\vlap \vec{H} & = \pme{\bbmu} \pme{\bbsigma} \pt{\vec{H}} + \pme{\bbmu} \pme{\bbepsilon} \ppt{\vec{H}} \label{EqOnda2}
+\end{align}
+Ambos os conjuntos consistem de equações diferenciais parciais, por isso a forma da solução é determinada também pelas \textit{condições de contorno}, que variam de problema para problema. Em casos mais simples, pode-se obter uma solução analítica; nos demais, é necessário recorrer a métodos numéricos e, em consequência, a solução obtida estará em forma de sequências de valores. No presente trabalho, estudaremos a configuração dos campos no entorno de uma esfera condutora perfeita sobre a qual incide uma onda eletromagnética viajante plana, no espaço livre; sob essas condições ideais, soluções analíticas podem ser encontradas \cite{BALANIS 2012 1}. \\
+Tanto \ref{EqCan1} a \ref{EqCan4} quanto \ref{EqOnda1} a \ref{EqOnda2} são úteis em aplicações práticas. A opção entre os dois conjuntos é uma questão de conveniência, o que por sua vez depende das condições do problema específico a ser resolvido, como geometria, condições de contorno e parâmetros constitutivos. Para este trabalho, lançamos mão de \ref{EqOnda1} e \ref{EqOnda2}.
+
+\clearpage
+
+\section{Equações de Maxwell em coordenadas esféricas}
+\subsection{Forma das equações para o problema proposto} \label{EqProb}
+Para um condutor perfeito, as perdas por polarização e magnetização são nulas; isso equivale a fazer $ \pme{\bbsigma} = 0 $ nas equações \ref{EqOnda1} a \ref{EqOnda2}. Além disso, como o meio é linear, todas essas equações são lineares e vale o teorema integral de Fourier. Quando $ f(t) $ é uma função periódica, com período $ \tau $, a integral \ref{Fourier1} degenera numa somatória discreta; em condições de \textit{regime permanente}, pode-se simplificar ainda mais o problema com a introdução da notação fasorial. Podemos ainda, sem perda de generalidade, fazer todos os fasores unitários. Após todas essas simplificações, temos \cite{BALANIS 2012 2,BALANIS 2012 3}:
+\begin{align}
+	\vlap \FourFunR{E} & = - \pme{\bbmu} \pme{\bbepsilon} \omega^2 \FourFunR{H} \label{EqSimp5} \\
+	\vlap \FourFunR{H} & = - \pme{\bbmu} \pme{\bbepsilon} \omega^2 \FourFunR{E} \label{EqSimp6}
+\end{align}
+
+\subsection{Forma das equações em coordenadas esféricas}
+Obviamente, o sistema de coordenadas mais adequado ao problema proposto é o esférico. As equações de onda vetoriais, \ref{EqSimp5} a \ref{EqSimp6}, após todas as manipulações, são simples o suficiente para permitir uma solução analítica. No sistema escolhido, entretanto, o sistema obtido consiste em três equações acopladas. Para o campo elétrico, por exemplo, após aplicar-se a identidade $ \vlap \vec{A} = \grad ( \div \vec{A} ) - \rot \rot \vec{A} = \beta^2 \vec{E} $, chega-se a:
+\begin{align}
+	\lap E_r = \frac{2}{r^2} \left( E_r + E_{\theta} \cot \theta + \csc \theta \pphi{E_{\phi}} + \ptheta{E_{\theta}} \right) - \beta^2 E_r \\
+	\lap E_{\theta} = \frac{1}{r^2} \left( E_{\theta} \csc^2 \theta - 2 \ptheta{E_r} + 2 \cot \theta \csc \theta \pphi{E_{\phi}} \right) - \beta^2 E_{\theta} \\
+	\lap E_{\phi} = \frac{1}{r^2} \left( E_{\phi} \csc^2 \theta - 2 \csc \theta \pphi{E_r} - 2 \cot \theta \csc \theta \pphi{E_{\theta}} \right) - \beta^2 E_{\phi}
+\end{align}
+Como no trabalho anterior, neste caso também é possível escolher um modo transversal onde as componentes podem ser representadas na forma separável $ A(r, \theta, \phi) = f(r) \; g(\theta) \; h(\phi) $. Uma manipulação nos moldes da que foi feita para o problema do espalhamento por um cilindro resulta em:
+\begin{align}
+	\frac{d}{dr} \left( r^2 \frac{d f(r)}{dr} \right) + \left[ (\beta r)^2 - n(n + 1) \right] f(r) = 0 \label{EqBesselEsf} \\
+	\frac{1}{\sin \theta} \frac{d}{d \theta} \left( \sin \theta \frac{d g(\theta)}{d\theta} \right) + \left[ n(n + 1) - \left( \frac{m}{\sin \theta} \right)^2 \right] g(\theta) = 0 \label{EqLegendre} \\
+	\frac{d^2 h(\phi)}{d \phi^2} + m^2 h(\phi) = 0 \label{EqHarm}
+\end{align}
+A equação \ref{EqBesselEsf} é um tipo de Equação de Bessel; aua solução é uma combinação linear de \textbf{funções de Bessel ou de Hankel esféricas}. A equação \ref{EqLegendre} é um tipo de Equação de Legendre; sua solução é uma combinação linear de \textbf{funções de Legendre associadas}. A equação \ref{EqHarm} é uma equação harmônica comum, cuja solução é uma combinação de funções exponenciais complexas \cite{BALANIS 2012 4}. \\
+ 
+\section{Solução do problema}
+\subsection{Solução das equações}
+Consideremos uma onda incidente no modo TM\textsuperscript{z}, que é uma onda plana descrita, por exemplo, por $ E_x = \phasor{E_o} e^{-j \beta z} $. Como as funções de Bessel e de Hankel esféricas e as funções associadas de Legendre constituem grupos de funções ortogonais entre si, podemos escrever a função exponencial complexa como uma somatória de componentes harmônicos em coordenadas esféricas, cada um deles consistindo de um produto de uma função de Bessel ou de Hankel esférica por uma função de Legendre associada. Dessa forma:
+\begin{align}
+	e^{-j \beta z} = e^{-j \beta r \cos \theta} = \sum_{n = 0}^{\infty} a_n \jota{n}(\beta r) \P{n}(\cos \theta)
+\end{align}
+onde $ a_n $ são coeficientes complexos, $ \jota{} $ é a função de Bessel esférica de primeira espécie e $ \P{} $ é a função de Legendre associada. O campo incidente e o campo refletido, escritos nessa forma, podem ser obtidos como soluções das equações de onda e somados, para se obter o campo espalhado. \\
+As componentes do campo elétrico espalhado são dadas pelas fórmulas:
+\begin{align}
+	E_r = - j \; E_o \; \cos(\phi) \; \sum_{n = 1}^{\infty} \left( b_n \left[ \frac{\partial^2 \Hhat{n}}{\partial \alpha^2} + \Hhat{n} \right] \; \Pl{n} \right) \label{PrimeiraEq} \\
+	E_{\theta} = \frac{1}{\alpha} \; E_o \; \cos(\phi) \sum_{n = 1}^{\infty} \left( j \; b_n \; \sin(\theta) \; \frac{\partial \Hhat{n}}{\partial \alpha} \; \frac{\partial \Pl{n}}{\partial \gamma} - c_n \; \frac{1}{\sin(\theta)} \; \Hhat{n} \Pl{n} \right) \\
+	E_{\phi} = \frac{1}{\alpha} \; E_o \; \sin(\phi) \sum_{n = 1}^{\infty} \left( j \; b_n \; \frac{1}{\sin(\theta)} \; \frac{\partial \Hhat{n}}{\partial \alpha} \; \Pl{n} - c_n \; \sin(\theta) \; \Hhat{n} \; \frac{\partial \Pl{n}}{\partial \gamma} \right)
+\end{align}
+onde $ E_o $ é a intensidade do campo elétrico incidente, $ \alpha = \beta r $, $ \gamma = \cos(\theta) $, $ \beta = \frac{2 \pi}{\lambda} $ como usual ($ \lambda $ é o comprimento de onda), $ a_n $, $ b_n $ e $ c_n $ são coeficientes complexos, $ \Hhat{n} = \alpha \h{n}(\alpha) $ e $ \Pl{n} = \frac{\partial}{\partial \theta} \P{n}(\gamma) $. Os coeficientes são calculados por meio das expressões:
+\begin{align}
+	a_n = j^{-n} \; \frac{2n + 1}{n (n+1)} \\
+	b_n = - a_n \; \dfrac{\dfrac{\partial \Jhat{n}}{\partial \alpha}}{\dfrac{\partial \Hhat{n}}{\partial \alpha}} \\
+	c_n = - a_n \; \frac{\Jhat{n}}{\Hhat{n}}
+\end{align}
+onde $ \Jhat{n} = \alpha \jota{n}(\alpha) $, onde $ \jota{} $ é a função de Bessel esférica de primeira espécie \cite{BALANIS 2012 5}. As derivadas das funções são dadas por \cite{WOLFRAM 2015 1,WOLFRAM 2015 2}:
+\begin{align}
+	\frac{\partial \h{n}(\alpha)}{\partial \alpha} & = \h{n-1}(\alpha) - \frac{n + 1}{\alpha} \h{n}(\alpha) \\
+	\frac{\partial \jota{n}(\alpha)}{\partial \alpha} & = \jota{n-1}(\alpha) - \frac{n + 1}{\alpha} \jota{n}(\alpha) \\
+	\frac{\partial \P{n}(\theta)}{\partial \theta} & = \frac{n}{\theta^2 - 1} \left( \frac{}{} \theta \P{n}(\theta) - \P{n-1}(\theta) \right)
+\end{align}
+e assim:
+\begin{align}
+	\frac{\partial \Hhat{n}}{\partial \alpha} & = \frac{\partial}{\partial \alpha} \left( \alpha \h{n}(\alpha) \right) \notag \\
+	& = \h{n}(\alpha) + \alpha \frac{\partial \h{n}(\alpha)}{\partial \alpha} \notag \\
+	& = \h{n}(\alpha) + \alpha \left( \h{n-1}(\alpha) - \frac{n + 1}{\alpha} \h{n}(\alpha) \right) \notag \\
+	& = \alpha \h{n-1}(\alpha) - n \h{n}(\alpha) \notag \\
+	& = \Hhat{n-1} - \frac{n}{\alpha} \Hhat{n}
+\end{align}
+similarmente:
+\begin{align}
+	\frac{\partial \Jhat{n}}{\partial \alpha} & = \Jhat{n-1} - \frac{n}{\alpha} \Jhat{n}
+\end{align}
+e também
+\begin{align}
+	\frac{\partial^2 \Hhat{n}}{\partial \alpha^2} & = \frac{\partial}{\partial \alpha} \left[ \alpha \h{n-1}(\alpha) - n \h{n}(\alpha) \right] \notag \\ 
+	& = \alpha \frac{\partial \h{n-1}(\alpha)}{\partial \alpha} + \h{n-1}(\alpha) - n \frac{\partial \h{n}(\alpha)}{\partial \alpha} \notag \\
+	& = \alpha \left[ \alpha \h{n-2}(\alpha) - (n-1) \h{n-1}(\alpha) \right] + \h{n-1}(\alpha) - n \left[ \alpha \h{n-1}(\alpha) - n \h{n}(\alpha) \right] \notag \\
+	& = \alpha^2 \h{n-2}(\alpha) + 2 \h{n-1}(\alpha) + n^2 \h{n}(\alpha) \notag \\
+	& = \alpha \Hhat{n-2} + \frac{2}{\alpha} \Hhat{n-1} + \frac{n^2}{\alpha} \Hhat{n}
+\end{align}
+finalmente:
+\begin{align}
+	\Pl{n} & = \frac{\partial \P{n}(\theta)}{\partial \theta} \notag \\
+	& = \frac{n}{\theta^2 - 1} \left( \frac{}{} \theta \P{n}(\theta) - \P{n-1}(\theta) \right)
+\end{align}
+e
+\begin{align}
+	\frac{\partial \Pl{n}}{\partial \gamma} & = - \frac{1}{\sin(\theta)} \; \frac{\partial \Pl{n}}{\partial \theta} \notag \\
+	& = - \frac{1}{\sin(\theta)} \frac{\partial}{\partial \theta} \left[ \frac{n}{\theta^2 - 1} \left( \frac{}{} \theta \P{n}(\theta) - \P{n-1}(\theta) \right) \right] \notag \\
+	& = - \frac{n}{\sin(\theta)} \left[ - \frac{2 \theta}{(\theta^2 - 1)^2} \left( \frac{}{} \theta \P{n}(\theta) - \P{n-1}(\theta) \right) + ... \notag \right. \\ 
+	& \qquad \left. + \frac{1}{\theta^2 - 1} \left( \P{n}(\theta) + \theta \frac{\partial \P{n}}{\partial \theta} - \frac{\partial  \P{n-1}}{\partial \theta} \right) \right] \notag \\	
+	& = - \frac{n}{\sin(\theta)} \left[ - \frac{2 \theta}{(\theta^2 - 1)^2} \left( \frac{}{} \theta \P{n}(\theta) - \P{n-1}(\theta) \right) + ... \notag \right. \\ 
+	& \qquad \left. + \frac{1}{\theta^2 - 1} \left( \P{n}(\theta) + \theta \left\{ \frac{n}{\theta^2 - 1} \left( \frac{}{} \theta \P{n}(\theta) - \P{n-1}(\theta) \right) \right\} - ... \notag \right. \right. \\
+	& \qquad \left. \left. - \left\{ \frac{n}{\theta^2 - 1} \left( \frac{}{} \theta \P{n-1}(\theta) - \P{n-2}(\theta) \right) \right\} \right) \right] \notag \\	
+	& = - \frac{n}{\sin(\theta)} \left[ \left( - \frac{2 \theta}{(\theta^2 - 1)^2} + \frac{1}{\theta^2 -1} + \frac{n \theta^2}{(\theta^2 - 1)^2} \right) \P{n}(\theta) + ... \notag \right. \\
+	& \qquad + \left( - \frac{2 \theta}{(\theta^2 - 1)^2} - \frac{n \theta}{(\theta^2 - 1)^2} - \frac{n \theta}{(\theta^2 - 1)^2} \right) \P{n-1}(\theta) + ... \notag \\
+	& \qquad + \left. \frac{n}{(\theta^2 - 1)^2} \P{n-2}(\theta) \right] \notag \\
+	& = - \frac{n}{\sin(\theta) (\theta^2 - 1)^2} \left[ (n \theta^2 - \theta^2 - 1) \P{n}(\theta) - 2 (n + 1) \theta \P{n-1}(\theta) + n \P{n-2}(\theta) \right]
+\end{align}
+Para codificação no MATLAB, as funções esféricas $ \Hhat{n} $ e $ \Jhat{n} $ devem ainda ser expressas em função das funções regulares:
+\begin{align}
+	\Hhat{n} & = \sqrt{\frac{\pi \alpha}{2}} \H_{n + \frac{1}{2}}^{(2)}(\alpha) \\
+	\Jhat{n} & = \sqrt{\frac{\pi \alpha}{2}} \J_{n + \frac{1}{2}}(\alpha) \label{UltimaEq}
+\end{align}
+
+\clearpage
+
+\subsection{Implementação}
+As equações \ref{PrimeiraEq} a \ref{UltimaEq} foram implementadas através de funções auxiliares. O programa para o cálculo do campo espalhado está listado a seguir. Ele toma 3 valores distintos de $ \frac{R}{\lambda} $, sendo $ R $ o raio da esfera, e estima o valor das componentes em um ponto qualquer do espaço próximo.
+\lstinputlisting[caption=probesfera.m]{trab19.m}
+
+\subsection{Análise dos resultados}
+Os gráficos seguintes foram obtidos a partir dos cálculos desse programa. No primeiro grupo, $ \lambda = 0,3 \; R $. Pode-se observar o caráter oscilatório em $ \theta $ e $ \phi $ para alguns valores de $ r $. pode-se também verificar que variação de $ E $ com a distância tem a mesma forma para posições diferentes na esfera. Para melhor qualidade gráfica, basta aumentar o valor das variáveis do programa que controlam a resolução: $ \mathbf{step} $,  $ \mathbf{prec} $ e, talvez, também $ \mathbf{infty} $. \\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab19figa.jpg} \\
+	\begin{align*}
+		r & = 1 \qquad \mbox{(superfície da esfera)} \\
+		0 & \le \theta \le \pi \\
+		\phi & = 0
+	\end{align*}
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab19figb.jpg} \\
+	\begin{align*}
+		r & = 1 \qquad \mbox{(superfície da esfera)} \\
+		\theta & = 0 \\
+		0 & \le \phi \le 2 \pi
+	\end{align*}
+	\end{figure}%
+\end{minipage} \\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab19figc.jpg} \\
+	\begin{align*}
+		R & \le r \le 10 R \\
+		\theta & = 0 \\
+		\phi & = 0
+	\end{align*}
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab19figd.jpg} \\
+	\begin{align*}
+		R & \le r \le 10 R \\
+		\theta & = \frac{\pi}{2} \\
+		\phi & = 0
+	\end{align*}
+	\end{figure}%
+\end{minipage} \\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab19fige.jpg} \\
+	\begin{align*}
+		R & \le r \le 10 R \\
+		\theta & = \pi \\
+		\phi & = 0
+	\end{align*}
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab19figf.jpg} \\
+	\begin{align*}
+		R & \le r \le 10 R \\
+		\theta & = \frac{\pi}{2} \\
+		\phi & = \pi
+	\end{align*}
+	\end{figure}%
+\end{minipage} \\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab19figg.jpg} \\
+	\begin{align*}
+		r & = 2 \\
+		0 & \le \theta \le \pi \\
+		\phi & = 0
+	\end{align*}
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab19figh.jpg} \\
+	\begin{align*}
+		r & = 5 \\
+		\theta & = \frac{\pi}{2} \\
+		0 & \le \phi \le 2 \pi
+	\end{align*}
+	\end{figure}%
+\end{minipage} \\
+No segundo grupo, $ \lambda = R $. Percebe-se que a variação em $ \theta $ e em $ \phi $ possui o mesmo caráter do grupo anterior; a variação em $ r $ também, mas o período espacial da oscilação aumentou. \\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab19figi.jpg} \\
+	\begin{align*}
+		r & = 1 \qquad \mbox{(superfície da esfera)} \\
+		0 & \le \theta \le \pi \\
+		\phi & = 0
+	\end{align*}
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab19figj.jpg} \\
+	\begin{align*}
+		r & = 1 \qquad \mbox{(superfície da esfera)} \\
+		\theta & = 0 \\
+		0 & \le \phi \le 2 \pi
+	\end{align*}
+	\end{figure}%
+\end{minipage} \\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab19figk.jpg} \\
+	\begin{align*}
+		R & \le r \le 10 R \\
+		\theta & = 0 \\
+		\phi & = 0
+	\end{align*}
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab19figl.jpg} \\
+	\begin{align*}
+		R & \le r \le 10 R \\
+		\theta & = \frac{\pi}{2} \\
+		\phi & = \pi
+	\end{align*}
+	\end{figure}%
+\end{minipage} \\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab19figm.jpg} \\
+	\begin{align*}
+		r & = 5 \\
+		0 & \le \theta \le \pi \\
+		\phi & = \pi
+	\end{align*}
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab19fign.jpg} \\
+	\begin{align*}
+		r & = 3 \\
+		\theta & = \frac{\pi}{2} \\
+		0 & \le \phi \le 2 \pi
+	\end{align*}
+	\end{figure}%
+\end{minipage} \\
+De forma similar, no terceiro grupo, em que $ \lambda = 3R $, notam-se os mesmos efeitos. \\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab19figo.jpg} \\
+	\begin{align*}
+		r & = 1 \qquad \mbox{(superfície da esfera)} \\
+		0 & \le \theta \le \pi \\
+		\phi & = 0
+	\end{align*}
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab19figp.jpg} \\
+	\begin{align*}
+		r & = 1 \qquad \mbox{(superfície da esfera)} \\
+		\theta & = 0 \\
+		0 & \le \phi \le 2 \pi
+	\end{align*}
+	\end{figure}%
+\end{minipage} \\
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab19figq.jpg} \\
+	\begin{align*}
+		R & \le r \le 10 R \\
+		\theta & = 0 \\
+		\phi & = 0
+	\end{align*}
+	\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\textwidth]{trab19figr.jpg} \\
+	\begin{align*}
+		R & \le r \le 10 R \\
+		\theta & = \frac{\pi}{2} \\
+		\phi & = \pi
+	\end{align*}
+	\end{figure}%
+\end{minipage} \\
+
+
+\begin{thebibliography}{15}
+
+\newbibbk{BALANIS 2012 1}{BALANIS 2012 1}{Constantine A. BALANIS}{Advanced Engineering Electromagnetics}{2\textsuperscript{nd} edition, Wiley, 2012, ISBN 978-0-470-58948-9, itens 3.1 e 3.2, pp. 99 a 101}
+
+\newbiboc{BALANIS 2012 2}{BALANIS 2012 2}{Constantine BALANIS}{item 1.7, pp. 21 a 22}
+
+\newbiboc{BALANIS 2012 3}{BALANIS 2012 3}{Constantine BALANIS}{item 3.3, pp. 101 a 102}
+
+\newbiboc{BALANIS 2012 4}{BALANIS 2012 4}{Constantine BALANIS}{item 3.4.3 pp. 115 a 120}
+
+\newbiboc{BALANIS 2012 5}{BALANIS 2012 5}{Constantine BALANIS}{item 11.8, pp. 650 a 660}
+
+\newbibsi{WOLFRAM 2015 1}{WOLFRAM 2015 1}{Stephen WOLFRAM}{WolframResearch}{Spherical Bessel function of the first kind: Differentiation}{http://functions.wolfram.com/Bessel-TypeFunctions/SphericalBesselJ/20/01/02}{30/10/2015}
+
+\newbibsi{WOLFRAM 2015 2}{WOLFRAM 2015 2}{Stephen WOLFRAM}{WolframResearch}{Legendre polynomials: Differentiation}{http://functions.wolfram.com/Polynomials/Legendre/20/01/01}{30/10/2015}
+
+\end{thebibliography}
+Os gráficos foram preparados pelo \textbf{Octave} 4.0.0: \\
+\url{https://www.gnu.org/software/octave/} \\
+Texto formatado com \textbf{pdflatex} em ambiente MiKTeX 2.9: \\
+\url{http://miktex.org/download/} \\
+
+
+\end{document}

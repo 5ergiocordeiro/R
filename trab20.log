@@ -1,0 +1,2188 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (MiKTeX 2.9) (preloaded format=pdflatex 2015.4.4)  15 NOV 2015 17:28
+entering extended mode
+**trab20.tex
+(trab20.tex
+LaTeX2e <2014/05/01>
+Babel <3.9l> and hyphenation patterns for 68 languages loaded.
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\amscls\amsart.cls"
+Document Class: amsart 2009/07/02 v2.20.1
+\linespacing=\dimen102
+\normalparindent=\dimen103
+\normaltopskip=\skip41
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\amsmath\amsmath.sty"
+Package: amsmath 2013/01/14 v2.14 AMS math features
+\@mathmargin=\skip42
+
+For additional information on amsmath, use the `?' option.
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\amsmath\amstext.sty"
+Package: amstext 2000/06/29 v2.01
+
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\amsmath\amsgen.sty"
+File: amsgen.sty 1999/11/30 v2.0
+\@emptytoks=\toks14
+\ex@=\dimen104
+))
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\amsmath\amsbsy.sty"
+Package: amsbsy 1999/11/29 v1.2d
+\pmbraise@=\dimen105
+)
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\amsmath\amsopn.sty"
+Package: amsopn 1999/12/14 v2.01 operator names
+)
+\inf@bad=\count79
+LaTeX Info: Redefining \frac on input line 210.
+\uproot@=\count80
+\leftroot@=\count81
+LaTeX Info: Redefining \overline on input line 306.
+\classnum@=\count82
+\DOTSCASE@=\count83
+LaTeX Info: Redefining \ldots on input line 378.
+LaTeX Info: Redefining \dots on input line 381.
+LaTeX Info: Redefining \cdots on input line 466.
+\Mathstrutbox@=\box26
+\strutbox@=\box27
+\big@size=\dimen106
+LaTeX Font Info:    Redeclaring font encoding OML on input line 566.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
+\macc@depth=\count84
+\c@MaxMatrixCols=\count85
+\dotsspace@=\muskip10
+\c@parentequation=\count86
+\dspbrk@lvl=\count87
+\tag@help=\toks15
+\row@=\count88
+\column@=\count89
+\maxfields@=\count90
+\andhelp@=\toks16
+\eqnshift@=\dimen107
+\alignsep@=\dimen108
+\tagshift@=\dimen109
+\tagwidth@=\dimen110
+\totwidth@=\dimen111
+\lineht@=\dimen112
+\@envbody=\toks17
+\multlinegap=\skip43
+\multlinetaggap=\skip44
+\mathdisplay@stack=\toks18
+LaTeX Info: Redefining \[ on input line 2665.
+LaTeX Info: Redefining \] on input line 2666.
+)
+LaTeX Font Info:    Try loading font information for U+msa on input line 388.
+
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\amsfonts\amsfonts.sty"
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+)
+\copyins=\insert233
+\abstractbox=\box28
+\listisep=\skip45
+\c@part=\count91
+\c@section=\count92
+\c@subsection=\count93
+\c@subsubsection=\count94
+\c@paragraph=\count95
+\c@subparagraph=\count96
+\c@figure=\count97
+\c@table=\count98
+\abovecaptionskip=\skip46
+\belowcaptionskip=\skip47
+\captionindent=\dimen113
+\thm@style=\toks19
+\thm@bodyfont=\toks20
+\thm@headfont=\toks21
+\thm@notefont=\toks22
+\thm@headpunct=\toks23
+\thm@preskip=\skip48
+\thm@postskip=\skip49
+\thm@headsep=\skip50
+\dth@everypar=\toks24
+)
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\enumitem\enumitem.sty"
+Package: enumitem 2011/09/28 v3.5.2 Customized lists
+\enitkv@toks@=\toks25
+\labelindent=\skip51
+\enit@outerparindent=\dimen114
+\enit@toks=\toks26
+\enit@inbox=\box29
+\enitdp@description=\count99
+)
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\latex\x
+string\xstring.sty"
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\xstring\xstring.tex"
+\@xs@message=\write3
+\integerpart=\count100
+\decimalpart=\count101
+)
+Package: xstring 2013/10/13  v1.7c  String manipulations (C Tellechea)
+)
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\geometry\geometry.sty"
+Package: geometry 2010/09/12 v5.6 Page Geometry
+
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\graphics\keyval.sty"
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks27
+)
+("C:\Arquivos de programas\MiKTeX 2.9\tex\generic\oberdiek\ifpdf.sty"
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is detected.
+)
+("C:\Arquivos de programas\MiKTeX 2.9\tex\generic\oberdiek\ifvtex.sty"
+Package: ifvtex 2010/03/01 v1.5 Detect VTeX and its facilities (HO)
+Package ifvtex Info: VTeX not detected.
+)
+("C:\Arquivos de programas\MiKTeX 2.9\tex\generic\ifxetex\ifxetex.sty"
+Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
+)
+\Gm@cnth=\count102
+\Gm@cntv=\count103
+\c@Gm@tempcnt=\count104
+\Gm@bindingoffset=\dimen115
+\Gm@wd@mp=\dimen116
+\Gm@odd@mp=\dimen117
+\Gm@even@mp=\dimen118
+\Gm@layoutwidth=\dimen119
+\Gm@layoutheight=\dimen120
+\Gm@layouthoffset=\dimen121
+\Gm@layoutvoffset=\dimen122
+\Gm@dimlist=\toks28
+
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\geometry\geometry.cfg"))
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\babel\babel.sty"
+Package: babel 2014/09/25 3.9l The Babel package
+
+*************************************
+* Local config file bblopts.cfg used
+*
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\00miktex\bblopts.cfg"
+File: bblopts.cfg 2006/07/31 v1.0 MiKTeX 'babel' configuration
+)
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\babel-portuges\portuges.ldf"
+Language: portuges 2008/03/18 v1.2q Portuguese support from the babel system
+
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\babel\babel.def"
+File: babel.def 2014/09/25 3.9l Babel common definitions
+\babel@savecnt=\count105
+\U@D=\dimen123
+)
+Package babel Info: Making " an active character on input line 145.
+)
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\babel-portuges\portuges.ldf"
+Language: portuges 2008/03/18 v1.2q Portuguese support from the babel system
+\l@brazilian = a dialect from \language\l@portuges 
+))
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\base\inputenc.sty"
+Package: inputenc 2014/04/30 v1.2b Input encoding file
+\inpenc@prehook=\toks29
+\inpenc@posthook=\toks30
+
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\base\ansinew.def"
+File: ansinew.def 2014/04/30 v1.2b Input encoding file
+))
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\base\fontenc.sty"
+Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
+
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\base\t1enc.def"
+File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
+))
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\textgreek\textgreek.sty"
+Package: textgreek 2011/10/09 v0.7 Greek symbols in text
+Package textgreek Info: Loading the definitions for the Greek fontencoding. on 
+input line 39.
+
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\greek-fontenc\lgrenc.def"
+File: lgrenc.def 2015/08/08 v0.13 LGR Greek font encoding definitions
+
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\greek-fontenc\greek-fontenc.def
+"
+File: greek-fontenc.def 2015/08/04 v0.13 Common Greek font encoding definitions
+
+))
+Package textgreek Info: Loaded fontmap: {eur/*/*}{U/eur/*/*} {phv/*/*}{U/psy/*/
+*}. on input line 69.
+) ("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\psnfss\helvet.sty"
+Package: helvet 2005/04/12 PSNFSS-v9.2a (WaS) 
+)
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\latex\x
+color\xcolor.sty"
+Package: xcolor 2007/01/21 v2.11 LaTeX color extensions (UK)
+
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\00miktex\color.cfg"
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\pdftex-def\pdftex.def"
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+("C:\Arquivos de programas\MiKTeX 2.9\tex\generic\oberdiek\infwarerr.sty"
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
+)
+("C:\Arquivos de programas\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty"
+Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count106
+)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1337.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1341.
+Package xcolor Info: Model `RGB' extended on input line 1353.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1355.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1356.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1357.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1358.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1359.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
+)
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\sidecap\sidecap.sty"
+Package: sidecap 2003/06/06 v1.6f SideCap Package (RN/HjG)
+
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\base\ifthen.sty"
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\SC@BOXWD=\dimen124
+\SC@CAPWD=\dimen125
+\SC@tempdima=\dimen126
+\SC@tempdimb=\dimen127
+\c@SC@C=\count107
+\SC@BOX=\box30
+)
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\float\float.sty"
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count108
+\float@exts=\toks31
+\float@box=\box31
+\@float@everytoks=\toks32
+\@floatcapt=\box32
+)
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\listings\listings.sty"
+\lst@mode=\count109
+\lst@gtempboxa=\box33
+\lst@token=\toks33
+\lst@length=\count110
+\lst@currlwidth=\dimen128
+\lst@column=\count111
+\lst@pos=\count112
+\lst@lostspace=\dimen129
+\lst@width=\dimen130
+\lst@newlines=\count113
+\lst@lineno=\count114
+\lst@maxwidth=\dimen131
+
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\listings\lstmisc.sty"
+File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
+\c@lstnumber=\count115
+\lst@skipnumbers=\count116
+\lst@framebox=\box34
+)
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\listings\listings.cfg"
+File: listings.cfg 2015/06/04 1.6 listings configuration
+))
+Package: listings 2015/06/04 1.6 (Carsten Heinz)
+
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\matlab-prettifier\matlab-pretti
+fier.sty"
+Package: matlab-prettifier 2014/06/19 v0.3 A package for prettyprinting Matlab 
+source code
+ ("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\base\textcomp.sty"
+Package: textcomp 2005/09/27 v1.99g Standard LaTeX package
+Package textcomp Info: Sub-encoding information:
+(textcomp)               5 = only ISO-Adobe without \textcurrency
+(textcomp)               4 = 5 + \texteuro
+(textcomp)               3 = 4 + \textohm
+(textcomp)               2 = 3 + \textestimated + \textcurrency
+(textcomp)               1 = TS1 - \textcircled - \t
+(textcomp)               0 = TS1 (full)
+(textcomp)             Font families with sub-encoding setting implement
+(textcomp)             only a restricted character set as indicated.
+(textcomp)             Family '?' is the default used for unknown fonts.
+(textcomp)             See the documentation for details.
+Package textcomp Info: Setting ? sub-encoding to TS1/1 on input line 71.
+
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\base\ts1enc.def"
+File: ts1enc.def 2001/06/05 v3.0e (jk/car/fm) Standard LaTeX file
+)
+LaTeX Info: Redefining \oldstylenums on input line 266.
+Package textcomp Info: Setting cmr sub-encoding to TS1/0 on input line 281.
+Package textcomp Info: Setting cmss sub-encoding to TS1/0 on input line 282.
+Package textcomp Info: Setting cmtt sub-encoding to TS1/0 on input line 283.
+Package textcomp Info: Setting cmvtt sub-encoding to TS1/0 on input line 284.
+Package textcomp Info: Setting cmbr sub-encoding to TS1/0 on input line 285.
+Package textcomp Info: Setting cmtl sub-encoding to TS1/0 on input line 286.
+Package textcomp Info: Setting ccr sub-encoding to TS1/0 on input line 287.
+Package textcomp Info: Setting ptm sub-encoding to TS1/4 on input line 288.
+Package textcomp Info: Setting pcr sub-encoding to TS1/4 on input line 289.
+Package textcomp Info: Setting phv sub-encoding to TS1/4 on input line 290.
+Package textcomp Info: Setting ppl sub-encoding to TS1/3 on input line 291.
+Package textcomp Info: Setting pag sub-encoding to TS1/4 on input line 292.
+Package textcomp Info: Setting pbk sub-encoding to TS1/4 on input line 293.
+Package textcomp Info: Setting pnc sub-encoding to TS1/4 on input line 294.
+Package textcomp Info: Setting pzc sub-encoding to TS1/4 on input line 295.
+Package textcomp Info: Setting bch sub-encoding to TS1/4 on input line 296.
+Package textcomp Info: Setting put sub-encoding to TS1/5 on input line 297.
+Package textcomp Info: Setting uag sub-encoding to TS1/5 on input line 298.
+Package textcomp Info: Setting ugq sub-encoding to TS1/5 on input line 299.
+Package textcomp Info: Setting ul8 sub-encoding to TS1/4 on input line 300.
+Package textcomp Info: Setting ul9 sub-encoding to TS1/4 on input line 301.
+Package textcomp Info: Setting augie sub-encoding to TS1/5 on input line 302.
+Package textcomp Info: Setting dayrom sub-encoding to TS1/3 on input line 303.
+Package textcomp Info: Setting dayroms sub-encoding to TS1/3 on input line 304.
+
+Package textcomp Info: Setting pxr sub-encoding to TS1/0 on input line 305.
+Package textcomp Info: Setting pxss sub-encoding to TS1/0 on input line 306.
+Package textcomp Info: Setting pxtt sub-encoding to TS1/0 on input line 307.
+Package textcomp Info: Setting txr sub-encoding to TS1/0 on input line 308.
+Package textcomp Info: Setting txss sub-encoding to TS1/0 on input line 309.
+Package textcomp Info: Setting txtt sub-encoding to TS1/0 on input line 310.
+Package textcomp Info: Setting lmr sub-encoding to TS1/0 on input line 311.
+Package textcomp Info: Setting lmdh sub-encoding to TS1/0 on input line 312.
+Package textcomp Info: Setting lmss sub-encoding to TS1/0 on input line 313.
+Package textcomp Info: Setting lmssq sub-encoding to TS1/0 on input line 314.
+Package textcomp Info: Setting lmvtt sub-encoding to TS1/0 on input line 315.
+Package textcomp Info: Setting qhv sub-encoding to TS1/0 on input line 316.
+Package textcomp Info: Setting qag sub-encoding to TS1/0 on input line 317.
+Package textcomp Info: Setting qbk sub-encoding to TS1/0 on input line 318.
+Package textcomp Info: Setting qcr sub-encoding to TS1/0 on input line 319.
+Package textcomp Info: Setting qcs sub-encoding to TS1/0 on input line 320.
+Package textcomp Info: Setting qpl sub-encoding to TS1/0 on input line 321.
+Package textcomp Info: Setting qtm sub-encoding to TS1/0 on input line 322.
+Package textcomp Info: Setting qzc sub-encoding to TS1/0 on input line 323.
+Package textcomp Info: Setting qhvc sub-encoding to TS1/0 on input line 324.
+Package textcomp Info: Setting futs sub-encoding to TS1/4 on input line 325.
+Package textcomp Info: Setting futx sub-encoding to TS1/4 on input line 326.
+Package textcomp Info: Setting futj sub-encoding to TS1/4 on input line 327.
+Package textcomp Info: Setting hlh sub-encoding to TS1/3 on input line 328.
+Package textcomp Info: Setting hls sub-encoding to TS1/3 on input line 329.
+Package textcomp Info: Setting hlst sub-encoding to TS1/3 on input line 330.
+Package textcomp Info: Setting hlct sub-encoding to TS1/5 on input line 331.
+Package textcomp Info: Setting hlx sub-encoding to TS1/5 on input line 332.
+Package textcomp Info: Setting hlce sub-encoding to TS1/5 on input line 333.
+Package textcomp Info: Setting hlcn sub-encoding to TS1/5 on input line 334.
+Package textcomp Info: Setting hlcw sub-encoding to TS1/5 on input line 335.
+Package textcomp Info: Setting hlcf sub-encoding to TS1/5 on input line 336.
+Package textcomp Info: Setting pplx sub-encoding to TS1/3 on input line 337.
+Package textcomp Info: Setting pplj sub-encoding to TS1/3 on input line 338.
+Package textcomp Info: Setting ptmx sub-encoding to TS1/4 on input line 339.
+Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 340.
+)
+\netBracketCount@mlpr=\count117
+\blkLvl@mlpr=\count118
+\blkLvlAtClassdef@mlpr=\count119
+\emHeight@mlpr=\skip52
+\jayDepth@mlpr=\skip53
+\sectionRuleOffset@mlpr=\skip54
+\toks@mlpr=\toks34
+)
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\changes\changes.sty"
+Package: changes 2015/04/27 v2.0.4 changes package
+
+*** changes package 2015/04/27 v2.0.4 ***
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\xkeyval\xkeyval.sty"
+Package: xkeyval 2014/12/03 v2.7a package option processing (HA)
+
+("C:\Arquivos de programas\MiKTeX 2.9\tex\generic\xkeyval\xkeyval.tex"
+("C:\Arquivos de programas\MiKTeX 2.9\tex\generic\xkeyval\xkvutils.tex"
+\XKV@toks=\toks35
+\XKV@tempa@toks=\toks36
+)
+\XKV@depth=\count120
+File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
+))
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\xifthen\xifthen.sty"
+Package: xifthen 2009/04/17 v1.3 Extended ifthen features
+
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\misc\etex.sty"
+Package: etex 2015/03/02 v2.1 eTeX basic definition package (PEB,DPC)
+\et@xins=\count121
+)
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\tools\calc.sty"
+Package: calc 2014/10/28 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count122
+\calc@Bcount=\count123
+\calc@Adimen=\dimen132
+\calc@Bdimen=\dimen133
+\calc@Askip=\skip55
+\calc@Bskip=\skip56
+LaTeX Info: Redefining \setlength on input line 75.
+LaTeX Info: Redefining \addtolength on input line 76.
+\calc@Ccount=\count124
+\calc@Cskip=\skip57
+)
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\ifmtarg\ifmtarg.sty"
+Package: ifmtarg 2009/09/02 v1.2a check for an empty argument
+))
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\oberdiek\pdfcolmk.sty"
+Package: pdfcolmk 2008/08/11 v1.2 Color support for pdfTeX via marks (HO)
+Package pdfcolmk Info: The color stack of pdfTeX >= 1.40 is used. Therefore
+(pdfcolmk)             this package is not necessary and not loaded.
+)
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\ulem\ulem.sty"
+\UL@box=\box35
+\UL@hyphenbox=\box36
+\UL@skip=\skip58
+\UL@hook=\toks37
+\UL@height=\dimen134
+\UL@pe=\count125
+\UL@pixel=\dimen135
+\ULC@box=\box37
+Package: ulem 2012/05/18
+\ULdepth=\dimen136
+)
+\c@Changes@AuthorCount=\count126
+\c@Changes@Author=\count127
+\c@Changes@AddCount=\count128
+\c@Changes@DeleteCount=\count129
+\c@Changes@ReplaceCount=\count130
+
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\truncate\truncate.sty"
+Package: truncate 2001/08/20  ver 3.6
+\@Trunc@RestHyph=\toks38
+)
+\Changes@Len@summ=\skip59
+)
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\latex\p
+gf\frontendlayer\tikz.sty"
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\latex\p
+gf\basiclayer\pgf.sty"
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\latex\p
+gf\utilities\pgfrcs.sty"
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\utilities\pgfutil-common.tex"
+\pgfutil@everybye=\toks39
+\pgfutil@tempdima=\dimen137
+\pgfutil@tempdimb=\dimen138
+
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\utilities\pgfutil-common-lists.tex"))
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\utilities\pgfutil-latex.def"
+\pgfutil@abb=\box38
+
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\latex\m
+s\everyshi.sty"
+Package: everyshi 2001/05/15 v3.00 EveryShipout Package (MS)
+))
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\utilities\pgfrcs.code.tex"
+Package: pgfrcs 2013/12/20 v3.0.0 (rcs-revision 1.28)
+))
+Package: pgf 2013/12/18 v3.0.0 (rcs-revision 1.14)
+
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\latex\p
+gf\basiclayer\pgfcore.sty"
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\graphics\graphicx.sty"
+Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
+
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\graphics\graphics.sty"
+Package: graphics 2014/10/28 v1.0p Standard LaTeX Graphics (DPC,SPQR)
+
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\graphics\trig.sty"
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\00miktex\graphics.cfg"
+File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
+)
+Package graphics Info: Driver file: pdftex.def on input line 91.
+)
+\Gin@req@height=\dimen139
+\Gin@req@width=\dimen140
+)
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\latex\p
+gf\systemlayer\pgfsys.sty"
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\systemlayer\pgfsys.code.tex"
+Package: pgfsys 2013/11/30 v3.0.0 (rcs-revision 1.47)
+
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\utilities\pgfkeys.code.tex"
+\pgfkeys@pathtoks=\toks40
+\pgfkeys@temptoks=\toks41
+
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\utilities\pgfkeysfiltered.code.tex"
+\pgfkeys@tmptoks=\toks42
+))
+\pgf@x=\dimen141
+\pgf@y=\dimen142
+\pgf@xa=\dimen143
+\pgf@ya=\dimen144
+\pgf@xb=\dimen145
+\pgf@yb=\dimen146
+\pgf@xc=\dimen147
+\pgf@yc=\dimen148
+\w@pgf@writea=\write4
+\r@pgf@reada=\read1
+\c@pgf@counta=\count131
+\c@pgf@countb=\count132
+\c@pgf@countc=\count133
+\c@pgf@countd=\count134
+\t@pgf@toka=\toks43
+\t@pgf@tokb=\toks44
+\t@pgf@tokc=\toks45
+
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\systemlayer\pgf.cfg"
+File: pgf.cfg 2008/05/14  (rcs-revision 1.7)
+)
+Driver file for pgf: pgfsys-pdftex.def
+
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\systemlayer\pgfsys-pdftex.def"
+File: pgfsys-pdftex.def 2013/07/18  (rcs-revision 1.33)
+
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\systemlayer\pgfsys-common-pdf.def"
+File: pgfsys-common-pdf.def 2013/10/10  (rcs-revision 1.13)
+)))
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\systemlayer\pgfsyssoftpath.code.tex"
+File: pgfsyssoftpath.code.tex 2013/09/09  (rcs-revision 1.9)
+\pgfsyssoftpath@smallbuffer@items=\count135
+\pgfsyssoftpath@bigbuffer@items=\count136
+)
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\systemlayer\pgfsysprotocol.code.tex"
+File: pgfsysprotocol.code.tex 2006/10/16  (rcs-revision 1.4)
+))
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\basiclayer\pgfcore.code.tex"
+Package: pgfcore 2010/04/11 v3.0.0 (rcs-revision 1.7)
+
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\math\pgfmath.code.tex"
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\math\pgfmathcalc.code.tex"
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\math\pgfmathutil.code.tex")
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\math\pgfmathparser.code.tex"
+\pgfmath@dimen=\dimen149
+\pgfmath@count=\count137
+\pgfmath@box=\box39
+\pgfmath@toks=\toks46
+\pgfmath@stack@operand=\toks47
+\pgfmath@stack@operation=\toks48
+)
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\math\pgfmathfunctions.code.tex"
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\math\pgfmathfunctions.basic.code.tex")
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\math\pgfmathfunctions.trigonometric.code.tex")
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\math\pgfmathfunctions.random.code.tex")
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\math\pgfmathfunctions.comparison.code.tex")
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\math\pgfmathfunctions.base.code.tex")
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\math\pgfmathfunctions.round.code.tex")
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\math\pgfmathfunctions.misc.code.tex")
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\math\pgfmathfunctions.integerarithmetics.code.tex")))
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\math\pgfmathfloat.code.tex"
+\c@pgfmathroundto@lastzeros=\count138
+))
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\basiclayer\pgfcorepoints.code.tex"
+File: pgfcorepoints.code.tex 2013/10/07  (rcs-revision 1.27)
+\pgf@picminx=\dimen150
+\pgf@picmaxx=\dimen151
+\pgf@picminy=\dimen152
+\pgf@picmaxy=\dimen153
+\pgf@pathminx=\dimen154
+\pgf@pathmaxx=\dimen155
+\pgf@pathminy=\dimen156
+\pgf@pathmaxy=\dimen157
+\pgf@xx=\dimen158
+\pgf@xy=\dimen159
+\pgf@yx=\dimen160
+\pgf@yy=\dimen161
+\pgf@zx=\dimen162
+\pgf@zy=\dimen163
+)
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\basiclayer\pgfcorepathconstruct.code.tex"
+File: pgfcorepathconstruct.code.tex 2013/10/07  (rcs-revision 1.29)
+\pgf@path@lastx=\dimen164
+\pgf@path@lasty=\dimen165
+)
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\basiclayer\pgfcorepathusage.code.tex"
+File: pgfcorepathusage.code.tex 2013/12/13  (rcs-revision 1.23)
+\pgf@shorten@end@additional=\dimen166
+\pgf@shorten@start@additional=\dimen167
+)
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\basiclayer\pgfcorescopes.code.tex"
+File: pgfcorescopes.code.tex 2013/10/09  (rcs-revision 1.44)
+\pgfpic=\box40
+\pgf@hbox=\box41
+\pgf@layerbox@main=\box42
+\pgf@picture@serial@count=\count139
+)
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\basiclayer\pgfcoregraphicstate.code.tex"
+File: pgfcoregraphicstate.code.tex 2013/09/19  (rcs-revision 1.11)
+\pgflinewidth=\dimen168
+)
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\basiclayer\pgfcoretransformations.code.tex"
+File: pgfcoretransformations.code.tex 2013/10/10  (rcs-revision 1.17)
+\pgf@pt@x=\dimen169
+\pgf@pt@y=\dimen170
+\pgf@pt@temp=\dimen171
+)
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\basiclayer\pgfcorequick.code.tex"
+File: pgfcorequick.code.tex 2008/10/09  (rcs-revision 1.3)
+)
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\basiclayer\pgfcoreobjects.code.tex"
+File: pgfcoreobjects.code.tex 2006/10/11  (rcs-revision 1.2)
+)
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\basiclayer\pgfcorepathprocessing.code.tex"
+File: pgfcorepathprocessing.code.tex 2013/09/09  (rcs-revision 1.9)
+)
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\basiclayer\pgfcorearrows.code.tex"
+File: pgfcorearrows.code.tex 2013/11/07  (rcs-revision 1.40)
+\pgfarrowsep=\dimen172
+)
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\basiclayer\pgfcoreshade.code.tex"
+File: pgfcoreshade.code.tex 2013/07/15  (rcs-revision 1.15)
+\pgf@max=\dimen173
+\pgf@sys@shading@range@num=\count140
+)
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\basiclayer\pgfcoreimage.code.tex"
+File: pgfcoreimage.code.tex 2013/07/15  (rcs-revision 1.18)
+
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\basiclayer\pgfcoreexternal.code.tex"
+File: pgfcoreexternal.code.tex 2013/07/15  (rcs-revision 1.20)
+\pgfexternal@startupbox=\box43
+))
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\basiclayer\pgfcorelayers.code.tex"
+File: pgfcorelayers.code.tex 2013/07/18  (rcs-revision 1.7)
+)
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\basiclayer\pgfcoretransparency.code.tex"
+File: pgfcoretransparency.code.tex 2013/09/30  (rcs-revision 1.5)
+)
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\basiclayer\pgfcorepatterns.code.tex"
+File: pgfcorepatterns.code.tex 2013/11/07  (rcs-revision 1.5)
+)))
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\modules\pgfmoduleshapes.code.tex"
+File: pgfmoduleshapes.code.tex 2013/10/31  (rcs-revision 1.34)
+\pgfnodeparttextbox=\box44
+)
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\modules\pgfmoduleplot.code.tex"
+File: pgfmoduleplot.code.tex 2013/07/31  (rcs-revision 1.12)
+)
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\latex\p
+gf\compatibility\pgfcomp-version-0-65.sty"
+Package: pgfcomp-version-0-65 2007/07/03 v3.0.0 (rcs-revision 1.7)
+\pgf@nodesepstart=\dimen174
+\pgf@nodesepend=\dimen175
+)
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\latex\p
+gf\compatibility\pgfcomp-version-1-18.sty"
+Package: pgfcomp-version-1-18 2007/07/23 v3.0.0 (rcs-revision 1.1)
+))
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\latex\p
+gf\utilities\pgffor.sty"
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\latex\p
+gf\utilities\pgfkeys.sty"
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\utilities\pgfkeys.code.tex"))
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\latex\p
+gf\math\pgfmath.sty"
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\math\pgfmath.code.tex"))
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\utilities\pgffor.code.tex"
+Package: pgffor 2013/12/13 v3.0.0 (rcs-revision 1.25)
+
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\math\pgfmath.code.tex")
+\pgffor@iter=\dimen176
+\pgffor@skip=\dimen177
+\pgffor@stack=\toks49
+\pgffor@toks=\toks50
+))
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\frontendlayer\tikz\tikz.code.tex"
+Package: tikz 2013/12/13 v3.0.0 (rcs-revision 1.142)
+
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\libraries\pgflibraryplothandlers.code.tex"
+File: pgflibraryplothandlers.code.tex 2013/08/31 v3.0.0 (rcs-revision 1.20)
+\pgf@plot@mark@count=\count141
+\pgfplotmarksize=\dimen178
+)
+\tikz@lastx=\dimen179
+\tikz@lasty=\dimen180
+\tikz@lastxsaved=\dimen181
+\tikz@lastysaved=\dimen182
+\tikzleveldistance=\dimen183
+\tikzsiblingdistance=\dimen184
+\tikz@figbox=\box45
+\tikz@figbox@bg=\box46
+\tikz@tempbox=\box47
+\tikz@tempbox@bg=\box48
+\tikztreelevel=\count142
+\tikznumberofchildren=\count143
+\tikznumberofcurrentchild=\count144
+\tikz@fig@count=\count145
+
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\modules\pgfmodulematrix.code.tex"
+File: pgfmodulematrix.code.tex 2013/09/17  (rcs-revision 1.8)
+\pgfmatrixcurrentrow=\count146
+\pgfmatrixcurrentcolumn=\count147
+\pgf@matrix@numberofcolumns=\count148
+)
+\tikz@expandcount=\count149
+
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\frontendlayer\tikz\libraries\tikzlibrarytopaths.code.tex"
+File: tikzlibrarytopaths.code.tex 2008/06/17 v3.0.0 (rcs-revision 1.2)
+)))
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\tikz-3dplot\tikz-3dplot.sty"
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\frontendlayer\tikz\libraries\tikzlibrarycalc.code.tex"
+File: tikzlibrarycalc.code.tex 2013/07/15 v3.0.0 (rcs-revision 1.9)
+)
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\frontendlayer\tikz\libraries\tikzlibrary3d.code.tex"
+File: tikzlibrary3d.code.tex 2013/07/17 v3.0.0 (rcs-revision 1.2)
+)
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\frontendlayer\tikz\libraries\tikzlibraryarrows.code.tex"
+File: tikzlibraryarrows.code.tex 2008/01/09 v3.0.0 (rcs-revision 1.1)
+
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\libraries\pgflibraryarrows.code.tex"
+File: pgflibraryarrows.code.tex 2013/09/23 v3.0.0 (rcs-revision 1.16)
+\arrowsize=\dimen185
+)))
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\pgfplots\pgfplots.sty"
+("C:\Arquivos de programas\MiKTeX 2.9\tex\generic\pgfplots\pgfplots.revision.te
+x")
+Package: pgfplots 2015/05/02 v1.12.1 Data Visualization (1.12.1)
+ ("C:\Arquivos de programas\MiKTeX 2.9\tex\generic\pgfplots\pgfplots.code.tex"
+("C:\Arquivos de programas\MiKTeX 2.9\tex\generic\pgfplots\pgfplotscore.code.te
+x"
+\t@pgfplots@toka=\toks51
+\t@pgfplots@tokb=\toks52
+\t@pgfplots@tokc=\toks53
+\pgfplots@tmpa=\dimen186
+\c@pgfplots@coordindex=\count150
+\c@pgfplots@scanlineindex=\count151
+
+("C:\Arquivos de programas\MiKTeX 2.9\tex\generic\pgfplots\sys\pgfplotssysgener
+ic.code.tex"))
+("C:\Arquivos de programas\MiKTeX 2.9\tex\generic\pgfplots\libs\pgfplotslibrary
+.code.tex")
+("C:\Arquivos de programas\MiKTeX 2.9\tex\generic\pgfplots\oldpgfcompatib\pgfpl
+otsoldpgfsupp_loader.code.tex"
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\libraries\pgflibraryfpu.code.tex")
+Package pgfplots: loading complementary arithmetics for your pgf version...
+
+("C:\Arquivos de programas\MiKTeX 2.9\tex\generic\pgfplots\oldpgfcompatib\pgfpl
+otsoldpgfsupp_pgflibraryfpu.code.tex")
+("C:\Arquivos de programas\MiKTeX 2.9\tex\generic\pgfplots\oldpgfcompatib\pgfpl
+otsoldpgfsupp_pgfmathfloat.code.tex"
+\c@pgfmathroundto@lastzeros=\count152
+)
+("C:\Arquivos de programas\MiKTeX 2.9\tex\generic\pgfplots\oldpgfcompatib\pgfpl
+otsoldpgfsupp_trig_format.code.tex"))
+("C:\Arquivos de programas\MiKTeX 2.9\tex\generic\pgfplots\util\pgfplotsutil.co
+de.tex"
+("C:\Arquivos de programas\MiKTeX 2.9\tex\generic\pgfplots\liststructure\pgfplo
+tsliststructure.code.tex")
+("C:\Arquivos de programas\MiKTeX 2.9\tex\generic\pgfplots\liststructure\pgfplo
+tsliststructureext.code.tex")
+("C:\Arquivos de programas\MiKTeX 2.9\tex\generic\pgfplots\liststructure\pgfplo
+tsarray.code.tex"
+\c@pgfplotsarray@tmp=\count153
+)
+("C:\Arquivos de programas\MiKTeX 2.9\tex\generic\pgfplots\liststructure\pgfplo
+tsmatrix.code.tex")
+("C:\Arquivos de programas\MiKTeX 2.9\tex\generic\pgfplots\numtable\pgfplotstab
+leshared.code.tex"
+\c@pgfplotstable@counta=\count154
+\t@pgfplotstable@a=\toks54
+)
+("C:\Arquivos de programas\MiKTeX 2.9\tex\generic\pgfplots\liststructure\pgfplo
+tsdeque.code.tex")
+("C:\Arquivos de programas\MiKTeX 2.9\tex\generic\pgfplots\util\pgfplotsbinary.
+code.tex"
+("C:\Arquivos de programas\MiKTeX 2.9\tex\generic\pgfplots\util\pgfplotsbinary.
+data.code.tex"))
+("C:\Arquivos de programas\MiKTeX 2.9\tex\generic\pgfplots\util\pgfplotsutil.ve
+rb.code.tex")
+("C:\Arquivos de programas\MiKTeX 2.9\tex\generic\pgfplots\libs\pgflibrarypgfpl
+ots.surfshading.code.tex"
+\c@pgfplotslibrarysurf@no=\count155
+
+("C:\Arquivos de programas\MiKTeX 2.9\tex\generic\pgfplots\sys\pgflibrarypgfplo
+ts.surfshading.pgfsys-pdftex.def")))
+("C:\Arquivos de programas\MiKTeX 2.9\tex\generic\pgfplots\util\pgfplotscolorma
+p.code.tex"
+("C:\Arquivos de programas\MiKTeX 2.9\tex\generic\pgfplots\util\pgfplotscolor.c
+ode.tex"))
+("C:\Arquivos de programas\MiKTeX 2.9\tex\generic\pgfplots\pgfplotsstackedplots
+.code.tex")
+("C:\Arquivos de programas\MiKTeX 2.9\tex\generic\pgfplots\pgfplotsplothandlers
+.code.tex"
+("C:\Arquivos de programas\MiKTeX 2.9\tex\generic\pgfplots\pgfplotsmeshplothand
+ler.code.tex"))
+("C:\Arquivos de programas\MiKTeX 2.9\tex\generic\pgfplots\pgfplots.scaling.cod
+e.tex")
+("C:\Arquivos de programas\MiKTeX 2.9\tex\generic\pgfplots\pgfplotscoordprocess
+ing.code.tex")
+("C:\Arquivos de programas\MiKTeX 2.9\tex\generic\pgfplots\pgfplots.errorbars.c
+ode.tex")
+("C:\Arquivos de programas\MiKTeX 2.9\tex\generic\pgfplots\pgfplots.markers.cod
+e.tex")
+("C:\Arquivos de programas\MiKTeX 2.9\tex\generic\pgfplots\pgfplotsticks.code.t
+ex")
+("C:\Arquivos de programas\MiKTeX 2.9\tex\generic\pgfplots\pgfplots.paths.code.
+tex")
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\frontendlayer\tikz\libraries\tikzlibrarydecorations.code.tex"
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\modules\pgfmoduledecorations.code.tex"
+\pgfdecoratedcompleteddistance=\dimen187
+\pgfdecoratedremainingdistance=\dimen188
+\pgfdecoratedinputsegmentcompleteddistance=\dimen189
+\pgfdecoratedinputsegmentremainingdistance=\dimen190
+\pgf@decorate@distancetomove=\dimen191
+\pgf@decorate@repeatstate=\count156
+\pgfdecorationsegmentamplitude=\dimen192
+\pgfdecorationsegmentlength=\dimen193
+)
+\tikz@lib@dec@box=\box49
+)
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\frontendlayer\tikz\libraries\tikzlibrarydecorations.pathmorphing.code.tex"
+
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\libraries\decorations\pgflibrarydecorations.pathmorphing.code.tex"))
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\frontendlayer\tikz\libraries\tikzlibrarydecorations.pathreplacing.code.tex
+"
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\libraries\decorations\pgflibrarydecorations.pathreplacing.code.tex"))
+\pgfplots@numplots=\count157
+\pgfplots@xmin@reg=\dimen194
+\pgfplots@xmax@reg=\dimen195
+\pgfplots@ymin@reg=\dimen196
+\pgfplots@ymax@reg=\dimen197
+\pgfplots@zmin@reg=\dimen198
+\pgfplots@zmax@reg=\dimen199
+)
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\frontendlayer\tikz\libraries\tikzlibraryplotmarks.code.tex"
+File: tikzlibraryplotmarks.code.tex 2008/01/09 v3.0.0 (rcs-revision 1.1)
+
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\libraries\pgflibraryplotmarks.code.tex"
+File: pgflibraryplotmarks.code.tex 2013/07/20 v3.0.0 (rcs-revision 1.13)
+)))
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\frontendlayer\tikz\libraries\tikzlibraryfadings.code.tex"
+File: tikzlibraryfadings.code.tex 2009/11/15 v3.0.0 (rcs-revision 1.2)
+
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\libraries\pgflibraryfadings.code.tex"
+File: pgflibraryfadings.code.tex 2008/02/07 v3.0.0 (rcs-revision 1.3)
+))
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\generic
+\pgf\frontendlayer\tikz\libraries\tikzlibrarypositioning.code.tex"
+File: tikzlibrarypositioning.code.tex 2008/10/06 v3.0.0 (rcs-revision 1.7)
+)
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\latex\c
+ircuitikz\circuitikz.sty"
+Package: circuitikz 2012/12/29 The CircuiTikz circuit drawing package version 0
+.3.0
+
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\latex\c
+ircuitikz\circuitikz.code.tex"
+\pgf@circ@Rlen=\dimen200
+
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\latex\c
+ircuitikz\pgfcircutils.sty")
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\latex\c
+ircuitikz\pgfcircmath.sty")
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\latex\c
+ircuitikz\pgfcircshapes.sty")
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\latex\c
+ircuitikz\pgfcircmonopoles.sty")
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\latex\c
+ircuitikz\pgfcircbipoles.sty")
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\latex\c
+ircuitikz\pgfcirctripoles.sty")
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\latex\c
+ircuitikz\pgfcircquadpoles.sty")
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\latex\c
+ircuitikz\pgfcirclabel.sty")
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\latex\c
+ircuitikz\pgfcircvoltage.sty")
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\latex\c
+ircuitikz\pgfcirccurrent.sty"))
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\latex\c
+ircuitikz\circuitikz1.code.tex"
+\pgf@circ@res@up=\dimen201
+\pgf@circ@res@down=\dimen202
+\pgf@circ@res@zero=\dimen203
+\pgf@circ@res@left=\dimen204
+\pgf@circ@res@right=\dimen205
+\pgf@circ@res@other=\dimen206
+\pgf@circ@res@step=\dimen207
+\pgfstartlinewidth=\dimen208
+))
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\amsfonts\amssymb.sty"
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+)
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\wasysym\wasysym.sty"
+Package: wasysym 2003/10/30 v2.0 Wasy-2 symbol support package
+\symwasy=\mathgroup6
+LaTeX Font Info:    Overwriting symbol font `wasy' in version `bold'
+(Font)                  U/wasy/m/n --> U/wasy/b/n on input line 90.
+)
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\mathtools\mathtools.sty"
+Package: mathtools 2015/06/17 v1.17 mathematical typesetting tools
+
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\mathtools\mhsetup.sty"
+Package: mhsetup 2010/01/21 v1.2a programming setup (MH)
+)
+LaTeX Info: Thecontrolsequence`\['isalreadyrobust on input line 129.
+LaTeX Info: Thecontrolsequence`\]'isalreadyrobust on input line 129.
+\g_MT_multlinerow_int=\count158
+\l_MT_multwidth_dim=\dimen209
+\origjot=\skip60
+\l_MT_shortvdotswithinadjustabove_dim=\dimen210
+\l_MT_shortvdotswithinadjustbelow_dim=\dimen211
+\l_MT_above_intertext_sep=\dimen212
+\l_MT_below_intertext_sep=\dimen213
+\l_MT_above_shortintertext_sep=\dimen214
+\l_MT_below_shortintertext_sep=\dimen215
+)
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\bbm\bbm.sty"
+Package: bbm 1999/03/15 V 1.2 provides fonts for set symbols - TH
+LaTeX Font Info:    Overwriting math alphabet `\mathbbm' in version `bold'
+(Font)                  U/bbm/m/n --> U/bbm/bx/n on input line 33.
+LaTeX Font Info:    Overwriting math alphabet `\mathbbmss' in version `bold'
+(Font)                  U/bbmss/m/n --> U/bbmss/bx/n on input line 35.
+)
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\yfonts\yfonts.sty"
+Package: yfonts 2003/01/08 v1.3 (WaS)
+)
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\mbboard\mbboard.sty"
+\symmbb=\mathgroup7
+LaTeX Font Info:    Redeclaring symbol font `mbb' on input line 21.
+LaTeX Font Info:    Overwriting symbol font `mbb' in version `normal'
+(Font)                  OT1/mbb/m/n --> OT1/mbb/bx/n on input line 21.
+LaTeX Font Info:    Overwriting symbol font `mbb' in version `bold'
+(Font)                  OT1/mbb/m/n --> OT1/mbb/bx/n on input line 21.
+
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\mbboard\mbboard.dcl"
+LaTeX Font Info:    Redeclaring math symbol \Bbbk on input line 13.
+))
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\boolexpr\boolexpr.sty"
+Package: boolexpr 2010/04/15 v3.14 Purely expandable boolean expressions and sw
+itch (eTeX)
+)
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\latex\s
+teinmetz\steinmetz.sty"
+Package: steinmetz 2009/06/14 v1.0 Steinmetz symbol for electrotechnics
+
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\latex\p
+ict2e\pict2e.sty"
+Package: pict2e 2014/01/12 v0.2z Improved picture commands (HjG,RN,JT)
+
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\00miktex\pict2e.cfg"
+File: pict2e.cfg 2005/12/29 v1.0 MiKTeX 'pict2e' configuration
+)
+Package pict2e Info: Driver file: pdftex.def on input line 119.
+Package pict2e Info: Driver file for pict2e: p2e-pdftex.def on input line 121.
+
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\latex\p
+ict2e\p2e-pdftex.def"
+File: p2e-pdftex.def 2011/04/05 v0.1t Driver-dependant file (RN,HjG,JT)
+)
+\pIIe@GRAPH=\toks55
+\@arclen=\dimen216
+\@arcrad=\dimen217
+\@tempdimd=\dimen218
+)
+\stm@phasebox=\box50
+\stm@phasedp=\skip61
+\stm@phaseht=\skip62
+\stm@phasetot=\skip63
+\stm@phasewd=\skip64
+) (trab20.aux)
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 477.
+LaTeX Font Info:    ... okay on input line 477.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 477.
+LaTeX Font Info:    ... okay on input line 477.
+LaTeX Font Info:    Checking defaults for OT1/mbb/m/n on input line 477.
+LaTeX Font Info:    ... okay on input line 477.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 477.
+LaTeX Font Info:    ... okay on input line 477.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 477.
+LaTeX Font Info:    ... okay on input line 477.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 477.
+LaTeX Font Info:    ... okay on input line 477.
+LaTeX Font Info:    Checking defaults for LGR/cmr/m/n on input line 477.
+LaTeX Font Info:    Try loading font information for LGR+cmr on input line 477.
+
+
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\cbfonts-fd\lgrcmr.fd"
+File: lgrcmr.fd 2013/09/01 v1.0 Greek European Computer Regular
+)
+LaTeX Font Info:    ... okay on input line 477.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 477.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 477.
+
+
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\base\ts1cmr.fd"
+File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    ... okay on input line 477.
+LaTeX Font Info:    Checking defaults for LY/yfrak/m/n on input line 477.
+LaTeX Font Info:    ... okay on input line 477.
+LaTeX Font Info:    Checking defaults for LYG/ygoth/m/n on input line 477.
+LaTeX Font Info:    ... okay on input line 477.
+LaTeX Font Info:    Try loading font information for U+msa on input line 477.
+
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 477.
+
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+LaTeX Font Info:    Try loading font information for U+wasy on input line 477.
+
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\wasysym\uwasy.fd"
+File: uwasy.fd 2003/10/30 v2.0 Wasy-2 symbol font definitions
+)
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: a4paper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: twoside 
+* h-part:(L,W,R)=(71.70166pt, 418.25368pt, 107.55254pt)
+* v-part:(T,H,B)=(101.40665pt, 591.5302pt, 152.11pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=418.25368pt
+* \textheight=591.5302pt
+* \oddsidemargin=-0.56833pt
+* \evensidemargin=35.28255pt
+* \topmargin=7.13666pt
+* \headheight=8.0pt
+* \headsep=14.0pt
+* \topskip=10.0pt
+* \footskip=12.0pt
+* \marginparwidth=90.0pt
+* \marginparsep=11.0pt
+* \columnsep=10.0pt
+* \skip\footins=7.0pt plus 11.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidetrue
+* \@mparswitchtrue
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+("C:\Arquivos de programas\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count159
+\scratchdimen=\dimen219
+\scratchbox=\box51
+\nofMPsegments=\count160
+\nofMParguments=\count161
+\everyMPshowfont=\toks56
+\MPscratchCnt=\count162
+\MPscratchDim=\dimen220
+\MPnumerator=\count163
+\makeMPintoPDFobject=\count164
+\everyMPtoPDFconversion=\toks57
+)
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\latex\m
+s\ragged2e.sty"
+Package: ragged2e 2009/05/21 v2.1 ragged2e Package (MS)
+
+("C:\Documents and Settings\Cliente\Dados de aplicativos\MiKTeX\2.9\tex\latex\m
+s\everysel.sty"
+Package: everysel 2011/10/28 v1.2 EverySelectfont Package (MS)
+ ABD: EverySelectfont initializing macros
+LaTeX Info: Redefining \selectfont on input line 126.
+)
+\CenteringLeftskip=\skip65
+\RaggedLeftLeftskip=\skip66
+\RaggedRightLeftskip=\skip67
+\CenteringRightskip=\skip68
+\RaggedLeftRightskip=\skip69
+\RaggedRightRightskip=\skip70
+\CenteringParfillskip=\skip71
+\RaggedLeftParfillskip=\skip72
+\RaggedRightParfillskip=\skip73
+\JustifyingParfillskip=\skip74
+\CenteringParindent=\skip75
+\RaggedLeftParindent=\skip76
+\RaggedRightParindent=\skip77
+\JustifyingParindent=\skip78
+)
+\c@lstlisting=\count165
+
+ABD: EveryShipout initializing macros
+
+Package pgfplots Warning: running in backwards compatibility mode (unsuitable t
+ick labels; missing features). Consider writing \pgfplotsset{compat=1.12} into 
+your preamble.
+ on input line 477.
+
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\listings\lstlang1.sty"
+File: lstlang1.sty 2015/06/04 1.6 listings language file
+)
+\c@prob_num=\count166
+LaTeX Font Info:    Try loading font information for T1+phv on input line 490.
+
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\psnfss\t1phv.fd"
+File: t1phv.fd 2001/06/04 scalable font definitions for T1/phv.
+)
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 11.39996pt on input line 490.
+LaTeX Font Info:    Try loading font information for T1+pbk on input line 493.
+
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\psnfss\t1pbk.fd"
+File: t1pbk.fd 2001/06/04 font definitions for T1/pbk.
+)
+LaTeX Font Info:    Font shape `T1/pbk/m/n' in size <12> not available
+(Font)              Font shape `T1/pbk/l/n' tried instead on input line 493.
+LaTeX Font Info:    Font shape `T1/pbk/m/n' in size <8> not available
+(Font)              Font shape `T1/pbk/l/n' tried instead on input line 495.
+ (calcref.m
+LaTeX Font Info:    Try loading font information for TS1+pbk on input line 3.
+
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\psnfss\ts1pbk.fd"
+File: ts1pbk.fd 2001/06/04 font definitions for TS1/pbk.
+)
+LaTeX Font Info:    Font shape `TS1/pbk/m/n' in size <8> not available
+(Font)              Font shape `TS1/pbk/l/n' tried instead on input line 3.
+)
+<trab20-1-a.jpg, id=28, 578.16pt x 433.62pt>
+File: trab20-1-a.jpg Graphic file (type jpg)
+ <use trab20-1-a.jpg>
+Package pdftex.def Info: trab20-1-a.jpg used on input line 500.
+(pdftex.def)             Requested size: 230.04079pt x 172.52522pt.
+
+Overfull \hbox (20.91396pt too wide) in paragraph at lines 500--500
+ [][] 
+ []
+
+<trab20-1-c.jpg, id=29, 578.16pt x 433.62pt>
+File: trab20-1-c.jpg Graphic file (type jpg)
+ <use trab20-1-c.jpg>
+Package pdftex.def Info: trab20-1-c.jpg used on input line 507.
+(pdftex.def)             Requested size: 230.04079pt x 172.52522pt.
+
+Overfull \hbox (20.91396pt too wide) in paragraph at lines 507--507
+ [][] 
+ []
+
+<trab20-1-b.jpg, id=30, 578.16pt x 433.62pt>
+File: trab20-1-b.jpg Graphic file (type jpg)
+ <use trab20-1-b.jpg>
+Package pdftex.def Info: trab20-1-b.jpg used on input line 514.
+(pdftex.def)             Requested size: 230.04079pt x 172.52522pt.
+
+Overfull \hbox (20.91396pt too wide) in paragraph at lines 514--514
+ [][] 
+ []
+
+<trab20-1-d.jpg, id=31, 578.16pt x 433.62pt>
+File: trab20-1-d.jpg Graphic file (type jpg)
+ <use trab20-1-d.jpg>
+Package pdftex.def Info: trab20-1-d.jpg used on input line 521.
+(pdftex.def)             Requested size: 230.04079pt x 172.52522pt.
+
+Overfull \hbox (20.91396pt too wide) in paragraph at lines 521--521
+ [][] 
+ []
+
+LaTeX Font Info:    Font shape `T1/pbk/m/n' in size <6> not available
+(Font)              Font shape `T1/pbk/l/n' tried instead on input line 526.
+<trab20-1-e.jpg, id=32, 578.16pt x 433.62pt>
+File: trab20-1-e.jpg Graphic file (type jpg)
+ <use trab20-1-e.jpg>
+Package pdftex.def Info: trab20-1-e.jpg used on input line 531.
+(pdftex.def)             Requested size: 230.04079pt x 172.52522pt.
+
+Overfull \hbox (20.91396pt too wide) in paragraph at lines 531--531
+ [][] 
+ []
+
+LaTeX Font Info:    Font shape `T1/pbk/bx/n' in size <12> not available
+(Font)              Font shape `T1/pbk/b/n' tried instead on input line 535.
+LaTeX Font Info:    Font shape `T1/pbk/b/n' in size <12> not available
+(Font)              Font shape `T1/pbk/db/n' tried instead on input line 535.
+<trab20-1-j.jpg, id=33, 578.16pt x 433.62pt>
+File: trab20-1-j.jpg Graphic file (type jpg)
+ <use trab20-1-j.jpg>
+Package pdftex.def Info: trab20-1-j.jpg used on input line 541.
+(pdftex.def)             Requested size: 230.04079pt x 172.52522pt.
+
+Overfull \hbox (20.91396pt too wide) in paragraph at lines 541--541
+ [][] 
+ []
+
+<trab20-1-k.jpg, id=34, 578.16pt x 433.62pt>
+File: trab20-1-k.jpg Graphic file (type jpg)
+ <use trab20-1-k.jpg>
+Package pdftex.def Info: trab20-1-k.jpg used on input line 548.
+(pdftex.def)             Requested size: 230.04079pt x 172.52522pt.
+
+Overfull \hbox (20.91396pt too wide) in paragraph at lines 548--548
+ [][] 
+ []
+
+<trab20-1-l.jpg, id=35, 578.16pt x 433.62pt>
+File: trab20-1-l.jpg Graphic file (type jpg)
+ <use trab20-1-l.jpg>
+Package pdftex.def Info: trab20-1-l.jpg used on input line 555.
+(pdftex.def)             Requested size: 230.04079pt x 172.52522pt.
+
+Overfull \hbox (20.91396pt too wide) in paragraph at lines 555--555
+ [][] 
+ []
+
+<trab20-1-m.jpg, id=36, 578.16pt x 433.62pt>
+File: trab20-1-m.jpg Graphic file (type jpg)
+ <use trab20-1-m.jpg>
+Package pdftex.def Info: trab20-1-m.jpg used on input line 562.
+(pdftex.def)             Requested size: 230.04079pt x 172.52522pt.
+
+Overfull \hbox (20.91396pt too wide) in paragraph at lines 562--562
+ [][] 
+ []
+
+<trab20-1-f.jpg, id=37, 578.16pt x 433.62pt>
+File: trab20-1-f.jpg Graphic file (type jpg)
+ <use trab20-1-f.jpg>
+Package pdftex.def Info: trab20-1-f.jpg used on input line 569.
+(pdftex.def)             Requested size: 230.04079pt x 172.52522pt.
+
+Overfull \hbox (20.91396pt too wide) in paragraph at lines 569--569
+ [][] 
+ []
+
+<trab20-1-g.jpg, id=38, 578.16pt x 433.62pt>
+File: trab20-1-g.jpg Graphic file (type jpg)
+ <use trab20-1-g.jpg>
+Package pdftex.def Info: trab20-1-g.jpg used on input line 577.
+(pdftex.def)             Requested size: 230.04079pt x 172.52522pt.
+
+Overfull \hbox (20.91396pt too wide) in paragraph at lines 577--577
+ [][] 
+ []
+
+<trab20-1-h.jpg, id=39, 578.16pt x 433.62pt>
+File: trab20-1-h.jpg Graphic file (type jpg)
+ <use trab20-1-h.jpg>
+Package pdftex.def Info: trab20-1-h.jpg used on input line 585.
+(pdftex.def)             Requested size: 230.04079pt x 172.52522pt.
+
+Overfull \hbox (20.91396pt too wide) in paragraph at lines 585--585
+ [][] 
+ []
+
+<trab20-1-i.jpg, id=40, 578.16pt x 433.62pt>
+File: trab20-1-i.jpg Graphic file (type jpg)
+ <use trab20-1-i.jpg>
+Package pdftex.def Info: trab20-1-i.jpg used on input line 592.
+(pdftex.def)             Requested size: 230.04079pt x 172.52522pt.
+
+Overfull \hbox (20.91396pt too wide) in paragraph at lines 592--592
+ [][] 
+ []
+
+<trab20-1-n.jpg, id=41, 578.16pt x 433.62pt>
+File: trab20-1-n.jpg Graphic file (type jpg)
+ <use trab20-1-n.jpg>
+Package pdftex.def Info: trab20-1-n.jpg used on input line 602.
+(pdftex.def)             Requested size: 230.04079pt x 172.52522pt.
+
+Overfull \hbox (20.91396pt too wide) in paragraph at lines 602--602
+ [][] 
+ []
+
+<trab20-1-o.jpg, id=42, 578.16pt x 433.62pt>
+File: trab20-1-o.jpg Graphic file (type jpg)
+ <use trab20-1-o.jpg>
+Package pdftex.def Info: trab20-1-o.jpg used on input line 609.
+(pdftex.def)             Requested size: 230.04079pt x 172.52522pt.
+
+Overfull \hbox (20.91396pt too wide) in paragraph at lines 609--609
+ [][] 
+ []
+
+<trab20-1-p.jpg, id=43, 578.16pt x 433.62pt>
+File: trab20-1-p.jpg Graphic file (type jpg)
+ <use trab20-1-p.jpg>
+Package pdftex.def Info: trab20-1-p.jpg used on input line 616.
+(pdftex.def)             Requested size: 230.04079pt x 172.52522pt.
+
+Overfull \hbox (20.91396pt too wide) in paragraph at lines 616--616
+ [][] 
+ []
+
+<trab20-1-q.jpg, id=44, 578.16pt x 433.62pt>
+File: trab20-1-q.jpg Graphic file (type jpg)
+ <use trab20-1-q.jpg>
+Package pdftex.def Info: trab20-1-q.jpg used on input line 623.
+(pdftex.def)             Requested size: 230.04079pt x 172.52522pt.
+
+Overfull \hbox (20.91396pt too wide) in paragraph at lines 623--623
+ [][] 
+ []
+
+<trab20-1-r.jpg, id=45, 578.16pt x 433.62pt>
+File: trab20-1-r.jpg Graphic file (type jpg)
+ <use trab20-1-r.jpg>
+Package pdftex.def Info: trab20-1-r.jpg used on input line 630.
+(pdftex.def)             Requested size: 230.04079pt x 172.52522pt.
+
+Overfull \hbox (20.91396pt too wide) in paragraph at lines 630--630
+ [][] 
+ []
+
+<trab20-1-s.jpg, id=46, 578.16pt x 433.62pt>
+File: trab20-1-s.jpg Graphic file (type jpg)
+ <use trab20-1-s.jpg>
+Package pdftex.def Info: trab20-1-s.jpg used on input line 637.
+(pdftex.def)             Requested size: 230.04079pt x 172.52522pt.
+
+Overfull \hbox (20.91396pt too wide) in paragraph at lines 637--637
+ [][] 
+ []
+
+<trab20-1-t.jpg, id=47, 578.16pt x 433.62pt>
+File: trab20-1-t.jpg Graphic file (type jpg)
+ <use trab20-1-t.jpg>
+Package pdftex.def Info: trab20-1-t.jpg used on input line 644.
+(pdftex.def)             Requested size: 230.04079pt x 172.52522pt.
+
+Overfull \hbox (20.91396pt too wide) in paragraph at lines 644--644
+ [][] 
+ []
+
+<trab20-1-u.jpg, id=48, 578.16pt x 433.62pt>
+File: trab20-1-u.jpg Graphic file (type jpg)
+ <use trab20-1-u.jpg>
+Package pdftex.def Info: trab20-1-u.jpg used on input line 651.
+(pdftex.def)             Requested size: 230.04079pt x 172.52522pt.
+
+Overfull \hbox (20.91396pt too wide) in paragraph at lines 651--651
+ [][] 
+ []
+
+[1{C:/Documents and Settings/Cliente/Configurações locais/Dados de aplicativo
+s/MiKTeX/2.9/pdftex/config/pdftex.map}]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [2 <./trab20-1-a.jpg> <./trab20-1-c.jpg> <./trab20-1-b.jpg> <./trab20-1-d.jpg>
+]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [3 <./trab20-1-e.jpg> <./trab20-1-j.jpg> <./trab20-1-k.jpg>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [4 <./trab20-1-l.jpg> <./trab20-1-m.jpg> <./trab20-1-f.jpg> <./trab20-1-g.jpg>
+]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [5 <./trab20-1-h.jpg> <./trab20-1-i.jpg> <./trab20-1-n.jpg> <./trab20-1-o.jpg>
+]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [6 <./trab20-1-p.jpg> <./trab20-1-q.jpg> <./trab20-1-r.jpg> <./trab20-1-s.jpg>
+] [7 <./trab20-1-t.jpg> <./trab20-1-u.jpg>]
+LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <12> not available
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 661.
+LaTeX Font Info:    Font shape `T1/phv/b/n' will be
+(Font)              scaled to size 11.39996pt on input line 661.
+
+Underfull \hbox (badness 10000) in paragraph at lines 660--661
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 660--661
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 660--661
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 660--661
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 660--661
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 660--661
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 660--661
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 660--661
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 660--661
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 660--661
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 660--661
+
+ []
+
+[8
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 674--676
+
+ []
+
+LaTeX Font Info:    Try loading font information for OT1+pzc on input line 681.
+
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\psnfss\ot1pzc.fd"
+File: ot1pzc.fd 2001/06/04 font definitions for OT1/pzc.
+)
+LaTeX Font Info:    Font shape `OT1/pzc/m/it' in size <12> not available
+(Font)              Font shape `OT1/pzc/mb/it' tried instead on input line 681.
+
+LaTeX Font Info:    Font shape `OT1/pzc/m/it' in size <8> not available
+(Font)              Font shape `OT1/pzc/mb/it' tried instead on input line 681.
+
+LaTeX Font Info:    Font shape `OT1/pzc/m/it' in size <6> not available
+(Font)              Font shape `OT1/pzc/mb/it' tried instead on input line 681.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 682--684
+
+ []
+
+[9]
+Underfull \hbox (badness 10000) in paragraph at lines 698--700
+
+ []
+
+[10
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 728--730
+
+ []
+
+[11
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 741--743
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 749--751
+
+ []
+
+[12
+
+]
+Overfull \hbox (40.8193pt too wide) detected at line 763
+ $[] []$ 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 763--765
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 772--774
+
+ []
+
+[13
+
+] (plotparms.m
+LaTeX Font Info:    Font shape `OT1/pzc/m/it' in size <5> not available
+(Font)              Font shape `OT1/pzc/mb/it' tried instead on input line 3.
+) [14
+
+] <trab20-6-a.jpg, id=116, 578.16pt x 433.62pt>
+File: trab20-6-a.jpg Graphic file (type jpg)
+
+<use trab20-6-a.jpg>
+Package pdftex.def Info: trab20-6-a.jpg used on input line 786.
+(pdftex.def)             Requested size: 230.04079pt x 172.52522pt.
+
+Overfull \hbox (20.91396pt too wide) in paragraph at lines 786--786
+ [][] 
+ []
+
+<trab20-6-c.jpg, id=117, 578.16pt x 433.62pt>
+File: trab20-6-c.jpg Graphic file (type jpg)
+ <use trab20-6-c.jpg>
+Package pdftex.def Info: trab20-6-c.jpg used on input line 793.
+(pdftex.def)             Requested size: 230.04079pt x 172.52522pt.
+
+Overfull \hbox (20.91396pt too wide) in paragraph at lines 793--793
+ [][] 
+ []
+
+<trab20-6-b.jpg, id=118, 578.16pt x 433.62pt>
+File: trab20-6-b.jpg Graphic file (type jpg)
+ <use trab20-6-b.jpg>
+Package pdftex.def Info: trab20-6-b.jpg used on input line 800.
+(pdftex.def)             Requested size: 230.04079pt x 172.52522pt.
+
+Overfull \hbox (20.91396pt too wide) in paragraph at lines 800--800
+ [][] 
+ []
+
+<trab20-6-d.jpg, id=119, 578.16pt x 433.62pt>
+File: trab20-6-d.jpg Graphic file (type jpg)
+ <use trab20-6-d.jpg>
+Package pdftex.def Info: trab20-6-d.jpg used on input line 807.
+(pdftex.def)             Requested size: 230.04079pt x 172.52522pt.
+
+Overfull \hbox (20.91396pt too wide) in paragraph at lines 807--807
+ [][] 
+ []
+
+<trab20-6-e.jpg, id=120, 578.16pt x 433.62pt>
+File: trab20-6-e.jpg Graphic file (type jpg)
+ <use trab20-6-e.jpg>
+Package pdftex.def Info: trab20-6-e.jpg used on input line 813.
+(pdftex.def)             Requested size: 230.04079pt x 172.52522pt.
+
+Overfull \hbox (20.91396pt too wide) in paragraph at lines 813--813
+ [][] 
+ []
+
+<trab20-6-f.jpg, id=121, 578.16pt x 433.62pt>
+File: trab20-6-f.jpg Graphic file (type jpg)
+ <use trab20-6-f.jpg>
+Package pdftex.def Info: trab20-6-f.jpg used on input line 820.
+(pdftex.def)             Requested size: 230.04079pt x 172.52522pt.
+
+Overfull \hbox (20.91396pt too wide) in paragraph at lines 820--820
+ [][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 783--825
+
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [15
+
+ <./trab20-6-a.jpg> <./trab20-6-c.jpg> <./trab20-6-b.jpg> <./trab20-6-d.jpg>] [
+16 <./trab20-6-e.jpg> <./trab20-6-f.jpg>]
+Underfull \hbox (badness 10000) in paragraph at lines 833--835
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 841--843
+
+ []
+
+
+Overfull \hbox (57.20963pt too wide) detected at line 850
+ $[] []$ 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 850--852
+
+ []
+
+[17
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 860--862
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 870--872
+
+ []
+
+[18
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 883--885
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 891--893
+
+ []
+
+[19
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 901--903
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 909--911
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 917--919
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 926--928
+
+ []
+
+[20
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 936--938
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 945--947
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 956--958
+
+ []
+
+[21
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 969--971
+
+ []
+
+[22
+
+]
+Overfull \hbox (47.80968pt too wide) detected at line 979
+ $[] []$ 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 979--981
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 985--987
+
+ []
+
+
+Overfull \hbox (15.45012pt too wide) detected at line 997
+ $[] []$ 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 997--999
+
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [23
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 1007--1009
+
+ []
+
+[24]
+Underfull \hbox (badness 10000) in paragraph at lines 1019--1021
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1026--1028
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1032--1034
+
+ []
+
+[25
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 1047--1049
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1057--1059
+
+ []
+
+[26
+
+] (calcparms.m)
+Underfull \hbox (badness 10000) in paragraph at lines 1065--1066
+
+ []
+
+[27
+
+] <trab20-15.jpg, id=164, 578.16pt x 433.62pt>
+File: trab20-15.jpg Graphic file (type jpg)
+ <use trab20-15.jpg>
+Package pdftex.def Info: trab20-15.jpg used on input line 1081.
+(pdftex.def)             Requested size: 292.77629pt x 219.58177pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 1084--1086
+
+ []
+
+[28
+
+ <./trab20-15.jpg>]
+LaTeX Font Info:    Font shape `T1/pbk/m/it' in size <12> not available
+(Font)              Font shape `T1/pbk/l/it' tried instead on input line 1093.
+
+Overfull \hbox (33.91759pt too wide) detected at line 1094
+ $[] []$ 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1094--1096
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1104--1106
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1113--1115
+
+ []
+
+[29
+
+] (ploteta.m) [30
+
+] <trab20-17-a.jpg, id=175, 578.16pt x 433.62pt>
+File: trab20-17-a.jpg Graphic file (type jpg)
+
+<use trab20-17-a.jpg>
+Package pdftex.def Info: trab20-17-a.jpg used on input line 1127.
+(pdftex.def)             Requested size: 230.04079pt x 172.52522pt.
+
+Overfull \hbox (20.91396pt too wide) in paragraph at lines 1127--1127
+ [][] 
+ []
+
+LaTeX Font Info:    Font shape `TS1/pbk/m/n' in size <12> not available
+(Font)              Font shape `TS1/pbk/l/n' tried instead on input line 1134.
+<trab20-17-c.jpg, id=176, 578.16pt x 433.62pt>
+File: trab20-17-c.jpg Graphic file (type jpg)
+ <use trab20-17-c.jpg>
+Package pdftex.def Info: trab20-17-c.jpg used on input line 1140.
+(pdftex.def)             Requested size: 230.04079pt x 172.52522pt.
+
+Overfull \hbox (20.91396pt too wide) in paragraph at lines 1140--1140
+ [][] 
+ []
+
+LaTeX Font Info:    Try loading font information for LGR+pbk on input line 1153
+.
+LaTeX Font Info:    No file LGRpbk.fd. on input line 1153.
+
+LaTeX Font Warning: Font shape `LGR/pbk/m/n' undefined
+(Font)              using `LGR/cmr/m/n' instead on input line 1153.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1124--1163
+
+ []
+
+[31
+
+ <./trab20-17-a.jpg> <./trab20-17-c.jpg>]
+Underfull \hbox (badness 10000) in paragraph at lines 1173--1175
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1181--1183
+
+ []
+
+[32
+
+]
+Overfull \hbox (74.9592pt too wide) detected at line 1191
+ $[] []$ 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1191--1193
+
+ []
+
+
+Overfull \hbox (23.46544pt too wide) detected at line 1197
+ $[] []$ 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1197--1199
+
+ []
+
+
+Overfull \hbox (36.23512pt too wide) detected at line 1206
+ $[] []$ 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1206--1208
+
+ []
+
+[33
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 1219--1221
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1227--1229
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1235--1237
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1243--1245
+
+ []
+
+[34
+
+]
+
+LaTeX Font Warning: Font shape `LGR/pbk/bx/n' undefined
+(Font)              using `LGR/pbk/m/n' instead on input line 1252.
+
+LaTeX Font Info:    Font shape `T1/pbk/bx/n' in size <8> not available
+(Font)              Font shape `T1/pbk/b/n' tried instead on input line 1252.
+LaTeX Font Info:    Font shape `T1/pbk/b/n' in size <8> not available
+(Font)              Font shape `T1/pbk/db/n' tried instead on input line 1252.
+
+Overfull \hbox (43.05638pt too wide) detected at line 1268
+ $[] []$ 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1268--1270
+
+ []
+
+
+Overfull \hbox (32.60423pt too wide) detected at line 1274
+ $[] []$ 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1274--1276
+
+ []
+
+
+Overfull \hbox (18.4204pt too wide) detected at line 1283
+ $[] []$ 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1283--1285
+
+ []
+
+[35
+
+]
+Overfull \hbox (72.96448pt too wide) detected at line 1293
+ $[] []$ 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1293--1295
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1301--1303
+
+ []
+
+
+Overfull \hbox (8.05933pt too wide) detected at line 1310
+ $[] []$ 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1310--1312
+
+ []
+
+[36
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 1322--1324
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1329--1331
+
+ []
+
+
+Overfull \hbox (86.44653pt too wide) detected at line 1340
+ $[] []$ 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1340--1342
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1346--1348
+
+ []
+
+
+Overfull \hbox (58.40619pt too wide) detected at line 1353
+ $[] []$ 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1353--1355
+
+ []
+
+[37
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 1366--1368
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1374--1376
+
+ []
+
+[38
+
+]
+Overfull \hbox (23.6057pt too wide) detected at line 1384
+ $[] []$ 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1384--1386
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1392--1394
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1400--1402
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1409--1411
+
+ []
+
+[39
+
+]
+Overfull \hbox (33.91759pt too wide) detected at line 1419
+ $[] []$ 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1419--1421
+
+ []
+
+
+Overfull \hbox (23.46544pt too wide) detected at line 1425
+ $[] []$ 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1425--1427
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1434--1436
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1442--1444
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1451--1453
+
+ []
+
+[40
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 1464--1466
+
+ []
+
+\Changes@OutFile=\write5
+[41
+
+] (trab20.aux)
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 33569 strings out of 493698
+ 801852 string characters out of 3141115
+ 1116667 words of memory out of 3000000
+ 36032 multiletter control sequences out of 15000+200000
+ 39459 words of font info for 85 fonts, out of 3000000 for 9000
+ 1186 hyphenation exceptions out of 8191
+ 55i,17n,118p,761b,1458s stack positions out of 5000i,500n,10000p,200000b,50000s
+ <C:\Documents and Settings\Cliente\Configurações locais\Dados de aplicativ
+os\MiKTeX\2.9\fonts\pk\ljfour\unknown\unknown\dpi600\grmn1200.pk>{C:/Arquivos d
+e programas/MiKTeX 2.9/fonts/enc/dvips/fontname/8r.enc} <C:\Documents and Setti
+ngs\Cliente\Configurações locais\Dados de aplicativos\MiKTeX\2.9\fonts\pk\ljf
+our\public\mbboard\dpi600\mbb8.pk> <C:\Documents and Settings\Cliente\Configura
+ções locais\Dados de aplicativos\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi60
+0\ecrm0900.pk> <C:\Documents and Settings\Cliente\Configurações locais\Dados 
+de aplicativos\MiKTeX\2.9\fonts\pk\ljfour\public\mbboard\dpi600\mbb12.pk> <C:\D
+ocuments and Settings\Cliente\Configurações locais\Dados de aplicativos\MiKTe
+X\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm0800.pk> <C:\Documents and Setting
+s\Cliente\Configurações locais\Dados de aplicativos\MiKTeX\2.9\fonts\pk\ljfou
+r\jknappen\ec\dpi600\ecrm1200.pk> <C:\Documents and Settings\Cliente\Configura�
+�ões locais\Dados de aplicativos\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600
+\eccc1200.pk> <C:\Documents and Settings\Cliente\Configurações locais\Dados d
+e aplicativos\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm1000.pk> <C:\Do
+cuments and Settings\Cliente\Configurações locais\Dados de aplicativos\MiKTeX
+\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx1200.pk><C:/Arquivos de programas/M
+iKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Arquivos de programas/M
+iKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Arquivos de programas/M
+iKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Arquivos de programas/Mi
+KTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Arquivos de programas/MiK
+TeX 2.9/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Arquivos de programas/MiKTe
+X 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Arquivos de programas/MiKTeX 
+2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Arquivos de programas/MiKTeX 
+2.9/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Arquivos de programas/MiKTeX 2
+.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Arquivos de programas/MiKTeX 2.
+9/fonts/type1/urw/bookman/ubkd8a.pfb><C:/Arquivos de programas/MiKTeX 2.9/fonts
+/type1/urw/bookman/ubkl8a.pfb><C:/Arquivos de programas/MiKTeX 2.9/fonts/type1/
+urw/bookman/ubkli8a.pfb><C:/Arquivos de programas/MiKTeX 2.9/fonts/type1/urw/he
+lvetic/uhvb8a.pfb><C:/Arquivos de programas/MiKTeX 2.9/fonts/type1/urw/helvetic
+/uhvr8a.pfb><C:/Arquivos de programas/MiKTeX 2.9/fonts/type1/urw/zapfchan/uzcmi
+8a.pfb><C:/Arquivos de programas/MiKTeX 2.9/fonts/type1/public/wasy/wasy10.pfb>
+
+Output written on trab20.pdf (41 pages, 1370042 bytes).
+PDF statistics:
+ 399 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 259 words of extra memory for PDF output out of 10000 (max. 10000000)
+

@@ -1,0 +1,1424 @@
+% Preparado para MiKTeX 2.9. Gerar arquivo PDF com pdflatex.
+% 25/08/2015
+% 13b, 2.3.1
+\newcommand{\plotres}{}				% Usar \newcommand{\plotres}{180} para desenho de superfícies em alta resolução
+
+
+\documentclass[12pt,fleqn]{amsart}
+\usepackage{enumitem}
+\usepackage{xstring}
+% \usepackage{graphicx}
+\usepackage[a4paper]{geometry}
+\usepackage[portuguese,brazilian]{babel}
+\usepackage[ansinew]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[scaled]{helvet}
+\usepackage{xcolor}
+% \usepackage[hyphens]{url}
+% \usepackage{hyperref}
+% \usepackage{fmtcount}
+% Formatação
+\usepackage{sidecap}
+\usepackage{float}
+\usepackage{listings}
+% \usepackage{matlab-prettifier}
+% Figuras geométricas
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\usepackage{pgfplots}
+\usetikzlibrary{calc,fadings,decorations.pathreplacing,3d}
+\usetikzlibrary{arrows}
+\usetikzlibrary{positioning}
+% Símbolos matemáticos
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{wasysym}
+\usepackage{mathtools}
+\usepackage{bbm}
+\usepackage{yfonts}
+\usepackage{mbboard}
+\usepackage{boolexpr}
+
+
+\title{Teoria Eletromagnética - Lista de Exercícios II}
+\date{}
+\author{Sérgio Cordeiro}
+
+
+\newenvironment{final}{}{}
+
+\newenvironment{pergunta}{
+	\par
+	\trivlist
+	\fontfamily{phv}
+	\selectfont
+	\item\arabic{prob_num}. 
+	}{
+	\endtrivlist
+	}
+
+\newenvironment{resposta}{
+	\trivlist
+    \vspace{3pt}
+	\fontfamily{pbk}
+	\selectfont
+	\item
+	}{
+	\vspace{3pt}
+	\noindent\makebox[\linewidth]{\rule{\paperwidth}{1pt}}
+	\endtrivlist
+	\stepcounter{prob_num}
+	}
+
+\newenvironment{listae}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}	
+	\vspace{-5mm}}
+
+\newenvironment{listaef}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}}
+
+\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
+
+% Símbolos de funções
+\DeclareMathOperator{\sinc}{\mbox{sinc}}				% Função sinc
+\DeclareMathOperator{\sgn}{\mbox{sgn}}					% Função sinal
+\DeclareMathOperator{\atan}{\mbox{arctan}}				% Função arco-tangente
+\DeclareMathOperator{\acos}{\mbox{arccos}}				% Função arco-cosseno
+% Símbolos de elementos infinitesimais
+\newcommand {\dpx}[1]{\boldsymbol{\delta {#1}}}
+% Símbolos de constantes escalares (ex. carga do eletron: \ke{e})
+\newcommand {\ke}[1]{\text{\large \textfrak{#1}}}
+% Valores de constantes escalares (ex. carga do eletron: \kve{e})
+\newcommand {\kve}[1]{
+  \IfStrEqCase{#1}{
+    {e}{1,602 \times 10^{-19} \; C}
+    {mu}{4 \pi \times 10^{-7} \; H \; m^{-1}}
+    {ep}{8,854 \times 10^{-12} \; F \; m^{-1}}	
+    {c}{2,998 \times 10^{8} \; m \; s^{-1}}
+	}
+\text{\large \textfrak{#1}}}
+% Símbolos de parâmetros escalares do problema
+ \newcommand{\ppe}[1]{\boldsymbol{#1}}					% genérico
+ \newcommand{\dcv}[1]{\ppe{\boldsymbol{\rho}_{v_{#1}}}}			% Densidade volumétrica de carga
+ \newcommand{\dcs}[1]{\ppe{\boldsymbol{\rho}_{S_{#1}}}}			% Densidade superficial de carga
+ \newcommand{\dcl}[1]{\ppe{\boldsymbol{\rho}_{l_{#1}}}}			% Densidade linear de carga
+% Símbolos de propriedades escalares do meio
+% Para letras gregas, usar o nome especial (precedido por 'bb')
+%(ex. condutividade: \ppe{\bbsigma})
+\newcommand {\pme}[1]{\mathbb{#1}}
+% Símbolos de propriedades tensoriais do meio
+% Para letras gregas, usar o nome especial (precedido por 'bb')
+%(ex. condutividade: \ppe{\bbsigma})
+\newcommand {\pmm}[1]{\pmb{\mathbb{#1}}}
+% Expressões de elementos diferenciais
+% Elemento de volume em coordenadas esféricas
+\newcommand {\dve}{r^2 \sin \theta \; dr \; d \theta \; d \phi}
+% Elemento de superfície em coordenadas cilíndricas
+\newcommand {\dsc}{\rho \; d \phi \; dz \; \a{\rho} + dz \; d \rho \; \a{\phi} + \rho \; d \rho \; d \phi \; \a{z}}
+% Elemento de superfície em coordenadas esféricas
+\newcommand {\dse}{r^2 \sin \theta \; d \theta \; d \phi \; \a{r} + r \sin \theta \; dr \; d \phi \; \a{\theta} + r \; dr \; d \theta \; \a{\phi}}
+% Elemento de deslocamento em coordenadas cilíndricas
+\newcommand {\dlc}{d \rho \; \a{\rho} + \rho \; d \phi \; \a{\phi} + dz \; \a{z}}
+% Elemento de deslocamento em coordenadas esféricas
+\newcommand {\dle}{dr \; \a{r} + r \; d \theta \; \a{\theta} + r \sin \theta \; d \phi \; \a{\phi} + dz \; \a{z}}
+% Conversão de vetores unitários
+\newcommand {\convarc}{\sin \theta \; \a{\rho} + \cos \theta \; \a{z}}
+\newcommand {\convark}{\sin \theta \; \cos \phi \; \a{x} + \sin \theta \; \sin \phi \; \a{y} + \cos \theta \; \a{z}}
+\newcommand {\convatc}{\cos \theta \; \a{\rho} - \sin \theta a; \a{z}}
+\newcommand {\convatk}{\cos \theta \; \cos \phi \; \a{x} + \cos \theta \; \sin \phi \; \a{y} - \sin \theta \; \a{z}}
+\newcommand {\convapk}{- \sin \phi \; \a{x} + \cos \phi \; \a{y}}
+\newcommand {\convahk}{\cos \phi \; \a{x} + \sin \phi \; \a{y}}
+\newcommand {\convaxc}{\cos \phi \; \a{\rho} - \sin \phi \; \a{\phi}}
+\newcommand {\convayc}{\sin \phi \; \a{\rho} + \cos \phi \; \a{\phi}}
+\newcommand {\convaxe}{\sin \theta \; \cos \phi \; \a{r} + \cos \theta \; \cos \phi \; \a{\theta} - \sin \phi \; \a{\phi}}
+\newcommand {\convaye}{\sin \theta \; \sin \phi \; \a{r} + \cos \theta \; \sin \phi \; \a{\theta} + \cos \phi \; \a{\phi}}
+\newcommand {\convaze}{\cos \theta \; \a{r} - \sin \theta \; \a{\theta}}
+\newcommand {\convahe}{\sin \theta \; \a{r} + \cos \theta \; \a{\theta}}
+% Conversão de coordenadas
+\newcommand {\convrc}{\sqrt{\rho^2 + z^2}}
+\newcommand {\convrk}{\sqrt{x^2 + y^2 + z^2}}
+\newcommand {\convtc}{\atan(\rho,z)}
+\newcommand {\convtk}{\acos(z,\sqrt{x^2 + y^2 + z^2})}
+\newcommand {\convpk}{\atan(y,x)}
+\newcommand {\convhk}{\sqrt{x^2 + y^2}}
+\newcommand {\convhe}{r \sin \theta}
+\newcommand {\convyc}{\rho \sin \phi}
+\newcommand {\convxe}{r \sin \theta \; \cos \phi}
+\newcommand {\convye}{r \sin \theta \; \sin \phi}
+\newcommand {\convze}{r \cos \theta}
+% Símbolos de operadores diferencias
+\newcommand{\grad}{\vec{\nabla}}
+\renewcommand{\div}{\grad \cdot}
+\newcommand{\rot}{\grad \times}
+\newcommand{\lap}{\nabla^2}
+\newcommand{\vlap}{\grad^2}
+\newcommand{\pd}[2]{\frac{\partial {#1}}{\partial {#2}}}
+\newcommand{\px}[1]{\frac{\partial {#1}}{\partial x}}
+\newcommand{\py}[1]{\frac{\partial {#1}}{\partial y}}
+\newcommand{\pz}[1]{\frac{\partial {#1}}{\partial z}}
+\newcommand{\pt}[1]{\frac{\partial {#1}}{\partial t}}
+\newcommand{\prho}[1]{\frac{\partial {#1}}{\partial \rho}}
+\newcommand{\pphi}[1]{\frac{\partial {#1}}{\partial \phi}}
+\newcommand{\pr}[1]{\frac{\partial {#1}}{\partial r}}
+\newcommand{\ptheta}[1]{\frac{\partial {#1}}{\partial \theta}}
+\newcommand{\ppx}[1]{\frac{\partial^2 {#1}}{\partial x^2}}
+\newcommand{\ppy}[1]{\frac{\partial^2 {#1}}{\partial y^2}}
+\newcommand{\ppz}[1]{\frac{\partial^2 {#1}}{\partial z^2}}
+\newcommand{\ppphi}[1]{\frac{\partial^2 {#1}}{\partial \phi^2}}
+\renewcommand{\a}[1]{\hat{a}_{#1}}
+\newcommand{\ga}[3]{\px{#1} \a{x} + \py{#2} \a{y} + \pz{#3} \a{z}}
+\newcommand{\gc}[3]{\prho{#1} \a{\rho} + \frac{1}{\rho} \pphi{#2} \a{\phi} + \pz{} \a{z}}
+\newcommand{\gr}[3]{\pr{#1} \a{r} + \frac{1}{r \sin \theta} \pphi{#2} \a{\phi} + \frac{1}{r} \ptheta{#3} \a{\theta}}
+\newcommand{\de}[3]{\frac{1}{r^2} \pr{} r^2 \; {#1} \; \a{r} + \frac{1}{r \sin \theta} \pphi{} \; {#2} \; \a{\phi} + \frac{1}{r \sin \theta} \ptheta{} \sin \theta \; {#3} \; \a{\theta}}
+\newcommand{\dc}{\frac{1}{\rho} \prho{} \rho \; \a{\rho} + \frac{1}{\rho} \pphi{} \; \a{\phi} + \pz{} \a{z}}
+\newcommand{\la}[3]{\ppx{#1} + \ppy{#2} + \ppz{#3}}
+\newcommand{\lc}[3]{\frac{1}{\rho} \prho{} \rho \prho{#1} + \frac{1}{\rho^2} \ppphi{#2} + \ppz{#3}}
+\newcommand{\lr}[3]{\frac{1}{r^2} \pr{} r^2 \pr{#1} + \frac{1}{r^2 \sin \theta} \ptheta{} \sin \theta \ptheta{#2} + \frac{1}{r^2 \sin^2 \theta} \ppphi{#3}}
+\newcommand{\vla}[3]{\ppx{#1} \a{x} + \ppy{#2} \a{y} + \ppz{#3} \a{z}}
+\renewcommand{\ra}[3]{\left( \py{#3} - \pz{#2} \right) \a{x} + \left( \pz{#1} - \px{#3} \right) \a{y} + \left( \px{#2} - \py{#1} \right) \a{z}}
+% Símbolos de operadores integrais
+\newcommand {\iv}[1]{\iiint \limits_{#1}}
+\newcommand {\ivv}[6]{\int_{#1}^{#2} \int_{#3}^{#4} \int_{#5}^{#6}}
+\newcommand {\is}[1]{\iint \limits_{#1}}
+\newcommand {\ios}[1]{\oiint \limits_{#1}}
+\newcommand {\iss}[4]{\int_{#1}^{#2} \int_{#3}^{#4}}
+\newcommand {\il}[1]{\int \limits_{#1}}
+\newcommand {\ill}[2]{\int_{#1}^{#2}}
+% Linhas divisórias
+\newcommand{\hhhlin}{\noindent\hfil\rule{0.25\textwidth}{.2pt}\hfil\newline}
+\newcommand{\hhlin}{\noindent\hfil\rule{0.5\textwidth}{.4pt}\hfil\newline}
+\newcommand{\hlin}{\noindent\hfil\rule{\textwidth}{.8pt}\hfil\newline}
+% Matriz coluna (3x1)
+\newcommand{\bigmc}[3]{\left( \begin{matrix} {#1} \\ {#2} \\ {#3} \end{matrix} \right)}
+\newcommand{\bigmci}[1]{\left( \begin{matrix} {#1}_1 \\ {#1}_2 \\ {#1}_3 \end{matrix} \right)}
+% Matriz linha (1x3)
+\newcommand{\bigml}[3]{\left( \begin{matrix} {#1} & {#2} & {#3} \end{matrix} \right)}
+\newcommand{\bigmli}[1]{\left( \begin{matrix} {#1}_1 & {#1}_2 & {#1}_3 \end{matrix} \right)}
+% Matriz quadrada (3x3)
+\newcommand{\bigmq}[9]{\left( \begin{matrix} {#1} & {#2} & {#3} \\ {#4} & {#5} & {#6} \\ {#7} & {#8} & {#9} \end{matrix} \right)}
+\newcommand{\bigmqi}[1]{\left( \begin{matrix} {#1}_{1,1} & {#1}_{1,2} & {#1}_{1,3} \\ {#1}_{2,1} & {#1}_{2,2} & {#1}_{2,3} \\ {#1}_{3,1} & {#1}_{3,2} & {#1}_{3,3} \end{matrix} \right)}
+\newcommand{\bigmqd}[9]{\left| \begin{matrix} {#1} & {#2} & {#3} \\ {#4} & {#5} & {#6} \\ {#7} & {#8} & {#9} \end{matrix} \right|}
+\newcommand{\bigmqid}[1]{\left| \begin{matrix} {#1}_{1,1} & {#1}_{1,2} & {#1}_{1,3} \\ {#1}_{2,1} & {#1}_{2,2} & {#1}_{2,3} \\ {#1}_{3,1} & {#1}_{3,2} & {#1}_{3,3} \end{matrix} \right|}
+
+
+% Figuras geométricas 3D
+% Eixos coordenados
+\newcommand{\drawaxes}[1]{
+    \begin{scope}[solid,->,opacity={#1}]
+        \draw (0,0,0) -- (3,0,0) node[anchor=south west]{$x$};
+        \draw (0,0,0) -- (0,3,0) node[right]{$y$};
+        \draw (0,0,0) -- (0,0,3) node[above]{$z$};
+	\end{scope}
+	}
+% Cone com vértice na origem
+\newcommand{\drawcone}[9]{
+    \pgfmathsetmacro\nn{#1}
+	\pgfmathsetmacro\ox{#3}
+	\pgfmathsetmacro\oy{#4}
+	\pgfmathsetmacro\oz{#5}
+	\pgfmathsetmacro\re{#6}
+	\pgfmathsetmacro\ac{#7}
+    \pgfmathsetmacro\n{2*\nn}
+    \pgfmathsetmacro\ni{\nn/2}
+    \pgfmathsetmacro\nf{1.5*\nn}	
+    \pgfmathsetmacro\rh{\re*sin(\ac)}
+    \pgfmathsetmacro\h{\re*cos(\ac)}
+    \foreach \t in {1,...,\n} {
+        \filldraw[fill=white,dotted,opacity={#2}] (0,0,0) -- ({\rh*cos((\t+1)*pi/\nn r)},{\rh*sin((\t+1)*pi/\nn r)},\h) -- ({\rh*cos(\t*pi/\nn r)},{\rh*sin(\t*pi/\nn r)},\h) -- cycle;
+		}
+	\IfStrEq{#8}{}{
+ 		\path[draw] plot[domain=0:2*pi,samples=\n] ({\rh*cos(\x r)}, {\rh*sin(\x r)}, \h);	
+		}{
+		\foreach \t in {1,...,\nn} {
+			\filldraw[fill={#8},opacity={#9}] ({\rh*cos((\t+1)*pi/\nn r)},{\rh*sin((\t+1)*pi/\nn r)},\h) -- ({\rh*cos(\t*pi/\nn r)},{\rh*sin(\t*pi/\nn r)},\h) -- ({\rh*cos(\t*pi/\nn r)},-{\rh*sin(\t*pi/\nn r)},\h) -- ({\rh*cos((\t+1)*pi/\nn r)},-{\rh*sin((\t+1)*pi/\nn r)},\h) -- cycle;
+			}
+		\foreach \t in {\ni,...,\nf} {
+			\draw[opacity={#9}] ({\rh*cos((\t+1)*pi/\nn r)},{\rh*sin((\t+1)*pi/\nn r)},\h) -- ({\rh*cos(\t*pi/\nn r)},{\rh*sin(\t*pi/\nn r)},\h) -- (-{\rh*cos(\t*pi/\nn r)},{\rh*sin(\t*pi/\nn r)},\h) -- (-{\rh*cos((\t+1)*pi/\nn r)},{\rh*sin((\t+1)*pi/\nn r)},\h) -- cycle;
+			}
+		}
+	}
+% Esfera com centro na origem
+\newcommand{\drawsphere}[8]{
+    \pgfmathsetmacro\nn{#1}
+	\pgfmathsetmacro\ox{#3}
+	\pgfmathsetmacro\oy{#4}
+	\pgfmathsetmacro\oz{#5}
+	\pgfmathsetmacro\re{#6}
+	\pgfmathsetmacro\ac{#7}
+    \pgfmathsetmacro\tcc{int \ac/10}	
+	\begin{scope}[dotted,opacity={#2}]
+		\foreach \t in {0,...,11} {
+			\tdplotsetthetaplanecoords{\t*30}
+			\draw[tdplot_rotated_coords] (\re,0,0) arc (0:360:\re);
+		}
+		\foreach \t in {0,...,6} {
+			\pgfmathsetmacro\tc{\t*30-90}	
+			\draw plot[domain=0:2*pi,samples=\n] ({\re*cos(\tc)*cos(\x r)}, {\re*cos(\tc)*sin(\x r)}, {\re*sin(\tc)});
+		}
+	\end{scope}
+	\IfStrEq{#7}{}{}{				% ATENÇÃO: Não substituir #7 por \ac
+		\begin{scope}[opacity={#8}]
+			\foreach \t in {0,...,35} {
+				\tdplotsetthetaplanecoords{\t*10}
+				\draw[tdplot_rotated_coords] (\re,0,0) arc (0:\ac:\re);
+			}
+			\foreach \t in {0,...,\tcc} {
+				\pgfmathsetmacro\tc{\t*10+90}	
+				\draw plot[domain=0:2*pi,samples=\n] ({\re*cos(\tc)*cos(\x r)}, {\re*cos(\tc)*sin(\x r)}, {\re*sin(\tc)});
+			}
+		\end{scope}
+		}
+	}
+% Elementos diferenciais
+% Área diferencial orientada segundo o eixo r
+\newcommand \drawdsr[3]{
+	\pgfmathsetmacro\re{#1}
+	\pgfmathsetmacro\t{#2}
+    \pgfmathsetmacro\p{#3}
+    \pgfmathsetmacro\xi{\re*sin(\t)*cos(\p)}
+    \pgfmathsetmacro\yi{\re*sin(\t)*sin(\p)}
+    \pgfmathsetmacro\zi{\re*cos(\t)}
+    \pgfmathsetmacro\xf{1.2*\xi}
+    \pgfmathsetmacro\yf{1.2*\yi}
+    \pgfmathsetmacro\zf{1.2*\zi}
+	\IfStrEq{\plotres}{}{}{	
+		\tdplotsetpolarplotrange{\t-5}{\t+5}{\p-5}{\p+5}
+		\tdplotsphericalsurfaceplot{\plotres}{\plotres}{\re}{red!25}{red!25}{}{}{}
+		}
+	\draw [thick,->,red] (\xi,\yi,\zi) -- (\xf,\yf,\zf) node[right]{$\vec{dS_r}$};
+	}
+% Área diferencial orientada segundo o eixo Z
+\newcommand \drawdsz[3]{
+	\pgfmathsetmacro\x{#1}
+	\pgfmathsetmacro\y{#2}
+    \pgfmathsetmacro\z{#3}
+    \pgfmathsetmacro\xi{\x-0.15}
+    \pgfmathsetmacro\xf{\x+0.15}
+    \pgfmathsetmacro\yi{\y-0.15}
+    \pgfmathsetmacro\yf{\y+0.15}
+	\pgfmathsetmacro\zf{\z*1.2}
+    \filldraw[red,fill=red!25] (\xi,\yi,\z) -- (\xi,\yf,\z) -- (\xf,\yf,\z) -- (\xf,\yi,\z) -- cycle ;
+    \draw [thick,->,red] (\x,\y,\z) -- (\x,\y,\zf) node[right]{$\vec{dS_z}$};
+	}
+
+% Figura Exercício 2.4.2-a
+\newcommand{\drawfigbdba}{
+\begin{tikzpicture}[math3d,tdplot_main_coords,scale=3]
+	\pgfmathsetmacro\re{2}
+	\pgfmathsetmacro\ac{45}
+    \pgfmathsetmacro\h{\re*cos(\ac)}
+	\pgfmathsetmacro\rere{\re/2}
+    \pgfmathsetmacro\axax{3*\rere}
+    \pgfmathsetmacro\ay{\axax*sin(\ac)}	
+    \pgfmathsetmacro\az{\axax*cos(\ac)}
+	% Eixos x,y e z
+	\drawaxes{0.2}
+	% /% Cone interno sem tampa
+	\drawcone{20}{0.4}{0}{0}{0}{2}{45}{}{}
+	% Esfera externa com calota destacada
+	\drawsphere{20}{0.6}{0}{0}{0}{2}{45}{0.6}
+	% Grandezas
+    \begin{scope}[solid,->,thick,blue]
+        \draw (0,0,0) node[below]{O} -- (\rh,0,\h) node[below,pos=0.5]{$a$};
+	\end{scope}
+    \begin{scope}[solid,opacity=0.2]
+        \draw (0,\rh,\h) -- (0,\ay,\az);
+	\end{scope}
+	\tdplotsetthetaplanecoords{90}
+	\draw[blue,thick,tdplot_rotated_coords] (2.5,0,0) arc (0:45:2.5) node[pos=0.5,above]{$\theta_0$};
+	\pgfmathsetmacro\tab{35}
+	\pgfmathsetmacro\pab{65}
+	\pgfmathsetmacro\xab{\re*sin(\tab)*cos(\pab)}
+	\pgfmathsetmacro\yab{\re*sin(\tab)*sin(\pab)}
+	\pgfmathsetmacro\zab{\re*cos(\tab)}
+	% Elementos diferenciais
+	\drawdsr{\re}{\tab}{\pab}
+	% Carga e densidade de fluxo
+    \draw [very thick,->,violet] (0,0,0) node[right]{q} -- (\xab,\yab,\zab) node[right,pos=0.5]{$\vec{D}$};
+\end{tikzpicture}
+}
+% Figura Exercício 2.4.2-b
+\newcommand{\drawfigbdbb}{
+\begin{tikzpicture}[math3d,tdplot_main_coords,scale=1.5]
+	\pgfmathsetmacro\re{2}
+	\pgfmathsetmacro\ac{45}
+    \pgfmathsetmacro\h{\re*cos(\ac)}
+	\pgfmathsetmacro\rere{\re/2}
+    \pgfmathsetmacro\axax{3*\rere}
+    \pgfmathsetmacro\ay{\axax*sin(\ac)}	
+    \pgfmathsetmacro\az{\axax*cos(\ac)}
+	% Eixos x,y e z
+	\drawaxes{0.2}
+	/% Cone interno com tampa
+	\drawcone{20}{0.4}{0}{0}{0}{2}{45}{gray!25}{0.6}
+	% Esfera externa
+	\drawsphere{20}{0.6}{0}{0}{0}{2}{}{}
+	% Grandezas
+    \begin{scope}[solid,->,thick,blue]
+        \draw (0,0,0) -- (0,0,\h) node[above]{$z_0$};	
+        \draw (0,0,\h) -- (0,-\rh,\h) node[below]{$\rho$};
+        \draw (0,0,0) node[below]{O} -- (\rh,0,\h) node[below,pos=0.5]{$a$};
+	\end{scope}
+    \begin{scope}[solid,opacity=0.2]
+        \draw (0,\rh,\h) -- (0,\ay,\az);
+	\end{scope}
+	\tdplotsetthetaplanecoords{90}
+	\draw[blue,thick,tdplot_rotated_coords] (2.5,0,0) arc (0:\ac:2.5) node[pos=0.5,above]{$\theta_0$};
+	\pgfmathsetmacro\xab{0.35}
+	\pgfmathsetmacro\yab{0.35}
+	\drawdsz{\xab}{\yab}{\h}
+	% Cargas e campos
+	% Carga e densidade de fluxo
+    \draw [very thick,->,violet] (0,0,0) node[right]{q} -- (\xab,\yab,\h) node[right,pos=0.5]{$\vec{D}$};
+\end{tikzpicture}
+}
+% Figura Exercício 2.4.3-b
+\newcommand{\drawfigbdcb}{
+\begin{tikzpicture}[math3d,tdplot_main_coords,scale=3]
+	\pgfmathsetmacro\re{2}
+	\pgfmathsetmacro\ac{135}
+    \pgfmathsetmacro\h{\re*cos(\ac)}
+	\pgfmathsetmacro\rere{\re/2}
+    \pgfmathsetmacro\axax{3*\rere}
+    \pgfmathsetmacro\ay{\axax*sin(\ac)}	
+    \pgfmathsetmacro\az{\axax*cos(\ac)}
+	% Eixos x,y e z
+	\drawaxes{0.2}
+	/% Cone interno com tampa
+	\drawcone{20}{0.4}{0}{0}{0}{2}{135}{gray!15}{0.4}
+	% Esfera externa
+	% \drawsphere{20}{0.6}{0}{0}{0}{2}{}{}
+	% Grandezas
+    \begin{scope}[solid,->,thick,blue]
+        \draw (0,0,0) -- (0,0,\h) node[below]{$z_0$};	
+        \draw (0,0,\h) -- (0,-\rh,\h) node[below]{$\rho$};
+        \draw (0,0,0) node[anchor=north west]{O} -- (\rh,0,\h) node[above,pos=0.5]{$a$};
+	\end{scope}
+    \begin{scope}[solid,opacity=0.2]
+        \draw (0,\rh,\h) -- (0,\ay,\az);
+	\end{scope}
+	\tdplotsetthetaplanecoords{90}
+	\draw[blue,thick,tdplot_rotated_coords] (2.5,0,0) arc (0:\ac:2.5) node[pos=0.5,above]{$\theta_0$};
+	\pgfmathsetmacro\xab{0.35}
+	\pgfmathsetmacro\yab{0.35}
+	\drawdsz{\xab}{\yab}{\h}
+	% Cargas e campos
+	% Carga e densidade de fluxo
+    \draw [very thick,->,violet] (0,0,0) node[right]{q} -- (\xab,\yab,\h) node[right,pos=0.5]{$\vec{D}$};
+\end{tikzpicture}
+}
+
+
+% Perguntas
+\newcommand{\perguntaaa}{A densidade volumétrica (ou volumar) de carga $ \dcv{} $ da nuvem eletrônica de um átomo de hidrogênio pode ser representada por $ \frac{\ke{e} }{2^2 3^8 \pi a^7} \; r^4 e^{-\frac{2r}{3a}} \sin^4 \theta $ , onde a é uma constante (o raio de Bohr) e r é a coordenada radial esférica medida a partir do próton, cuja carga é $ \ke{e} $. Calcule a carga: a) da nuvem eletrônica; b) do átomo.}
+\newcommand{\perguntaab}{Uma partícula puntiforme (ou pontual) de carga q encontra-se a uma distância h de um plano condutor ilimitado. A densidade superficial da carga induzida no plano por essa partícula é: $ \dcs{} = - \frac{q}{2 \pi} \frac{h}{(\rho^2 + h^2)^\frac{3}{2}} $ , onde $ \rho $ é a coordenada cilíndrica radial medida a partir da perpendicular que passa pela partícula. Determine a carga total induzida no plano.}
+\newcommand{\perguntaac}{Uma partícula puntiforme de carga q, distante h do centro de uma esfera condutora de raio a < h, induz, na superfície desta, uma distribuição de cargas cuja densidade é: $ - \frac{q}{4 \pi a^2} \frac{a}{h} \frac{1 - \left( \frac{a}{h} \right)^2}{\left[ 1 - 2  \left( \frac{a}{h} \right) \cos \theta + \left( \frac{a}{h} \right)^2 \right]^\frac{3}{2}} $ , onde $ \theta $ é a coordenada esférica polar medida a partir do eixo que liga o centro da esfera à carga puntiforme. Calcule a carga total induzida na esfera.}
+\newcommand{\perguntaad}{Um fio circular de espessura desprezível e raio a está carregado com uma densidade linear dada por: $ \dcl{0} \sin^3 (n \phi) $ , onde $ \dcl{0} $ é uniforme, n é um inteiro e $ \phi $ é o ângulo polar em coordenadas cilíndricas. Dê a carga total do fio.}
+\newcommand{\perguntaae}{Em termos de delta de Dirac, exprima a densidade volumétrica das distribuições de cargas dos seguintes exercícios: a) 2), com o plano z = 0 sobre o plano carregado; b) 3); c) 4) em coordenadas cilíndricas; d) 4) em coordenadas esféricas.}
+\newcommand{\perguntaaf}{Quatro partículas puntiformes, de mesma carga q, situam-se nos vértices de um quadrado do plano xy com centro na origem e com lados, de comprimento 2a, paralelos aos eixos desse plano. Determine: a) a expressão cartesiana da densidade volumétrica de cargas; b) a carga total, integrando a densidade de cargas.}
+\newcommand{\perguntaag}{Uma carga puntiforme q oscila ao longo do eixo cartesiano z segundo a equação $ q(t) = a \cos \omega t $ , onde a e $ \omega $ são uniformes e constantes. Dê a expressão da densidade volumétrica instantânea da distribuição.}
+\newcommand{\perguntaah}{Uma distribuição superficial de cargas, com densidade uniforme $ \dcl{0} $, ocupa três planos ilimitados mutuamente ortogonais. Escolha o sistema de coordenadas mais adequado ao problema e: a) exprima em termos dele a densidade volumétrica de cargas; b) calcule, por integração, a carga total existente dentro de um cubo de aresta L, com centro na interseção dos planos e com faces paralelas e eles.}
+\newcommand{\perguntaai}{Uma superfície cônica carregada tem raio a, altura h e o vértice para baixo. Nesse sistema, a densidade superficial de carga é $ \dcs{0} \cos \left( \frac{\pi z}{2h} \right) $ , onde $ \dcs{0} $ é uniforme. Determine: a) a equação cilíndrica da superfície cônica; b) o elemento de carga, em função da coordenada z; c) a carga total da distribuição.}
+\newcommand{\perguntaaj}{A superfície esférica carregada, de equação S: r = a, gira em torno do eixo z com velocidade angular $ \omega $ . Determine a densidade superficial da corrente assim gerada, usando a: a) densidade volumétrica de cargas; b) densidade linear da corrente superficial.}
+\newcommand{\perguntaak}{Com a distribuição de correntes do exercício 10), determine a corrente que atravessa qualquer semiplano meridiano, usando a densidade: a) superficial de corrente; b) linear de corrente.}
+\newcommand{\perguntaal}{Num disco plano de espessura desprezível e raio a, distribui-se uniformemente uma carga q. O disco gira em torno do seu eixo de simetria com velocidade angular $ \omega $ . Num sistema de coordenadas cilíndricas coaxiais e concêntricas ao disco, determine a:
+a) equação da superfície carregada; b) densidade linear de corrente; c) corrente elementar gerada pela rotação do elemento de carga situado entre $ \rho $ e $ \rho + d \rho $ ; d) corrente gerada pela rotação do disco; e) corrente do item d) em termos do período T de rotação do disco.}
+\newcommand{\perguntaam}{A superfície cônica do exercício 9) tem agora uma distribuição de cargas uniforme, com densidade $ \dcs{0} $, e gira em torno do seu eixo de simetria com velocidade angular $ \omega $ . Determine a: a) expressão da densidade linear de corrente; b) corrente gerada pela rotação do cone.}
+\newcommand{\perguntaan}{Uma corrente superficial, com densidade linear uniforme de módulo K, escoa sobre o plano xy na direção ây. Determine a:
+a) expressão cartesiana da densidade superficial de corrente; b) corrente que atravessa um segmento de comprimento L da bissetriz do primeiro quadrante no plano xy.}
+\newcommand{\perguntaao}{Com a carga oscilante do exercício 7), determine a: a) expressão cartesiana da densidade superficial de corrente; b) corrente instantânea que atravessa qualquer ponto do eixo z.}
+\newcommand{\perguntaba}{Desenvolva um algoritmo (Matlab) para cálculo do campo elétrico e do potencial elétrico para uma distribuição qualquer de cargas. Considere o ponto de observação qualquer. Apresente o código, resultados comentados para um exemplo.}
+\newcommand{\perguntabb}{Calcule e faça um gráfico da intensidade de campo elétrico ao longo do eixo x para as seguintes configurações de cargas: (Comente todos os resultados). \\
+a)	Um dipolo elétrico alinhado ao longo do eixo x, com cargas de 140 pC,  carga positiva em (-60,0) mm e carga negativa em (60,0) mm ; \\
+b)	2 cargas  positivas iguais de 140 pC  localizadas em (-60; 0) mm e  (60; 0) ; \\
+c)	4 cargas pontuais Q, -Q, Q e – Q, com |Q|= 100 pC, localizadas respectivamente em (3; 3) mm, (-3; 3) mm (-3; -3) mm e (3; -3) mm ( vértices de um quadrado de lado 6 mm, com centro na origem do sistema de coordenadas). }
+\newcommand{\perguntabc}{Para as distribuições de carga a seguir apresente o gráfico do campo elétrico ao longo do eixo z. Comente os resultados. \\
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{figtrab13bc.jpg} \\
+\end{figure}
+}
+\newcommand{\perguntabd}{Para a distribuição de carga a seguir apresente o gráfico do potencial elétrico ao longo do eixo y em função de y/L. \\
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{figtrab13bd.jpg} \\
+\end{figure}
+} 
+\newcommand{\perguntabe}{(a) calcule o fluxo elétrico através de uma superfície quadrada de lado 2L devido a uma carga +Q a uma distância perpendicular L do centro da superfície, como na figura. (b) Usando o resultado obtido em (b), se agora a carga está no centro de um cubo, qual é o fluxo saindo das seis faces das superfície fechada. \\
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{figtrab13be.jpg} \\
+\end{figure}
+}
+\newcommand{\perguntaca}{Problemas 5.9 a 5.15 do Livro do Sadiku (comente resultados).}
+\newcommand{\perguntacb}{Resolver exemplos do livro do Cheng 3.12, 3.14-3.16. (comente resultados).}
+\newcommand{\perguntacc}{Ler seções 3.10.2 e 3.10.3 do livro do Cheng e resolver exemplo 3.21. (comente resultados).}
+\newcommand{\perguntacd}{Resolver problemas do livro do Cheng 3.25 e 3.28. (comente resultados).}
+
+
+\begin{document}
+\setlength{\parskip}{1em}
+\setlength{\jot}{10pt}
+\setlength{\parindent}{0pt}
+
+\tikzset{math3d/.style= {x={(-1cm,-1cm)}, y={(3cm,0cm)}, z={(0cm,3cm)}}}
+\lstset{language=Octave,basicstyle={\tiny,\color{black}},keywordstyle=\color{black},breaklines=true,numbers=left,numberstyle={\color{blue}},numbersep=9pt,commentstyle=\color{black},showstringspaces=false,stringstyle=\color{black}}
+
+\newcounter{prob_num}
+\setcounter{prob_num}{1}
+
+\maketitle
+
+\iffalse
+\section*{Parte 1}
+\begin{pergunta}
+\perguntaaa{}
+\end{pergunta}
+\begin{resposta}
+a)
+\begin{equation*}
+	\begin{split}
+	Q_e & = \iv{} \dcv{} \; dv \\
+	& = \iv{} \frac{\ke{e} }{2^2 3^8 \pi a^7} \; r^4 e^{-\frac{2r}{3a}} \sin^4 \theta \; dv \\
+	& = \ivv{0}{2 \pi}{0}{\pi}{0}{\infty} - \frac{\ke{e} }{2^2 3^8 \pi a^7} \; r^4 e^{-\frac{2r}{3a}} \sin^4 \theta \; \dve \\	
+	& = \ivv{0}{2 \pi}{0}{\pi}{0}{\infty} - \frac{\ke{e} }{2^2 3^8 \pi a^7} \; r^6 e^{-\frac{2r}{3a}} \sin^5 \theta \; dr \; d\theta \; d\phi \\
+	& = \ivv{0}{2 \pi}{0}{\pi}{0}{\infty} - \frac{\ke{e} }{2^2 3^8 \pi} \; \left[ \frac{r}{a} \right]^6 e^{-\frac{2}{3} \left[ \frac{r}{a} \right]} \sin^5 \theta \; d \left[ \frac{r}{a} \right] \; d\theta \; d\phi \\
+	& = \ivv{0}{2 \pi}{0}{\pi}{0}{\infty} - \frac{\ke{e} }{2^2 3^8 \pi} \; u^6 e^{-\frac{2}{3} u} \sin^5 \theta \; du \; d\theta \; d\phi & \left( u = \frac{r}{a} \right)\\	
+	& = \ivv{0}{2 \pi}{0}{\pi}{0}{\infty} A u^6 e^{- B u} \sin^5 \theta \; du \; d\theta \; d\phi & \left( A = - \frac{\ke{e} }{2^2 3^8 \pi}, \; B = \frac{2}{3} \right) \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\int_{0}^{\infty} A u^6 e^{- B u} \sin^5 \theta \; du & = A \sin^5 \theta \left[ e^{-Bu} \left( \frac{u^6}{B} + \frac{6 u^5}{B^2} + \frac{30 u^4}{B^3} + \frac{120 u^3}{B^4} + \right. \right. ... \\
+	& \qquad + \left. \left. \left. \frac{360 u^2}{B^5} + \frac{720 u}{B^6} + \frac{720}{B^7} \right) \right] \frac{}{} \right|_{\infty}^{0} \\
+	& = A \sin^5 \theta \left[ \frac{720}{B^7} - 0 \right] \\
+	& = - \frac{\ke{e} }{2^2 3^8 \pi} \sin^5 \theta \left[ 720 \left( \frac{3}{2} \right)^7 \right] \\
+	& = - \frac{15 \ke{e} }{32 \pi} \sin^5 \theta \\
+	& = C \sin^5 \theta & \left( C = - \frac{15 \ke{e} }{32 \pi} \right) \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\int_{0}^{\pi} C \sin^5 \theta d \theta & = C \left. \left[ - \frac{5}{8} \cos \theta + \frac{5}{48} \cos 3 \theta - \frac{1}{80} \cos 5 \theta \right] \right|_{0}^{\pi} \\
+	& = C \left[ - \frac{5}{8} \cos \pi + \frac{5}{48} \cos 3 \pi - \frac{1}{80} \cos 5 \pi + \frac{5}{8} \cos 0 - \frac{5}{48} \cos 0 + \frac{1}{80} \cos 0 \right] \\
+	& = C \left[ \frac{5}{8} - \frac{5}{48} + \frac{1}{80} + \frac{5}{8} - \frac{5}{48} + \frac{1}{80} \right] \\
+	& = \frac{16}{15} C \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\int_{0}^{2 \pi} \frac{16}{15} C \; d \phi & = \frac{16}{15} C \left. \left[ \frac{}{} \phi \right] \right|_{0}^{2 \pi} \\
+	& = \frac{16}{15} C \; [2 \pi - 0] \\
+	& = \frac{32}{15} \pi C \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	Q_e & = \frac{32}{15} \pi C \\
+	& = \frac{32}{15} \pi \left( - \frac{15 \ke{e} }{32 \pi} \right) \\
+	& = - \ke{e} \\
+	\end{split}
+\end{equation*}
+\hlin
+b)
+\begin{equation*}
+	\begin{split}
+	Q_t & = Q_e + Q_p \\
+	& = -\ke{e} + N_{H} \; \ke{e} \qquad \qquad \Aboxed{N_H \text{: número atômico do hidrogênio} } \\
+	& = -\ke{e} + 1 \cdot \ke{e} \\
+	& = 0 \\
+	\end{split}
+\end{equation*}
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntaab{}
+\end{pergunta}
+\begin{resposta}
+\begin{equation*}
+	\begin{split}
+	Q & = \is{S_z} \dcs{} \; dS_z \\
+	& = \iss{0}{2 \pi}{0}{\infty} - \frac{q}{2 \pi} \frac{h}{(\rho^2 + h^2)^\frac{3}{2}} \; \rho \; d \rho \; d \phi \\
+	& = \iss{0}{2 \pi}{0}{\infty} - \frac{q h}{4 \pi} (u + h^2)^{-\frac{3}{2}} \; du \; d \phi & \left( u = \rho^2 \right)
+	\\
+	& = \int_0^{2 \pi} - \frac{q h}{4 \pi} \left. \left[ \frac{}{} -2 (u + h^2)^{-\frac{1}{2}} \right] \right|_0^{\infty}  \; d \phi \\
+	& = \int_0^{2 \pi} \frac{q h}{4 \pi} [ 0 - 2 h^{-1} ]  \; d \phi \\
+	& = \int_0^{2 \pi} - \frac{q}{2 \pi}  \; d \phi \\
+	& = - \frac{q}{2 \pi} \left. \left[ \frac{}{} \phi \right] \right|_0^{2 \pi} \\
+	& = - \frac{q}{2 \pi} [ 2 \pi - 0 ] \\
+	& = - q \\
+	\end{split}
+\end{equation*}
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntaac{}
+\end{pergunta}
+\begin{resposta}
+\begin{equation*}
+	\begin{split}
+	Q & = \is{S_r} \dcs{} \; dS_r \\
+	& = \iss{0}{2 \pi}{0}{\pi} - \frac{q}{4 \pi a^2} \frac{a}{h} \frac{1 - \left( \frac{a}{h} \right)^2}{\left[ 1 - 2  \left( \frac{a}{h} \right) \cos \theta + \left( \frac{a}{h} \right)^2 \right]^\frac{3}{2}} \left. \left[ r^2 \sin \theta \; d \theta \; d \phi \right] \right|_{r = a} \\
+	& = \iss{0}{2 \pi}{0}{\pi} - \frac{q}{4 \pi a h } \frac{h^2 - a^2}{\left[ h^2 - 2 ah \cos \theta + a^2 \right]^\frac{3}{2}} h [ a^2 \sin \theta \; d \theta \; d \phi ]\\
+	& = \iss{0}{2 \pi}{0}{\pi} - \frac{q}{8 \pi h} \frac{h^2 - a^2}{\left[ h^2 - 2 ah \cos \theta + a^2 \right]^\frac{3}{2}} [ 2 a h \sin \theta \; d \theta ] \; d \phi \\
+	& = \int_{0}^{2 \pi} \int_{-2ah}^{2ah} - \frac{q}{8 \pi h} \frac{h^2 - a^2}{\left[ h^2 + u + a^2 \right]^\frac{3}{2}} \; du \; d \phi & \left( u = - 2 a h \cos \theta \right) \\
+	& = \int_{0}^{2 \pi} \int_{-2ah}^{2ah} - \frac{q [h^2 - a^2]}{8 \pi h} \left[ h^2 + u + a^2 \right]^{-\frac{3}{2}} \; du \; d \phi \\
+	& = \int_{0}^{2 \pi} - \frac{q [h^2 - a^2]}{4 \pi h} \left( \left. \left[ h^2 + u + a^2 \right]^{-\frac{1}{2}} \right|_{2ah}^{-2ah} \right) d \phi \\
+	& =  - \frac{q [h^2 - a^2]}{4 \pi h} \left( \left[ h^2 - 2ah + a^2 \right]^{-\frac{1}{2}} - \left[ h^2 + 2ah + a^2 \right]^{-\frac{1}{2}} \right) \; \left. \frac{}{} \phi \right|_{0}^{2 \pi} \\
+	& =  - \frac{q [h^2 - a^2]}{4 \pi h} \left( \left[ h - a \right]^{-1} - \left[ h + a \right]^{-1} \right) \; (2 \pi - 0 ) \\
+	& =  - \frac{q}{2 h} \left([ h + a ] - [ h - a ] \right) \\
+	& = - \frac{a}{h} q
+	\end{split}
+\end{equation*}
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntaad{}
+\end{pergunta}
+\begin{resposta}
+\begin{equation*}
+	\begin{split}
+	Q & = \il{l_\phi} \dcl{} \; dl_\phi \\
+	& = \ill{0}{2 \pi} \dcl{}_0 \sin^3 (n \phi) \left. \left[ \frac{}{} \rho \; d \phi \right] \right|_{\rho = a} \\
+	& = \int_{0}^{2 \pi} \dcl{}_0 a \sin^3 (n \phi) \; d \phi \\
+	& = \dcl{}_0 \frac{a}{12n} \left. \frac{}{} \left[ \cos (3 n \phi) - 9 \cos (n \phi) \right] \right|_{0}^{2 \pi} \\
+	& = \dcl{}_0 \frac{a}{12n} \left( \frac{}{} \left[ \cos (6 n \pi) - 9 \cos (2 n \pi) \right] - \left[ \cos (0) - 9 \cos (0) \right] \right) \\
+	& = \dcl{}_0 \frac{a}{12n} ( 1 - 9 - 1 + 9 ) \\
+	& = 0 \\
+	\end{split}
+\end{equation*}
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntaae{}
+\end{pergunta}
+\begin{resposta}
+a)
+\begin{equation*}
+	\begin{split}
+	\dcv{} (\vec{r}) & = \dcs{}  (\rho) \delta(z) \\
+	\end{split}
+\end{equation*}	
+\hlin
+b)
+\begin{equation*}
+	\begin{split}
+	\dcv{} (\vec{r}) & = \dcs{} (\theta) \delta(r - a) \\
+	\end{split}
+\end{equation*}
+\hlin
+c)
+\begin{equation*}
+	\begin{split}
+	\dcv{} (\vec{r}) = \dcl{} (\phi) \delta(\rho - a) \delta(z) \\
+	\end{split}
+\end{equation*}
+\hlin
+d)
+ \begin{equation*}
+	\begin{split}
+	\dcv{} (\vec{r}) & = \dcl{} (\phi) \left. \frac{1}{r_l^2 \sin \theta} \delta(r - r_l) \delta \left( \frac{}{} \theta - \theta_l \right) \right|_{r_l = a, \theta_l = \frac{\pi}{2}} \\
+	& = \dcl{} (\phi) \frac{1}{a^2} \delta(r - a) \delta \left( \theta - \frac{\pi}{2} \right) \\
+	\end{split}
+\end{equation*}
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntaaf{}
+\end{pergunta}
+\begin{resposta}
+a)
+\begin{equation*}
+	\begin{split}
+	\dcv{} (\vec{r}) & = \sum_{n = 1}^{4} \dcv{n} \\
+	& = \sum_{n = 1}^{4} q_n \delta(x - x_n) \delta(y - y_n) \delta(z) \\
+	& = q_n [ \delta(x - a) \delta(y - a) + \delta(x + a) \delta(y - a) + \delta(x + a) \delta(y + a) + ... \\
+	& \qquad + \delta(x - a) \delta(y + a) ] \delta(z) \\
+	\end{split}
+\end{equation*}
+\hlin
+b)
+\begin{equation*}
+	\begin{split}
+	Q_t = \iv{} \dcv{} dv \\
+	& = \ivv{-\infty}{\infty}{-\infty}{\infty}{-\infty}{\infty} q_n [ \delta(x - a) \delta(y - a) + \delta(x + a) \delta(y - a) + ... \\
+	& \qquad + \delta(x + a) \delta(y + a) + \delta(x - a) \delta(y + a) ] \delta(z) \; dx \; dy \; dz \\
+	& = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} q_n [ \delta(x - a) \delta(y - a) + \delta(x + a) \delta(y - a) + ... \\
+	& \qquad + \delta(x + a) \delta(y + a) + \delta(x - a) \delta(y + a) ] \; dx \; dy \\
+	& = \int_{-\infty}^{\infty} q_n [ \delta(x - a) + \delta(x + a) + \delta(x + a) + \delta(x - a) ] \; dx \\
+	& = q_n [ 1 + 1 + 1 + 1 ] \\
+	& = 4q \\
+	\end{split}
+\end{equation*}
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntaag{}
+\end{pergunta}
+\begin{resposta}
+\begin{equation*}
+	\begin{split}
+	\dcv{} (\vec{r}) & = q \delta(x) \delta(y) \delta(z - z_q) \\
+	& = q \delta(x) \delta(y) \delta(z - a \cos [\omega t])  \\
+	\end{split}
+\end{equation*}
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntaah{}
+\end{pergunta}
+\begin{resposta}
+a)
+\begin{equation*}
+	\begin{split}
+	\dcv{} (\vec{r}) & = \sum_{n = 1}^{3} \dcv{n} \\
+	& = \sum_{n = 1}^{3} \dcs{n} \delta(a_n) \\
+	& = \sum_{n = 1}^{3} \dcs{0} \delta(a_n) \\
+	& = \dcs{0} [ \delta(x) + \delta(y) + \delta(z) ] \\
+	\end{split}
+\end{equation*}
+\hlin
+\clearpage
+b)
+\begin{equation*}
+	\begin{split}
+	Q_L & = \iv{L} \dcv{} (\vec{r}) \; dv \\
+	& = \iv{L} \dcs{0} [ \delta(x) + \delta(y) + \delta(z) ] \; dx \; dy \; dz \\
+	& = \int_{-\frac{L}{2}}^{\frac{L}{2}} \int_{-\frac{L}{2}}^{\frac{L}{2}} \int_{-\frac{L}{2}}^{\frac{L}{2}} \dcs{0} [ \delta(x) + \delta(y) + \delta(z) ] \; dx \; dy \; dz \\
+	& = \int_{-\frac{L}{2}}^{\frac{L}{2}} \int_{-\frac{L}{2}}^{\frac{L}{2}} \int_{-\frac{L}{2}}^{\frac{L}{2}} \dcs{0} \delta(x) \; dx \; dy \; dz + \int_{-\frac{L}{2}}^{\frac{L}{2}} \int_{-\frac{L}{2}}^{\frac{L}{2}} \int_{-\frac{L}{2}}^{\frac{L}{2}} \dcs{0} \delta(y) \; dx \; dy \; dz + ... \\
+	& \qquad + \int_{-\frac{L}{2}}^{\frac{L}{2}} \int_{-\frac{L}{2}}^{\frac{L}{2}} \int_{-\frac{L}{2}}^{\frac{L}{2}} \dcs{0} \delta(z) \; dx \; dy \; dz \\
+	& = \int_{-\frac{L}{2}}^{\frac{L}{2}} \int_{-\frac{L}{2}}^{\frac{L}{2}} \int_{-\frac{L}{2}}^{\frac{L}{2}} \dcs{0} \delta(x) \; dy \; dz \; dx + \int_{-\frac{L}{2}}^{\frac{L}{2}} \int_{-\frac{L}{2}}^{\frac{L}{2}} \int_{-\frac{L}{2}}^{\frac{L}{2}} \dcs{0} \delta(y) \; dz \; dx \; dy + ... \\
+	& \qquad + \int_{-\frac{L}{2}}^{\frac{L}{2}} \int_{-\frac{L}{2}}^{\frac{L}{2}} \int_{-\frac{L}{2}}^{\frac{L}{2}} \dcs{0} \delta(z) \; dx \; dy \; dz \\
+	& = \int_{-\frac{L}{2}}^{\frac{L}{2}} \int_{-\frac{L}{2}}^{\frac{L}{2}} \dcs{0} \cdot 1 \cdot \; dy \; dz + \int_{-\frac{L}{2}}^{\frac{L}{2}} \int_{-\frac{L}{2}}^{\frac{L}{2}} \dcs{0} \cdot 1 \cdot \; dz \; dx + ... \\
+	& \qquad + \int_{-\frac{L}{2}}^{\frac{L}{2}} \int_{-\frac{L}{2}}^{\frac{L}{2}} \dcs{0} \cdot 1 \cdot \; dx \; dy \\
+	& = \int_{-\frac{L}{2}}^{\frac{L}{2}} \dcs{0} \; dy \; \left. \frac{}{} z \right|_{-\frac{L}{2}}^{\frac{L}{2}} + \int_{-\frac{L}{2}}^{\frac{L}{2}} \dcs{0} \; dz \; \left. \frac{}{} x \right|_{-\frac{L}{2}}^{\frac{L}{2}} + \int_{-\frac{L}{2}}^{\frac{L}{2}} \dcs{0} \; dx \; \left. \frac{}{} y \right|_{-\frac{L}{2}}^{\frac{L}{2}} \\
+	& = \int_{-\frac{L}{2}}^{\frac{L}{2}} \dcs{0} \; dy [\frac{L}{2} + \frac{L}{2} ] + \int_{-\frac{L}{2}}^{\frac{L}{2}} \dcs{0} \; dz [\frac{L}{2} + \frac{L}{2} ] + \int_{-\frac{L}{2}}^{\frac{L}{2}} \dcs{0} \; dx [\frac{L}{2} + \frac{L}{2} ] \\
+	& = \int_{-\frac{L}{2}}^{\frac{L}{2}} \dcs{0} \; L \: dy + \int_{-\frac{L}{2}}^\frac{L}{2} \dcs{0} \; L \; dz + \int_{-\frac{L}{2}}^{\frac{L}{2}} \dcs{0} \; L \; dx \\
+	& \qquad \qquad \vdots \\
+	\end{split}
+\end{equation*}
+\clearpage
+ \begin{equation*}
+	\begin{split}
+	& \qquad \qquad \vdots \\
+	Q_L = \dcs{0} \; L \; \left. \frac{}{} y \right|_{-\frac{L}{2}}^{\frac{L}{2}} + \dcs{0} \; L \; \left. \frac{}{} z \right|_{-\frac{L}{2}}^{\frac{L}{2}} + \dcs{0} \; L \; \left. \frac{}{} x \right|_{-\frac{L}{2}}^{\frac{L}{2}} \\
+	& = \dcs{0} \; L^2 + \dcs{0} \; L^2 + \dcs{0} \; L^2 \\
+	& = 3 \dcs{0} \; L^2 \\
+	\end{split}
+\end{equation*}
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntaai{}
+\end{pergunta}
+\begin{resposta}
+a)
+\begin{equation*}
+	\begin{split}
+	S & : \begin{cases} \left. \frac{}{} \rho \right|_{z = 0} = 0 \\ \left. \frac{}{} \rho \right|_{z = h} = a \\ \rho = Az + B \end{cases} \\
+	S & : \rho - \frac{a}{h} \; z = 0 \\
+	\end{split}
+\end{equation*}
+\hlin
+b)
+ \begin{equation*}
+	\begin{split}
+	dq & = \dcs{} dS \\
+	& = \dcs{0} \cos \left( \frac{\pi z}{2h} \right) \sqrt{ ( d \rho )^2 + (dz)^2 } \; \rho \; d \phi \\
+	& = \dcs{0} \cos \left( \frac{\pi z}{2h} \right) \sqrt{ \left(\frac{a}{h} dz \right)^2 + (dz)^2 } \; \frac{a}{h} z \; \phi\\
+	& = \frac{a}{h} \; \dcs{0} \cos \left( \frac{\pi z}{2h} \right) \sqrt{ \left(\frac{a}{h} \right)^2 + 1 } \; z \; dz \; d \phi \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\dpx{q} & = \int_0^{2 \pi} dq \\
+	& = \int_0^{2 \pi} \frac{a}{h} \; \dcs{0} \cos \left( \frac{\pi z}{2h} \right) \sqrt{ \left(\frac{a}{h} \right)^2 + 1 }  \; z \; dz \; d \phi \\
+	& = \dcs{0} \frac{a}{h} \; \cos \left( \frac{\pi z}{2h} \right) \sqrt{ \left(\frac{a}{h} \right)^2 + 1 } \; z \; dz \; \left. \frac{}{} \phi \right|_0^{2 \pi} \\
+	& = \frac{2 \pi a}{h^2} \sqrt{ a^2 + h^2 } \dcs{0} \cos \left( \frac{\pi z}{2h} \right) \; z \; dz 
+	\end{split}
+\end{equation*}
+\hlin
+\clearpage
+c)
+\begin{equation*}
+	\begin{split}
+	Q & = \int_0^{h} \dpx{q} \\
+	& = \int_0^{h} \frac{2 \pi a}{h^2} \sqrt{ a^2 + h^2 } \dcs{0} \cos \left( \frac{\pi z}{2h} \right) \; z \; dz \\
+	& = \frac{2 \pi a}{h^2} \sqrt{ a^2 + h^2 } \dcs{0} \left( \frac{2h}{\pi} \right)^2 \left. \left[ \frac{\pi z}{2h} \sin \left( \frac{\pi z}{2h} \right) + \cos  \left( \frac{\pi z}{2h} \right) \right] \right|_0^{h} \\
+	& = \frac{2 \pi a}{h^2} \sqrt{ a^2 + h^2 } \dcs{0} \left( \frac{2h}{\pi} \right)^2 \left[ \frac{\pi h}{2h} \sin \left( \frac{\pi h}{2h} \right) + \cos  \left( \frac{\pi h}{2h} \right) - \frac{0}{2h} \sin \left( \frac{0}{2h} \right) - \cos \left( \frac{0}{2h} \right) \right] \\
+	& = \frac{8 a}{\pi} \sqrt{ a^2 + h^2 } \dcs{0} \left[ \frac{\pi}{2} + 0 - 0 - 1 \right] \\
+	& = \frac{4( \pi - 2 )}{\pi} \; a \sqrt{ a^2 + h^2 } \; \dcs{0} \\
+	\end{split}
+\end{equation*}
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntaaj{}
+\end{pergunta}
+\begin{resposta}
+a)
+ \begin{equation*}
+	\begin{split}
+	\vec{J} & = \dcv{} \vec{u}_S \qquad \qquad \Aboxed{\vec{u}_S \text{: velocidade linear na superfície S} } \\
+	& = \frac{\dpx{q}}{dv} u_S \a{\phi} \\
+	& = \frac{\dcs{} dS}{dv} \omega \rho \a{\phi} \\
+	& = \dcs{0} \delta(r - a) \omega a \sin \theta \a{\phi} \\
+	\end{split}
+\end{equation*}
+\hlin
+b)
+ \begin{equation*}
+	\begin{split}
+	\vec{k} & = \dcs{} \vec{u}_S \\
+	& = \dcs{0} \omega a \sin \theta \a{\phi} \\
+	\end{split}
+\end{equation*}
+\hhlin
+\begin{equation*}
+	\begin{split}
+	\vec{J} & = \vec{k} \frac{dS}{dv} \\
+	& = \dcs{0} \omega a \sin \theta \a{\phi} \delta(r - a) \\
+	\end{split}
+\end{equation*}
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntaak{}
+\end{pergunta}
+\begin{resposta}
+a)
+\begin{equation*}
+	\begin{split}
+	i & = \is{S} \vec{J} \cdot \vec{dS} \\
+	& = \is{S} [\dcs{0} \delta(r - a) \omega a \sin \theta \a{\phi}] \cdot [ \dse ] \\
+	& = \int_{0}^{\pi} \dcs{0} \omega a \sin \theta \; a \; d \theta \\
+	& = \dcs{0} \omega a^2 \; \left. \frac{}{} \cos \theta \right|_{\pi}^{0} \\
+	& = \dcs{0} \omega a^2 \; [1 + 1 ] \\
+	& = 2 \omega a^2 \dcs{0} \\
+	\end{split}
+\end{equation*}
+\hlin
+b)
+\begin{equation*}
+	\begin{split}
+	i & = \il{C} \vec{k} \cdot (\a{N} \times \vec{dl}_C ) \qquad \qquad \Aboxed{\a{N} \text{: vetor unitário normal à  superfície S} } \\
+	& = \il{C} [\dcs{0} \omega a \sin \theta \a{\phi}] \cdot [\a{r} \times a \; d \theta \; \a{\theta}] \\
+	& = \il{C} [\dcs{0} \omega a \sin \theta \a{\phi}] \cdot [a \; d \theta \; \a{\phi}] \\	
+	& = \int_{0}^{\pi} \dcs{0} \omega a^2 \sin \theta \; d \theta \\
+	& = 2 \omega a^2 \dcs{0} \\
+	\end{split}
+\end{equation*}
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntaal{}
+\end{pergunta}
+\begin{resposta}
+a)
+\begin{equation*}
+	\begin{split}
+	S & : \begin{cases} \rho \le a \\ z = 0 \end{cases} \\
+	\end{split}
+\end{equation*}
+\hlin
+b)
+\begin{equation*}
+	\begin{split}
+	\vec{k} & = \dcs{} \vec{u}_S \\
+	& = \frac{q}{S} \omega \rho \a{\phi} \\
+	& = \frac{q}{\pi a^2} \omega \rho \a{\phi} \\
+	\end{split}
+\end{equation*}
+\hlin
+c)
+\begin{equation*}
+	\begin{split}
+	\dpx{i} & = \vec{k} \cdot \vec{\dpx{S}} \\
+	& = \frac{q}{\pi a^2} \omega \rho \a{\phi} \cdot \dpx{S} \a{\phi} \\
+	& = \frac{q}{\pi a^2} \omega \rho \a{\phi} \cdot (d \rho \a{\phi}) \\
+	& = \frac{q}{\pi a^2} \omega \rho \; d \rho \\	
+	\end{split}
+\end{equation*}
+\hlin
+\clearpage
+d)
+\begin{equation*}
+	\begin{split}
+	i & = \iv{S} \dpx{i} \\
+	& = \int_{0}^{a} \frac{q}{\pi a^2} \omega \rho \; d \rho \\	
+	& = \frac{q}{\pi a^2} \omega \left. \frac{1}{2} \rho^2 \right|_{0}^{a} \\
+	& = \frac{q}{2 \pi a^2} \omega a^2 \\
+	& = \frac{q \omega}{2 \pi} \\	
+	\end{split}
+\end{equation*}
+\hlin
+e)
+\begin{equation*}
+	\begin{split}
+	i & = \frac{q \omega}{2 \pi} \\
+	& = \frac{q}{T} \\
+	\end{split}
+\end{equation*}
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntaam{}
+\end{pergunta}
+\begin{resposta}
+a)
+\begin{equation*}
+	\begin{split}
+	\vec{k} & = \dcs{} \vec{u}_S \\
+	& = \dcs{0} u_S \a{\phi} \\
+	& = \dcs{0} \omega \rho \a{\phi} \\
+	& = \dcs{0} \omega \frac{a}{h} z \a{\phi} \\	
+	\end{split}
+\end{equation*}
+\hlin
+\clearpage
+b)
+\begin{equation*}
+	\begin{split}
+	i = \il{C} \vec{k} \cdot (\a{N} \times \vec{dl}_C ) \\
+	\end{split}
+\end{equation*}
+\hhhlin
+\begin{equation*}
+	\begin{split}
+	\a{N} = \frac{\grad S}{|\grad S|} \\
+	\end{split}
+\end{equation*}
+\hhhlin
+\begin{equation*}
+	\begin{split}
+	\grad S & = \left( \gc{}{}{} \right) \left[ \rho - \frac{a}{h} z \right] \\
+	& = \a{\rho} - \frac{a}{h} \a{z} \\
+	\end{split}
+\end{equation*}
+\hhhlin
+\begin{equation*}
+	\begin{split}
+	\a{N} & = \frac{\grad S}{|\grad S|} \\
+	& = \frac{\a{\rho} - \frac{a}{h} \a{z}}{\sqrt{1 + \left(\frac{a}{h} \right)^2}} \\
+	& = \frac{h \a{\rho} - a \a{z}}{\sqrt{h^2 + a^2}} \\
+	\end{split}
+\end{equation*}
+\hhhlin
+\clearpage
+\begin{equation*}
+	\begin{split}
+	i & = \il{C} \vec{k} \cdot (\a{N} \times \vec{dl}_C ) \\
+	& = \il{C} \dcs{0} \omega \frac{a}{h} z \a{\phi} \cdot \left( \left[ \frac{h \a{\rho} - a \a{z}}{\sqrt{h^2 + a^2}} \right] \times [d \rho \a{\rho} + dz \a{z} ] \right) \\
+	& = \il{C} \dcs{0} \omega \frac{a}{h} z \a{\phi} \cdot \left( - \left[ \frac{h \; dz \a{\phi} + a \; d \rho \a{\phi}}{\sqrt{h^2 + a^2}} \right] \right) \\
+	& = - \il{C} \dcs{0} \omega \frac{a}{h} z \; \frac{h \; dz + a \; d \rho}{\sqrt{h^2 + a^2}} \\
+	& = - \il{C} \dcs{0} \omega \frac{a}{h} z \; \frac{h \; dz + a \frac{a}{h} dz}{\sqrt{h^2 + a^2}} \\
+	& = - \int_{0}^{h} \dcs{0} \omega \frac{a}{h^2} \frac{h^2 + a^2}{\sqrt{h^2 + a^2}} \; z \; dz\\	
+	& = - \dcs{0} \omega \frac{a}{h^2} \sqrt{h^2 + a^2} \; \left. \frac{1}{2} z^2 \right|_{0}^{h} \\
+	& = - \dcs{0} \omega \frac{a}{2 h^2} \sqrt{h^2 + a^2} \; h^2 \\
+	& = - \frac{a \omega \dcs{0}}{2} \sqrt{h^2 + a^2} \\
+	\end{split}
+\end{equation*}
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntaan{}
+\end{pergunta}
+\begin{resposta}
+a)
+\begin{equation*}
+	\begin{split}
+	\vec{J} & = \vec{k} \delta(z) \\
+	& = k \a{y} \delta(z) \\
+	\end{split}
+\end{equation*}
+\hlin
+b)
+\begin{equation*}
+	\begin{split}
+	i & = \il{C} \vec{k} \cdot (\a{N} \times \vec{dl}) \\
+	& = \il{C} k \a{y} \cdot \left( [\a{z}] \times [dx \; \a{x} + dy \; \a{y}] \right) \\
+	& = \il{C} k \a{y} \cdot \left( dx \; \a{y} - dy \; \a{x}] \right) \\
+	& = \int_{0}^{\frac{L}{\sqrt{2}}} k dx \\
+	& = k \; \left. \frac{}{} \right|_{0}^{\frac{L}{\sqrt{2}}} \\
+	& = \frac{k L}{\sqrt{2}} \\
+	\end{split}
+\end{equation*}
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntaao{}
+\end{pergunta}
+\begin{resposta}
+a)
+\begin{equation*}
+	\begin{split}
+	\vec{J} & = \dcv{} \vec{u} \qquad \qquad \Aboxed{vec{u} \text{: velocidade da partícula} } \\
+	& = q \delta(x) \delta(y) \delta(z - a \cos [\omega t]) u \a{z} \\
+	& = q \delta(x) \delta(y) \delta(z - a \cos [\omega t]) \frac{dz}{dt} \a{z} \\
+	& = q \delta(x) \delta(y) \delta(z - a \cos [\omega t]) \frac{d}{dt} (a \cos[\omega t] ) \a{z} \\
+	& = q \delta(x) \delta(y) \delta(z - a \cos [\omega t]) (- a \omega \sin [\omega t] ) \a{z} \\
+	& = - q \omega a \delta(x) \delta(y) \delta(z - a \cos [\omega t]) \sin [\omega t] \a{z} \\
+	\end{split}
+\end{equation*}
+\hlin
+b)
+\begin{equation*}
+	\begin{split}
+	i & = \is{S} \vec{J} \cdot \vec{dS} \\
+	& = \is{S} (- q \omega a \delta(x) \delta(y) \delta(z - a \cos [\omega t]) \sin [\omega t] \a{z}) \cdot (dx \; dy \; \a{z}) \\	
+	& = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} (- q \omega a \delta(x) \delta(y) \delta(z - a \cos [\omega t]) \sin [\omega t] \; dx \; dy \\
+	& = - q \omega a \delta(z - a \cos [\omega t]) \sin [\omega t] \\
+	\end{split}
+\end{equation*}
+\end{resposta}
+
+\clearpage
+
+\fi
+
+% Restante do capítulo 2 do livro, não pedido.
+\iffalse
+\begin{resposta}
+\begin{equation*}
+	\begin{split}
+	\div \vec{D} & = \dcv{} \\
+	\div \vec{B} & = 0 \\
+	\rot \vec{E} & = - \pt{\vec{B}} \\
+	\rot \vec{H} & = \vec{J} + \pt{\vec{D}} \\
+	\end{split}
+	\hspace{2em}
+	\begin{split}
+	\land \\
+	\end{split}
+	\hspace{2em}
+	\begin{split}
+	\vec{D} & = \pme{\bbepsilon} \vec{E} \\
+	\vec{B} & = \pme{\bbmu} \vec{H} \\
+	\vec{J} &= \pme{\bbsigma} \vec{E} + \dcv{} \vec{u} \\
+	\end{split}
+	\hspace{2em}
+	\begin{split}
+	\implies \\
+	\end{split}
+	\hspace{2em}
+	\begin{split}
+	\div \vec{E} & = \frac{\dcv{}}{\pme{\bbepsilon}} \\
+	\div \vec{H} & = 0 \\
+	\rot \vec{E} & = - \pme{\bbmu} \pt{\vec{H}} \\
+	\rot \vec{H} & = \pme{\bbsigma} \vec{E} + \pme{\bbepsilon} \pt{\vec{E}} + \dcv{} \vec{u} \\
+	\end{split}
+\end{equation*}
+\end{resposta}
+
+\begin{resposta}
+\begin{equation*}
+	\begin{split}
+	\div \vec{D} & = \dcv{} \\
+	\div \vec{B} & = 0 \\
+	\rot \vec{E} & = - \pt{\vec{B}} \\
+	\rot \vec{H} & = \vec{J} + \pt{\vec{D}} \\
+	\end{split}
+	\hspace{2em}
+	\begin{split}
+	\land \\
+	\end{split}
+	\hspace{2em}
+	\begin{split}
+	\vec{D} & = \pme{\bbepsilon}(\vec{r}) \vec{E} \\
+	\vec{B} & = \pme{\bbmu}(\vec{r}) \vec{H} \\
+	\vec{J} &= \pme{\bbsigma}(\vec{r}) \vec{E} + \dcv{} \vec{u} \\
+	\end{split}
+	\hspace{2em}
+	\begin{split}
+	\implies ... \\
+	\end{split}
+\end{equation*}
+\hhhlin
+\begin{equation*}
+	\begin{split}
+	\div \left( \pme{\bbepsilon}(\vec{r}) \vec{E}) \right) & = \dcv{} \\
+	\div \left( \pme{\bbmu}(\vec{r}) \vec{H} \right) & = 0 \\
+	\rot \vec{E} & = - \pt{} \left( \pme{\bbmu}(\vec{r}) \vec{H} \right) \\
+	\rot \vec{H} & = \pme{\bbsigma}(\vec{r}) \vec{E} + \dcv{} \vec{u} + \pt{} \left( \pme{\bbepsilon}(\vec{r}) \vec{E} \right)\\
+	\end{split}
+	\hspace{2em}
+	\begin{split}
+	\implies ... \\
+	\end{split}
+\end{equation*}
+\hhhlin
+\begin{equation*}
+	\begin{split}
+	\grad \pme{\bbepsilon}(\vec{r}) \cdot \vec{E} + \pme{\bbepsilon}(\vec{r}) \div \vec{E} & = \dcv{} \\
+	\grad \pme{\bbmu}(\vec{r}) \cdot \vec{H} + \pme{\bbmu}(\vec{r}) \div \vec{H} & = 0 \\
+	\rot \vec{E} & = - \left( \pt{} (\pme{\bbmu}(\vec{r}) \; \vec{H} + \pme{\bbmu}(\vec{r}) \pt{} \vec{H} \right) \\
+	\rot \vec{H} & = \pme{\bbsigma}(\vec{r}) \vec{E} + \dcv{} \vec{u} + \pt{} \pme{\bbepsilon}(\vec{r}) \; \vec{E} + \pme{\bbepsilon}(\vec{r}) \pt{} \vec{E} \\
+	\end{split}
+	\hspace{2em}
+	\begin{split}
+	\implies ... \\
+	\end{split}
+\end{equation*}
+\hhhlin
+\begin{equation*}
+	\begin{split}
+	\grad \pme{\bbepsilon}(\vec{r}) \cdot \vec{E} + \pme{\bbepsilon}(\vec{r}) \div \vec{E} & = \dcv{} \\
+	\grad \pme{\bbmu}(\vec{r}) \cdot \vec{H} + \pme{\bbmu}(\vec{r}) \div \vec{H} & = 0 \\
+	\rot \vec{E} & = - \pme{\bbmu}(\vec{r}) \pt{} \vec{H} \\
+	\rot \vec{H} & = \pme{\bbsigma}(\vec{r}) \vec{E} + \dcv{} \vec{u} + \pme{\bbepsilon}(\vec{r}) \pt{} \vec{E} \\
+	\end{split}
+\end{equation*}
+\end{resposta}
+
+\begin{resposta}
+\begin{equation*}
+	\begin{split}
+	D_i & = \sum_{k \to 1}^{3} \pme{\bbepsilon}_{ik} E_{i} \implies \\
+	\end{split}
+	\hspace{2em}
+	\begin{split}
+	D_1 & = \sum_{k \to 1}^{3} \pme{\bbepsilon}_{1,k} E_{1} \\
+	D_2 & = \sum_{k \to 1}^{3} \pme{\bbepsilon}_{2,k} E_{2} \\
+	D_3 & = \sum_{k \to 1}^{3} \pme{\bbepsilon}_{3,k} E_{3} \\
+	\end{split}
+	\hspace{1em}
+	\begin{split}
+	& = \pme{\bbepsilon}_{1,1} E_1 + \pme{\bbepsilon}{1,2} E_1 + \pme{\bbepsilon}_{1,3} E_1 \\ \\
+	& = \pme{\bbepsilon}_{2,1} E_1 + \pme{\bbepsilon}{2,2} E_1 + \pme{\bbepsilon}_{2,3} E_1 \\ \\
+	& = \pme{\bbepsilon}_{3,1} E_1 + \pme{\bbepsilon}{3,2} E_1 + \pme{\bbepsilon}_{3,3} E_1 \\
+	\end{split}
+	\hspace{2em}
+	\begin{split}
+	\implies ... \\
+	\end{split}
+\end{equation*}
+\hhhlin
+\begin{equation*}
+	\begin{split}
+	\bigmli{D} & = \bigmqi{\pme{\bbepsilon}} \bigmci{E} \\
+	\end{split}
+	\hspace{1em}
+	\begin{split}
+	\implies \\
+	\end{split}
+	\hspace{2em}
+	\begin{split}
+	\boldsymbol{D}^T & = \pmm{\bbepsilon} \boldsymbol{E} \qquad \implies \vec{D} & = \pmm{\bbepsilon} \vec{E} \\
+	\end{split}
+\end{equation*}
+\end{resposta}
+
+\begin{resposta}
+a
+\begin{equation*}
+	\begin{split}
+	D_1 & = \sum_{k \to 1}^{3} \pme{\bbepsilon}_{1,k} E_{1} \\
+	D_2 & = \sum_{k \to 1}^{3} \pme{\bbepsilon}_{2,k} E_{2} \\
+	D_3 & = \sum_{k \to 1}^{3} \pme{\bbepsilon}_{3,k} E_{3} \\
+	\end{split}
+	\hspace{1em}
+	\begin{split}
+	& = 0 + \epsilon E_2 + \epsilon E_3 \\ \\
+	& = \epsilon E_2 + 0 + \epsilon E_3 \\ \\
+	& = \epsilon E_1 + \epsilon E_2 + \epsilon E_3 \\
+	\end{split}
+	\hspace{2em}
+	\begin{split}
+	\implies ... \\
+	\end{split}
+\end{equation*}
+\hhhlin
+\begin{equation*}
+	\begin{split}
+	\vec{D} & = \epsilon \left[ (E_y + E_z) \a{x} + (E_x + E_z) \a{y} + (E_x + E_y) \a{z} \right] \\
+	\end{split}
+\end{equation*}
+b)
+\begin{equation*}
+	\begin{split}
+	\boldsymbol{D}^T & = \pmm{\bbepsilon} \boldsymbol{E} \implies \pmm{\bbepsilon}^{-1} \boldsymbol{D} = \boldsymbol{E}^T \\
+	\boldsymbol{E}^T & = \bigmq{0}{\bbepsilon}{\bbepsilon}{\bbepsilon}{0}{\bbepsilon}{\bbepsilon}{\bbepsilon}{0} \bigmci{D} \\
+	& = \frac{1}{2 \epsilon} \bigmq{-1}{1}{1}{1}{-1}{1}{1}{1}{-1} \bigmci{D} \\
+	\vec{E} & = \frac{1}{2 \epsilon} \left[ (D_y + D_z - D_x) \a{x} + (D_x + D_z - D_y) \a{y} + (D_x + D_y - D_z ) \a{z} \right] \\
+	\end{split}
+\end{equation*}
+\end{resposta}
+
+\begin{resposta}
+a
+\begin{equation*}
+	\begin{split}
+	D_1 & = \sum_{k \to 1}^{3} \pme{\bbepsilon}_{1,k} E_{1} \\
+	D_2 & = \sum_{k \to 1}^{3} \pme{\bbepsilon}_{2,k} E_{2} \\
+	D_3 & = \sum_{k \to 1}^{3} \pme{\bbepsilon}_{3,k} E_{3} \\
+	\end{split}
+	\hspace{1em}
+	\begin{split}
+	& = \epsilon_x E_x \\ \\
+	& = \epsilon_y E_y \\ \\
+	& = \epsilon_z E_z + \epsilon E_2  \\
+	\end{split}
+	\hspace{2em}
+	\begin{split}
+	\implies \\
+	\end{split}
+	\hspace{2em}
+	\begin{split}
+	\vec{D} & = \epsilon_x E_x \a{x} + \epsilon_y E_y \a{y} + \epsilon_z E_z \a{z} \\
+	\end{split}
+\end{equation*}
+\hlin
+b)
+\begin{equation*}
+	\begin{split}
+	\boldsymbol{E}^T & = \pmm{\bbepsilon}^{-1} \boldsymbol{D} \\
+	& = \bigmq{\bbepsilon_x}{0}{0}{0}{\bbepsilon_y}{0}{0}{0}{\bbepsilon_z} \bigmci{D} \\
+	& = \frac{1}{\epsilon_x \epsilon_y \epsilon_z} \bigmq{\bbepsilon_y \bbepsilon_z}{0}{0}{0}{\bbepsilon_x \bbepsilon_z}{0}{0}{0}{\bbepsilon_x \bbepsilon_y} \bigmci{D} \\
+	\vec{E} & = \frac{1}{\epsilon_x} D_x \a{x} + \frac{1}{\epsilon_y} D_y \a{y} + \frac{1}{\epsilon_z} D_z \a{z} \\
+	\end{split}
+\end{equation*}
+\end{resposta}
+
+\begin{resposta}
+\begin{equation*}
+	\begin{split}
+	& \pmm{\bbepsilon} \boldsymbol{E} = \epsilon \boldsymbol{E} \implies \pmm{\bbepsilon} \boldsymbol{E} = \epsilon \boldsymbol{1} \boldsymbol{E} \\
+	& \qquad \bigmq{\pme{\bbepsilon}_x}{0}{0}{0}{\pme{\bbepsilon}_y}{0}{0}{0}{\pme{\bbepsilon}_z} = \bigmq{\epsilon}{0}{0}{0}{\epsilon}{0}{0}{0}{\epsilon} \implies \pme{\bbepsilon}_x = \pme{\bbepsilon}_y = \pme{\bbepsilon}_z = \epsilon \\
+	& \pmm{\bbepsilon} = \bigmq{\epsilon}{0}{0}{0}{\epsilon}{0}{0}{0}{\epsilon} \\
+	\end{split}
+\end{equation*}
+\end{resposta}
+
+\begin{resposta}
+\begin{equation*}
+	\begin{split}
+	& \ios{S} \vec{D} \cdot \vec{dS} = \iv{v} \dcv{} dv \implies \ios{\dpx{S}} \vec{D} \cdot \vec{dS} = \iv{\dpx{v}} \dcv{} dv \qquad \qquad \Aboxed{\dpx{S},\dpx{v} \text{: infinitesimais}} \\
+	\end{split}
+\end{equation*}
+\begin{equation*}
+	\begin{split}
+	\qquad \ios{\dpx{S}} \vec{D} \cdot \vec{dS} & = \iv{\dpx{v}} \left. \frac{}{} \dcv{} \right|_{\dpx{v}} dv \\
+	& = \left. \frac{}{} \dcv{} \right|_{\dpx{v}} \iv{\dpx{v}} dv \implies \left. \frac{}{} \dcv{} \right|_{\dpx{v}} = \frac{\ios{\dpx{S}} \vec{D} \cdot \vec{dS}}{\dpx{v}} \\
+	\end{split}
+\end{equation*}
+\begin{equation*}
+	\begin{split}
+	\dcv{} & = \lim_{\Delta v \to 0} \frac{\ios{\Delta S} \vec{D} \cdot \vec{dS}}{\Delta v} \\
+	& = \div \vec{D} \qquad \wasytherefore \iv{v} \dcv{} dv = \iv{v} \div \vec{D} dv \\
+	\end{split}
+\end{equation*}
+\end{resposta}
+\fi
+\iffalse
+\begin{resposta}
+a)
+\tdplotsetmaincoords{60}{110}
+\drawfigbdba{}
+\begin{equation*}
+	\begin{split}
+	\Phi_{\vec{D},Sa} & = \ios{S} \vec{D} \cdot \vec{dSa} \\
+	& = \ios{Sa} \left( \frac{q}{4 \pi r^2} \a{r} \right) \left( \dse \right) \\
+	& = \ios{Sa} \frac{q}{4 \pi r^2} (r^2 \sin \theta \; d \theta \; d \phi \\
+	& = \int_{0}^{2 \pi} \int_{0}^{\theta_0} \frac{q}{4 \pi} \sin \theta \; d \theta \; d \phi \\
+	& = \int_{0}^{\theta_0} \frac{q}{4 \pi} \sin \theta \; d \theta \; \left. \left[ \frac{}{} \phi \right] \right|_{0}^{2 \pi} \\
+	& = \int_{0}^{\theta_0} \frac{q}{2} \sin \theta \; d \theta \\
+	& = \frac{q}{2} \sin \theta \; \left. \left[ \frac{}{} \cos \theta \right] \right|_{\theta_0}^{0} \\
+	& = \frac{q}{2} [ 1 - \cos \theta_0 ] \\
+	& = \frac{q}{2} \left[ \sin^2 \left(\frac{\theta_0}{2}\right) + \cos^2 \left(\frac{\theta_0}{2}\right) - \cos \left(2 \frac{\theta_0}{2}\right) \right] \\	
+	& = \frac{q}{2} \left[ \sin^2 \left(\frac{\theta_0}{2}\right) + \cos^2 \left(\frac{\theta_0}{2}\right) - \cos ^2 \left(\frac{\theta_0}{2}\right) + \sin^2 \left(\frac{\theta_0}{2}\right)  \right] \\	
+	& = q \sin^2 \left(\frac{\theta_0}{2}\right) \\
+	\end{split}
+\end{equation*}
+\hlin
+b)
+\begin{SCfigure}
+	\begin{minipage}{.5\textwidth}
+		\tdplotsetmaincoords{60}{110}
+		\drawfigbdbb{}
+	\end{minipage}
+	\begin{minipage}{.5\textwidth}
+		\tdplotsetmaincoords{90}{120}
+		\drawfigbdbb{}
+	\end{minipage}
+\end{SCfigure}
+\begin{equation*}
+	\begin{split}
+	\Phi_{\vec{D},Sb} & = \ios{Sb} \vec{D} \cdot \vec{dSb} \\
+	& = \ios{Sb} \left( \frac{q}{4 \pi r^2} \a{r} \right) ( \rho \; d \rho \; d \phi \; \a{z} ) \\
+	& = \ios{Sb} \left( \frac{q}{4 \pi (\convrc)^2} (\convarc) \right) ( \rho \; d \rho \; d \phi \; \a{z} ) \\
+	& = \ios{Sb} \frac{q}{4 \pi (\rho^2 + z^2)} \; \rho \cos \theta \; d \rho \; d \phi \\
+	& = \ios{Sb} \frac{q}{4 \pi (\rho^2 + z^2)} \; \rho \; \frac{z}{\sqrt{\rho^2 + z^2}} \; d \rho \; d \phi \\
+	& = \int_{0}^{2 \pi} \int_{0}^{a \sin \theta_0} \frac{q z_0}{4 \pi} (\rho^2 + z_0^2)^{-\frac{3}{2}} \rho \; d \rho \; d \phi & \left( z_0 = a \cos \theta_0 \right) \\
+	& = \int_{0}^{a \sin \theta_0} \frac{q z_0}{4 \pi} (\rho^2 + z_0^2)^{-\frac{3}{2}} \rho \; d \rho \left. \; \left[ \frac{}{} \phi \right] \right|_{0}^{2 \pi} \\
+	& = \frac{q z_0}{2} \int_{0}^{a \sin \theta_0} (\rho^2 + z_0^2)^{-\frac{3}{2}} \rho \; d \rho \\
+	& = \frac{q z_0}{2} \; \left. \left[ \frac{}{} (\rho^2 + z_0^2)^{-\frac{1}{2}} \right] \right|_{a \sin \theta_0}^{0} \\
+	& = \frac{q z_0}{2} \left[ (z_0^2)^{-\frac{1}{2}} - (a^2 \sin ^2 \theta_0 + z_0^2)^{-\frac{1}{2}} \right] \\
+	& = \frac{q \; a \cos \theta_0}{2} \left[ \frac{1}{a \cos \theta_0} - \frac{1}{\sqrt{a^2 \sin^2 \theta_0 + a^2 \cos ^2 \theta_0}} \right] \\
+	& = \frac{q \; a \cos \theta_0}{2} \left[ \frac{1}{a \cos \theta_0} - \frac{1}{a} \right] \\
+	& = \frac{q}{2} \left[ 1 - \cos \theta_0 \right] \\
+	& = q \sin^2 \left(\frac{\theta_0}{2}\right) \\
+	\end{split}
+\end{equation*}
+\hlin
+c)
+\begin{equation*}
+	\begin{split}
+	\Phi_{\vec{D},Sc} & = \Phi_{\vec{D},Sa} - \Phi_{\vec{D},Sb} \\
+	& = \frac{q}{2} \left[ 1 - \cos \theta_0 \right] - \frac{q}{2} \left[ 1 - \cos \theta_0 \right] \\
+	& = 0 \\
+	\end{split}
+\end{equation*}
+\end{resposta}
+\fi
+\iffalse
+
+\begin{resposta}
+a)
+\begin{equation*}
+	\begin{split}
+	\Phi_{\vec{D},Sa} & = \ios{S} \vec{D} \cdot \vec{dSa} \\
+	& = \int_{0}^{2 \pi} \int_{0}^{\theta_0} \frac{q}{4 \pi} \sin \theta \; d \theta \; d \phi \\
+	& = q \sin^2 \left(\frac{\theta_0}{2}\right) \\
+	\end{split}
+\end{equation*}
+\hlin
+b)
+\tdplotsetmaincoords{60}{110}
+\drawfigbdcb{}
+\begin{equation*}
+	\begin{split}
+	\Phi_{\vec{D},Sb} & = \ios{Sb} \vec{D} \cdot \vec{dSb} \\
+	& = \ios{Sb} \left( \frac{q}{4 \pi r^2} \a{r} \right) ( \rho \; d \rho \; d \phi \; \a{z} ) \\
+	& = \ios{Sb} \left( \frac{q}{4 \pi (\convrc)^2} (\convarc) \right) ( \rho \; d \rho \; d \phi \; \a{z} ) \\
+	& = \ios{Sb} \frac{q}{4 \pi (\rho^2 + z^2)} \; \rho \cos \theta \; d \rho \; d \phi \\
+	& = \ios{Sb} \frac{q}{4 \pi (\rho^2 + z^2)} \; \rho \; \frac{z}{\sqrt{\rho^2 + z^2}} \; d \rho \; d \phi \\
+	& = \int_{0}^{2 \pi} \int_{0}^{a \sin \theta_0} \frac{q z_0}{4 \pi} (\rho^2 + z_0^2)^{-\frac{3}{2}} \rho \; d \rho \; d \phi & \left( z_0 = a \cos \theta_0 \right) \\
+	& = \int_{0}^{a \sin \theta_0} \frac{q z_0}{4 \pi} (\rho^2 + z_0^2)^{-\frac{3}{2}} \rho \; d \rho \left. \; \left[ \frac{}{} \phi \right] \right|_{0}^{2 \pi} \\
+	& = \frac{q z_0}{2} \int_{0}^{a \sin \theta_0} (\rho^2 + z_0^2)^{-\frac{3}{2}} \rho \; d \rho \\
+	& = \frac{q z_0}{2} \; \left. \left[ \frac{}{} (\rho^2 + z_0^2)^{-\frac{1}{2}} \right] \right|_{a \sin \theta_0}^{0} \\
+	& = \frac{q z_0}{2} \left[ (z_0^2)^{-\frac{1}{2}} - (a^2 \sin ^2 \theta_0 + z_0^2)^{-\frac{1}{2}} \right] \\
+	& = \frac{q \; a \cos \theta_0}{2} \left[ \frac{1}{a \cos \theta_0} - \frac{1}{\sqrt{a^2 \sin^2 \theta_0 + a^2 \cos ^2 \theta_0}} \right] \\
+	& = \frac{q \; a \cos \theta_0}{2} \left[ \frac{1}{a \cos \theta_0} - \frac{1}{a} \right] \\
+	& = \frac{q}{2} \left[ 1 - \cos \theta_0 \right] \\
+	& = q \sin^2 \left(\frac{\theta_0}{2}\right) \\
+	\end{split}
+\end{equation*}
+\hlin
+c)
+\begin{equation*}
+	\begin{split}
+	\Phi_{\vec{D},Sc} & = \Phi_{\vec{D},Sa} + \Phi_{\vec{D},Sb} \\
+	\end{split}
+\end{equation*}
+\end{resposta}
+\fi
+
+\section*{Parte 2}
+\begin{pergunta}
+\perguntaba{}
+\end{pergunta}
+\begin{resposta}
+Código:
+\lstinputlisting{calcevk.m}
+\hhlin
+Exemplo: \\
+
+\end{resposta}
+
+\begin{pergunta}
+\perguntabb{}
+\end{pergunta}
+\begin{resposta}
+\end{resposta}
+
+\begin{pergunta}
+\perguntabc{}
+\end{pergunta}
+\begin{resposta}
+\end{resposta}
+
+\begin{pergunta}
+\perguntabd{}
+\end{pergunta}
+\begin{resposta}
+\end{resposta}
+
+\begin{pergunta}
+\perguntabe{}
+\end{pergunta}
+\begin{resposta}
+\end{resposta}
+
+\section*{Parte 3}
+\begin{pergunta}
+\perguntaca{}
+\end{pergunta}
+\begin{resposta}
+\end{resposta}
+
+\begin{pergunta}
+\perguntacb{}
+\end{pergunta}
+\begin{resposta}
+\end{resposta}
+
+\begin{pergunta}
+\perguntacc{}
+\end{pergunta}
+\begin{resposta}
+\end{resposta}
+
+\begin{pergunta}
+\perguntacd{}
+\end{pergunta}
+\begin{resposta}
+\end{resposta}
+
+\end{document}

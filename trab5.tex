@@ -1,0 +1,184 @@
+\documentclass[12pt,handout,usenames,dvipsnames]{beamer}
+\usepackage{xcolor}
+\usepackage[portuguese,brazilian]{babel}
+\usepackage[ansinew]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[scaled]{helvet}
+\usepackage{hyperref}
+
+\usetheme{Warsaw}
+\useoutertheme{split}
+\usecolortheme{orchid}
+
+
+\title{Stuxnet}
+\author{Sérgio Cordeiro}
+\date{Segurança Cibernética, Autose, 2015}
+\subject{Automação de Subestações Elétricas,Segurança Cibernética}
+
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}
+	\frametitle{Referências}
+	\begin{itemize}
+		\item \textbf{Byres e Howard: \emph{Analysis of the Siemens WinCC / PCS7 “Stuxnet” Malware for Industrial Control System Professionals} (2010)}
+		\item \textbf{Langner: \emph{To Kill a Centrifuge. A Technical Analysis of What Stuxnet’s Creators Tried to Achieve} (2013)} \\
+		\tiny \url{http://www.langner.com/en/wp-content/uploads/2013/11/To-kill-a-centrifuge.pdf} \normalsize
+		\item \textbf{Nachenberg: \emph{A Forensic Dissection of Stuxnet} (2012)} \\		
+		\tiny \url{http://www.ttivanguard.com/ttivanguard_cfmfiles/pdf/sanjose12/sanjose12session7117.pdf} \normalsize
+	\end{itemize}		
+\end{frame}
+
+\begin{frame}
+	\frametitle{Sumário}
+	\begin{itemize}
+		\item O Stuxnet é um programa malicioso extremamente sofisticado projetado para atacar um sistema industrial específico.
+		\item Descoberto em 2010, vem sendo analisado até hoje. Posteriormente, descobriu-se uma versão anterior, datada de 2005.
+		\item Provavelmente desenvolvido por um estado nacional.
+		\item Primeiro ataque a um sistema SCADA registrado na história.
+	\end{itemize}		
+\end{frame}
+
+\begin{frame}
+	\frametitle{Sofisticação}
+	\begin{itemize}
+		\item Explora 4 vulnerabilidades do Windows desconhecidas à época
+		\item Explora características específicas da plataforma Siemens
+		\item Explora características específicas da planta alvo
+		\item Difícil de ser descoberto mesmo depois de executar o ataque
+		\item Alvo: planta de enriquecimento de Urânio de Natanz (Irã)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Ciclo de vida}
+	\begin{itemize}
+		\item inserido em PCs de empresas de engenharia no Irã por meio de drives USB
+		\item conecta-se a um centro de controle remoto
+		\item infecta novas máquinas pela rede Ethernet ou por meio de drives USB
+		\item quando encontra uma estação de engenharia Siemens, infecta arquivos específicos da plataforma
+		\item quando se encontra na planta alvo, infecta os PLCs
+		\item periodicamente, executa a ação de ataque
+	\end{itemize}
+	Efetivamente, consiste em duas partes:
+	\begin{itemize}
+		\item um verme (\emph{worm}) que propaga a infecção
+		\item um núcleo, que executa o ataque
+	\end{itemize}		
+\end{frame}
+
+\begin{frame}
+	\frametitle{O verme}
+	\begin{itemize}
+		\item Explora as vulnerabilidades do sistema para se instalar e se propagar
+		\item Verifica se deve instalar o núcleo
+		\item Comunica-se com o centro de controle remoto para receber atualizações e instruções e registrar suas ações
+	\end{itemize}
+	Além de verme, tem características de vírus e de \emph{rootkit}, além de ser polimórfico.
+\end{frame}
+
+\begin{frame}
+	\frametitle{O núcleo}
+	\begin{itemize}
+		\item Infecta DLL da Siemens que faz interface entre o PC e o PLC
+		\item Infecta arquivos de programa Step 7 quando o programador é executado
+		\item Programa infectado é eventualmente copiado para o PLC pelo programador
+		\item Após a infecção, o ataque é executado periodicamente pelo programa infectado
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Destaques}
+	O verme se comporta de forma tradicional; a única característica notável é o fato de explorar muitas vulnerabilidades inéditas à época.
+	O núcleo é a parte que apresenta maiores novidades:
+	\begin{itemize}
+		\item Infecta o PLC, não apenas o PC
+		\item Explora vulnerabilidades da plataforma Siemens:
+		\begin{itemize}
+			\item senha fixa entre o WinCC e o SQLServer
+			\item blocos podem ser criptografados
+		\end{itemize}
+		\item Explora características específicas da planta alvo:
+		\begin{itemize}
+			\item Endereços de I/O determinados
+			\item Processo de controle de velocidade das centrífugas
+			\item Processo de regulação de pressão nas centrífugas (versão antiga)
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{O ataque}
+	\begin{itemize}
+		\item Versão antiga:
+		\begin{itemize}
+			\item Fecha determinadas válvulas de forma a fazer aumentar a pressão em algumas centrífugas
+			\item Impede a abertura das válvulas de alívio de pressão
+			\item Apresenta ao operador dados falsos sobre o processo, para evitar intervenção manual
+		\end{itemize}
+		\item Versão mais recente:
+		\begin{itemize}
+			\item Aumenta o setpoint do inversor em 40\% ou
+			\item Diminui para uma velocidade muito baixa
+			\item Depois de alguns minutos, volta ao normal
+		\end{itemize}
+	\end{itemize}
+	Em ambas as versões, executa o ataque com pequenas frequência e duração, para evitar ser identificado
+\end{frame}
+
+\begin{frame}
+	\frametitle{O ataque}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\textwidth]{figura_1.jpg}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Resultados}
+	\begin{itemize}
+		\item O objetivo do ataque é danificar o equipamento no médio prazo.
+		\item Não se tem confirmação do sucesso do ataque, mas aparentemente 10\% das centrífugas foram danificadas.
+		\item O ataque do Stuxnet não poderia ter sido evitado por meios tradicionais.
+		\item \color{PineGreen} Os danos (e talvez também a infecção) seriam evitados por meio de boas práticas de engenharia. \color{black}
+	\end{itemize}		
+\end{frame}
+
+\begin{frame}
+	\frametitle{Defesas tradicionais}
+	\begin{itemize}
+		\item \emph{hardening}/\emph{patching}/atualizações de software/firmware
+		\item segregação/segmentação
+		\item monitoramento da rede
+		\item bloqueio de portas USB
+		\item equipe de resposta a incidentes
+		\item anti-virus/descobridor de \emph{rootkits}
+		\item AAA
+		\item certificados digitais
+	\end{itemize}
+\end{frame}
+	
+\begin{frame}
+	\frametitle{Boas práticas}
+	\begin{itemize}
+		\color{PineGreen}
+		\item Virtualização de desktops (VDI) e de servidores \\
+		\tiny na reinicialização sempre se lê uma imagem não corrompida \normalsize
+		\item Uso de controle de versão centralizado \\
+		\tiny controle do que foi alterado de uma versão para a outra \normalsize
+		\item Uso de relés de segurança, válvulas auto-operadas, sistemas redundantes, maior monitoramento \\
+		\tiny robustez do projeto de automação \normalsize
+		\item Dimensionamento correto dos equipamentos \\
+		\tiny robustez dos projetos elétrico e mecânico \normalsize
+		\item Uso de software de código aberto \\
+		\tiny facilita a análise \normalsize
+		\color{black}
+	\end{itemize}
+
+\end{frame}
+
+
+\end{document}

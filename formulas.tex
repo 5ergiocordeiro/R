@@ -1,0 +1,73 @@
+% Formulário
+
+% ---------------- Matemática -----------------------------------------------------------------------------------------------------------------------
+
+% Expressões de elementos diferenciais
+% Elemento de deslocamento em coordenadas cilíndricas
+\newcommand {\dlc}{d \rho \; \a{\rho} + \rho \; d \phi \; \a{\phi} + dz \; \a{z}}
+% Elemento de superfície em coordenadas cilíndricas
+\newcommand {\dsc}{\rho \; d \phi \; dz \; \a{\rho} + dz \; d \rho \; \a{\phi} + \rho \; d \rho \; d \phi \; \a{z}}
+% Elemento de volume em coordenadas cilíndricas
+FAZER \newcommand {\dvc}{}
+% Elemento de deslocamento em coordenadas esféricas
+\newcommand {\dle}{dr \; \a{r} + r \; d \theta \; \a{\theta} + r \sin \theta \; d \phi \; \a{\phi} + dz \; \a{z}}
+% Elemento de superfície em coordenadas esféricas
+\newcommand {\dse}{r^2 \sin \theta \; d \theta \; d \phi \; \a{r} + r \sin \theta \; dr \; d \phi \; \a{\theta} + r \; dr \; d \theta \; \a{\phi}}
+% Elemento de volume em coordenadas esféricas
+\newcommand {\dve}{r^2 \sin \theta \; dr \; d \theta \; d \phi}
+
+% Conversão de vetores unitários
+% Conversão de \a{r}
+\newcommand {\convarc}{\sin \theta \; \a{\rho} + \cos \theta \; \a{z}}
+\newcommand {\convark}{\sin \theta \; \cos \phi \; \a{x} + \sin \theta \; \sin \phi \; \a{y} + \cos \theta \; \a{z}}
+% Conversão de \a{theta}
+\newcommand {\convatc}{\cos \theta \; \a{\rho} - \sin \theta a; \a{z}}
+\newcommand {\convatk}{\cos \theta \; \cos \phi \; \a{x} + \cos \theta \; \sin \phi \; \a{y} - \sin \theta \; \a{z}}
+% Conversão de \a{phi}
+\newcommand {\convapk}{- \sin \phi \; \a{x} + \cos \phi \; \a{y}}
+% Conversão de \a{x}
+\newcommand {\convaxc}{\cos \phi \; \a{\rho} - \sin \phi \; \a{\phi}}
+\newcommand {\convaxe}{\sin \theta \; \cos \phi \; \a{r} + \cos \theta \; \cos \phi \; \a{\theta} - \sin \phi \; \a{\phi}}
+% Conversão de \a{y}
+\newcommand {\convayc}{\sin \phi \; \a{\rho} + \cos \phi \; \a{\phi}}
+\newcommand {\convaye}{\sin \theta \; \sin \phi \; \a{r} + \cos \theta \; \sin \phi \; \a{\theta} + \cos \phi \; \a{\phi}}
+% Conversão de \a{z}
+\newcommand {\convaze}{\cos \theta \; \a{r} - \sin \theta \; \a{\theta}}
+% Conversão de \a{rho}
+\newcommand {\convahk}{\cos \phi \; \a{x} + \sin \phi \; \a{y}}
+\newcommand {\convahe}{\sin \theta \; \a{r} + \cos \theta \; \a{\theta}}
+
+% Conversão de coordenadas
+% Conversão de r
+\newcommand {\convrc}{\sqrt{\rho^2 + z^2}}
+\newcommand {\convrk}{\sqrt{x^2 + y^2 + z^2}}
+% Conversão de theta
+\newcommand {\convtc}{\atan(\rho,z)}
+\newcommand {\convtk}{\acos(z,\sqrt{x^2 + y^2 + z^2})}
+% Conversão de phi
+\newcommand {\convpk}{\atan(y,x)}
+% Conversão de rho
+\newcommand {\convhk}{\sqrt{x^2 + y^2}}
+\newcommand {\convhe}{r \sin \theta}
+% Conversão de x
+\newcommand {\convxe}{r \sin \theta \; \cos \phi}
+% Conversão de y
+\newcommand {\convyc}{\rho \sin \phi}
+\newcommand {\convye}{r \sin \theta \; \sin \phi}
+% Conversão de z
+\newcommand {\convze}{r \cos \theta}
+
+
+(6.10) $ \lap \vec{E} = \jmath \omega \pme{\bbmu} (\pme{\bbsigma} + \jmath \omega \pme{\bbepsilon}) \vec{E} $ \\ \\
+(6.14) $ \lap \vec{H} - k^2 \vec{H} = 0 $ \\ \\
+(6.29) $ \vec{H} = (H_0 e^{\pm kz}) \a{y} $ \\ \\
+(6.11) $ \lap \vec{E} - k^2 \vec{E} = 0 $ \\ \\
+(6.15) $ \vec{E}(z) = E(z) \a{x} $ \\ \\
+(6.41) $ \vec{E} = (E_0 e^{\pm \jmath \beta z}) \a{x} $ \\ \\
+(6.52) $ \alpha = \omega \sqrt{ \dfrac{\pme{\bbmu} \pme{\bbepsilon}}{2} \left\{ \sqrt{1 + \left( \dfrac{\pme{\bbsigma}}{\omega \pme{\bbepsilon}} \right)^2} - 1 \right\} } \qquad \beta = \omega \sqrt{ \dfrac{\pme{\bbmu} \pme{\bbepsilon}}{2} \left\{ \sqrt{1 + \left( \dfrac{\pme{\bbsigma}}{\omega \pme{\bbepsilon}} \right)^2} + 1 \right\} } $ \\ \\ \\
+(6.54) $ \alpha \approx \dfrac{\pme{\bbsigma}}{2} \sqrt{\dfrac{\pme{\bbmu}}{\pme{\bbepsilon}}} \qquad \beta \approx \omega \sqrt{\pme{\bbmu} \pme{\bbepsilon}} $ \\ \\
+\begin{align*}
+	P = \dfrac{E_0 ^2}{2 |\pme{\bbeta}|} e^{- 2 \alpha z} \cos \theta_{\pme{\bbeta}} \approx \dfrac{E_0 ^2}{2 |\pme{\bbeta}|}
+\end{align*}
+}
+

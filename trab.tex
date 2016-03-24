@@ -1,0 +1,834 @@
+% Acertar título, inclusive fonte
+
+\documentclass[12pt,fleqn]{amsart}
+\usepackage{enumitem}
+\usepackage{xstring}
+\usepackage{graphicx}
+\usepackage[a4paper]{geometry}
+\usepackage[portuguese,brazilian]{babel}
+\usepackage[ansinew]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[scaled]{helvet}
+\usepackage{hyperref}
+\usepackage{fmtcount}
+\usepackage{float}
+
+
+\title{Introdução ao Smart Grid}
+\date{}
+\author{Mateus M. Coelho, Sérgio Cordeiro, Alan Oliveira}
+
+
+\newenvironment{lista}{
+	\vspace{-5mm}
+	\begin{itemize}}{
+	\end{itemize}	
+	\vspace{-5mm}}
+
+\newenvironment{listaf}{
+	\vspace{-5mm}
+	\begin{itemize}}{
+	\end{itemize}}
+
+\newenvironment{listae}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}	
+	\vspace{-5mm}}
+
+\newenvironment{listaef}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}}
+	
+\newcommand{\newbibit}[6]{\bibitem[#1]{#2}#3, {\bf #4}. Disponível em \url{#5}, acesso em #6.}
+
+
+	
+\begin{document}
+\setlength{\parskip}{1em}
+\setlength{\jot}{10pt}
+
+\maketitle
+
+\section*{Smart Grid e suas aplicações}
+\subsection*{Introdução}
+Ao longo dos últimos anos várias empresas de energia do Brasil começaram a investir em uma área pouco explorada por aqui que é a instalação das smart grids ou seja redes inteligentes de energia elétrica. Esta ação muda de maneira radical a forma que cada um lida com a energia que ilumina sua casa. Com o uso do medidor inteligente e os recursos tecnológicos a ele associado é possível monitorar o consumo de um cliente em tempo real. \\
+Trata–se de um avanço sem precedentes para as concessionárias de energia pois incursões nesta seara estavam sendo conduzidas de maneiras em modestas. Alguns benefícios proporcionados pela smart grid são a identificação de fraudes no consumo por parte dos clientes, monitoramento de energia em tempo real onde qualquer falta virá à tona com maior agilidade. \\
+Esta tecnologia tende a beneficiar não somente as empresas, mas também trará benefícios aos consumidores, pois reparos, religamentos poderão ser realizados com mais velocidade e de maneira remota. A adoção da smart grid além de trazer benefícios ao meio ambiente em função do incentivo do uso racional de energia, permitirá a geração de energia distribuída, ou o uso das casas dos consumidores em pequena escala, com a instalação de painéis solares e micro geradores eólicos. Cada consumidor se transformará assim em uma mini usina de energia. No Brasil a geração distribuída ainda não é uma realidade; com a smart grid há agora a expectativa que ela possa decolar num futuro menos remoto. \\
+Se tratando do sistema elétrico, que está cada vez mais sobrecarregado e enfrentando apagões por todo o mundo, surge através do advento da smart grid a aplicação da medição fasorial sincronizada. \\
+O Sistema de Medição Fasorial Sincronizada se apresenta como uma “nova” tecnologia com o intuito de aprimorar a operação e a supervisão dos sistemas elétricos de todo o mundo pois permite medir, simultaneamente, magnitudes e ângulos de tensão e corrente, frequências, harmônicos, potência ativa e reativa, com rapidez, precisão e sincronismo em pontos geograficamente distantes do sistema elétrico. Seu principal componente é a Unidade de Medição Fasorial (PMU), que é responsável por obter as medições dos dados do sistema, processá-los, e enviá-los ao Concentrador de Dados, que ao receber os sincrofasores (de forma assíncrona), deve formatá-los com etiquetas de tempo a fim de organizar conjuntos de medidas referentes ao mesmo instante de tempo e armazená-los numa base própria para atender a diversos tipos de aplicação. \\
+Um sistema de medição fasorial é, basicamente, formado por:
+\begin{lista}
+  \item Unidade de medição fasorial (UMF) ? Ela é responsável por obter as medições dos dados do sistema, processá-las, e enviá-las ao concentrador de dados. Uma das características mais importantes da tecnologia de UMFs é que as medições são carimbadas com alta precisão na fonte, de modo que a velocidade de transmissão dos dados não é um parâmetro crítico para este sistema.
+  \item Concentrador de dados fasoriais (CDF) ? Suas principais funções são: receber os sincrofasores (de forma assíncrona) coletados pelas diferentes UMFs, formatá-los com etiquetas de tempo a fim de organizar conjuntos de medidas referentes ao mesmo instante de tempo, armazená-los numa base própria e atender a diversos tipos de aplicação. Todo esse processo é realizado continuamente, gerando um fluxo de dados capaz de representar o estado do sistema elétrico de uma forma bastante próxima a do tempo real. Por isso ele requer um alto desempenho computacional, alto grau de confiabilidade e disponibilidade.
+  \item Global Positioning System (GPS) ? Global Positioning System, comumente conhecido como GPS, é um sistema composto por diversos satélites, cuja principal função é auxiliar instrumentos de navegação fornecendo dados relativos às coordenadas de posição.
+  \item Canais de comunicação ? Os canais de comunicação têm como função básica transferir os dados aquisitados entre as UMFs e o CDF, como também viabilizam a troca de informações entre Concentradores de Dados de diferentes áreas de controle. A tecnologia usada nestas interligações entre equipamentos pode ser desde linhas telefônicas até via wireless ou cabos de fibra óptica. A escolha varia de acordo com a aplicação e custo.
+ \end{lista}
+O sistema de medição fasorial sincronizado pode trazer um ganho significativo quanto ao conhecimento prévio do comportamento do sistema elétrico, já que esta medição através dos sincrofasores será mais exata, rápida e confiável. Esta inovação impacta positivamente a supervisão e controle do sistema, abrindo um campo para novas investigações e aplicações quanto ao planejamento e operação em tempo real. \\
+O procedimento de medição fasorial pode ser dividido em três ou quatro etapas sendo: Filtragem do sinal de amostragem, aquisição dos dados via GPS, tratamento e formatação das medidas. \\
+Atualmente, o sistema de medição utilizado é implementado com base de dados provenientes de um conjunto de telemedidas redundantes, digitais e analógicas, que compõe o sistema SCADA (Supervisory Control and Data Acquisition). Estes dados, obtidos em intervalos regulares de tempo, são recebidos e processados através de ferramentas computacionais chamadas Configurador de Rede e Estimador de Estado, para que se conheça a configuração do sistema e o perfil das tensões complexas nas barras. O Configurador de Redes tem como objetivo determinar a topologia atual da rede supervisionada para posterior utilização pelas demais funções do sistema de análise de redes. \\
+Por fim a medição fasorial sincronizada tem se tornado a técnica de medição preferida para sistemas de potência. Esta técnica permite a medição de tensão de sequência positiva, corrente, frequência local e taxa de variação de frequência, além disso, pode ser personalizada para medir harmônicos e grandezas de sequências zero e negativa, e todas estas medidas sincronizadas para um mesmo microssegundo, isto é possível devido à disponibilidade do GPS e do avanço no desenvolvimento de técnicas de processamento de dados \cite{Siemens 2015 3,Schweitzer 2015 3,CPFL 2015,ABB 2015 2,Abril 2015 1,Abril 2015 2}.
+
+\subsection*{WAHM}
+Como exemplo de aplicação, escolhemos apresentar a WAHM (\emph{Wide Area Harmonics Monitoring}: Monitoração de Harmônicos para Grandes Áreas). \\
+O objetivo dessa aplicação é estimar o estado harmônico do sistema elétrico \footnotemark[1]. As técnicas empregadas são semelhantes às da estimação de estado na frequência fundamental \footnotemark[2]. A partir dessa estimativa, podem-se determinar as fontes e os sumidouros de harmônicos sob diversas condições operacionais. O operador do sistema pode, então, adotar medidas em tempo real para corrigir o excesso de harmônicos em um determinado ponto. \\
+O excesso de harmônicos é prejudicial a diversos componentes do sistema, como, por exemplo, os capacitores \emph{shunt}. A localização da origem do problema é difícil, uma vez que os harmônicos podem sofrer amplificação em pontos distantes da origem
+real, dependendo dos parâmetros das linhas de transmissão. \\
+São requisitos para implementação da função WHAM:
+\begin{lista}
+  \item Devem existir PMUs em todos os barramentos que sejam potenciais fontes ou ralos de harmônicos \footnotemark[3].
+  \item Medição até o 15º harmônico de fasor de tensão e do fasor de corrente.
+  \item Taxa mínima de aquisição de dados: 1 amostra/s.
+  \item Latência máxima para disponibilização dos dados: alguns segundos.
+\end{lista}
+Atualmente, os operadores do sistema não têm qualquer visibilidade do estado harmônico de um sistema em tempo real. Os sistemas EMS e SCADA não são capazes de fornecer essa funcionalidade, por não atenderem aos requisitos listados \cite{Zhou et. al. 2007 1}.
+
+\footnotetext[1]{HSE: \emph{Harmonic State Estimation}.}
+\footnotetext[2]{Para um sumário dessas técnicas, ver \cite{Arumugam et. ali. 2011}.}
+\footnotetext[3]{Ou seja, a mera observabilidade não é suficiente.}
+
+
+\section*{Empresas brasileiras que já possuem PMUs e PDCs}
+\begin{listaef}
+  \item {\bf CTEEP}
+  \begin{itemize}
+    \item Aplicação em monitoramento dinâmico (em tempo real) de 4 linhas de transmissão de 440kV.
+    \item Quantidade de equipamentos instalados: 5 PMUs (SEs Ilha Solteira, Bauru, Cabreúva, Bom Jardim) e 1 PDC (SE Bom Jardim)
+  \end{itemize}
+  \item {\bf FURNAS}
+  \begin{itemize}
+    \item Aplicação no monitoramento em tempo real dos sistemas de transmissão de 765 kV. \\ Obs: sem informação sobre a quantidade de equipamentos instalados.
+  \end{itemize}
+  \item {\bf ITAIPU}
+  \begin{itemize}
+    \item Aplicação em validação de parâmetros de modelos dinâmicos de unidades geradoras. \\ Obs: sem informação sobre a quantidade de equipamentos instalados.
+  \end{itemize}
+  \item {\bf ELETROSUL}
+  \begin{itemize}
+    \item Aplicação no monitoramento em tempo real dos sistemas de transmissão.
+	\item Participa do projeto Medfasee com 3 PMUs instaladas em 4 subestações para monitorar linhas de 500KV em 4 subestações: SEs Ivaiporã, Areia, Campos Novos, Nova Santa Rita.
+  \end{itemize}
+  \item {\bf CEMIG}
+  \begin{itemize}
+    \item Aplicação no monitoramento em tempo real dos sistemas de transmissão de 230 e 345kV.
+	\item São 12 PMUs instaladas em várias subestações e 1 PDC instalado no COS (Centro de Operação do Sistema).
+    \item Atualmente envia somente os dados de JAGUARA 345 kV para o ONS (por solicitação do próprio ONS).
+    \item Aplicação já disponível além do monitoramento: Predição de nstabilidade de Tensão na barra da Subestação Taquaril.
+    \item Outros equipamentos para medição de sincrofasores na Cemig:
+    \begin{itemize}
+      \item 7 PMUs adquiridas através de projeto P\&D, que porém não chegaram a ser instaladas (São Simão, Emborcação, Jaguara, Neves, Bom Despacho, Ouro Preto 2, Nova Ponte e Itumbiara)
+	  \item 36 relés digitais com funções de PMU (linhas de 345 kV, SE Jaguara, SE Pimenta, SE Barbacena 2, SE Juiz de Fora 1, SE Lafaiete, SE Taquaril) que já estão instalados. Os dados destes relés ainda não são disponibilizados devido a restrições no sistema de telecomunicações entre o PDC e as subestações.
+    \end{itemize}
+  \end{itemize}
+\end{listaef}
+
+
+\section*{Países mais desenvolvidos no tema}
+A tabela a seguir mostra, para cada região, quantas PMUs estão instaladas e quando a primeira PMU foi instalada, bem como a data e as fontes de informação consultadas. 
+\begin{table}[H]
+  Tabela 1: PMUs instaladas por sistema interligado
+  \begin{tabular}{||c|c|c|c||}
+    \hline
+    Região & PMUs & Referência & Instalação \\
+     & instaladas & \footnotemark[4] & mais antiga \footnotemark[5] \\
+    \hline
+	EUA e Canadá & 1400 & 10/2014 \cite{ORNL 2014} & 1996 \cite{BPA 2013} \\
+    China & $\approx$ 2500 &  05/2013 \cite{Tianshu 2013} & 2002 \cite{Tianshu 2013} \\
+	Europa Ocidental \footnotemark[6] & $>$ 100 & 01/2013 \cite{de Vries 2013} & 2001 \cite{de Vries 2013} \\
+	Escandinávia & 18 & 05/2012 \cite{Hurtgen e Maun 2012} & \footnotemark[7] \\
+	Rússia & 26 & 05/2012 \cite{Hurtgen e Maun 2012} & \footnotemark[7] \\
+	Índia & 23 & 05/2012 \cite{Hurtgen e Maun 2012} & \footnotemark[7] \\
+    Brasil & 61 \footnotemark[8] & 06/2007 \cite{Zhou et. al. 2007 2} & \footnotemark[7] \\
+    \hline
+  \end{tabular}
+\end{table}
+A maneira mais segura de avaliar o avanço de cada sistema elétrico seria por meio do nível de não-observabilidade obtido. Essa informação, infelizmente, não foi encontrada, a não ser no caso do Brasil: segundo \cite{Zhou et. al. 2007 2}, com o número de PMUs indicado, o nível de não-observabilidade do sistema é 14.
+
+\footnotetext[4]{Fonte da informação e mês e ano da sua publicação.}
+\footnotetext[5]{Ano de instalação da primeira PMU em ambiente de produção, e não em ambiente de testes.}
+\footnotetext[6]{Área da UCTE (\emph{Union for the Co-ordination of Transmission of Electricity}). A tabela 2 apresenta um detalhamento por país.}
+\footnotetext[7]{Informação não encontrada.}
+\footnotetext[8]{O número de PMUs estimado para plena observabilidade é 425, e 299 adicionais seriam necessárias nas condições de contingência assumidas pelo ONS \cite{Zhou et. al. 2007 2}.}
+
+
+\begin{table}[H]
+  Tabela 2: Sites com PMUs instaladas em cada país (UCTE) \\
+  \cite{Hurtgen e Maun 2012} \\
+  \begin{tabular}{||c|c||}
+    \hline
+    País & Sites \\
+    \hline
+	Espanha & 13 \\
+	França & 5 \\
+	Bélgica & 1 \\
+	Alemanha & 3 \\
+	Polônia & 4 \\
+	Suíça & 5 \\
+	Itália & 19 \\
+	Eslováquia & 3 \\
+	Hungria & 4 \\
+	Romênia & 2 \\
+	Bulgária & 1 \\
+	Grécia & 1 \\
+	Eslovênia & 5 \\
+	Áustria & 2 \\
+	Croácia & 5 \\
+    \hline
+  \end{tabular}
+\end{table}
+
+
+\section*{Quais são os fabricantes de PMUs?}
+\subsection*{ABB}
+A ABB comercializa a PMU dedicada {\bf RES670}, que é um IED da família Relion. Suas características são as seguintes:
+\begin{lista}
+  \item Capacidade de coleta e transmissão de dados:
+  \begin{itemize}
+    \item 48 fasores (expansível até 64)
+	\item 48 de frequência, com taxa de mudança de frequência (expansível até 64)
+  \end{itemize}
+  \item Portas adicionais:
+  \begin{itemize}
+    \item 32 analógicas (expansível até 48)
+	\item 32 digitais (expansível até 48)
+	\item 8 alarmes
+  \end{itemize}
+  \item Capacidade de comunicação:
+  \begin{itemize}
+    \item até 2 \emph{data streams} \footnotemark[10] diferentes
+	\item até 240 frames por segundo em 60 Hz
+	\item até 8 conexões TCP e 6 UDP simultâneas
+  \end{itemize}
+  \item Opções de formato para envio ao PDC:
+  \begin{itemize}
+    \item 3 fasores independentes
+    \item 3 fasores de sequência (positiva, negativa e zero)
+  \end{itemize}
+  \item Opções para sincronismo de tempo:
+  \begin{itemize}
+    \item GPS
+    \item IRIG-B
+  \end{itemize}
+  \item Compatibilidade:
+  \begin{itemize}
+    \item IEEE C37.118-2011 e IEEE C37.118.1-2014, classes P e M
+	\item IEEE 1344
+    \item NERC CIP e IEC 62351-8 (cyber-security)
+  \end{itemize}
+  \item Protocolos de comunicação:
+  \begin{itemize}
+    \item IEC 61850-8-1 (station bus) e IEC 61850-9-2 (process bus)
+    \item DNP3.0
+	\item IEC 62439-3 (PRP)
+	\item IEC 608–5–103
+  \end{itemize}
+  \item Funções de proteção e controle adicionais:
+  \begin{itemize}
+    \item Alarmes de sobretensão e subtensão
+	\item Alarmes de sobrefrequência, subrefrequência e taxa de mudança de frequência
+	\item Alarmes de sobrecorrente, sequência negativa direcional de corrente e subimpedância
+    \item Cálculo de valores eficazes (S, P, Q, I, V, PF e f)
+	\item Alarmes de falta para terra, sobrecorrente, sobrepotência, subpotência, etc. (opcionais)
+    \item Lógica programável
+    \item Registro de eventos
+	\end{itemize}
+  \item Precisão:
+  \begin{itemize}
+    \item fasores: 0,5\% em magnitude e 1,0 \textdegree em ângulo de fase
+    \item sincronização: 1 $\mu$s
+    \item frequência: 2.0 mHz
+    \item taxa de mudança de frequência: 10.0 mHz/s
+  \end{itemize}
+  \item Não exige transdutores externos
+  \item Os TCs e TPs internos devem ser escolhidos conforme a classe desejada (P ou M)
+  \item Módulos extras de I/O da família Relion podem ser adicionados
+  \item Possui filtro interno contra o \ordinalnum{2} harmônico
+\end{lista}
+O RES670 está disponível em dois modelos pre-configurados: A20 e B20 \cite{ABB 2015 1,ABB 2014 1,ABB 2014 2}.
+
+\footnotetext[10]{\emph{Data stream} é um termo usado pela norma IEEE C37.118 para designar um canal de comunicação lógico. Mais de um \emph{data stream} pode ser acomodado em um único canal físico e uma única conexão. O termo alude ao fato de que o tráfego consiste em um fluxo contínuo de dados correlacionados.}
+
+
+\subsection*{Siemens}
+A Siemens não comercializa uma PMU dedicada, como é o caso da ABB, e sim disponibiliza a função de PMU em alguns relés de proteção da família Siprotec 5: 7SA84, 7SA86, 7SA87, 7SD84, 7SD86, 7SD87, 7SL86 e 7SL87, 7SJ82, 7SJ85, 7SJ86, 7SK85, 7SUT85, 7SUT86, 7SUT87, 6MD85, 6MD86, 7KE85 e 7KV87. Como exemplo, escolhemos o {\bf 7KE85}, que é um IED voltado para o registro de perturbações. Suas características são as seguintes:
+\begin{lista}
+  \item Capacidade de coleta e transmissão de dados:
+  \begin{itemize}
+    \item 12 fasores
+	\item 4 de frequência, com taxa de mudança de frequência
+  \end{itemize}
+  \item Portas adicionais \footnotemark[11]:
+  \begin{itemize}
+    \item 35 entradas digitais
+    \item 27 saídas digitais
+  \end{itemize}
+  \item Capacidade de comunicação:
+  \begin{itemize}
+	\item até frames por segundo em 60 Hz
+	\item até 3 PDCs
+	\item 2 portas Ethernet separadas, uma para comunicação com PDC e a outra para outros clientes
+  \end{itemize}
+  \item Opções de formato para envio ao PDC:
+  \begin{itemize}
+    \item 3 fasores independentes
+    \item fasor de sequência positiva
+  \end{itemize}
+  \item Opções para sincronismo de tempo:
+  \begin{itemize}
+    \item IRIG-B
+  \end{itemize}
+  \item Compatibilidade:
+  \begin{itemize}
+    \item IEEE C37.118, classes P e M
+    \item NERC CIP (cyber-security)
+  \end{itemize}
+  \item Protocolos de comunicação \footnotemark[11]:
+  \begin{itemize}
+    \item IEC 61850
+    \item IEC 62439-3 (PRP e HSR)
+  \end{itemize}
+  \item Funções de proteção e controle adicionais:
+  \begin{itemize}
+    \item Alarmes de sobretensão, subtensão e sequência (positiva, negativa e zero) de tensão
+	\item Alarmes de sobrefrequência e subrefrequência
+	\item Alarmes de sobrecorrente, sequência (positiva, negativa e zero) de corrente e sobrepotência
+	\item Alarmes de taxa de mudança de tensão, corrente, frequência e potência
+    \item Cálculo de valores eficazes (S, P, Q, I, V, f e componentes simétricas)
+    \item Qualidade de energia de acordo com IEC 61000-4-30 (class S).
+    \item Lógica programável
+    \item SOE
+  \end{itemize}
+  \item Precisão: conforme IEEE C37.118.1a-2013
+  \item Não exige transdutores externos
+  \item Frequência de amostragem: até 16 kHz
+  \item Compressão de dados sem perda
+\cite{Siemens 2015 1,Siemens 2014 1,Siemens 2014 2}
+\end{lista}
+A função PMU também está disponível no registrador de perturbação {\bf SIMEAS R-PMU}, mais antigo mas com capacidade para maior número de entradas. Suas características são as seguintes:
+\begin{listaf}
+  \item Capacidade de coleta e transmissão de dados:
+  \begin{itemize}
+    \item 32 fasores
+	\item 32 de frequência, com taxa de mudança de frequência
+    \item 64 entradas digitais
+  \end{itemize}
+  \item Portas adicionais: não permite \footnotemark[12]
+  \item Capacidade de comunicação:
+  \begin{itemize}
+	\item até 60 frames por segundo em 60 Hz
+	\item até 1 PDC e 1 outro dispositivo ao mesmo tempo
+  \end{itemize}
+  \item Opções de formato para envio ao PDC
+  \begin{itemize}
+    \item fasores independentes
+  \end{itemize}
+  \item Opções para sincronismo de tempo:
+  \begin{itemize}
+    \item DCF77
+  \end{itemize}
+  \item Compatibilidade:
+  \begin{itemize}
+    \item IEEE C37.118, nível 1
+  \end{itemize}
+  \item Protocolos de comunicação:
+  \begin{itemize}
+    \item TCP/IP
+  \end{itemize}
+  \item Funções de proteção e controle adicionais:
+  \begin{itemize}
+    \item Cálculo de valores eficazes (S, P, Q, I, V e f)
+    \item Registro de perturbações com lógica programável
+    \item SOE
+  \end{itemize}
+  \item Precisão:
+  \begin{itemize}
+    \item TVE: 1,0\%
+    \item sincronização: 5 $\mu$s
+  \end{itemize}
+	\item Não exige transdutores externos
+	\item Frequência de amostragem: 11.5 kHz
+\cite{Siemens 2015 2,Siemens 2012 1}
+\end{listaf}
+
+\footnotetext[11]{Módulos de I/O e comunicação avulsos da família Siprotec 5 podem ser adicionados.}
+\footnotetext[12]{A não ser que se diminua o número de cartões de aquisição de dados fasoriais.}
+
+
+\subsection*{GE}
+A GE comercializa a PMU dedicada {\bf N60}, que é um IED da família Multilin. Suas características são as seguintes:
+\begin{lista}
+  \item Capacidade de coleta e transmissão de dados:
+  \begin{itemize}
+    \item 46 fasores
+	\item 6 de frequência, com taxa de mudança de frequência
+  \end{itemize}
+  \item Portas adicionais \footnotemark[13]:
+  \begin{itemize}
+    \item 24 entradas/saídas digitais
+  \end{itemize}
+  \item Capacidade de comunicação:
+  \begin{itemize}
+    \item 3 portas Ethernet independentes (expansível até 9)
+	\item até 120 frames por segundo em 60 Hz
+    \item até 4 PDCs ao mesmo tempo
+  \end{itemize}
+  \item Opções de formato para envio ao PDC:
+  \begin{itemize}
+    \item fasores independentes
+  \end{itemize}
+  \item Opções para sincronismo de tempo:
+  \begin{itemize}
+    \item IEEE 1588 (PTP)
+  \end{itemize}
+  \item Compatibilidade:
+  \begin{itemize}
+    \item IEEE C37.118-2011, classes P e M
+    \item NERC CIP, NITIR 7628, AAA (Radius e LDAP), RBAC, Syslog (cyber-security)
+  \end{itemize}
+  \item Protocolos de comunicação:
+  \begin{itemize}
+    \item IEC 61850-8-1 (station bus), IEC 61850-9-2 (process bus) e IEC 61850-90-5 (sincrofasores)
+    \item IEC62439-3 (PRP)
+    \item DNP3.0
+	\item IEC 608–5–103 e 104
+	\item Modbus TCP/IP e RTU
+  \end{itemize}
+  \item Funções de proteção e controle adicionais:
+  \begin{itemize}
+    \item Alarmes de sobretensão e subtensão
+	\item Alarmes de sobrefrequência, subrefrequência e taxa de mudança de frequência
+    \item Cálculo de valores eficazes (S, P, Q, I, V, PF, f e componentes simétricas)
+	\item Alarmes de sobrecorrente, sobrepotência, inversão de fluxo e proteção térmica
+    \item Alarmes de sincronismo
+    \item Lógica programável
+    \item SOE
+	\item Oscilografia
+  \end{itemize}
+  \item Precisão: conforme IEEE C37.118-2011, classes P e M
+  \item Não exige transdutores externos
+\cite{GE 2015 1,GE 2015 2}
+\end{lista}
+A função PMU também está disponível em vários relés de proteção da família Multilin UR: D60, F60, G60, L30, L90 e T60. Como exemplo, seguem as características do {\bf UR L90}, voltado para proteção de linhas:
+\begin{listaf}
+  \item Capacidade de coleta e transmissão de dados:
+  \begin{itemize}
+    \item 9 fasores
+	\item 2 de frequência, com taxa de mudança de frequência
+  \end{itemize}
+  \item Portas adicionais \footnotemark[13]:
+  \begin{itemize}
+    \item 8 entradas/saídas digitais (expansíveis até 32)
+  \end{itemize}
+  \item Capacidade de comunicação:
+  \begin{itemize}
+    \item 3 portas Ethernet independentes (expansível até 9)
+	\item até 120 frames por segundo em 60 Hz
+    \item até 4 PDCs ao mesmo tempo
+  \end{itemize}
+  \item Opções de formato para envio ao PDC:
+  \begin{itemize}
+    \item fasores independentes
+  \end{itemize}
+  \item Opções para sincronismo de tempo:
+  \begin{itemize}
+    \item IEEE 1588 (PTP)
+  \end{itemize}
+  \item Compatibilidade:
+  \begin{itemize}
+    \item IEEE C37.118-2011, classes P e M
+    \item NERC CIP, NITIR 7628, AAA (Radius e LDAP), RBAC, Syslog (cyber-security)
+  \end{itemize}
+  \item Protocolos de comunicação:
+  \begin{itemize}
+    \item IEC 61850-8-1 (station bus), IEC 61850-9-2 (process bus) e IEC 61850-90-5 (sincrofasores)
+    \item IEC62439-3 (PRP)
+    \item DNP3.0
+	\item IEC 608–5–103 e 104
+	\item Modbus TCP/IP e RTU
+  \end{itemize}
+  \item Funções de proteção e controle adicionais:
+  \begin{itemize}
+    \item Alarmes de sobretensão e subtensão
+    \item Alarmes de impedância
+	\item Alarmes de sobrecorrente, sobrecorrente direcional e sequência negativa de corrente
+	\item Alarmes de sobrefrequência, subrefrequência e taxa de mudança de frequência
+    \item Cálculo de valores eficazes (S, P, Q, I, V, PF, f e componentes simétricas)
+	\item Alarmes de inversão de fluxo, proteção térmica e falha do disjuntor
+    \item Alarmes de sincronismo
+    \item Religamento automático
+    \item Lógica programável
+    \item SOE
+	\item Oscilografia
+  \end{itemize}
+  \item Precisão: conforme IEEE C37.118-2011, classes P e M
+  \item Não exige transdutores externos
+\cite{GE 2015 3,GE 2015 4}
+\end{listaf}
+
+\footnotetext[13]{Módulos de I/O avulsos da família Multilin podem ser adicionados.}
+
+
+\subsection*{Schweitzer}
+A Schweitzer comercializa a PMU dedicada {\bf SEL-2240}, que é um IED da família Axion. Suas características são as seguintes:
+\begin{lista}
+  \item Capacidade de coleta e transmissão de dados:
+  \begin{itemize}
+    \item 64 fasores
+    \item 30 entradas digitais
+  \end{itemize}
+  \item Portas adicionais \footnotemark[14]:
+  \begin{itemize}
+    \item 0 saídas digitais
+	\item 0 saídas analógicas
+  \end{itemize}
+  \item Capacidade de comunicação:
+  \begin{itemize}
+    \item 2 portas Ethernet: 1 EtherCAT e 1 de uso geral \footnotemark[14]
+	\item até 60 frames por segundo em 60 Hz
+    \item até 2 PDCs ao mesmo tempo \footnotemark[15]
+  \end{itemize}
+  \item Opções de formato para envio ao PDC:
+  \begin{itemize}
+    \item fasores independentes
+  \end{itemize}
+  \item Opções para sincronismo de tempo:
+  \begin{itemize}
+    \item EtherCAT
+	\item IRIG-B
+  \end{itemize}
+  \item Compatibilidade:
+  \begin{itemize}
+    \item IEEE C37.118.1-2011 e C37.118.1a-2014, classes P e M
+    \item NERC CIP, AAA (LDAP), Syslog, Port Control (cyber-security)
+  \end{itemize}
+  \item Protocolos de comunicação:
+  \begin{itemize}
+	\item IEC 61850
+	\item EtherCAT
+	\item SSH (Secure Shell)
+    \item DNP3 Level 3 serial e LAN/WAN client/server
+	\item LG 8979
+	\item SES-92
+	\item IEC 608–5–101 e 104
+	\item Modbus TCP e RTU
+	\item SEL ASCII, Fast Message e Mirrored Bits
+  \end{itemize}
+  \item Funções de proteção e controle adicionais \footnotemark[14]:
+  \begin{itemize}
+    \item Cálculo de valores eficazes (S, P, Q, I, V, PF, f e componentes simétricas)
+    \item Lógica programável (IEC 61131)
+    \item SOE
+	\item PID
+	\item Web server
+	\item Fontes de alimentação redundantes
+	\item Oscilografia COMTRADE (IEEE C37.111-1999)
+  \end{itemize}
+  \item Precisão
+  \begin{itemize}
+	\item Amplitude: 0,25\% em aplitude e 2$\textdegree$ em ângulo de fase
+	\item Frequência: 5 mHz
+  \end{itemize}
+  \item Frequência de amostragem: até 24 kHz
+  \item Filtro passa-baixa de 5 KHz
+\cite{Schweitzer 2015 1}{Schweitzer 2014 1}{Schweitzer 2014 2}
+\end{lista}
+A função PMU também está disponível em vários relés de proteção da família Axion: 311C, 311L, 351, 351A, 351S, 351RS, 487E, 487V, 421, 451, 411L, 651R-2, 751, 751A, 700G, 787, 735 e 2431. Como exemplo, seguem as características do {\bf SEL-651R-2}, voltado para controle de religadores:
+\begin{listaf}
+  \item Capacidade de coleta e transmissão de dados:
+  \begin{itemize}
+    \item 12 fasores
+	\item 16 entradas digitais
+  \end{itemize}
+  \item Portas adicionais:
+  \begin{itemize}
+    \item 7 entradas digitais
+	\item 8 saídas digitais
+  \end{itemize}
+  \item Capacidade de comunicação:
+  \begin{itemize}
+    \item 1 porta Ethernet (expansível até 2)
+  \end{itemize}
+  \item Opções de formato para envio ao PDC:
+  \begin{itemize}
+    \item fasores independentes
+  \end{itemize}
+  \item Opções para sincronismo de tempo:
+  \begin{itemize}
+	\item IRIG-B
+  \end{itemize}
+  \item Compatibilidade:
+  \begin{itemize}
+    \item IEEE C37.118-2011
+  \end{itemize}
+  \item Protocolos de comunicação:
+  \begin{itemize}
+	\item IEC 61850
+	\item Modbus
+	\item SEL ASCII e Mirrored Bits
+  \end{itemize}
+  \item Funções de proteção e controle adicionais:
+  \begin{itemize}
+    \item Controle de religadores
+    \item Cálculo de valores eficazes (S, P, Q, I, V e f)
+	\item Alarmes de sub e sobretensão
+	\item Alarmes de sobrecorrente e sobrecorrente direcional
+	\item Alarmes de subfrequência e taxa de mudança de frequência
+    \item Localização de falta
+    \item Registro de eventos
+    \item Filtro para segundo harmônico
+	\item Web server
+	\item Monitoramento de qualidade da energia
+  \end{itemize}
+  \item Precisão: IEEE C37.118-2005 nível 1
+\cite{Schweitzer 2015 2}
+\end{listaf}
+
+\footnotetext[14]{Módulos de avulsos da família Axion podem ser adicionados, aumentando essa capacidade.}
+\footnotetext[15]{Ou até 6, se forem transmitidos no máximo 30 frames por segundo.}
+
+
+\subsection*{Alstom}
+A Alstom comercializa a PMU dedicada {\bf P847}, que é um IED da família MiCOM. Suas características são as seguintes:
+\begin{lista}
+  \item Capacidade de coleta e transmissão de dados:
+  \begin{itemize}
+    \item 15 fasores
+    \item 24 entradas digitais
+  \end{itemize}
+  \item Portas adicionais \footnotemark[16]:
+  \begin{itemize}
+    \item 24 saídas digitais
+  \end{itemize}
+  \item Capacidade de comunicação:
+  \begin{itemize}
+    \item 1 porta Ethernet (redundância opcional)
+	\item até 60 frames por segundo em 60 Hz
+  \end{itemize}
+  \item Opções de formato para envio ao PDC:
+  \begin{itemize}
+    \item fasores independentes
+	\item componentes simétricas
+  \end{itemize}
+  \item Opções para sincronismo de tempo:
+  \begin{itemize}
+	\item IRIG-B
+	\item GPS
+  \end{itemize}
+  \item Compatibilidade:
+  \begin{itemize}
+    \item IEEE C37.118-2005 nível 1
+  \end{itemize}
+  \item Protocolos de comunicação:
+  \begin{itemize}
+	\item IEC 61850
+    \item DNP3
+	\item K-bus
+  \end{itemize}
+  \item Funções de proteção e controle adicionais \footnotemark[14]:
+  \begin{itemize}
+    \item Cálculo de valores eficazes (S, P, Q, I, V, f e componentes simétricas)
+	\item Alarmes de sub e sobretensão e taxa de variação de tensão
+	\item Alarmes de sobrecorrente e sequência negativa
+	\item Alarmes de sub e sobrefrequência e taxa de mudança de frequência
+    \item Localização de falta
+	\end{itemize}
+  \item Precisão: 
+  \begin{itemize}
+	\item TVE 1\%
+	\item Frequência: 25 mHz
+  \end{itemize}
+\cite{Alstom 2015}
+\end{lista}
+Estão disponíveis 3 modelos pre-configurados: P847A, B e C.
+
+\footnotetext[16]{Módulos avulsos da família MiCOM podem ser adicionados, aumentando essa capacidade.}
+
+
+\subsection*{Arbiter}
+A Arbiter comercializa a PMU dedicada {\bf 1133A}. Suas características são as seguintes:
+\begin{listaf}
+  \item Capacidade de coleta e transmissão de dados:
+  \begin{itemize}
+    \item 6 fasores
+    \item 4 entradas digitais
+    \item 4 saídas digitais	
+  \end{itemize}
+  \item Portas adicionais: não permite
+  \item Capacidade de comunicação:
+  \begin{itemize}
+    \item 1 porta Ethernet (redundância opcional)
+	\item até 60 frames por segundo em 60 Hz
+  \end{itemize}
+  \item Opções de formato para envio ao PDC:
+  \begin{itemize}
+    \item fasores independentes ou componentes simétricas
+	\item formato inteiro ou ponto flutuante
+  \end{itemize}
+  \item Opções para sincronismo de tempo:
+  \begin{itemize}
+	\item IRIG-B
+	\item GPS
+  \end{itemize}
+  \item Compatibilidade:
+  \begin{itemize}
+    \item IEEE C37.118-2005
+  \end{itemize}
+  \item Protocolos de comunicação:
+  \begin{itemize}
+	\item PQ-DIF
+    \item DNP 3.0
+	\item Modbus
+	\item Arbiter Power Sentinel
+  \end{itemize}
+  \item Funções de proteção e controle adicionais \footnotemark[14]:
+  \begin{itemize}
+    \item Cálculo de valores eficazes (S, P, Q, I, V, PF, f e componentes simétricas)
+	\item Qualidade da energia (harmônicos, \emph{flicker}, interrupções e flutuações de tensão)
+	\item Medição de faturamento
+	\item Registro de eventos
+  \end{itemize}
+  \item Precisão: 
+  \begin{itemize}
+	\item TVE 0,1\%
+	\item Frequência: 1 ppm
+	\item Sincronismo: 1 $\mu$s
+	\item Ângulo de fase 0,1$\textdegree$
+  \end{itemize}
+  \item Algoritmos selecionáveis
+  \item Rastreamento da frequência para medição mais precisa, na faixa de $\pm$10 Hz
+  \item Algoritmos para compensação de erro de TCs e TPs
+  \item Frequência de amostragem: 10,2 kHz
+  \item Podem ser criadas até 2 PMUs virtuais, cada uma com sua própria configuração
+\cite{Arbiter 2013,Arbiter 2012 1,Arbiter 2012 2}
+\end{listaf}
+
+
+\subsection*{NR Electric (China)}
+A NR comercializa a PMU dedicada {\bf PCS-996 PMU}. Suas características são as seguintes:
+\begin{listaf}
+  \item Função de cálculo de amplitude de fasores e ângulos de fase de fasores, tais como Ua, Ub, Uc, U1, Ia, Ib, Ic, I1, Eq, etc.
+  \item Cálculo dos valores de medição, tais como P, Q, f, df/dt etc.
+  \item Supervisão dos sinais binários, como status seccionador, sinal de operação da proteção, sinal operação PSS, etc.
+  \item Função de comunicação em tempo real: envio de dados fasoriais para PDC ou centro de controle WAMS através do protocolo IEEE C37.118.
+  \item Função de gravação por disparo: quantidades elétricas ou entradas binárias.
+  \item Função de gravação, incluindo 1024 eventos de I/O, 1024 eventos de alarme e 1024 logs.
+  \item Função de gravação de distúrbios: 1024 faltas, 1024 formas de onda de perturbação (formato COMTRADE).
+  \item Registro de dados de perturbações e faltas.
+  \item Sincronização de fasores via sinal de tempo GPS.
+  \item Até 24 entradas de tensão/24 entradas de corrente, 36 BIs e 4 BOs opcionais.
+  \item Comunicação duplicada para PDC: uma ponto-a-ponto de fibra óptica e uma 10/100BaseTX ou 10/100BaseFX.
+  \item PDC: Modelo PCS-996 PDC
+  \begin{itemize}
+    \item Função de concentração de dados: O PCS-996 PDC recebe dados fasoriais em tempo real a partir de vários PMUs. Em seguida, o PDC envia esses dados acumulados para o WAMS.
+    \item Função dinâmica de gravação: armazenamento e backup local de dados fasoriais.
+    \item Comunicações:
+	\begin{itemize}
+      \item Duas portas RJ-45 Ethernet e duas portas Ethernet de fibra ótica, que suportam IEC60870-5-103, ou protocolo IEC61850. Estas duas portas RJ-45 Ethernet pode também ser usado para o serviço FTP.
+      \item Uma porta RS-485 de série é usado para sincronização de relógio.
+	  \item Uma porta frontal RS-232 serial é utilizada para testar e configurar o dispositivo.
+    \end{itemize}
+  \end{itemize}
+  \item Tecnologia de relés de proteção e elevada performance eletromagnética (EMC performance).
+  \item Frequência de amostragem: 24 a 96 amostras/ciclo (1.2kHz to 4.8kHz for 50Hz). 
+  \item Taxa de transferência: 10 a 100 fasores/segundo. 
+  \item Compatibilidade com a norma IEEE 1344 e IEEE C37.118. 
+  \item Medição fasorial ininterrupta durante falta e distúrbios. 
+  \item Rastreamento da frequência para medição mais precisa.
+  \item Canais de comunicação duplos para evitar congestionamento de Rede durante aquisição de dados de falhas e distúrbios.
+  \item Dados em tempo real através de ponto-a-ponto ótico usando IEC 60044-8.
+  \item Dados de registro de perturbação e de falha através de LAN usando IEC 61850 ou IEC 60870-5-103.
+\cite{NR 2015}
+\end{listaf}
+
+
+  
+\begin{thebibliography}{15}
+
+\newbibit{ABB 2014 1}{ABB 2014 1}{ABB}{Phasor measurement unit RES670 2.0 Product Guide}{http://www09.abb.com/global/scot/scot400.nsf/veritydisplay/9060b199623e699ac1257de1002ef1af/$file/1MRK511319-BEN_-_en_Product_Guide__Phasor_measurement_unit_RES670_2.0.pdf}{02/04/2015}
+
+\newbibit{ABB 2014 2}{ABB 2014 2}{ABB}{Phasor Measurement Unit RES670 Ver. 2.0 Technical Summary}{http://www09.abb.com/global/scot/scot301.nsf/veritydisplay/4c8d306f9f4a07aec1257d8500461539/$file/1MRK511326-SEN_LoRes_en_Wide_area_protection_RES670_2.0_IEC_-_Technical_summary.pdf}{02/04/2015}
+
+\newbibit{ABB 2015 1}{ABB 2015 1}{ABB}{RES670 - Phasor measurement unit}{http://new.abb.com/substation-automation/products/protection-control/phasor-measurement/res670}{02/04/2015}
+
+\newbibit{ABB 2015 2}{ABB 2015 2}{ABB}{Smart Grids - energia eficiente para um mundo sustentável}{http://www.abb.com.br/smartgrids}{16/04/2015}
+
+\newbibit{Abril 2015 1}{Abril 2015 1}{Editora ABRIL}{Mercado global de smart grid deve dobrar até 2020}{http://exame.abril.com.br/mundo/noticias/mercado-global-de-smart-grid-deve-dobrar-ate-2020}{16/04/2015}
+
+\newbibit{Abril 2015 2}{Abril 2015 2}{Editora ABRIL}{O Brasil na onda das smart grids}{http://exame.abril.com.br/revista-exame/edicoes/1040/noticias/o-brasil-na-onda-das-smart-grids}{16/04/2015}
+
+\newbibit{Alstom 2015}{Alstom 2015}{ALSTOM Grid}{MiCOM Alstom P847 Phasor Measurement Unit (PMU)}{http://www.alstom.com/Global/Grid/Resources/Documents/Automation/NSR/MiCOM\%20Alstom\%20P847BC\%20Technical\%20Data\%20Sheet\%20GB.pdf}{13/04/2015}
+
+\newbibit{Arbiter 2012 1}{Arbiter 2012 1}{ARBITER Systems}{Synchronized Power Quality/Revenue Standards}{http://www.arbiter.com/files/product-attachments/1133a.pdf}{14/04/2015}
+
+\newbibit{Arbiter 2012 2}{Arbiter 2012 2}{ARBITER Systems}{Model 1133A Functional Description}{http://www.arbiter.com/files/product-attachments/1133a_functional_description.pdf}{14/04/2015}
+
+\newbibit{Arbiter 2013}{Arbiter 2013}{ARBITER Systems}{Model 1133A Phasor Measurement Specifications}{http://www.arbiter.com/files/product-attachments/1133_phasor_measurement_specifications.pdf}{14/04/2015}
+
+\newbibit{Arumugam et. ali. 2011}{Arumugam et. ali. 2011}{Arumugam et. ali.}{A Brief Review on Advances of Harmonic State
+Estimation Techniques in Power Systems}{http://www.ijiee.org/papers/34-I040.pdf}{16/04/2015}
+
+\newbibit{BPA 2013}{BPA 2013}{Bonneville Power Administration (BPA)}{Synchrophasor success lands BPA its first Platts Award}{https://www.bpa.gov/news/newsroom/Pages/Synchrophasor-success-lands-BPA-its-first-Platts-Award.aspx}{05/04/2015}
+
+\newbibit{CPFL 2015}{CPFL 2015}{CPFL (Companhia Paulista de Força e Luz)}{O que é?}{http://www.cpfl.com.br/energias-sustentaveis/sites-tematicos/smart-grid/Paginas/default.aspx}{16/04/2015}
+
+\newbibit{GE 2015 1}{GE 2015 1}{GE Digital Energy}{Multilin N60 Network Stability and Synchrophasor Measurement System}{http://www.gedigitalenergy.com/multilin/catalog/n60.htm}{04/04/2015}
+
+\newbibit{GE 2015 2}{GE 2015 2}{GE Digital Energy}{Multilin N60}{http://www.gedigitalenergy.com/app/DownloadFile.aspx?prod=n60&type=1&file=1}{04/04/2015}
+
+\newbibit{GE 2015 3}{GE 2015 3}{GE Digital Energy}{Multilin L90 Line Current Differential System}{http://www.gedigitalenergy.com/multilin/catalog/l90.htm}{04/04/2015}
+
+\newbibit{GE 2015 4}{GE 2015 4}{GE Digital Energy}{Multilin L90 Line Protection System with Segregated Line Current Differential and Distance Protection}{http://www.gedigitalenergy.com/app/DownloadFile.aspx?prod=l90&type=1&file=1}{04/04/2015}
+
+\newbibit{NR 2015}{NR 2015}{NR Electric}{PCS-996 Phasor Measurement Unit}{http://www.nrec.com/en/product/PCS-996.html}{16/04/2015}
+
+\newbibit{Hurtgen e Maun 2012}{Hurtgen e Maun 2012}{M. HURTGEN e J. MAUN}{Applications of PMU measurements in the Belgian electrical grid}{http://statbel.fgov.be/fr/binaries/20120420_PMU_Final_Report_tcm326-200078.pdf}{05/04/2015}
+
+\newbibit{ORNL 2014}{ORNL 2014}{Oak Ridge National Laboratory (ORNL)}{Factors Affecting PMU Installation Costs}{http://energy.gov/oe/downloads/factors-affecting-pmu-installation-costs-october-2014}{05/04/2015}
+
+\newbibit{Schweitzer 2014 1}{Schweitzer 2014 1}{SCHWEITZER Engineering Laboratories}{SEL-2240 Axion Platform —
+PMU Solutions}{https://www.selinc.com/WorkArea/DownloadAsset.aspx?id=106401}{13/04/2015}
+
+\newbibit{Schweitzer 2014 2}{Schweitzer 2014 2}{SCHWEITZER Engineering Laboratories}{SEL-2240 Data Sheet}{https://www.selinc.com/WorkArea/DownloadAsset.aspx?id=10595}{13/04/2015}
+
+\newbibit{Schweitzer 2015 1}{Schweitzer 2015 1}{SCHWEITZER Engineering Laboratories}{SEL-2240 Axion Distributed Control and Integration Platform}{https://www.selinc.com/sel-2240/}{13/04/2015}
+
+\newbibit{Schweitzer 2015 2}{Schweitzer 2015 2}{SCHWEITZER Engineering Laboratories}{SEL-651R Advanced Recloser Control}{https://www.selinc.com/SEL-651R/}{13/04/2015}
+
+\newbibit{Schweitzer 2015 3}{Schweitzer 2015 3}{SCHWEITZER Engineering Laboratories}{Tecnologias de Comunicação para Smart Grid – T2}{http://www.selinc.com.br/cursos/T2.aspx}{16/04/2015}
+
+\newbibit{Siemens 2012 1}{Siemens 2012 1}{SIEMENS}{Digital Fault Recorder SIMEAS R-PMU V40.01}{http://w3.siemens.com/smartgrid/global/en/products-systems-solutions/power-quality-measurements/recorder-measurement-unit/Pages/simeas-r-pmu.aspx}{03/04/2015}
+
+\newbibit{Siemens 2014 1}{Siemens 2014 1}{SIEMENS}{Relay Selection Guide Edition 3}{http://w3.siemens.com/smartgrid/global/en/products-systems-solutions/Protection/fault-recorder/Pages/7KE85.aspx}{03/04/2015}
+
+\newbibit{Siemens 2014 2}{Siemens 2014 2}{SIEMENS}{Fault Recorder 7KE85 V06.00 Manual}{http://w3.siemens.com/smartgrid/global/en/products-systems-solutions/Protection/fault-recorder/Pages/7KE85.aspx}{03/04/2015}
+
+\newbibit{Siemens 2015 1}{Siemens 2015 1}{SIEMENS}{SIPROTEC 7KE85 Fault Recorder}{http://w3.siemens.com/smartgrid/global/en/products-systems-solutions/Protection/fault-recorder/Pages/7KE85.aspx}{03/04/2015}
+
+\newbibit{Siemens 2015 2}{Siemens 2015 2}{SIEMENS}{SIMEAS R–PMU Digital Fault Recorder with Phasor Measurement Unit (PMU)}{http://w3.siemens.com/smartgrid/global/en/products-systems-solutions/power-quality-measurements/recorder-measurement-unit/Pages/simeas-r-pmu.aspx}{03/04/2015}
+
+\newbibit{Siemens 2015 3}{Siemens 2015 3}{SIEMENS}{Smart grid – a rede elétrica inteligente do futuro}{http://www.siemens.com.br/desenvolvimento-sustentado-em-megacidades/smart-grid.html}{16/04/2015}
+
+\newbibit{Tianshu 2013}{Tianshu 2013}{TIANSHU Bi}{The dynamic behavior of PMU and the latest development in China}{https://filebox.ece.vt.edu/~shukla/tps/Session2/The\%20symposium\%20for\%20Phadke\%20and\%20Thorp_0508.pdf}{05/04/2015}
+
+\newbibit{de Vries 2013}{de Vries 2013}{R. de VRIES}{Phasor Measurement Units (PMUs) and Time Synchronization at European Utilities}{http://www.smartgrid.agh.edu.pl/pdf/Phasor_Measurement_Units_(PMUs)_and_Time_Synchronization.pdf}{05/04/2015}
+
+\newbibit{Zhou et. al. 2007 1}{Zhou et. al. 2007 1}{ZHOU et. al.}{Projeto ESTAL: Utilização de Fasores no Sistema Interligado Nacional do ONS. Relatório 3: Aplicações das PMU e seus Requisitos}{http://www.ons.org.br/publicacao/ASC/Medicao\%20Fasorial/Projeto\%2011.11\%20-\%20Plano\%20de\%20A\%E7\%E3o\%20do\%20ONS\%20-\%20uso\%20no\%20TR\%20de\%20sincrofasores/Documentos\%20produzidos\%20pela\%20KEMA/Relat\%F3rio\%203/ONS\%20ESTAL\%20-\%20SMSF\%20-\%20Relat\%F3rio\%203.pdf}{16/04/2015}
+
+\newbibit{Zhou et. al. 2007 2}{Zhou et. al. 2007 2}{ZHOU et. al.}{Projeto ESTAL: Utilização de Fasores no Sistema Interligado Nacional do ONS. Relatório 8: Instalação das PMU por Etapas}{http://www.ons.org.br/publicacao/ASC/Medicao\%20Fasorial/Projeto\%2011.11\%20-\%20Plano\%20de\%20A\%C3\%A7\%C3\%A3o\%20do\%20ONS\%20-\%20uso\%20no\%20TR\%20de\%20sincrofasores/Documentos\%20produzidos\%20pela\%20KEMA/Relat\%C3\%B3rio\%208/ONS\%20ESTAL\%20-\%20SMSF\%20-\%20Relat\%C3\%B3rio\%208.pdf}{05/04/2015}
+
+\end{thebibliography}
+
+
+
+\end{document}

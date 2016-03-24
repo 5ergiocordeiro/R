@@ -1,0 +1,345 @@
+% Acertar título, inclusive fonte
+
+\documentclass[12pt,fleqn]{amsart}
+\usepackage{enumitem}
+\usepackage{xstring}
+\usepackage{graphicx}
+\usepackage[a4paper]{geometry}
+\usepackage[portuguese,brazilian]{babel}
+\usepackage[ansinew]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[scaled]{helvet}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+\usepackage{fmtcount}
+\usepackage{float}
+\usepackage{glossaries}			% Sempre depois de "hyperref", segundo o Wikibook, para que os links sejam clicáveis
+
+\makeglossaries
+\makeindex
+\setglossarystyle{altlist}
+
+
+\newglossaryentry{SLINK}{
+  name={Simulink},
+  description={Simulador com capacidades gráficas produzido pela empresa Mathworks e usado para análise dinâmica de sistemas}
+  }
+\newglossaryentry{PESTAL}{
+  name={Projeto ESTAL},
+  description={Projeto do \acrshort{ONS}-\acrshort{MME} cujo título oficial é "A Aplicação da Tecnologia de Medição Fasorial nos Sistemas de Suporte a Tomada de Decisão em Tempo Real"}
+  }
+
+\newacronym{SIPS}{SIPS}{Esquema de Proteção da Integridade do Sistema (\emph{System-Integrity Protection Scheme})}
+\newacronym{WAMPAC}{WAMPAC}{Monitoração, Proteção, Automação e Controle em Grandes Áreas (\emph{Wide-Area Monitoring, Protection, Automation and Control}}
+\newacronym[longplural={Sistemas de Medição Fasorial Sincronizada}]{SMFS}{SMFS}{Sistema de Medição Fasorial Sincronizada} 
+\newacronym{SOLD}{SOLD}{Sistema de Oscilografia de Longa Duração}
+\newacronym{SPDC}{SPDC}{Concentradores de Dados Fasoriais das Subestações}
+\newacronym{CDC}{CDC}{Concentrador Central de Dados}
+\newacronym{LLLM}{LLLM}{Monitoração do Limite de Carregamento de Linha (\emph{Line Loading Limit Monitoring})}
+\newacronym{EVSA}{EVSA}{Avaliação Avançada de Estabilidade de Tensão (\emph{Enhanced Voltage Stability Assesment})}
+\newacronym{ESTAL}{ESTAL}{Projeto de Assistência Técnica ao Setor de Energia (\emph{Energy Sector Technical Assistence Project})}
+\newacronym{MME}{MME}{Ministério de Minas e Energia}
+\newacronym{ERAC}{ERAC}{Esquema de Alívio Regional de Carga, o mesmo que \acrshort{RAS}}
+\newacronym{RAS}{RAS}{Esquema de Ação Corretiva (\emph{Remedial Action Scheme}), o mesmo que \acrshort{ERAC}}
+\newacronym{OLCA}{OLCA}{Análise de Contingência On-Line (\emph{On-line Contingency Analysis})}
+\newacronym{OST}{OST}{Proteção contra falta de sincronismo (\emph{Out-of-Step Tripping})}
+\newacronym{OSB}{OSB}{Bloqueio em caso de falta de sincronismo (\emph{Out-of-Step Blocking})}
+\newacronym{ONS}{ONS}{Operador Nacional do Sistema Elétrico}
+\newacronym{WASP}{WASP}{Proteção do Sistema em Grandes Áreas (\emph{Wide Area System Protection})}
+\newacronym{SOM}{SOM}{Monitoração de Oscilações do Sistema (\emph{System Oscillation Monitoring})}
+
+
+\renewcommand{\thesubsection}{\textbf{\arabic{subsection}}}
+
+\title{Aplicações do Sistema de Medição Fasorial: Detecção e Localização de Faltas}
+\date{}
+\author{Mateus M. Coelho, Sérgio Cordeiro, Alan Oliveira}
+
+
+\newenvironment{lista}{
+	\vspace{-5mm}
+	\begin{itemize}}{
+	\end{itemize}	
+	\vspace{-5mm}}
+
+\newenvironment{listaf}{
+	\vspace{-5mm}
+	\begin{itemize}}{
+	\end{itemize}}
+
+\newenvironment{listae}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=(\roman*)}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}	
+	\vspace{-5mm}}
+
+\newenvironment{listaef}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=(\roman*)}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}}
+	
+\newcommand{\newbibit}[6]{\bibitem[#1]{#2}#3, {\bf #4}. Disponível em \url{#5}, acesso em #6.}
+\newcommand{\newbibpp}[5]{\bibitem[#1]{#2}#3, {\bf #4}, \emph{in} #5.}
+\newcommand{\newbibbk}[5]{\bibitem[#1]{#2}#3, {\bf #4}, #5.}
+\newcommand{\newbibip}[6]{\bibitem[#1]{#2}#3, {\bf #4}, \emph{in} #5, disponível em \url{#6}.}
+
+\newenvironment{iquote}{\begin{quote}\itshape}{\end{quote}}
+
+
+\begin{document}
+\setlength{\parskip}{1em}
+\setlength{\jot}{10pt}
+
+\maketitle
+
+\section*{Introdução}
+Segundo \cite{Zhou et. al. 2007}, as PMUs que estão sendo instaladas pelo \gls{ONS} fazem parte de dois \glspl{SMFS} independentes: o \gls{PESTAL} e o \gls{SOLD}. O objetivo do primeiro é: \begin{iquote} conduzir “estudos e desenvolvimento, no futuro próximo, de medições fasoriais em tempo real no Sistema Elétrico Brasileiro, para aumentar o nível sistêmico da segurança operacional, seja através da mitigação de grandes perturbações ou através do alívio de uma variada gama de restrições operacionais. Além disso, o objetivo é também aumentar os atuais limites de intercâmbio de
+energia presentes entre as áreas e regiões do Sistema, devido à maior precisão oferecida pelas novas medições e, assim, reduzir futuros reforços e custos de expansão necessários ao sistema elétrico.”. \end{iquote}. O objetivo do segundo é \begin{iquote} capturar e registrar a dinâmica de longo prazo do sistema para análise pós-evento, para melhorar o modelo do sistema e avaliação (e melhora de desempenho) dos sistemas especiais de proteção. \end{iquote}
+O \gls{PESTAL} identificou dois grupos de aplicações: \emph{off-line} e \emph{on-line}(isto é, em tempo real). As primeiras consistem em monitoramento do sistema para obtenção de informações úteis para os engenheiros; por exemplo, análises de perturbações pós-evento. Quanto às aplicações on-line, estão subdivididas \begin{iquote} em três subgrupos: aplicações de monitoramento, aplicações de controle para grandes áreas e aplicações de proteção para grandes áreas. As aplicações no subgrupo de monitoração devem ser de “loop aberto”, enquanto as aplicações nos subgrupos de proteção e controle de grandes áreas devem realizar ações de loop fechado. Deste modo, existe uma diferença significativa de requisitos para monitoramento em tempo real e para proteção / controle em tempo real. Como os requisitos de comunicação e de aquisição/processamento de dados para proteção e controle de tempo real são muito exigentes, o plano de colocação inicial do SMFS do ONS é focado na monitoração em tempo real [...]. \end{iquote}
+Assim, as aplicações da medição de sincrofasores para controle em malha fechada não foram contempladas por nenhum projeto até o momento, porque os requisitos dessas aplicações são muito sofisticados. No entanto, \begin{iquote} Algumas aplicações de proteção e controle off-line e on-line de tempo real também estão descritas e incluídas para (1) fornecer uma imagem global de outras possíveis aplicações e suas potenciais implementações no futuro, independente do fato de se elas atendem ou não as necessidades imediatas do ONS, e também para (2) estimar seus requisitos de sistema. \end{iquote}
+Ou seja, existem aplicações de PMUs em proteção também no modo \emph{off-line}. Um exemplo dessas aplicações é a localização automática de faltas, que é feita sempre após uma ocorrência. \\
+Podemos, então, dividir as aplicações de um \acrshort{SMFS}, do ponto de vista da proteção, em dois grandes grupos: aquelas em que as medições de sincrofasores servem para estudo do sistema elétrico com vistas a encontrar formas de aumentar sua resiliência, que chamaremos aqui de {\bf aplicações indiretas}; e aquelas em que as medições servem para comandar, habilitar, desabilitar ou fornecer dados para um subsistema de proteção, que chamaremos aqui de {\bf aplicações diretas}. São características das aplicações indiretas:
+\begin{lista}
+  \item são realizadas \emph{off-line};
+  \item consistem em monitoramento do sistema para obtenção de informações úteis para os engenheiros;
+\end{lista}
+Por outro lado, as características das aplicações diretas são:
+\begin{lista}
+  \item podem ser realizadas \emph{on-line} (ou seja, em tempo real) ou \emph{off-line};
+  \item fornecem informações úteis para os dispositivos de proteção, para os operadores ou para a equipe de manutenção;
+  \item servem para aprimorar os esquemas de proteção que não precisam operar em velocidade ultra-rápida; por exemplo,
+  \begin{itemize}
+	\item proteção de backup e contra sincronismo, perda de campo, subfrequência e subtensão
+	\item localização de faltas
+	\item classificação de faltas
+  \end{itemize}
+\end{lista}
+Tanto as aplicações diretas quanto as indiretas têm o objetivo de evitar perturbações de grande porte, como blecautes, por exemplo, em um sistema de potência. Um sistema composto por aplicações desse tipo é chamado \acrshort{WASP}: \acrlong{WASP}. \\
+Partindo-se da premissa de que qualquer ação dos operadores do sistema pode vir a ser automatizada no futuro, conclui-se que não há muita diferença conceitual entre uma aplicação direta que comanda um dispositivo de proteção e uma outra que apenas sinaliza ao operador que uma determinada ação deva ser tomada. Em vista disso, apresentamos a seguir uma lista de aplicações diretas e suas principais características, sem preocupação com o fato de se a malha de controle será fechada por um operador ou por um dispositivo inteligente. Quanto às aplicações indiretas, não serão consideradas neste trabalho, uma vez que sua sistematização é difícil: todo dispositivo que coleta dados sobre o sistema elétrico acaba se encaixando nessa categoria. Além disso, não podem ser consideradas aplicações de PMUs no sentido estrito. \\
+
+\section*{\acrshort{LLLM}: \acrlong{LLLM}}
+Segundo \cite{Zhou et. al. 2007}, \begin{iquote} As capacidades de carregamento de linhas de transmissão aéreas variam dependendo das condições climáticas prevalecentes (vento e temperatura ambiente). Acredita-se que muitas linhas de transmissão aéreas tenham sido projetadas considerando critérios excessivamente conservadores, podendo, portanto, ter capacidade em excesso sob certas condições climáticas. [...] A capacidade da linha tipicamente é limitada pelo desempenho do condutor a altas temperaturas e pelas normas de segurança que especificam as mínimas distâncias ao chão liberadas no entorno da mesma. \\
+A aplicação \acrshort{LLLM} usará medições fasoriais sincronizadas, fasores de tensão em ambos os lados de determinada linha e o fasor de corrente de linha para determinar a real impedância dos condutores da linha, e então estimar a temperatura média do condutor da linha, a partir da resistência da linha medida. A resistência da linha pode mudar devido a condições de ambiente e de carregamento. \end{iquote}
+Trata-se, portanto, do uso dos sincrofasores para se estimar a resistência da linha, a partir desta e da corrente, a dissipação de calor e, finalmente, a temperatura. A vantagem do uso dos sincrofasores nessa aplicação é que não é necessário instalar sensores de temperatura nas linhas. O ganho esperado é o aumento da capacidade de despacho de potência para linhas onde o limite de carregamento teórico seja hoje causa de congestões do sistema. \\
+São limitações da técnica: \begin{iquote} (1) Como as linhas de transmissão cruzam diferentes terrenos, altitudes, e sistemas climáticos, uma limitação do método acima é que a saída do método representa apenas a temperatura média ao longo do comprimento do condutor, mas não a temperatura do ponto mais quente ao longo da linha. (2) A situação pode ser ainda mais complicada devido ao fluxo desigual de corrente entre as fases de uma linha trifásica. (3) Outra limitação é que a temperatura estimada para a linha sendo monitorada por um par de PMU em seus terminais será impactada por quaisquer derivações de linha ou subestações entre as extremidades. (4) A proteção de sobrecarga de uma linha é tipicamente baseada na corrente mais alta que a mesma permite transportar. Descobrir dinamicamente a capacidade de carregamento da linha e tentar usar o limite completo sob certas condições de sistema e de tempo exigiria coordenação da LLLM com os relés de proteção de sobrecarrega da linha. \end{iquote}
+Evidentemente, um modelo térmico e climático mais sofisticado do que o descrito inicialmente pode ajudar a contornar os problemas (1) e (3). Para resolver o problema (2), basta usar os fasores trifásicos em lugar de apenas os fasores de sequência positiva. Quanto ao problema (4), ele não existe na prática, uma vez que em geral o deligamento por sobrecarga cabe ao operador do sistema, estando os relés de proteção configurados de forma bastante permissiva. \\
+Os requisitos de hardware para essa aplicação são relativamente modestos:
+\begin{lista}
+  \item Locação de uma PMU em cada lado da linha.
+  \item Fasores de tensão de cada barramento e corrente de linha (sequência positiva ou trifásicos).
+  \item Taxa mínima de aquisição de dados: uma amostra por segundo.
+  \item Latência máxima: da ordem de segundos.
+\end{lista}
+Quanto ao software, não é considerado complexo. Além disso, o modelo térmico e climático pode ir sendo aprimorado paulatinamente com o tempo.
+
+\section*{\acrshort{ERAC}}
+Segundo \cite{Zhou et. al. 2007}, os sistemas \acrshort{RAS}/\acrshort{ERAC}/\acrshort{SIPS} têm seus critérios operacionais determinados a partir de estudos off-line, baseados no cenário de pior caso. Assim, não operam de forma otimizada para as condições reais do sistema elétrico. Além do mais, estas condições, em casos excepcionais, podem ser ainda piores do que o indicado pela análise teórica, o que faz com que o esquema de proteção projetado falhe. A medição fasorial sicronizada pode ser usada para corrigir essas falhas. \\
+Além da proteção contra sobrecarga mencionada anteriormente, \begin{iquote} Um esquema de relé de sincronismo baseado em PMU ou outros esquemas de proteção avançados para grandes áreas, combinados com funções de proteção de sistema para corte de
+carga ou para desligamento de gerador poderia aumentar substancialmente o limite de transmissão de uma linha sob condições de emergência ou sob condições operacionais pós-contingência, onde o limite de transferência da linha seria severamente reduzido. [...] A habilidade de se saber com  precisão o estado do sistema e as mudanças dinâmicas de um sistema de potência permitirão uma determinação mais confiável de se o sistema será estável ou não, e permitirá que se tomem as medidas mais apropriadas. \end{iquote}
+Em resumo, a contribuição da medição fasorial a esses esquemas de proteção consiste em que passará a ser possível:
+\begin{lista}
+  \item determinar com maior precisão e antecedência se uma emergência acontecerá;
+  \item determinar se, para fazer frente à emergência, será suficiente adicionar geradores ou se será necessário desligar cargas, ou mesmo geradores;
+  \item determinar os geradores que se deve adicionar ou desligar para obter o melhor resultado;
+  \item determinar a quantidade exata de cargas a ser desligada, se for o caso;
+\end{lista}
+Os requisitos de hardware para essa aplicação são relativamente modestos:
+\begin{lista}
+  \item Locação de uma PMU em cada barramento onde forem requeridas medições e controles para a aplicação \acrshort{OLCA}: \acrlong{OLCA};
+  \item Fasores de tensão de cada barramento e corrente de linha (sequência positiva).
+  \item Taxa mínima de aquisição de dados: dez amostras por segundo.
+  \item Latência máxima: 200 ms.
+\end{lista}
+Quanto ao software, é considerado bastante complexo. Além disso, depende da preexistência das funções \acrshort{OLCA} e \acrshort{EVSA}: \acrlong{EVSA}.
+
+\section*{Proteção contra perda de sincronismo}
+\cite{Farantatos 2012} e \cite{Leal 2013} descrevem um esquema de proteção contra perda de sincronismo baseado em sincrofasores, comparando-a com a proteção convencional, realizada por relés digitais. \\
+A proteção convencional é executada por relés do tipo \acrshort{OSB} ou \acrshort{OST}. Trata-se de relés de distância que monitoram a impedância da linha e tomam decisões com base nos valores instantâneos do módulo e do ângulo em uma fase escolhida. Por exemplo, a figura 1 ilustra o funcionamento de um relé com característica quadrilateral; o paralelogramo é a região de disparo, que corresponde a um ângulo limite para a impedância da linha enxergada pelo relé.
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=0.9\textwidth]{fig7.jpg}
+	\\ Modelo
+\end{figure}
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=0.9\textwidth]{fig8.jpg}
+	\\ Circuito equivalente
+\end{figure}
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=0.9\textwidth]{fig1.jpg}	
+	\\ Figura 1 – Proteção por relé de distância digital \cite{Leal 2013}.
+\end{figure}
+Para evitar disparos supérfluos em faltas temporárias, usualmente se introduz um retardo. A figura 2 ilustra dois casos (a e b) de faltas temporárias, em que a impedância atinge um valor crítico mas rapidamente volta à condição normal, não causando o disparo da proteção; e um caso (c) em que a impedância cruza ambas as fronteiras sem voltar à condição normal, o que provoca a atuação do relé. A vantagem desse esquema é que o ajuste da proteção de sincronismo pode ser feita de forma independente do ajuste das demais funções de proteção do relé. A desvantagem é que o retardo introduzido na atuação, em uma condição de falta real, pode provocar danos ao sistema. Além disso, o ajuste dessa proteção requer numerosos ensaios e/ou simulações da falta para se obterem os parâmtros ótimos.
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=0.9\textwidth]{fig2.jpg}
+  \\ Figura 2 – Trajetória da impedância em 3 casos hipotéticos \cite{Farantatos 2012}.
+\end{figure}
+Outros esquemas em uso são: emprego de mais de um paralelogramo e medição da taxa de variação da impedância; técnicas avançadas como a transformada de wavelet, redes neurais e lógica nebulosa (\emph{fuzzy}) vêm sendo investigadas mas ainda não encontraram aceitação prática. \\
+Mais informações sobre a proteção digital contra perda de sincronismo podem ser encontradas em \cite{Berdy 2002 1,Berdy 2002 2,Tziouvaras e Hou 2013}. \\
+A proteção mediante sincrofasores se baseia no acompanhamento em tempo real das funções energia total e energia potencial de cada gerador. O disparo ocorre assim que se constata que o valor da segunda jamais igualará o valor da primeira, como mostrado na figura 3: no momento indicado, já se sabe que a energia total está acima do limite alcançável pela energia potencial (linha vermelha), por isso o gerador não vai conseguir manter o sincronismo com os demais. Neste caso, portanto, o esquema de proteção pode atuar antes da falta ocorrer, poupando os componentes do sistema.
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=0.9\textwidth]{fig3.jpg}
+  \\ Figura 3 – Evolução da energia no tempo (caso de falta real) \cite{Farantatos 2012}.
+\end{figure}
+A figura 4 ilustra a situação em que a proteção não deve atuar, pois o sistema conseguirá recobrar a estabilidade (energia total abaixo do máximo alcançável pela energia potencial).
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=0.9\textwidth]{fig4.jpg}
+  \\ Figura 4 – Evolução da energia no tempo (caso estável) \cite{Farantatos 2012}.
+\end{figure}
+A figura 5 mostra a atuação do algoritmo tradicional, que precisa aguardar a ultrapassagem da barreira e que, por isso, atua mais lentamente. Note-se que a figura apresenta um defeito no traçado, pois a linha preta deveria passar pelos pontos indicados, e o ponto onde o ângulo $\delta$ é igual a $\pi$ radianos deveria estar localizado na crista e mais elevado que os demais.
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=0.9\textwidth]{fig5.jpg}
+  \\ Figura 5 – Evolução da energia no tempo (atuação da proteção convencional) \cite{Farantatos 2012}.
+\end{figure}
+Note-se que esta é uma aplicação que utiliza os dados obtidos por uma única PMU local, não sendo, portanto, uma proteção no âmbito de grandes áreas. Essa característica faz com que a latência na aquisição dos dados seja aquela introduzida por uma única PMU. \\
+Os requisitos de hardware para essa aplicação são os seguintes:
+\begin{lista}
+  \item Locação de uma PMU no barramento de cada gerador
+  \item Fasores de tensão e corrente do barramento
+  \item Taxa mínima de aquisição de dados: 60 amostras por segundo.
+  \item Latência máxima: da ordem de milissegundos.
+\end{lista}
+Quanto ao software, é considerado bastante complexo..
+
+
+\section*{Identificação e classificação centralizada de faltas}
+\cite{Moustafa e Masoud 2011} descrevem como dados obtidos de diversas PMUs podem ser enviados a um processador central que executa um algoritmo para identificar e classificar faltas. O estudo utilizou o simulador \gls{SLINK} para criar uma malha complexa e multiplamente conectada, difícil de tratar por meios convencionais (ver figura 6). O algoritmo proposto analisa a variação da tensão e o fluxo de potência de forma a identificar uma condição de falta, e componentes simétricas de corrente para classificá-la.
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=0.9\textwidth]{fig6.jpg}
+  \\ Figura 6 – Sistema para proteção centralizada \cite{Moustafa e Masoud 2011}.
+\end{figure}
+O sistema proposto executaria e coordenaria a proteção primária e também a de retaguarda em todas as linhas e barramentos. \\
+Os requisitos de hardware para essa aplicação, no entanto, são severos:
+\begin{listaf}
+  \item Locação de uma PMU em cada barramento
+  \item Fasores de tensão e corrente do barramento
+  \item Taxa mínima de aquisição de dados: 120 amostras por segundo.
+  \item Latência máxima: da ordem de milissegundos.
+\end{listaf}
+
+
+\section*{Localização de faltas}
+Linhas de transmissão e distribuição são expostas a faltas que são causadas por diferentes razões, tais como curtos circuitos, pássaros, tempestades, etc. A maioria destas faltas resultam em danos físicos das linhas, as quais necessitam de reparos antes do seu retorno em serviço. As faltas em linhas de transmissão precisam ser localizadas com precisão para permitir que as equipes de manutenção cheguem ao local da falha no menor tempo possível para efetuar os reparos. A topografia e o tipo de terreno geralmente aumentam a dificuldade de acesso a determinadas seções das linhas de transmissão. Assim, é um requisito muito importante a determinação precisa da localização das faltas considerando uma variedade de restrições operativas do sistema de potência e suas condições de falta \cite{Kezunovic e Perunicic 1995,Saha et. al 2010}. \\
+De uma forma geral, uma rápida e precisa localização do local da falta irá acelerar o restabelecimento do sistema, melhorando a qualidade do fornecimento e sua confiabilidade. Consequentemente, isto irá minimizar a inconveniência da eventual falta de energia para o consumidor. Assim, a localização de faltas pode ser considerada como uma das primeiras funções a serem integradas aos modernos sistemas de controle de subestações \cite{Saha et. al 2010,Madani 2006}. \\
+Uma variedade de algoritmos de localização de faltas têm sido desenvolvidos e apresentados na literatura. A maioria deles é baseada no princípio da impedância, fazendo uso das correntes e tensões da frequência fundamental. Localizações de falta baseadas nos fenômenos de ondas viajantes, componentes de alta frequência de correntes e tensões geradas pelas faltas e inteligência artificial (ex. redes neurais fuzzy) também têm sido desenvolvidas. \\
+Dependendo da disponibilidade dos sinais de entrada dos localizadores de falta, os algoritmos de localização de falta podem ser categorizados como: 1 terminal (one-end), 2 terminais (two-end) e multi-terminais (multiend). O algoritmo de localização de faltas baseado na medição sincronizada de fasores prova ser robusto sob condições de oscilação de potência (Power swing) e sistema fora de passo (out of step), e tem sido proposta como parte de uma estratégia que busca a prevenção ou mitigação de blecautes em cascata que envolvem operações incorretas de relés de proteção ou suporte inadequado de diagnóstico local \cite{Al-Mohammed e Abido 2014}. \\
+
+\subsection{Fatores que influenciam a precisão da localização de faltas}
+Diferentes fatores afetam a precisão dos métodos de localização de faltas. Em geral, sem considerar o método de localização de falta, os principais fatores são:
+\begin{listae}
+	\item Imprecisão na compensação do efeito da reatância, quando o método de localização de faltas utiliza medições em apenas 1 terminal. Exemplo: impedâncias equivalentes de fontes atrás dos terminais da linha que não representam a real robustez das fontes;
+	\item Imprecisão na identificação do tipo de falta (ou da fase onde houve a falta), quando o método de localização de faltas considera loops de falta naturais (loops fase- terra ou fase-fase), similares àqueles aplicados em relés de distância;
+	\item Imprecisão dos parâmetros que representam as linhas (calculados), que não correspondem aos parâmetros em tempo real;
+	\item Incertezas sobre os parâmetros das linhas, particularmente a impedância de sequência zero. É difícil de obtê-la com precisão, pois é afetada pela resistividade do solo – que pode variar ao longo da linha – e também depende das condições climáticas;
+	\item Pontos de transposição das fases ao longo da linha (fontes de ondas viajantes refletidas) e influência do efeito da mútua de sequência zero – alguns algoritmos não consideram estas questões, gerando pontos de imprecisão nos modelos utilizados;
+	\item Taxa de amostragem – quanto maior a taxa de amostragem das variáveis medidas e consideradas nos algoritmos, menor o erro na determinação da localização da falta.
+\end{listae}
+Outros fatores de erro:
+\begin{lista}
+	\item nível do fluxo de potência e sua direção antes da falta;
+	\item presença de reatores e capacitores série nas linhas; 
+	\item erros de medição de TCs/TPs (transitórios e em condição permanente), incluindo a possibilidade de saturação de TC;
+	\item resposta em frequência das medições de tensão.
+\end{lista}
+
+\subsection{Localização de faltas utilizando medição sincronizada em 2 terminais (two-end)}
+Algoritmos de localização de faltas com medições em 2 terminais têm sido propostos com o objetivo de superar as limitações das técnicas de localização de falta com 1 terminal (one-end) e aumentar a precisão da localização. \\
+Um diagrama esquemático com arranjo de medições em 2 terminais utilizando PMU é mostrado na figura abaixo. \\
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=0.9\textwidth]{fig9.jpg}
+  \\ Figura 7 – Arranjo de medições em 2 terminais utilizando PMU.
+\end{figure}
+Os algoritmos baseados em 2 terminais têm sido desenvolvidos utilizando-se tanto medições completas quanto incompletas. Medições completas utilizam as 3 fases de tensão e 3 fases de corrente. Para medições incompletas, existem 3 opções de interesse:
+\begin{listae}[3]
+	\item tensões trifásicas dos 2 terminais com corrente trifásica de apenas 1 terminal;
+	\item correntes trifásicas dos 2 terminais com tensão trifásica de apenas 1 terminal;
+	\item tensões trifásicas dos 2 terminais.
+\end{listae}
+Vários algoritmos de localização de faltas utilizando medições sincronizadas completas nos 2 terminais têm sido desenvolvidos, podendo ser de métods iterativo ou não-iterativo. \\
+
+Seguem abaixo as várias características consideradas em diversos algoritmos, cujos detalhes podem ser encontrados em literatura específica:
+\begin{listae}[3]
+	\item Localização de falta considerando faltas com arco elétrico e faltas permanentes;
+	\item Algoritmos derivados no domínio do tempo;
+	\item Algoritmos que representam linhas longas com os parâmetros distribuídos onde a capacitância shunt é incluída no modelo da linha;
+	\item Algoritmos de localização de faltas em sistemas com linhas aéreas combinadas com linhas subterrâneas, onde é utilizado o modelo de linha distribuída, teoria da transformação modal e transformada discreta de Fourier;
+	\item Algoritmos que consideram o desequilíbrio entre as 3 fases;
+	\item Algoritmos de localização de faltas em linhas paralelas conjuntas, com utilização de componentes de 6 sequências de falta,
+	\item Algoritmos baseados na estimação linear de estado, onde o local da falta e a tensão no ponto de falta são adicionados como novas variáveis de estado num estimador de estado linear baseado nos dados das PMUs;
+	\item Algoritmos baseados em medições incompletas nos 2 terminais que podem ser aplicados em linhas com transposição ou não, linhas simples ou duplas;
+	\item Algoritmos que utilizam as medições incompletas de tensão nos 2 terminais e também as tensões sincronizadas de nós vizinhos (neste caso não há otimização do número de PMUs);
+\end{listae}
+Obs: Algoritmos de localização de faltas que utilizam apenas medições sincronizadas de tensões nos 2 terminais têm a vantagem de serem imunes à saturação de TCs, obviamente por estes não serem sinais medidos.
+
+\subsection{Localização de faltas em linhas com 3 terminais (Three-Terminal) e multiterminais (Multiterminal)}
+Geralmente linhas multiterminais são aquelas que possuem 3 ou mais terminais com substancial geração atrás de cada terminal. De forma similar, linhas com derivação (tapped lines) são aquelas que possuem 3 ou mais terminais com substancial geração atrás de no máximo 2 terminais. Linhas multiterminais ou linhas com derivação são usadas por razões econômicas ou ambientais. As derivações (taps) alimentam apenas cargas, ou redes passivas, enquanto os terminais restantes são conectados a redes ativas \cite{Saha et. al 2010}. Vários algoritmos e suas características são apresentados:
+\begin{listae}[3]
+	\item Algoritmos baseados em medições trifásicas de corrente nos 3 terminais e medições trifásicas de tensão apenas no terminal onde está o localizador da falta;
+	\item Algoritmos baseados em medições trifásicas de corrente e tensão nos 3 terminais (aplicadas em LTs de extra alta tensão)
+	\item Algoritmos baseados em medições de tensão e corrente de 2 terminais apenas, os quais não são influenciados pela resistência da falta, local da falta, condições de carga, impedância da fonte e tipos de falta;
+	\item Algoritmos baseados no modelo distribuído da linha e sincronização dos fasores de sequência positiva de tensão e corrente;
+\end{listae}
+
+\subsection{Localização de faltas em linhas com compensação série}
+Existem vários algoritmos de localização de falta para linhas com compensação série. Alguns algoritmos não necessitam do modelo do dispositivo série e das informações da função de proteção do dispositivo de série para prever a queda de tensão. Em vez disso, são utilizadas duas etapas de iteração – pré-localização e correção, utilizadas para calcular a queda de tensão e a localização da falta, com resultados de alta precisão. Outros algoritmos são baseados na  distribuição do modelo da linha no domínio do tempo.
+
+\subsection{Localização de Falta adaptativa}
+O principal foco de algoritmos de localização de falta adaptativos é atingir uma precisão maior na localização da falta. A idéia se resume na estimativa adequada de parâmetros de linha e impedância do sistema. A incerteza dos parâmetros da linha, que variam sob condições climáticas e de carregamento, podem afetar substancialmente a precisão da localização da falta. Com PMUs medindo a tensão e corrente nos 2 terminais da linha, os parâmetros da linha podem ser calculados usando as medições de pré-falta da amplitude e ângulo de fase das tensões e correntes. Alguns algoritmos são dedicados para aplicações de cabos de idade elevada. Outros algoritmos utilizam índice de localização de falhas em termos de componentes de Clarke para calcular a localização do defeito. Há aplicação da transformada discreta de Fourrier em algoritmos com o objetivo de eliminar o ruídos e erros de medição. Há também algoritmos que utilizam o modelo de linha distribuído e a teoria de transformação modal, algoritmos para linhas simples, circuitos duplos, linhas paralelas, linhas com transposição, entre outros.
+
+
+\printglossaries
+
+
+\begin{thebibliography}{15}
+
+\newbibit{Berdy 2002 1}{Berdy 2002 1}{J. BERDY}{Out-Of-Step Protection For Generators}{http://store.gedigitalenergy.com/FAQ/Documents/CEB/GER-3179.pdf}{23/04/2015}
+
+\newbibit{Berdy 2002 2}{Berdy 2002 2}{J. BERDY}{Application of Out-Of-Step Blocking and Tripping Relays}{http://store.gedigitalenergy.com/faq/Documents/Alps/GER-3180.pdf}{12/05/2015}
+
+\newbibpp{Brahma 2006}{Brahma 2006}{S. M. BRAHMA}{New fault location scheme for a two-terminal transmission line using synchronized phasor measurements}{Proceedings of the IEEE PES Transmission and Distribution Conference and Exhibition, pp. 853–857, May 2006}
+
+\newbibit{Farantatos 2012}{Farantatos 2012}{E. FARANTATOS}{A Predictive Out-of-Step Protection Scheme Based on PMU-Enabled  Distributed Dynamic State Estimation}{https://smartech.gatech.edu/bitstream/handle/1853/45863/farantatos_evangelos_201212_phd.pdf}{22/04/2015}
+
+\newbibpp{Kezunovic e Perunicic 1995}{Kezunovic e Perunicic}{M. KEZUNOVIC and B. PERUNICIC}{Synchronized sampling improves fault location}{IEEE Computer Applications in Power, vol. 8, no. 2, pp. 30–33, 1995}
+
+\newbibpp{Izykowski et a. 2010}{Izykowski et a. 2010}{J. IZYKOWSKI, E. ROSOLOWSKI, P. BALCEREK, M. FULCZYK and M. SAHA}{Accurate noniterative fault location algorithm utilizing two-end unsynchronized measurements}{IEEE Transactions on Power Delivery, vol. 25, no. 1, pp. 72–80, 2010}
+
+\newbibpp{Madani 2006}{Madani 2006}{V. MADANI}{Western interconnection experience with phasor measurements}{Proceedings of the IEEE PES Power Systems Conference and Exposition (PSCE ’06), pp. 343–352, November 2006}
+
+\newbibip{Al-Mohammed e Abido 2014}{Al-Mohammed e Abido 2014}{A. H. Al-MOHAMMED and M. A. ABIDO}{Fault Location Based on Synchronized Measurements: A Comprehensive Survey}{The Scientific World Journal, Volume 2014, Article ID 845307}{http://dx.doi.org/10.1155/2014/845307}
+
+\newbibit{Moustafa e Masoud 2011}{Moustafa e Masoud 2011}{M. MOUSTAFA e M. MASOUD}{A Novel Wide Area Protection Classification Technique for Interconnected Power Grids Based on MATLAB Simulation}{http://www.intechopen.com/books/scientific-and-engineering-applications-using-matlab/a-novel-wide-area-protection-classification-technique-for-interconnected-power- grids-based-on-matlab}{08/04/2015}
+
+\newbibit{Leal 2013}{Leal 2013}{M. LEAL}{Proteção Contra Perda de Sincronismo Utilizando Sincrofasores
+– Aplicação no Sistema Acre - Rondônia}{http://www.pee.ufrj.br/teses/textocompleto/2013062701.pdf}{12/05/2015}
+
+\newbibbk{Saha et. al 2010}{Saha et. al 2010}{M. SAHA, J. IZYKOWSKI and E. ROSOLOWSKI}{Fault Location on Power Network}{ Springer, New York, NY, USA, 2010}
+
+\newbibit{Santos 2010}{Santos 2010}{A. SANTOS}{Sistemas de Medição Fasorial Sincronizada. Aplicações na Restauração do Sistema Elétrico de Potência}{http://www.ppgee.ufmg.br/defesas/15M.PDF}{11/05/2015}
+
+\newbibit{Tziouvaras e Hou 2013}{Tziouvaras e Hou 2013}{D. TZIOUVARAS e HOU Daqing}{Out-Of-Step Protection Fundamentals And
+Advancements}{https://www.selinc.com/WorkArea/DownloadAsset.aspx?id=2811}{22/04/2015}
+
+\newbibit{Zhou et. al. 2007}{Zhou et. al. 2007}{ZHOU et. al.}{Projeto ESTAL: Utilização de Fasores no Sistema Interligado Nacional do ONS. Relatório 3: Aplicações das PMU e seus Requisitos}{http://www.ons.org.br/publicacao/ASC/Medicao\%20Fasorial/Projeto\%2011.11\%20-\%20Plano\%20de\%20A\%E7\%E3o\%20do\%20ONS\%20-\%20uso\%20no\%20TR\%20de\%20sincrofasores/Documentos\%20produzidos\%20pela\%20KEMA/Relat\%F3rio\%203/ONS\%20ESTAL\%20-\%20SMFS\%20-\%20Relat\%F3rio\%203.pdf}{16/04/2015}
+
+\end{thebibliography}
+
+
+\end{document}

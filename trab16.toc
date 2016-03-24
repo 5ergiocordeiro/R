@@ -1,0 +1,17 @@
+\select@language {brazilian}
+\contentsline {section}{\tocsection {}{1}{Introdu\c c\~ao}}{3}{section.1}
+\contentsline {section}{\tocsection {}{2}{Equa\c c\~oes de Maxwell em coordenadas cil\IeC {\'\i }ndricas}}{4}{section.2}
+\contentsline {subsection}{\tocsubsection {}{2.1}{Forma das equa\c c\~oes para o problema proposto}}{4}{subsection.2.1}
+\contentsline {subsection}{\tocsubsection {}{2.2}{Forma das equa\c c\~oes em coordenadas cil\IeC {\'\i }ndricas}}{6}{subsection.2.2}
+\contentsline {subsection}{\tocsubsection {}{2.3}{Solu\c c\~ao da equa\c c\~ao \ref {Eqz}}}{7}{subsection.2.3}
+\contentsline {subsubsection}{\tocsubsubsection {}{}{Solu\c c\~ao da equa\c c\~ao \ref {EqzBessel}}}{9}{subsubsection.2.3.1}
+\contentsline {subsubsection}{\tocsubsubsection {}{}{Solu\c c\~ao das equa\c c\~oes \ref {Eqzz} e \ref {Eqzphi}}}{10}{subsubsection.2.3.2}
+\contentsline {section}{\tocsection {}{3}{Solu\c c\~ao das equa\c c\~oes de onda}}{11}{section.3}
+\contentsline {subsection}{\tocsubsection {}{3.1}{Os potenciais vetores el\'etrico e magn\'etico}}{11}{subsection.3.1}
+\contentsline {subsection}{\tocsubsection {}{3.2}{Os modos transversais}}{13}{subsection.3.2}
+\contentsline {subsection}{\tocsubsection {}{3.3}{Ondas refletidas}}{14}{subsection.3.3}
+\contentsline {subsection}{\tocsubsection {}{3.4}{Onda plana em coordenadas cil\IeC {\'\i }ndricas}}{14}{subsection.3.4}
+\contentsline {subsection}{\tocsubsection {}{3.5}{Onda espalhada}}{16}{subsection.3.5}
+\contentsline {subsection}{\tocsubsection {}{3.6}{Corrente na superf\IeC {\'\i }cie do cilindro}}{17}{subsection.3.6}
+\contentsline {section}{\tocsection {}{4}{Implementa\c c\~ao}}{17}{section.4}
+\contentsline {section}{\tocsection {}{}{Refer\^encias}}{24}{section*.2}

@@ -1,0 +1,169 @@
+\documentclass[12pt,fleqn]{amsart}
+\usepackage{enumitem}
+\usepackage{xstring}
+\usepackage{graphicx}
+\usepackage[a4paper]{geometry}
+\usepackage[portuguese,brazilian]{babel}
+\usepackage[ansinew]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[scaled]{helvet}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+\usepackage{fmtcount}
+\usepackage{float}
+
+\newenvironment{lista}{
+	\vspace{-5mm}
+	\begin{itemize}}{
+	\end{itemize}	
+	\vspace{-5mm}}
+
+\newenvironment{listaf}{
+	\vspace{-5mm}
+	\begin{itemize}}{
+	\end{itemize}}
+
+\newenvironment{listae}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=(\roman*)}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}	
+	\vspace{-5mm}}
+
+\newenvironment{listaef}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=(\roman*)}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}}
+
+\title{Novas Tecnologias III}
+\date{}
+\author{Sérgio Cordeiro}
+	
+\begin{document}
+\setlength{\parskip}{1em}
+\setlength{\jot}{10pt}
+
+\maketitle
+
+\section*{Objetivo}
+O objetivo deste documento é especificar um sistema de automação e monitoramento de um transformador trifásico com as características abaixo:
+\begin{lista}
+	\item Potência: 45 / 60 / 75 MVA
+	\item Tensão AT: 345,0 kV
+	\item Tensão BT: 138,0 kV
+	\item Tensão Terciário: 13,8 kV
+	\item Com dois estágios de refrigeração (ONAN – ONAF1 – ONAF2)
+	\item Com comutador sob carga – Lado de AT – 33 posições
+\end{lista}
+A especificação enfatizou aspectos do subsistema de monitoramento, uma vez que as funções de automação encontram-se bastante sedimentadas na cultura da empresa.
+
+\section*{Requisitos e Premissas}
+Na elaboração deste trabalho adotaram-se as seguintes premissas:
+\begin{lista}
+	\item O transformador usará buchas do tipo capacitivo; os taps de teste e de tensão devem estar disponíveis.
+	\item O preço estimado do transformador, sem o sistema de automação e monitoramento, é de cerca de R\$ 3.500.000,00.
+	\item O transformador será instalado numa subestação de concessionária de distribuição de energia elétrica, na região Sudeste do Brasil; as condições climáticas presentes no local de instalação serão as típicas dessa região.
+	\item O sistema de automação e monitoramento será fornecido junto com o transformador; os testes de aceitação do mesmo contemplarão baterias de testes do sistema de automação e monitoramento; o transformador não será aceito se o sistema de automação e monitoramento não for aprovado nos testes; o sistema será comissionado pela mesma equipe que comissionará o transformador, e no mesmo período de tempo.
+	\item A concessionária manterá uma equipe de manutenção preditiva, responsável por receber as informações e alarmes do sistema de monitoramento, e a partir daí programar as atividades de manutenção necessárias; essa equipe será totalmente independente da equipe de operação, podendo mesmo estar localizada em escritório diferente.
+	\item A conexão da SE aos centros de controle usará rede de dados privada da concessionária.
+\end{lista}
+Como requisitos, adotaram-se os abaixo:
+\begin{lista}
+	\item O custo do sistema não deverá ultrapassar 8% do preço do transformador, ou seja, cerca de 
+	\item O sistema deverá ser capaz de sofrer atualizações tecnológicas após o término do período de garantia; entre as atualizações prováveis, encontram-se as seguintes:
+	\begin{enumerate}
+		\item Introdução do barramento de processo descrito na norma IEC 61850.
+		\item Introdução de sistema de gerenciamento da distribuição (DMS) baseado na norma IEC 61970, integrando as funções de automação e manutenção.
+	\end{enumerate}	
+\end{lista}
+\section*{Resumo executivo}
+Foram especificados 5 tipos de sensores para o monitoramento do transformador:
+\begin{lista}
+	\item Temperatura nos componentes
+	\item Gases dissolvidos e umidade no óleo
+	\item Deterioração das Buchas
+	\item Descargas parciais
+	\item Nível e pressão do óleo
+\end{lista}
+Com esses sensores, consegue-se prever e diagnosticar as falhas mais gracves e/ou comuns, a um custo razoável.
+Optou-se pelo monitoramento on-line, com vistas a viabilizar a atuação preditiva da manutenção, que proporciona máxima disponibilidade e, em muitos casos, também economia.
+
+\section*{Especificação detalhada}
+\subsection*{Análise de Viabilidade e Custos}
+Segue uma breve estimativa dos custos do sistema:
+\begin{lista}
+	\item Material
+	\begin{enumerate}
+		\item 4 sensores de nível ultrassônico: 4 x R\$ 1.000,00 = R\$ 4.000,00
+		\item 4 sensores de pressão piezoelétricos: 4 x R\$ 300,00 = R\$ 1.200,00
+		\item 5 sensores de temperatura: 5 x R\$ 300,00 = R\$ 1.500,00
+		\item 9 TCs: 9 x R\$ 1.000,00 = R\$ 9.000,00
+		\item 9 TPs: 9 x R\$ 1.000,00 = R\$ 9.000,00
+		\item 1 monitor eletrônico de temperatura: 1 x R\$ 5.000,00 = R\$ 5.000,00
+		\item 1 analisador de gases: 1 x R\$ 10.000,00 = R\$ 10.000,00
+		\item 9 medidores de capacitância: 9 x R\$ 5.000,00 = R\$ 45.000,00
+		\item 9 medidores de impedância: 9 x R\$ 5.000,00 = R\$ 45.000,00
+		\item IED, estação de visualização local e ativos de rede : não considerados
+		\item 1 servidor do sistema: 1 x R\$ 5.000,00 = R\$ 5.000,00
+	\end{enumerate}
+	Total: R\$ 135.700,00
+	\item Serviços de instalação e integração: considerados como igual ao valor dos materiais \\
+	Total: R\$ 135.700,00 \\
+	Total do investimento: R\$ 271.400,00
+\end{lista}
+O valor está dentro do admissível, considerando-se as premissas do trabalho.
+\subsection*{Sensores}
+\subsubsection*{Temperatura nos componentes}
+O sensoreamento de temperatura é um item obrigatório em todo sistema de monitoramento, em função de sua excelente relação custo-benefício. Com efeito, os sensoress de temperatura são robustos, relativamente baratos e a tecnologia de funcionamento encontra-se bem consolidada, ao mesmo tempo sendo capazes de detectar uma ampla gama de falhas em diversos componentes do sistema. Isto porque a vida útil do transformador está diretamente ligada à temperatura dos seus elementos, que por sua vez é influenciada por fatores como carregamento, forma de operação, eficiência do sistema de refrigeração, etc. \\
+No caso atual, recomendamos a instalação de sensores do tipo termorresistência Pt100 que meçam a temperatura nos tanques de óleo dos enrolamentos e do comutador, bem como a temperatura ambiente. Esses sensores deverão ser conectados a um monitores eletrônico de temperatura por meio de dois pares de condutores. O monitor eletrônico, por sua vez, deverá conectar-se ao IED que controla o transformador, por meio de interface FastEthernet ou Gigabit Ethernet e protocolo Modbus-TCP. \\
+O monitor de temperatura deverá ser capaz de calcular a temperatura nos enrolamentos a partir da corrente que circula e das temperaturas medidas nos tanques, por meio da técnica conhecida como "imagem térmica". Deverá também ser capaz de controlar o sistema de refrigeração e de emitir sinais de alarme para os subsistemas de
+proteção e de automação; esses sinais devem utilizar contatos secos, independentes da comunicação de dados via Modbus-TCP. Como se trata de um monitor inteligente, deverá ser capaz de auto monitoramento e diagnóstico; falhas graves também deverão ser sinalizadas por meio de contatos secos. \\
+A alternativa de utilização de medição direta da temperatura, por meio de sensores especiais, não se justifica neste caso, uma vez que a melhoria obtida na precisão, em relação à técnica da imagem térmica, não seria significativa; por outro lado, os custos incorridos seriam bem superiores, inclusive na manutenção dos sensores. \\
+Deverão ser instalados TCs em cada fase de cada enrolamento, independentes dos TCs usados para proteção e outras funções, de forma a permitir o cálculo da imagem térmica. Os secundários dsses TCs deverão ser conectados diretamente ao monitor eletrônico de temperatura. \\
+O IED de controle do transformador enviará dados de forma independente para os centros de supervisão da operação e da manutenção. O sistema de monitoramento deverá ser capaz de coletar os dados do IED em intervalos de 1 minuto, registrá-los, armazená-los e disponibilizá-los para consultas. Deverá também calcular máximos e gradientes, bem como estimar a vida útil dos componentes do transformador e recomendar intervenções da equipe de manutenção. \\
+\subsubsection*{Gases dissolvidos e umidade no óleo}
+A análise dos gases dissolvidos, inclusive vapor de água, no óleo isolante, apesar de cara, se justifica porque proporciona informações detalhadas a respeito das falhas ocorridas e por ocorrer no equipamento. \\
+Visando equilíbrio entre custo e benefício, recomendamos a instalação de um instrumento simples, capaz de detectar a presença de hidrogênio gasoso, por tratar-se este de um gás resultante de um grande número de defeitos internos ao transformador. Uma vez que se verifique que o óleo contém hidrogênio, o medidor deverá ser trocado por outro capaz de detectar a presença de outros gases chaves, como metano, acetileno, etileno, etano, monóxido de carbono, dióxido de carbono e água, de forma a permitir a discriminação do tipo de defeito e uma previsão da necessidade de intervenção. Assim, o medidor mais sofisticado poderá ser compartilhado por outros transformadores existentes na subestação. Para as medições básicas, recomendamos o Intellix GLA 100, e para as avançadas, o Transport X, portátil. \\
+O instrumento deverá ser capaz de auto monitoramento e diagnóstico, e de comunicar-se com o IED que controla o transformador por meio de interface FastEthernet ou Gigabit Ethernet, usando o protocolo Modbus-TCP. \\
+O IED de controle do transformador enviará dados de forma independente para os centros de supervisão da operação e da manutenção. O sistema de monitoramento deverá ser capaz de coletar os dados do IED em intervalos de 1 hora, registrá-los, armazená-los e disponibilizá-los para consultas. Deverá também empregar dados consolidados de outros sensores de forma a prover um diagnóstico mais completo, estimar a vida útil do óleo e do transformador e recomendar intervenções da equipe de manutenção. \\
+\subsubsection*{Deterioração das buchas}
+Em razão de uma falha nas buchas poder causar danos muito sérios aos equipamentos ou a pessoas que se encontrem nas proximidades, torna-se necessário monitorar seu estado. Recomendamos a instalação de um monitor específico no tap de teste de cada bucha, que medirá a capacitância e o fator de perdas dielétricas ("tangente delta"), o que proporciona uma boa estimativa do estado do dielétrico. A estimativa depende da medição das tensões presentes na entrada das buchas, por isso será necessário instalar TPs para essa finalidade, independentes daqueles instalados para proteção e automação da SE. \\
+Os monitores deverão ser capazes de auto monitoramento e diagnóstico, e de comunicar-se com o IED que controla o transformador por meio de interface FastEthernet ou Gigabit Ethernet, usando o protocolo Modbus-TCP. \\
+O IED de controle do transformador enviará os dados para o centro de supervisão da manutenção. O sistema de monitoramento deverá ser capaz de coletar os dados do IED em intervalos de 1 minuto, registrá-los, armazená-los e disponibilizá-los para consultas. Deverá também ser capaz de estimar a vida útil das buchas e recomendar intervenções da equipe de manutenção. \\
+\subsubsection*{Descargas parciais}
+Descargas parciais ocorrem com frequência no interior de equipamentos de alta tensão, causando paulatina deterioração no estado dos isolamentos. Com o tempo, curto-circuitos severos e inesperados podem resultar. Esse tipo de deterioração deve ser monitorado on-line para se obter precisão razoável. \\
+Recomendamos a instalação de um medidor de impedância no tap de tensão de cada bucha, capaz de captar impulsos elétricos de alta frequência (2 e 10 MHz), que são indicadores precisos da ocorrência das descargas parciais. De forma a eliminar a influência de ruído de alta frequência, deverá ser instalado um filtro analógico passa-baixas na entrada, com frequência de corte de 20 MHz, e o instrumento deverá contar com filtros digitais passa-faixa sintonizados nas frequências de interesse \footnotemark[1]. \\
+\footnotetext[1]{Recomendamos filtros de Chebyshev tipo 2, que apresentam resposta plana na faixa de interesse e seletividade elevada.}
+Os medidores deverão ser capazes de auto monitoramento e diagnóstico, e de comunicar-se com o IED que controla o transformador por meio de interface FastEthernet ou Gigabit Ethernet, usando o protocolo Modbus-TCP. \\
+O IED de controle do transformador enviará os dados para o centro de supervisão da manutenção. O sistema de monitoramento deverá ser capaz de coletar os dados do IED em intervalos de 1 minuto, registrá-los, armazená-los e disponibilizá-los para consultas. Deverá também ser capaz de estimar a vida útil do isolamento e recomendar intervenções da equipe de manutenção. \\
+\subsubsection*{Nível e pressão do óleo}
+Tendo em vista a importância do óleo isolante para o funcionamento e conservação da vida útil do transformador, e da simplicidade dos sensores disponíveis para medição do nível e da pressão nos tanques, o monitoramento dessas variáveis torna-se bastante atrativo. \\
+Recomendamos a instalação de sensores de nível do tipo ultrassônico e sensores de pressão piezoelétricos em todos os tanques do transformador, conectados a uma unidade de aquisição de dados por meio de cabos de instrumentação. O sensor de pressão utiliza dois pares e o de pressão, apenas um. As unidades deverão ser capazes de auto monitoramento e diagnóstico, e de comunicar-se com o IED que controla o transformador por meio de interface FastEthernet ou Gigabit Ethernet, usando o protocolo Modbus-TCP. Deverão também ser capazes de sinalizar alarmes via contatos secos, além de via protocolo de comunicação. \\
+Não recomendamos o uso de sensores do tipo bóia devido à existência de partes mecânicas, que comprometem a confiabilidade. \\
+A presença desses sensores não elimina a necessidade de outros sensores similares, usados para proteção, como, por exemplo, os relés Buchholz. \\
+O IED de controle do transformador enviará os dados para o centro de supervisão da manutenção. O sistema de monitoramento deverá ser capaz de coletar os dados do IED em intervalos de 1 hora, registrá-los, armazená-los e disponibilizá-los para consultas. Deverá também ser capaz de recomendar intervenções da equipe de manutenção. \\
+\subsection*{Hardware e Software - Sistema de Comunicação - Configuração da Rede}
+Como mencionado na seção anterior, os sensores e medidores ficarão conectados ao IED de controle do transformador e este será responsável pelo envio dos dados aos centros de supervisão de operação e de manutenção. \\
+O IED será ligado ao switch de automação da subestação por meio de uma interface Gigabit Ethernet, usando protocolo IEC 61850. As mensagens referentes às funções de monitoramento usarão o protocolo MMS; as mensagens referentes às funções de automação usarão tanto o MMS quanto o GOOSE. Deverão ser criadas VLANs separadas para cada função. \\
+Os sinais de autodiagnóstico dos instrumentos inteligentes usarão o protocolo SNMP versão 3.0.
+O switch de automação ficará conectado ao roteador de saída da SE, de onde partem as conexões para os centros de controle. Esse switch deverá ser compatível com a norma IEC 61850 versão 2. Tanto o roteador quanto o switch deverão disponibilizar a função Qos, \\
+Opcionalmente, poderá existir uma estação de supervisão local na subestação; essa estação seria cliente tanto do subsistema de automação quanto do subsistema de monitoramento, permitindo assim a visualização de informações de ambos. \\
+No centro de controle da manutenção ficarão os servidores do sistema, responsáveis pelo processamento e pelo armazenamento das informações. Opcionalmente, os servidores poderão ser virtuais, localizados em uma nuvem privada ou compartilhada.
+\subsection*{Instalação}
+Todos os sensores deverão ser instalados e testados pelo fabricante. Os demais componentes e os serviços de integração deverão ser contratados à parte. \\
+\subsection*{Operação}
+A funções de automação serão supervisionadas a partir do centro de controle da operação, e as de monitorsamento, a partir do centro de controle da manutenção. A responsabilidade pela execução dos diagnósticos e pela programação da manutenção será da equipe de manutenção preditiva.
+\subsection*{Manutenção}
+Todos os instrumentos usados serão inteligentes e, por isso, capazes de enviar dados de autodiagnóstico. Assim, esses dados serão encaminhados ao mesmo centro de controle e tratados pela mesma equipe que os demais. Por tratar-se de dispositivos puramente eletrônicos, sem partes móveis, são bastante robustos e não deverão gerar muita necessidade de intervenção. Esses equipamentos deverão ser substituídos em cerca de 5 anos, devido a obsolescência tecnológica.
+\subsection*{Sobressalentes}
+Como mencionado no item anterior, os componentes do sistema são bastante robustos. Como sobressalentes, considerando-se um período de 5 anos de vida útil, recomendamos apenas a aquisição de um sensor de temperatura, que sofre maior desgate que os demais por estar em contato direto com o óleo isolante.
+\end{document}

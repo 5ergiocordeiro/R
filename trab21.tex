@@ -1,0 +1,311 @@
+\documentclass[12pt,fleqn]{amsart}
+\usepackage{enumitem}
+\usepackage{xstring}
+\usepackage{graphicx}
+\usepackage[a4paper]{geometry}
+\usepackage[portuguese,brazilian]{babel}
+\usepackage[ansinew]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{comment}
+% Fontes
+\usepackage{textgreek}
+\usepackage{yfonts}
+\usepackage{microtype}
+\usepackage{calligra}
+\usepackage{lmodern}
+\usepackage{bookman}
+\usepackage[scaled]{helvet}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+\usepackage{fmtcount}
+% Formatação
+\usepackage{sidecap}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{matlab-prettifier}
+% Símbolos matemáticos
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{wasysym}
+\usepackage{mathtools}
+\usepackage{bbm}
+\usepackage{mbboard}
+
+
+\title{Teoria Eletromagnética - Seminário}
+\date{}
+\author{Sérgio Cordeiro}
+
+
+\renewcommand*\contentsname{Sumário}
+
+%\renewcommand{\thesubsection}{\textbf{\arabic{subsection}}}
+%\renewcommand{\thesection}{\color{red}}
+
+\makeatletter
+\def\subsubsection{\@startsection{subsubsection}{3}%
+  \z@{.5\linespacing\@plus.7\linespacing}{.1\linespacing}%
+  {\normalfont\itshape}}
+\makeatother\renewcommand{\thesubsubsection}{}
+
+\newcommand{\newbibit}[6]{\bibitem[#1]{#2}#3, {\bf #4}. Disponível em \url{#5}, acesso em #6.}
+\newcommand{\newbibpp}[5]{\bibitem[#1]{#2}#3, {\bf #4}, \emph{in} #5.}
+\newcommand{\newbibbk}[5]{\bibitem[#1]{#2}#3, {\bf #4}, #5.}
+\newcommand{\newbibip}[6]{\bibitem[#1]{#2}#3, {\bf #4}, \emph{in} #5, disponível em \url{#6}.}
+\newcommand{\newbiboc}[4]{\bibitem[#1]{#2}#3, \textit{op. cit.}, #4.}
+\newcommand{\newbibsi}[7]{\bibitem[#1]{#2}#3, {\bf #4} : {#5}. Disponível em \url{#6}, acesso em #7.}
+
+\newenvironment{iquote}{\begin{quote}\itshape}{\end{quote}}
+
+\BeforeBeginEnvironment{figure}{\vskip-1ex}
+\AfterEndEnvironment{figure}{\vskip-4ex}
+
+\newenvironment{listae}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}	
+	\vspace{-5mm}}
+
+\newenvironment{listaef}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}}
+
+\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
+
+\newcommand{\Fourier}[1]{\mathbb{#1}(\omega) e^{j \omega t}}
+\newcommand{\FunR}[1]{\vec{#1}(x,y,z)}
+\newcommand{\phasor}[1]{\mathpzc{#1}}
+\newcommand{\uniphasor}[1]{\hat{\mathpzc{#1}}}
+\newcommand{\vecphasor}[1]{\vec{\mathpzc{#1}}}
+\newcommand{\FourFunR}[1]{\left( \phasor{#1} \FunR{#1} \right)}
+
+% Símbolos de funções
+\DeclareMathOperator{\sinc}{\mbox{sinc}}				% Função sinc
+\DeclareMathOperator{\sgn}{\mbox{sgn}}					% Função sinal
+\DeclareMathOperator{\atan}{\mbox{arctan}}				% Função arco-tangente
+\DeclareMathOperator{\acos}{\mbox{arccos}}				% Função arco-cosseno
+\DeclareMathOperator{\J}{\mbox{J}}						% Função de Bessel de primeira espécie
+\DeclareMathOperator{\Y}{\mbox{Y}}						% Função de Bessel de segunda espécie
+% Símbolos de elementos infinitesimais
+\newcommand {\dpx}[1]{\boldsymbol{\delta {#1}}}
+% Símbolos de constantes escalares (ex. carga do eletron: \ke{e})
+\newcommand {\ke}[1]{\text{\large \textfrak{#1}}}
+% Valores de constantes escalares (ex. carga do eletron: \kve{e})
+\newcommand {\kve}[1]{
+  \IfStrEqCase{#1}{
+    {e}{1,602 \times 10^{-19} \; C}
+    {mu}{4 \pi \times 10^{-7} \; H \; m^{-1}}
+    {ep}{8,854 \times 10^{-12} \; F \; m^{-1}}	
+    {c}{2,998 \times 10^{8} \; m \; s^{-1}}}
+	}
+% Símbolos de parâmetros escalares do problema
+ \newcommand{\ppe}[1]{\boldsymbol{#1}}					% genérico
+ \newcommand{\dcv}[1]{\ppe{\boldsymbol{\rho}_{v_{#1}}}}			% Densidade volumétrica de carga
+ \newcommand{\dcs}[1]{\ppe{\boldsymbol{\rho}_{S_{#1}}}}			% Densidade superficial de carga
+ \newcommand{\dcl}[1]{\ppe{\boldsymbol{\rho}_{l_{#1}}}}			% Densidade linear de carga
+% Símbolos de propriedades escalares do meio
+% Para letras gregas, usar o nome especial (precedido por 'bb')
+%(ex. condutividade: \ppe{\bbsigma})
+\newcommand {\pme}[1]{\mathbb{#1}}
+% Símbolos de propriedades tensoriais do meio
+% Para letras gregas, usar o nome especial (precedido por 'bb')
+%(ex. condutividade: \ppe{\bbsigma})
+\newcommand {\pmm}[1]{\pmb{\mathbb{#1}}}
+% Expressões de elementos diferenciais
+% Elemento de volume em coordenadas esféricas
+\newcommand {\dve}{r^2 \sin \theta \; dr \; d \theta \; d \phi}
+% Elemento de superfície em coordenadas cilíndricas
+\newcommand {\dsc}{\rho \; d \phi \; dz \; \a{\rho} + dz \; d \rho \; \a{\phi} + \rho \; d \rho \; d \phi \; \a{z}}
+% Elemento de superfície em coordenadas esféricas
+\newcommand {\dse}{r^2 \sin \theta \; d \theta \; d \phi \; \a{r} + r \sin \theta \; dr \; d \phi \; \a{\theta} + r \; dr \; d \theta \; \a{\phi}}
+% Elemento de deslocamento em coordenadas cilíndricas
+\newcommand {\dlc}{d \rho \; \a{\rho} + \rho \; d \phi \; \a{\phi} + dz \; \a{z}}
+% Elemento de deslocamento em coordenadas esféricas
+\newcommand {\dle}{dr \; \a{r} + r \; d \theta \; \a{\theta} + r \sin \theta \; d \phi \; \a{\phi} + dz \; \a{z}}
+% Conversão de vetores unitários
+\newcommand {\convarc}{\sin \theta \; \a{\rho} + \cos \theta \; \a{z}}
+\newcommand {\convark}{\sin \theta \; \cos \phi \; \a{x} + \sin \theta \; \sin \phi \; \a{y} + \cos \theta \; \a{z}}
+\newcommand {\convatc}{\cos \theta \; \a{\rho} - \sin \theta a; \a{z}}
+\newcommand {\convatk}{\cos \theta \; \cos \phi \; \a{x} + \cos \theta \; \sin \phi \; \a{y} - \sin \theta \; \a{z}}
+\newcommand {\convapk}{- \sin \phi \; \a{x} + \cos \phi \; \a{y}}
+\newcommand {\convahk}{\cos \phi \; \a{x} + \sin \phi \; \a{y}}
+\newcommand {\convaxc}{\cos \phi \; \a{\rho} - \sin \phi \; \a{\phi}}
+\newcommand {\convayc}{\sin \phi \; \a{\rho} + \cos \phi \; \a{\phi}}
+\newcommand {\convaxe}{\sin \theta \; \cos \phi \; \a{r} + \cos \theta \; \cos \phi \; \a{\theta} - \sin \phi \; \a{\phi}}
+\newcommand {\convaye}{\sin \theta \; \sin \phi \; \a{r} + \cos \theta \; \sin \phi \; \a{\theta} + \cos \phi \; \a{\phi}}
+\newcommand {\convaze}{\cos \theta \; \a{r} - \sin \theta \; \a{\theta}}
+\newcommand {\convahe}{\sin \theta \; \a{r} + \cos \theta \; \a{\theta}}
+% Conversão de coordenadas
+\newcommand {\convrc}{\sqrt{\rho^2 + z^2}}
+\newcommand {\convrk}{\sqrt{x^2 + y^2 + z^2}}
+\newcommand {\convtc}{\atan(\rho,z)}
+\newcommand {\convtk}{\acos(z,\sqrt{x^2 + y^2 + z^2})}
+\newcommand {\convpk}{\atan(y,x)}
+\newcommand {\convhk}{\sqrt{x^2 + y^2}}
+\newcommand {\convhe}{r \sin \theta}
+\newcommand {\convyc}{\rho \sin \phi}
+\newcommand {\convxe}{r \sin \theta \; \cos \phi}
+\newcommand {\convye}{r \sin \theta \; \sin \phi}
+\newcommand {\convze}{r \cos \theta}
+% Símbolos de operadores diferencias
+\newcommand{\grad}{\vec{\nabla}}
+\renewcommand{\div}{\grad \cdot}
+\newcommand{\rot}{\grad \times}
+\newcommand{\lap}{\nabla^2}
+\newcommand{\vlap}{\grad^2}
+\newcommand{\pd}[2]{\frac{\partial {#1}}{\partial {#2}}}
+\newcommand{\px}[1]{\frac{\partial {#1}}{\partial x}}
+\newcommand{\py}[1]{\frac{\partial {#1}}{\partial y}}
+\newcommand{\pz}[1]{\frac{\partial {#1}}{\partial z}}
+\newcommand{\pt}[1]{\frac{\partial {#1}}{\partial t}}
+\newcommand{\prho}[1]{\frac{\partial {#1}}{\partial \rho}}
+\newcommand{\pphi}[1]{\frac{\partial {#1}}{\partial \phi}}
+\newcommand{\pr}[1]{\frac{\partial {#1}}{\partial r}}
+\newcommand{\ptheta}[1]{\frac{\partial {#1}}{\partial \theta}}
+\newcommand{\ppx}[1]{\frac{\partial^2 {#1}}{\partial x^2}}
+\newcommand{\ppy}[1]{\frac{\partial^2 {#1}}{\partial y^2}}
+\newcommand{\ppz}[1]{\frac{\partial^2 {#1}}{\partial z^2}}
+\newcommand{\ppt}[1]{\frac{\partial^2 {#1}}{\partial t^2}}
+\newcommand{\ppphi}[1]{\frac{\partial^2 {#1}}{\partial \phi^2}}
+\renewcommand{\a}[1]{\hat{a}_{#1}}
+\newcommand{\ga}[3]{\px{#1} \a{x} + \py{#2} \a{y} + \pz{#3} \a{z}}
+\newcommand{\gc}[3]{\prho{#1} \a{\rho} + \frac{1}{\rho} \pphi{#2} \a{\phi} + \pz{} \a{z}}
+\newcommand{\gr}[3]{\pr{#1} \a{r} + \frac{1}{r \sin \theta} \pphi{#2} \a{\phi} + \frac{1}{r} \ptheta{#3} \a{\theta}}
+\newcommand{\de}[3]{\frac{1}{r^2} \pr{} r^2 \; {#1} \; \a{r} + \frac{1}{r \sin \theta} \pphi{} \; {#2} \; \a{\phi} + \frac{1}{r \sin \theta} \ptheta{} \sin \theta \; {#3} \; \a{\theta}}
+\newcommand{\dc}{\frac{1}{\rho} \prho{} \rho \; \a{\rho} + \frac{1}{\rho} \pphi{} \; \a{\phi} + \pz{} \a{z}}
+\newcommand{\la}[1]{\ppx{#1} + \ppy{#1} + \ppz{#1}}
+\newcommand{\lc}[1]{\frac{1}{\rho} \prho{} \rho \prho{#1} + \frac{1}{\rho^2} \ppphi{#1} + \ppz{#1}}
+\newcommand{\lr}[1]{\frac{1}{r^2} \pr{} r^2 \pr{#1} + \frac{1}{r^2 \sin \theta} \ptheta{} \sin \theta \ptheta{#1} + \frac{1}{r^2 \sin^2 \theta} \ppphi{#1}}
+\newcommand{\vla}[3]{\lap \; {#1} \; \a{x} + \lap \; {#2} \; \a{y} + \lap \; {#3} \; \a{z}}
+\renewcommand{\ra}[3]{\left( \py{#3} - \pz{#2} \right) \a{x} + \left( \pz{#1} - \px{#3} \right) \a{y} + \left( \px{#2} - \py{#1} \right) \a{z}}
+% Símbolos de operadores integrais
+\newcommand {\iv}[1]{\iiint \limits_{#1}}
+\newcommand {\ivv}[6]{\int_{#1}^{#2} \int_{#3}^{#4} \int_{#5}^{#6}}
+\newcommand {\is}[1]{\iint \limits_{#1}}
+\newcommand {\ios}[1]{\oiint \limits_{#1}}
+\newcommand {\iss}[4]{\int_{#1}^{#2} \int_{#3}^{#4}}
+\newcommand {\il}[1]{\int \limits_{#1}}
+\newcommand {\ill}[2]{\int_{#1}^{#2}}
+% Linhas divisórias
+\newcommand{\hhhlin}{\noindent\hfil\rule{0.25\textwidth}{.2pt}\hfil\newline}
+\newcommand{\hhlin}{\noindent\hfil\rule{0.5\textwidth}{.4pt}\hfil\newline}
+\newcommand{\hlin}{\noindent\hfil\rule{\textwidth}{.8pt}\hfil\newline}
+% Matriz coluna (3x1)
+\newcommand{\bigmc}[3]{\left( \begin{matrix} {#1} \\ {#2} \\ {#3} \end{matrix} \right)}
+\newcommand{\bigmci}[1]{\left( \begin{matrix} {#1}_1 \\ {#1}_2 \\ {#1}_3 \end{matrix} \right)}
+% Matriz linha (1x3)
+\newcommand{\bigml}[3]{\left( \begin{matrix} {#1} & {#2} & {#3} \end{matrix} \right)}
+\newcommand{\bigmli}[1]{\left( \begin{matrix} {#1}_1 & {#1}_2 & {#1}_3 \end{matrix} \right)}
+% Matriz quadrada (3x3)
+\newcommand{\bigmq}[9]{\left( \begin{matrix} {#1} & {#2} & {#3} \\ {#4} & {#5} & {#6} \\ {#7} & {#8} & {#9} \end{matrix} \right)}
+\newcommand{\bigmqi}[1]{\left( \begin{matrix} {#1}_{1,1} & {#1}_{1,2} & {#1}_{1,3} \\ {#1}_{2,1} & {#1}_{2,2} & {#1}_{2,3} \\ {#1}_{3,1} & {#1}_{3,2} & {#1}_{3,3} \end{matrix} \right)}
+\newcommand{\bigmqd}[9]{\left| \begin{matrix} {#1} & {#2} & {#3} \\ {#4} & {#5} & {#6} \\ {#7} & {#8} & {#9} \end{matrix} \right|}
+\newcommand{\bigmqid}[1]{\left| \begin{matrix} {#1}_{1,1} & {#1}_{1,2} & {#1}_{1,3} \\ {#1}_{2,1} & {#1}_{2,2} & {#1}_{2,3} \\ {#1}_{3,1} & {#1}_{3,2} & {#1}_{3,3} \end{matrix} \right|}
+
+
+%\makeglossaries
+%\makeindex
+%\setglossarystyle{altlist}
+
+
+\begin{document}
+\setlength{\parskip}{1em}
+\setlength{\jot}{10pt}
+\setlength{\parindent}{0pt}
+
+\lstset{language=Octave,frame=single,style=Matlab-editor,basicstyle={\tiny},breaklines=true,numbers=left,numberstyle={\color{red}},numbersep=9pt,showstringspaces=false,keepspaces=false,tabsize=2}
+
+\begin{abstract}
+Os problemas de Eletromagnetismo são frequentemente solucionáveis apenas por meio de métodos computacionais. As computações associadas são sempre intensivas, mas podem ser paralelizadas de maneira a diminuir-se o tempo requerido. Dentre as técnicas de processamento paralelo conhecidas, uma delas, o multiprocessamento, não é sempre utilizada porque depende da disponibilidade de um número substancial de computadores, condição raramente garantida ao pesquisador. Com o advento das grandes nuvens comerciais de computadores, essa situação aparentemente mudou. O presente trabalho investigou a viabilidade do uso de multiprocessamento em nuvens comerciais na solução de problemas da Teoria Eletromagnética. \\
+
+\noindent \textbf{Palavras-chave:} computação, SMP, nuvens de computadores.
+\end{abstract}
+
+\maketitle
+
+\tableofcontents
+
+%\addcontentsline{toc}{section}{Unnumbered Section}
+
+\clearpage
+
+\section{Introdução}
+O uso de multiprocessamento 
+
+\section*{SMP com nuvens comerciais de computadores}
+Em linhas gerais, os passos necessários são os seguintes:
+\begin{listae}[1]
+	\item Criar a conta de usuário
+	\item Criar o número de instâncias desejado
+	\item Configurar a comunicação entre as instãncias
+	\item Carregar os arquivos necessários em cada instância
+\end{listae}
+Não fornecemos instruções detalhadas a respeito de como executar cada um dos passos acima devido à fluidez do ambiente dessas nuvens, que faz com que esse tipo de informação perca a validade muito rapidamente. Limitamo-nos a registrar certos aspectos muito importantes ou menos intuitivos do processo. \\
+A figura abaixo mostra o menu principal de configuração da AWS, a que o usuário tem acesso assim que se registra. A opção desejada para criação do HPC é justamente a primeira, EC2, que permite a criação de máquinas virtuais.
+
+A criação das instâncias é bastante intuitiva e guiada por um Wizard. Para a conta de cortesia, não são oferecidas as opções de computadores mais poderosos; só é possível criar instâncias com um único processador. Quanto à imagem a ser usada para inicialização da máquina virtual, a que nos interessa é a AMI 
+
+\subsection*{Amazon}
+A nuvem da Amazon, a AWS (Amazon Web Services) oferece uma opção IaaS, a Amazon EC2 (Elastic Computing Cloud), que permite a montagem de um HPC. Uma conta de demonstração, gratuita, pode ser obtida facilmente por qualquer pessoa. Essa conta tem 1 ano de validade, mas está sujeita a limitações de desempenho e capacidade, conforme \cite{AMAZON 2015 1}. A configuração é bem documentada e pode ser completada em alguns minutos por um programador experiente. \\
+
+
+\section*{Exemplos de problemas que podem usar SMP}
+Com o intuito de explorar a capacidade de uma nuvem comercial de oferecer uma plataforma para multiprocessamento simétrico, selecionamos um exemplo para cada um dos quatro tipos de problemas que identificamos como usuais na Teoria Eletromagnética:
+\begin{listae}[1]
+	\item Cálculo do valor de uma função transcendental; exemplo: função de Bessel de primeira espécie.
+	\item Operação de álgebra linear; exemplo: multiplicação de matrizes;
+	\item Operação de cálculo vetorial; exemplo: cálculo do Laplaciano em duas dimensões.
+\end{listae}
+Para cada um dos exemplos, aplicamos uma abordagem para paralelização e implementamos a solução de três formas diferentes:
+\begin{listae}[2]
+	\item Solução puramente sequencial, sem qualquer paralelização.
+	\item Emprego de multithreading para paralelização.
+	\item Emprego de multiprocessamento para paralelização.
+\end{listae}
+Uma quarta forma, o emprego simultâneo de multithreading e de multiprocessamento, não foi implementada por limitação do tempo disponível para realização desta pesquisa, mas pode ser implementada em futuros trabalhos a partir das informações aqui expostas. \\
+A abordagem escolhida para a paralelização foi, em todos os casos, aquela que nos pareceu a mais intuitiva, e não a mais eficiente em termos computacionais, de forma a manter o foco na técnica de paralelização em si, evitando o emprego de algoritmos complexos. Por exemplo, para multiplicação de matrizes, não foi utilizado o algoritmo de Coppersmith-Winograd, e sim aquele extraído diretamente da definição do produto de duas matrizes.
+
+\subsection{Cálculo de função transcendental}
+A função de Bessel de primeira espécie $ \J_n(x) $, com argumento real, pode ser calculada por meio da fórmula \cite{WEISSTEIN 2015 1}:
+\begin{align}
+	\J_n(x) = \left\{ \begin{matrix} \sum \limits_{i = 0}^{\infty} \dfrac{(-1)^i}{2^{2i + |n|} \; i! \; (|n| + 1)} & |n| \ne \frac{1}{2} \\ \\ \sqrt{\dfrac{2}{\pi x}} \cos(x) & n = - \frac{1}{2} \\ \\ \sqrt{\dfrac{2}{\pi x}} \sin(x) & n = \frac{1}{2} \end{matrix} \right.
+\end{align}
+Apesar da fórmula acima teoricamente permitir o cálculo para qualquer valor dos parâmetros, a computação é difícil e custosa por diversos motivos \cite{HARRISON 2009}. Uma vez que nosso objetivo aqui é apenas explorar as possibilidades de um HPC implementado em nuvem comercial, ignoramos tais problemas práticos, aceitando as perdas de acuidade e desempenho decorrentes dessa decisão. \\
+O somatório pode ser paralelizado de forma intuitiva calculando-se cada termo por meio de um processo ou thread independente. \\
+
+\subsection{Multiplicação de matrizes}
+O produto de duas matrizes $ \mathbb{C} = \mathbb{A} \mathbb{B} $ pode ser paralelizado, de forma intuitiva, considerando a operação como um conjunto de multiplicações das matrizes-linha de $ \mathbb{A} \text{ por } \mathbb{B} \text{: } \mathbb{C}_i = \mathbb{A}_i \mathbb{B} \text{, onde } i$ é o número da linha. Essas multiplicações de vetor por matriz são independentes entre si, o que facilita muito a implementação de paralelização. \\
+
+\subsection{Cálculo do Laplaciano em duas dimensões}
+Para esse cálculo, utilizamos a expressão do Laplaciano em coordenadas cilíndricas 
+Neste caso, a paralelização é mais difícil porque, para calcular o Laplaciano em um ponto, é necessária informação relativa aos pontos vizinhos. A abordagem padrão para tratar-se esse tipo de situação é dividir a região em subregiões e atribuir cada uma a um processo ou thread, implementando a comunicação entre os agentes para que a informação necessária seja obtida dos vizinhos. Em um ambiente de paralelização híbrida, idealmente cada região seria processada por um membro do cluster, empregando-se multithreading para paralelizar o cálculo do Laplaciano dentre da região. Isso porque a velocidade de troca de mensagens entre threads é mais elevada que a da troca de mensagens entre processos, principalmente quando estes residem em computadores diferentes. \\
+
+\section*{Implementação dos exemplos}
+
+
+
+\begin{thebibliography}{30}
+
+\newbibsi{AMAZON 2015 1}{AMAZON 2015 1}{AMAZON}{}{https://aws.amazon.com/free/}{27/10/2015}
+ 
+ 
+ \newbibit{HARRISON 2009}{HARRISON 2009}{John HARRISON}{Fast and accurate Bessel function computation}{https://www.cl.cam.ac.uk/~jrh13/slides/arith-09jun09/slides.pdf}{01/11/2015}
+
+\newbibsi{WEISSTEIN 2015 1}{WEISSTEIN 2015 1}{Eric WEISSTEIN}{WolframMathWorld}{Bessel Function of the First Kind}{http://mathworld.wolfram.com/BesselFunctionoftheFirstKind.html}{01/11/2015}
+
+\end{thebibliography}
+
+
+\end{document}

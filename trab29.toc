@@ -1,0 +1,5 @@
+\select@language {brazilian}
+\contentsline {section}{\tocsection {}{1}{Exerc\IeC {\'\i }cios}}{2}{section.1}
+\contentsline {section}{\tocsection {}{2}{An\'alise e conclus\~oes}}{21}{section.2}
+\contentsline {section}{\tocsection {}{3}{Anexos}}{21}{section.3}
+\contentsline {section}{\tocsection {}{}{Refer\^encias}}{23}{section*.2}

@@ -1,0 +1,260 @@
+\documentclass[12pt,usenames,dvipsnames]{beamer}
+\usepackage{xcolor}
+\usepackage[portuguese,brazilian]{babel}
+\usepackage[ansinew]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[scaled]{helvet}
+\usepackage{hyperref}
+
+\usetheme{Warsaw}
+\useoutertheme{split}
+\usecolortheme{orchid}
+
+
+\title{Detecção e Localização de Faltas}
+\author{Sérgio Cordeiro}
+\date{Novas Tecnologias II, Autose, 2015}
+\subject{Automação de Subestações Elétricas,PMUs,WAMP}
+
+
+
+\begin{document}
+
+
+\frame{\titlepage}
+
+
+\section{Introdução}
+\begin{frame}
+	\frametitle{Classificação das aplicações de PMUs, segundo o ONS}
+	\begin{itemize}
+		\item \textit{on-line}: funcionamento em tempo real
+		\begin{itemize}
+			\item aplicações de monitoramento
+			\item aplicações de controle
+			\item aplicações de proteção
+		\end{itemize}
+		\item \textit{off-line}: coleta de dados para análise posterior
+	\end{itemize}
+	\begin{alertblock}{}
+		Apenas aplicações de proteção \textit{on-line} são expostas a seguir.
+	\end{alertblock}
+\end{frame}
+\begin{frame}
+	\frametitle{Aplicações de proteção \textit{on-line}}
+	\begin{itemize}
+		\item Trabalham em malha fechada.
+		\item Os requisitos de velocidade são elevados, por isso não estão sendo consideradas pelo ONS neste momento.
+		\item Os esquemas de proteção não devem precisar operar em velocidade ultra-rápida.
+		\item Exemplos: LLLM, proteção de backup e contra sincronismo, perda de campo, subfrequência e subtensão;
+	\end{itemize}
+\end{frame}
+
+
+\section{LLM}
+\subsection{O que é}
+\begin{frame}
+	\frametitle{LLLM}
+	\begin{exampleblock}{}
+		Monitoração do Limite de Carregamento de Linha (\emph{Line Loading Limit Monitoring})
+	\end{exampleblock}		
+	\begin{block}{}
+		As linhas de transmissão frequentemente poderiam receber mais carga
+	\end{block}
+	\begin{itemize}
+		\item A capacidade de carregamento é limitada pela temperatura
+		\item As linhas geralmente são projetadas considerando-se critérios conservadores
+		\item As linhas são operadas considerando-se limites teóricos
+	\end{itemize}		
+\end{frame}
+
+\begin{frame}
+	\frametitle{LLLM}
+	\begin{block}{}
+		Sincrofasores podem ser usados para se estimar o limite real de carregamento
+	\end{block}
+	\begin{itemize}
+		\item Calcula-se a resistência real da linha
+		\item Daí, a dissipação de calor e
+		\item E então a temperatura corrente
+	\end{itemize}
+	\begin{block}{}
+		Não é necessário instalar sensores de temperatura nas linhas. \\
+		Ganho esperado: aumento da capacidade de despacho de potência para linhas onde o limite de carregamento teórico seja causa de congestões do sistema. \\
+	\end{block}
+\end{frame}
+
+\subsection{Implementação}
+\begin{frame}
+	\frametitle{LLLM: dificuldades}
+	\begin{itemize}
+		\item A temperatura na verdade varia ao longo do comprimento da linha
+		\item As linhas com frequência operam com desequilíbrio
+		\item Pode haver derivações na linha
+		\item Necessidade de coordenação com os relés de sobrecarga 
+	\end{itemize}
+\end{frame}
+\begin{frame}
+	\frametitle{LLLM: requisitos}
+	\begin{itemize}
+		\item Locação de uma PMU em cada lado da linha.
+		\item Fasores de tensão de cada barramento e corrente de linha (sequência positiva ou trifásicos).
+		\item Taxa mínima de aquisição de dados: uma amostra por segundo.
+		\item Latência máxima: da ordem de segundos.
+		\item Software necessário não é complexo
+		\item Modelo térmico e climático complexo (mas que pode ir sendo aprimorado com o tempo)
+	\end{itemize}
+\end{frame}
+
+
+\section{ERAC}
+\subsection{O que é}
+\begin{frame}
+	\frametitle{ERAC}
+	\begin{block}{}
+		Os esquemas existentes não operam de forma otimizada
+	\end{block}
+	\begin{itemize}
+		\item Os critérios operacionais são determinados a partir de estudos off-line, baseados no cenário de pior caso.
+		\item Em geral, as condições reais são melhores que as estimadas,
+		\item mas, em casos raros, podem ser piores.
+	\end{itemize}		
+\end{frame}
+\begin{frame}
+	\frametitle{ERAC}
+	\begin{block}{}
+		Sincrofasores podem ser usados para se estimar melhor as condições do sistema
+	\end{block}
+	\begin{itemize}
+		\item determinar com maior precisão e antecedência se uma emergência acontecerá
+		\item determinar se será suficiente adicionar geradores, desligar cargas ou desligar geradores
+		\item determinar os geradores que se deve adicionar ou desligar, ou a quantidade exata de cargas a ser desligada
+	\end{itemize}
+\end{frame}
+
+\subsection{Implementação}
+\begin{frame}
+	\frametitle{ERAC: requisitos}
+	\begin{itemize}
+		\item Locação de uma PMU em cada barramento onde forem requeridas medições e controles para detecção de oscilações (OLCA).
+		\item Fasores de tensão de cada barramento e corrente de linha (sequência positiva).
+		\item Taxa mínima de aquisição de dados: dez amostras por segundo.
+		\item Latência máxima: 200 ms.
+		\item Software: bastante complexo.
+		\item Depende da preexistência das funções OLCA e EVSA.
+	\end{itemize}
+\end{frame}
+
+
+\section{Proteção contra perda de sincronismo}
+\subsection{O que é}
+\begin{frame}
+	\frametitle{Proteção contra perda de sincronismo}
+	\begin{block}{}
+		A proteção convencional é lenta
+	\end{block}
+	\begin{itemize}
+		\item Monitora-se a impedância da linha.
+		\item Atua-se com base nos valores instantâneos do módulo e do ângulo em uma fase escolhida.
+		\item Para evitar disparos supérfluos em faltas temporárias, usualmente se introduz um retardo.
+	\end{itemize}
+\end{frame}
+\begin{frame}
+	\frametitle{Proteção convencional}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\textwidth]{fig7.jpg}
+	\end{figure}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\textwidth]{fig8.jpg}
+	\end{figure}	
+\end{frame}
+\begin{frame}
+	\frametitle{Proteção convencional}
+	\begin{columns}[c]
+		\column{.5\textwidth}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.9\textwidth]{fig1.jpg}
+		\end{figure}
+		\column{.5\textwidth}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.8\textwidth]{fig2.jpg}
+		\end{figure}
+	\end{columns}
+\end{frame}
+\begin{frame}
+	\frametitle{Proteção contra perda de sincronismo}
+	\begin{block}{}
+		A proteção mediante sincrofasores atua rapidamente sem risco de falso positivo
+	\end{block}
+	\begin{itemize}
+		\item Monitoram-se a energia potencial e total do gerador
+		\item Atua-se com base no valor máximo que a energia potencial pode assumir
+	\end{itemize}
+\end{frame}
+\begin{frame}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.4\textwidth]{fig3.jpg}
+		\\ Evolução da energia no tempo (caso de falta real)
+	\end{figure}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.4\textwidth]{fig4.jpg}
+		\\ Evolução da energia no tempo (caso estável)
+	\end{figure}
+\end{frame}
+
+\subsection{Implementação}
+\begin{frame}
+	\frametitle{Proteção contra perda de sincronismo: requisitos}
+	\begin{itemize}
+		\item Locação de uma PMU no barramento de cada gerador
+		\item Fasores de tensão e corrente do barramento
+		\item Taxa mínima de aquisição de dados: 60 amostras por segundo.
+		\item Latência máxima: da ordem de milissegundos.
+		\item Software: bastante complexo.
+	\end{itemize}
+\end{frame}
+
+
+\section{Identificação e classificação centralizada de faltas}
+\subsection{O que é}
+\begin{frame} 
+	\frametitle{Identificação e classificação centralizada de faltas}
+	\begin{block}{}
+		A proteção convencional não é otimizada
+	\end{block}
+	\begin{itemize}
+		\item Monitoram-se as condições locais.
+		\item Relés atuam com base nas medições locais e alguma informação recebida de outros dispositivos.
+		\item É muito difícil coordenar a proteção quando a rede é muito complexa.
+	\end{itemize}
+\end{frame}
+\begin{frame} 
+	\frametitle{Identificação e classificação centralizada de faltas}
+	\begin{block}{}
+		Uma alternativa é enviar todos os dados a um sistema central que coordena a proteção
+	\end{block}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\textwidth]{fig6.jpg}
+	\end{figure}
+\end{frame}
+
+\subsection{Implementação}
+\begin{frame}
+	\frametitle{Identificação e classificação centralizada de faltas: requisitos}
+	\begin{itemize}
+		\item Locação de uma PMU em cada barramento
+		\item Fasores de tensão e corrente do barramento
+		\item Taxa mínima de aquisição de dados: 120 amostras por segundo.
+		\item Latência máxima: da ordem de milissegundos.
+	\end{itemize}
+\end{frame}
+
+		
+\end{document}

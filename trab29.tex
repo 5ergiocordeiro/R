@@ -1,0 +1,790 @@
+% Segunda lista de exercícios de Métodos Numéricos
+% Preparado para MiKTeX 2.9. Gerar arquivo PDF com pdflatex.
+\documentclass[12pt,fleqn]{amsart}
+\usepackage{enumitem}
+\usepackage{xstring}
+\usepackage[pdftex]{graphicx}
+\usepackage[a4paper]{geometry}
+\usepackage[english,brazilian]{babel}
+\usepackage[ansinew]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{comment}
+\usepackage{bigfoot}
+% Fontes
+\usepackage{textgreek}
+\usepackage{yfonts}
+\usepackage{microtype}
+\usepackage{calligra}
+\usepackage{lmodern}
+\usepackage{bookman}
+\usepackage[scaled]{helvet}
+%\usepackage{courier}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+%\usepackage{hyphenat}
+%\hyphenation{mate-mática recu-perar}
+\usepackage{fmtcount}
+\usepackage[nonumberlist,acronym,sort=def]{glossaries}
+% Formatação
+\usepackage{sidecap}
+\usepackage{fixltx2e}
+\usepackage{float}
+\usepackage{listings}
+\usepackage[numbered,framed]{matlab-prettifier}
+\usepackage{multirow}
+\usepackage{pdflscape}
+\usepackage{footnote}
+\usepackage{tablefootnote}
+% Símbolos matemáticos
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{wasysym}
+\usepackage{mathtools}
+\usepackage{bbm}
+\usepackage{mbboard}
+\usepackage{bm}
+% Desenhos
+\usepackage{tikz}
+
+\usetikzlibrary{shapes,arrows}
+
+\title{Métodos Numéricos - Lista de Exercícios II}
+\date{}
+\author{Sérgio Cordeiro}
+
+\renewcommand*\contentsname{Sumário}
+
+\newenvironment{inthisrev}{
+	\color{blue}
+	}{
+	\color{black}
+	}
+
+\newenvironment{myquote}{
+	\begin{quote}
+	\fontfamily{lmr} \selectfont
+	{\huge ``}}{{\huge ''}
+	\end{quote}
+	}
+
+\newenvironment{pergunta}{
+	\par
+	\trivlist
+	\fontfamily{phv}
+	\selectfont
+	\item\arabic{prob_num}. 
+	}{
+	\endtrivlist
+	}
+
+\newenvironment{resposta}{
+	\trivlist
+    \vspace{3pt}
+	\fontfamily{pbk}
+	\selectfont
+	\item
+	}{
+	\vspace{3pt}
+	\noindent\makebox[\linewidth]{\rule{\paperwidth}{1pt}}
+	\endtrivlist
+	\stepcounter{prob_num}
+	}
+
+\newenvironment{lista}{
+	\vspace{-5mm}
+	\begin{itemize}}{
+	\end{itemize}	
+	\vspace{-5mm}}
+
+\newenvironment{listaf}{
+	\vspace{-5mm}
+	\begin{itemize}}{
+	\end{itemize}}
+
+\newenvironment{listae}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}	
+	\vspace{-5mm}}
+
+\newenvironment{listaef}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}}
+
+
+\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
+
+\newcommand{\matriz}[1]{\mathbf{#1}}
+
+\newcommand{\dt}[1]{\frac{d {#1}}{dt}}					% derivada temporal
+\newcommand{\ddt}[1]{\frac{d^2 {#1}}{dt^2}}				% derivada segunda temporal
+\newcommand{\dddt}[1]{\frac{d^3 {#1}}{dt^3}}			% derivada terceira temporal
+\newcommand{\dtau}[1]{\frac{d {#1}}{d \tau}}			% derivada temporal
+\newcommand{\ddtau}[1]{\frac{d^2 {#1}}{d \tau^2}}		% derivada segunda temporal
+
+\newcommand{\newbibit}[6]{\bibitem[#1]{#2}#3, {\bf #4}. Disponível em \url{#5}, acesso em #6.}
+\newcommand{\newbibpp}[5]{\bibitem[#1]{#2}#3, {\bf #4}, \emph{in} #5.}
+\newcommand{\newbibbk}[5]{\bibitem[#1]{#2}#3, {\bf #4}, #5.}
+\newcommand{\newbibip}[6]{\bibitem[#1]{#2}#3, {\bf #4}, \emph{in} #5, disponível em \url{#6}.}
+\newcommand{\newbiboc}[4]{\bibitem[#1]{#2}#3, \textit{op. cit.}, #4.}
+\newcommand{\newbibsi}[7]{\bibitem[#1]{#2}#3, {\bf #4} : {#5}. Disponível em \url{#6}, acesso em #7.}
+
+\newenvironment{iquote}{\begin{quote}\itshape}{\end{quote}}
+
+\BeforeBeginEnvironment{figure}{\vskip-1ex}
+\AfterEndEnvironment{figure}{\vskip-4ex}
+
+% Linhas divisórias
+\newcommand{\hhhlin}{\noindent\hfil\rule{0.25\textwidth}{.2pt}\hfil\newline}
+\newcommand{\hhlin}{\noindent\hfil\rule{0.5\textwidth}{.4pt}\hfil\newline}
+\newcommand{\hlin}{\noindent\hfil\rule{\textwidth}{.8pt}\hfil\newline}
+
+% Listagens
+\newcommand{\listingsO}{\lstset{language=Octave,literate={^}{\textasciicircum}1,frame=single,style=Matlab-editor,basicstyle={\tiny},breaklines=true,numbers=left,numberstyle={\color{red}},numbersep=9pt,showstringspaces=false,keepspaces=false,tabsize=2}}
+\newcommand{\listingsC}{\lstset{language=C,frame=single,basicstyle={\tiny},breaklines=true,numbers=left,numberstyle={\color{red}},numbersep=9pt,showstringspaces=false,keepspaces=false,tabsize=2}}
+\newcommand{\listingsG}{\lstset{language=Ada,frame=none,basicstyle={\ttfamily\bfseries},numbers=none,tabsize=2,mathescape}}
+
+\renewcommand{\glossarymark}[1]{}
+\glsnogroupskiptrue
+\makeglossaries
+\makeindex
+\setglossarystyle{list}
+
+
+% Perguntas
+\newcommand{\perguntaa}{Solução de SL de ordem nxn usando decomposição LU com pivotação parcial. Calcular o determinante.}
+\newcommand{\perguntab}{Decomposição de Cholesky.}
+\newcommand{\perguntac}{Refinamento de solução de SL (nxn).}
+\newcommand{\perguntad}{Calculo da inversa de uma matriz (nxn).}
+\newcommand{\perguntae}{Solução de SL de ordem nxn usando o método iterativo de Jacobi.}
+\newcommand{\perguntaf}{Solução de SL de ordem nxn usando o método iterativo de Gauss Seidel.}
+\newcommand{\perguntag}{Determinação do maior e do menor auto-valor de uma matriz e cálculo do numero de condicionamento.}
+\newcommand{\perguntah}{Determinação de todos os autovalores e auovetores de uma matriz.}
+\newcommand{\perguntai}{Pesquise sobre sistemas tridiagonais e desenvolva um método para sua solução.}
+\newcommand{\perguntaj}{Pesquisa sobre a técnica de solução de SL chamada GMRES.}
+\newcommand{\perguntak}{Estude a resposta dinâmica (estável/não estável (encontrar e avaliar os autovalores)) de um sistema real (o aluno deverá propor e descrever completamente o sistema).}
+
+
+\newglossaryentry{MatHess}{
+  name={Matriz de Hessenberg},
+  text={matriz de Hessenberg},  
+  description={}
+  }%
+\newglossaryentry{MatSemSep}{
+  name={Matriz semi-separável},
+  text={matriz semi-separável},  
+  description={}
+  }%
+\newglossaryentry{DecQR}{
+  name={Decomposição QR},
+  text={decomposição QR},  
+  description={}
+  }%
+\newglossaryentry{MINRES}{
+  name={MINRES},
+  text={MINRES},  
+  description={}
+  }%
+\newglossaryentry{DIIS}{
+  name={DIIS},
+  text={DIIS},  
+  description={}
+  }%
+\newglossaryentry{IterArn}{
+  name={iteração de Arnoldi},
+  text={iteração de Arnoldi}, 
+  description={}
+  }%
+
+\newglossaryentry{k-means}{
+  name={\textit{k-means}},
+  text={\textit{k-means}},
+  description={É uma técnica de \glslink{Clustering}{aglutinação} que usa alguma média dos valores dos elementos como critério para particionamento}
+  }%
+\newacronym[see={[Glossary:]{PCA}}]{PCAa}{PCA}{\glslink{PCA}{\textit{Principal Component Analysis}}}%
+\newacronym[see={[Glossary:]{SVM}}]{SVMa}{SVM}{\glslink{SVM}{\textit{Support Vector Machines}}}%
+
+\begin{document}
+
+\setlength{\parskip}{1em}
+\setlength{\jot}{10pt}
+\setlength{\parindent}{0pt}
+
+\maketitle
+
+\tableofcontents
+
+\newcounter{prob_num}
+\setcounter{prob_num}{1}
+
+\clearpage
+
+\section{Exercícios}
+Desenvolva algoritmos em C ou MATLAB (escolha livre) para:
+\begin{pergunta}
+\perguntaa{}
+\end{pergunta}
+\begin{resposta}
+O programa \textbf{\texttt{exercmat.c}}, em anexo, escrito em C, lê um sistema de equações gerado pelo MATLAB, resolve-o pelo método de decomposição LU com pivotação parcial, e calcula o determinante da matriz e a norma 2 da matriz-resultado, para conferência. Basta digitar:
+\listingsG
+\begin{lstlisting}[language=Ada]
+	exercmat 4 $ \textit{n} $
+\end{lstlisting}
+onde $ n $ é o tamanho do sistema (n x n+1). Ele também calcula o número de operações em ponto flutuante necessário para cada etapa. Os resultados obtidos estão tabelados a seguir. Foi usada apenas precisão simples, de forma a favorecer a ocorrência de erros de arredondamento.
+\begin{table}[H]
+    \begin{tabular}{|c|c|c|c|c|c|}
+		\hline
+        \textbf{n} & \multicolumn{3}{|c|}{\textbf{custo} \tablefootnote{Número de operações de ponto flutuante necessárias.}} & \textbf{determinante} & \textbf{norma 2} \\
+        & \textbf{solução} & \textbf{determinante} \tablefootnote{Adicional ao custo da solução.} & \textbf{norma 2} & & \\
+		\hline
+		$ 3 $ & $ 63 $ & $ 3 $ & $ 6 $ & $ - 0.112721 $ & $ 4.464723 $ \\
+		$ 30 $ & $ 19701 $ & $ 30 $ & $ 60 $ & $ 26.168304 $ & $ 1.938657 $ \\
+		$ 300 $ & $ 18138546 $ & $ 300 $ & $ 600 $ & \textit{overflow} & $ 25.915476 $ \\
+		\hline
+    \end{tabular}
+\end{table}
+O sistema foi gerado pelo MATLAB na solução da primeira lista de exercícios. \\
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntab{}
+\end{pergunta}
+\begin{resposta}
+O programa \textbf{\texttt{exercmat.c}}, em anexo, escrito em C, lê um sistema de equações gerado pelo MATLAB, resolve-o pelo método de decomposição de Cholesky com pivotação parcial, e calcula o determinante da matriz e a norma 2 da matriz-resultado, para conferência. Basta digitar:
+\listingsG
+\begin{lstlisting}[language=Ada]
+	exercmat 5 $ \textit{n} $
+\end{lstlisting}
+onde $ n $ é o tamanho do sistema (n x n+1). Ele também calcula o número de operações em ponto flutuante necessário para cada etapa. \\
+A matriz precisa ser simétrica e definida positiva para que esse método possa ser empregado. O programa abaixo gera, no MATLAB, um sistema adequado, grava os valores em disco, e calcula o determinante da matriz e a norma 2 do resultado, para conferência.
+\listingsO
+\lstinputlisting[caption=gerachol.m,language=Octave]{gerachol.m}
+De acordo com \cite{WEISSTEIN 2016},
+\begin{iquote}
+A real symmetric matrix $ \matriz{A} $ is positive definite iff there exists a real nonsingular matrix $ \matriz{M} $ such that \\
+$ \matriz{A} = \matriz{M} \matriz{M}^{(T)} $ \\
+where $ \matriz{M}^{(T)} $ is the transpose [...].
+\end{iquote}
+por isso a matriz foi gerada como o quadrado de outra matriz que se garantiu não ser singular. Com isso, a condição mencionada é satisfeita. \\
+Os resultados obtidos estão tabelados a seguir. Foi usada apenas precisão simples, de forma a favorecer a ocorrência de erros de arredondamento. \\
+\begin{table}[H]
+    \begin{tabular}{|c|c|c|c|c|c|c|}
+		\hline
+        \textbf{n} & \textbf{det.} & \textbf{norma 2} & \multicolumn{2}{|c|}{\textbf{custo} \tablefootnote{Número de operações de ponto flutuante necessárias.}} & \textbf{det.} & \textbf{norma 2} \\
+        & \textbf{MATLAB} & \textbf{MATLAB} & \textbf{solução} & \textbf{det.} \tablefootnote{Adicional ao custo da solução.} & & \\
+		\hline
+		$ 3 $ & $ 8.4343 $ & $ 6197.920598 $ & $ 116 $ & $ 4 $ & $ 0.000026 $ & $ 6191.667480 $ \\
+		$ 30 $ & $ 0.00002643 $ & $ 904.156803 $ & $ 12500 $ & $ 31 $ & $ 8.460002 $ & $ 901.309753 $ \\
+		$ 300 $ & $ 2.96 \times 10 ^{148} $ & $ 4121.211866 $ & $ 9278000 $ & $ 301 $ & $ \textit{overflow} $ & $ 4364.376465 $ \\
+		\hline
+    \end{tabular}
+\end{table}
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntac{}
+\end{pergunta}
+\begin{resposta}
+O programa \textbf{\texttt{exercmat.c}}, em anexo, escrito em C, lê um sistema de equações gerado pelo MATLAB, calcula a solução pelo método de decomposição LU e refina-a, se necessário, bem como calcula a norma 2 do resultado, para conferência. Basta digitar:
+\listingsG
+\begin{lstlisting}[language=Ada]
+	exercmat 11 $ \textit{n} \; [\textit{e}] $
+\end{lstlisting}
+onde $ n $ é o tamanho do sistema (n x n+1) e $ e $ (opcional), é o erro tolerado. Ele também calcula o número de operações em ponto flutuante necessário para cada etapa. \\
+No refinamento, foi empregada a norma infinita do resíduo 
+\begin{align*}
+	\matriz{b} - \matriz{A} \matriz{x} 
+\end{align*}
+como critério de parada. Quando o procedimento diverge ou converge muito devagar, adota-se o melhor valor disponível até então. \\
+Como o refinamento exige a solução sucessiva de diversos sistemas lineares com a mesma matriz, o mais recomendável é usar um método de decomposição, em lugar do de eliminação Gaussiana, por exemplo. Este é o mais eficiente na solução de um sistema único, mas o custo é muito alto para empregos sucessivos.  \\
+Os resultados obtidos estão tabelados a seguir. Foi usada apenas precisão simples, de forma a favorecer a ocorrência de erros de arredondamento.
+\begin{table}[H]
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+		\hline
+        \textbf{n} & \textbf{norma 2} & \textbf{custo} \tablefootnote{Número de operações de ponto flutuante necessárias.} & \textbf{iterações} & \multicolumn{3}{|c|}{\textbf{erro}} & \textbf{norma 2} \\
+        & & & & \textbf{tolerado} & \textbf{inicial} & \textbf{final} & \\
+		\hline
+		$ 3 $ & $ 4.464723 $ & $ 75 $ & $ 0 $ & $ 10^{-6} $ & $ 0.000000 $ & $ 0.000000 $ & $ 4.464723 $ \\
+		$ 30 $ & $ 1.938658 $ & $ 20631 $ & $ 0 $ & $ 10^{-6} $ & $ 0.000000 $ & $ 0.000000 $ & $ 1.938657 $ \\
+		$ 300 $ & $ 25.915637 $ & $ 18501847 $ & $ 1 $ & $ 10^{-5} $ & $ 0.000054 $ & $ 0.000009 $ & $ 25.915562 $ \\
+		$ 300 $ & $ 25.915637 $ & $ 18774848 $ & $ 2 $ \tablefootnote{O método divergiu neste caso.} & $ 10^{-6} $ & $ 0.000054 $ & $ 0.000009 $ & $ 25.915701 $ \\		
+		\hline
+    \end{tabular}
+\end{table}
+O sistema foi gerado pelo MATLAB na solução da primeira lista de exercícios. \\
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntad{}
+\end{pergunta}
+\begin{resposta}
+O programa \textbf{\texttt{exercmat.c}}, em anexo, escrito em C, lê um sistema de equações gerado pelo MATLAB e calcula a matriz inversa e o determinante pelo método de eliminação de Gauss com pivotação parcial, bem como a norma 2 do resultado, para conferência. Basta digitar:
+\listingsG
+\begin{lstlisting}[language=Ada]
+	exercmat 9 $ \textit{n} $
+\end{lstlisting}
+onde $ n $ é o tamanho do sistema (n x n+1). Ele também calcula o número de operações em ponto flutuante necessário para cada etapa. \\
+Os resultados obtidos estão tabelados a seguir. Foi usada apenas precisão simples, de forma a favorecer a ocorrência de erros de arredondamento.
+\begin{table}[H]
+    \begin{tabular}{|c|c|c|c|c|c|}
+		\hline
+        \textbf{n} & \multicolumn{3}{|c|}{\textbf{custo} \tablefootnote{Número de operações de ponto flutuante necessárias.}} & \textbf{determinante} & \textbf{norma 2} \\
+        & \textbf{inversão} \tablefootnote{Cálculo do determinante incluído.} & \textbf{solução} & \textbf{norma 2} & & \\
+		\hline
+		$ 3 $ & $ 105 $ & $ 9 $ & $ 6 $ & $ - 0.112721 $ & $ 4.464724 $ \\
+		$ 30 $ & $ 74391 $ & $ 900 $ & $ 600 $ & $ 26.168293 $ & $ 1.938658 $ \\
+		$ 300 $ & $ 72226446 $ & $ 90000 $ & $ 600 $ & \textit{overflow} & $ 25.915840 $ \\
+		\hline
+    \end{tabular}
+\end{table}
+O sistema foi gerado pelo MATLAB na solução da primeira lista de exercícios. \\
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntae{}
+\end{pergunta}
+\begin{resposta}
+O programa \textbf{\texttt{exercmat.c}}, em anexo, escrito em C, lê um sistema de equações gerado pelo MATLAB, resolve-o pelo método iterativo de Jacobi e calcula a norma 2 do resultado, para conferência. Basta digitar:
+\listingsG
+\begin{lstlisting}[language=Ada]
+	exercmat 12 $ \textit{n} $
+\end{lstlisting}
+onde $ n $ é o tamanho do sistema (n x n+1). Ele também calcula o número de operações em ponto flutuante necessário para cada etapa. \\
+Como o sistema gerado pelo MATLAB na solução da primeira lista de exercícios é muito mal condicionado, o método falhou para todos os tamanhos testados. Por isso, desenvolveu-se uma função no MATLAB, listada abaixo, para gerar uma matriz diagonalmente dominante.
+\listingsO
+\lstinputlisting[caption=geradsis.m,language=Octave]{geradsis.m}
+\clearpage
+Os resultados obtidos estão tabelados a seguir. Foi usada apenas precisão simples, de forma a favorecer a ocorrência de erros de arredondamento.
+\begin{table}[H]
+    \begin{tabular}{|c|c|c|c|c|c|}
+		\hline
+        \textbf{n} & \textbf{norma 2} & \textbf{custo} \tablefootnote{Número de operações de ponto flutuante necessárias.} & \textbf{iterações} & \textbf{norma 2} & \textbf{tolerância} \\
+		\hline
+		\multirow{2}{*}{$ 3 $} & \multirow{2}{*}{$ 0.606234 $} & $ 204 $ & $ 8 $ & $ 0.606233 $ & $ 10^{-5} $ \\
+		& & $ 225 $ & $ 9 $ & $ 0.606234 $ & $ 10^{-6} $ \\	
+		\hline
+		\multirow{2}{*}{$ 30 $} & \multirow{2}{*}{$ 0.166238 $} & $ 1831980 $ & $ 1000 $ & $ 0.166224 $ & $ 10^{-5} $ \\
+		& & $ 2318760 $ & $ 1266 $ & $ 0.166236 $ & $ 10^{-6} $ \\
+		\hline
+		$ 300 $ & $ 0.389537 $ & \multicolumn{3}{|c|}{- \tablefootnote{O método divergiu neste caso.}} & $ 10^{-5} $ \\
+		\hline
+    \end{tabular}
+\end{table}
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntaf{}
+\end{pergunta}
+\begin{resposta}
+O programa \textbf{\texttt{exercmat.c}}, em anexo, escrito em C, lê um sistema de equações gerado pelo MATLAB, resolve-o pelo método iterativo de Gauss-Seidel e calcula a norma 2 do rtado, para conferência. Basta digitar:
+\listingsG
+\begin{lstlisting}[language=Ada]
+	exercmat 13 $ \textit{n} $
+\end{lstlisting}
+onde $ n $ é o tamanho do sistema (n x n+1). Ele também calcula o número de operações em ponto flutuante necessário para cada etapa. \\
+Foram usados os mesmos sistemas gerados para o problema anterior. \\
+Os resultados obtidos estão tabelados a seguir. Foi usada apenas precisão simples, de forma a favorecer a ocorrência de erros de arredondamento.
+\begin{table}[H]
+    \begin{tabular}{|c|c|c|c|c|c|}
+		\hline
+        \textbf{n} & \textbf{norma 2} & \textbf{custo} \tablefootnote{Número de operações de ponto flutuante necessárias.} & \textbf{iterações} & \textbf{tolerância} & \textbf{norma 2} \\
+		\hline
+		\multirow{2}{*}{$ 3 $} & \multirow{2}{*}{$ 0.606234 $} & $ 99 $ & $ 3 $ & $ 10^{-5} $ & $ 0.606234 $ \\
+		& & $ 120 $ & $ 4 $ & $ 10^{-6} $ & $ 0.606234 $ \\	
+		\hline
+		\multirow{2}{*}{$ 30 $} & \multirow{2}{*}{$ 0.166238 $} & $ 14790 $ & $ 7 $ & $ 10^{-5} $ & $ 0.166238 $ \\
+		& & $ 16620 $ & $ 8 $ & $ 10^{-6} $ & $ 0.166237 $ \\
+		\hline
+		\multirow{2}{*}{$ 300 $} & \multirow{2}{*}{$ 0.389537 $} & $ 12802800 $ & $ 70 $ & $ 10^{-5} $ & $ 0.389532 $ \\
+		& & $ 16228500 $ & $ 89 $ & $ 10^{-6} $ & $ 0.389537 $ \\
+		\hline
+    \end{tabular}
+\end{table}
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntag{}
+\end{pergunta}
+\begin{resposta}
+O programa \textbf{\texttt{exercmat.c}}, em anexo, escrito em C, lê uma matriz gerada pelo MATLAB e calcula seus autovalores extremos pelo método das potências (direta e inversa). Basta digitar:
+\listingsG
+\begin{lstlisting}[language=Ada]
+	exercmat 14 $ \textit{n} $
+\end{lstlisting}
+onde $ n $ é o tamanho da matriz (n x n). Ele também calcula o número de operações em ponto flutuante necessário para cada etapa. \\
+Foram usadas matrizes geradas para a lista de exercícios anterior. \\
+Os resultados obtidos estão tabelados a seguir. Foi usada apenas precisão simples, de forma a favorecer a ocorrência de erros de arredondamento. \\[2\baselineskip]
+\begin{minipage*}{\textwidth}
+\centering
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+		\hline
+        \textbf{n} & \multicolumn{2}{|c|}{\textbf{Autovalores}} & \multicolumn{2}{|c|}{\textbf{custo} \footnote{Número de operações de ponto flutuante necessárias.}} & \multicolumn{2}{|c|}{\textbf{iterações}} & \textbf{tolerância} \\
+		& \textbf{menor} & \textbf{maior} & \textbf{menor} & \textbf{maior} & \textbf{menor} & \textbf{maior} & \\
+		\hline
+		$ 3 $ & $ 0.499284 $ & $ 1.361155 $ & $ 265 $ & $ 232 $ & $ 3 $ \footnotemark[13] & $ 7 $ & $ 10^{-5} $ \\
+		$ 3 $ & $ 0.499284 $ & $ 1.361152 $ & $ 265 $ & $ 292 $ & $ 3 $ \footnotemark[13] & $ 9 $ & $ 10^{-6} $ \\
+		$ 30 $ & $ 0.057670 $ & $ 15.053532 $ & $ 34897 $ & $ 4000 $ & $ 7 $ & $ 3 $ \footnotemark[13] & $ 10^{-5} $ \\
+		$ 30 $ & $ 0.057670 $ & $ 15.053532 $ & $ 37066 $ & $ 4000 $ & $ 8 $ & $ 3 $ \footnotemark[13] & $ 10^{-6} $ \\
+		$ 300 $ & $ 0.181859 $ & $ 149.791565 $ & $ 18505777 $ & $ 454849 $ & $ 2 $ \footnotemark[13] & $ 4 $ & $ 10^{-5} $ \\
+		$ 300 $ & $ 0.181859 $ & $ 149.791534 $ & $ 18505777 $ & $ 546058 $ & $ 2 $ \footnotemark[13] & $ 5 $ & $ 10^{-6} $ \\
+		\hline
+    \end{tabular}
+\end{minipage*} \\
+\footnotetext[13]{O método divergiu nestes casos.}
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntah{}
+\end{pergunta}
+\begin{resposta}
+O programa \textbf{\texttt{exercmat.c}}, em anexo, escrito em C, lê uma matriz gerada pelo MATLAB e calcula seus autovalores pelo método de Jacobi. Basta digitar:
+\listingsG
+\begin{lstlisting}[language=Ada]
+	exercmat 15 $ \textit{n} $
+\end{lstlisting}
+onde $ n $ é o tamanho da matriz (n x n). Ele também calcula o número de operações em ponto flutuante necessário para cada etapa. \\
+Foram usadas matrizes geradas para a lista de exercícios anterior. \\
+Os resultados obtidos estão tabelados a seguir. Foi usada apenas precisão simples, de forma a favorecer a ocorrência de erros de arredondamento. \\[2\baselineskip]
+\begin{minipage*}{\textwidth}
+\centering
+    \begin{tabular}{|c|c|c|c|c|}
+		\hline
+        \textbf{n} & \textbf{custo} \footnotemark[14] & \textbf{iterações} & \textbf{tolerância} \\
+		\hline
+		$ 3 $ & $ 228 $ & $ 1 $ & $ 10^{-6} $ \\
+		$ 30 $ & $ 22800 $ & $ 19 $ & $ 10^{-6} $ \\		
+		$ 300 $ & $ 2188800 $ & $ 191 $ & $ 10^{-5} $ \\
+		$ 300 $ & $ 3123600 $ & $ 273 $ & $ 10^{-6} $ \\
+		\hline
+    \end{tabular}
+\end{minipage*} \\
+\footnotetext[14]{Número de operações de ponto flutuante necessárias.}
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntai{}
+\end{pergunta}
+\begin{resposta}
+Um sistema linear tridiagonal é aquele em que a matriz dos coeficientes $ \matriz{A} $ é tridiagonal. Uma matriz tridiagonal é uma matriz quadrada em que os coeficientes são $ a_{i,j} $ nulos para $ |j - i| > 1 $; em outras palavras, apenas coeficientes na diagonal principal e nas diagonais adjacentes não são nulos. \\
+Uma matriz tridiagonal genérica pode ter seus coeficientes expressos da forma usual:
+\begin{align*}
+	\begin{bmatrix}
+		a_{1,1} & a_{1,2} & 0 & 0 & 0 & \hdots & 0 & 0 & 0 \\
+		a_{2,1} & a_{2,2} & a_{2,3} & 0 & 0 & \hdots & 0 & 0 & 0 \\
+		0 & a_{3,2} & a_{3,3} & a_{3,4} & 0 & \hdots & 0 & 0 & 0 \\
+		\vdots & \vdots & \vdots & \vdots & \vdots & & \vdots & \vdots & \vdots \\
+		0 & 0 & 0 & 0 & 0 & \hdots & a_{n-1,n-2}& a_{n-1,n-1} & a_{n-1,n} \\
+		0 & 0 & 0 & 0 & 0 & \hdots & 0 & a_{n,n-1} & a_{n_n} \\
+	\end{bmatrix}
+\end{align*}
+ou da forma alternativa:
+\begin{align*}
+	\begin{bmatrix}
+   b_1 & c_1 & 0 & 0 & 0 & \hdots & 0 & 0 & 0 \\
+   a_2 & b_2 & c_2 & 0 & 0 & \hdots & 0 & 0 & 0 \\
+   0 & a_3 & b_3 & c_3 & 0 & \hdots & 0 & 0 & 0 \\
+   \vdots & \vdots & \vdots & \vdots & \vdots & & \vdots & \vdots & \vdots \\
+   0 & 0 & 0 & 0 & 0 & \hdots & a_{n-1}& b_{n-1} & c_{n-1} \\
+   0 & 0 & 0 & 0 & 0 & \hdots & 0 & a_n & b_n \\
+	\end{bmatrix}
+\end{align*}
+Esta última facilita o armazenamento eficaz de grandes matrizes, pois é preciso gravar apenas os 3 vetores $ \matriz{a} \text{, } \matriz{b} \text{ e } \matriz{c} $, todos com comprimento $ n $. Note-se que sempre $ a_1 = c_n = 0 $. \\
+Lançando-se mão da forma alternativa, o sistema tridiagonal $ \matriz{A} \matriz{x} = \matriz{d} $, cuja equação genérica é:
+\begin{align*}
+	\sum_{j = 1}^n a_{i,j} x_{j} = d_i
+\end{align*}
+pode ser escrito simplesmente como:
+\begin{align*}
+	a_i x_{i - 1} + b_i x_i + c_i x_{i + 1} = d_i
+\end{align*}
+o que faculta a solução por meio de uma modificação da eliminação Gaussiana conhecida como \textbf{algoritmo de Thomas}. O custo computacional deste método é linear em $ n \text{: } \mathcal{O}(n) $. A matriz inversa $ \matriz{V} $ pode ser obtida por meio das expressões seguintes:
+\begin{align*}
+	v_{i,j} & = \begin{cases} (-1)^{i+j} \; \dfrac{\theta_{i-1} \phi_{j+1}}{\theta_n} \; \prod \limits_i^{j-1} c_k & i \le j \\ (-1)^{i+j} \; \dfrac{\theta_{j-1} \phi_{i+1}}{\theta_n} \; \prod \limits_j^{i-1} a_k & i > j \end{cases} \\
+	\theta_i & = \begin{cases} 1 & i = 0 \\ b_1 & i = 1 \\ b_i \theta_{i-1} - a_{i-1} c_{i-1} \theta_{i-2} & 2 \le i \le n \end{cases} \\
+	\phi_i & = \begin{cases} 1 & i = n + 1 \\ b_n & i = n \\ b_i \phi_{i+1} - a_i c_i \phi_{i+2} & n-1 \ge i \ge 1 \end{cases}
+\end{align*}
+$ \matriz{V} $ é sempre uma \gls{MatSemSep}.
+Toda matriz tridiagonal é um tipo de \gls{MatHess}, por isso pode ser reduzida a uma matriz triangular por meio de processos iterativos, como a \gls{DecQR}. Esses processos são muito estáveis numericamente. \\
+
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntaj{}
+\end{pergunta}
+\begin{resposta}
+O algoritmo GMRES (\textit{Generalized Minimal Residual Method})é um método iterativo para solução de sistemas lineares genéricos que, em oposição aos chamados métodos estacionários, não utiliza uma matriz fixa para refinar o resultado, e sim técnicas de otimização para minimizar a norma Euclidiana do resíduo:
+\begin{align*}
+	\matriz{r} = \matriz{A} \matriz{x} - \matriz{b}
+\end{align*}
+Ele foi desenvolvido por Saad e Schultz em 1986, a partir dos algoritmos \gls{MINRES} e \gls{DIIS}, e seu custo computacional está entre $ \mathcal{O}(pn^2+p^2n) $ para matrizes densas e $ \mathcal{O}(p^2+pn) $ para matrizes muito esparsas, onde $ p $ é o número de iterações necessárias. \\
+A convergência é garantidamente monotônica e $ p < n $; em geral, $ p \ll n $, o que torna o custo muito atrativo. Outra característica do método é que a velocidade da convergência não depende do número de condição, e sim do valor absoluto do menor autovalor. \\
+Outra grande vantagem do algoritmo é que ele não exige que $ \matriz{A} $ seja diagonalmente dominante ou definida positiva. \\
+A minimização do resíduo, que consiste na solução de um problema de otimização pela técnica dos mínimos quadrados, baseia-se na \gls{DecQR} não de $ \matriz{A} $ e sim da matriz $ \matriz{H} $, que tem dimensão (p+1 x p) e que é obtida por meio de \gls{IterArn}. \\
+
+
+Existem algoritmos para tridiagonalizar matrizes genéricas. Por exemplo, os refletores de Householder são ferramentas robustas para transformar qualquer matriz para a forma de Hessenberg; o algoritmo de Gram-Schmidt para decomposição QR, por outro lado, é menos estável, mas possui a vantagem de oferecer resultado mesmo quando executado de forma parcial. \\
+
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntak{}
+\end{pergunta}
+\begin{resposta}
+A seguir apresenta-se uma visão simplificada do funcionamento de um sistema de posicionamento de antena terrestre para comunicação com satélite, seguindo o apresentado por \cite{PHILLIPS 1995} Modelos mais sofisticados podem ser encontrados em \cite{KAWAKAMI 1989} e \cite{NASA 1980}. \\
+Um sistema de posicionamento de antena de satélite consiste de um controlador digital, um sensor de posição e um servomotor de potência, como ilustrado no diagrama de blocos abaixo.
+
+\tikzstyle{block} = [draw, fill=blue!20, rectangle, minimum height=3em, minimum width=6em]
+\tikzstyle{sum} = [draw, fill=blue!20, circle, node distance=1cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+\tikzstyle{pinstyle} = [pin edge={to-,thin,black}]
+
+\begin{tikzpicture}[auto, node distance=2cm,>=latex']
+    \node [input, name=input] {};
+    \node [sum, right of=input, node distance=1.5cm] (sum) {};
+    \node [block, right of=sum, node distance=3cm] (controller) {Controlador};
+    \node [block, right of=controller, node distance=4cm] (system) {Servomotor};
+    \draw [->] (controller) -- node[name=u] {} (system);
+    \node [output, right of=system, node distance=4cm] (output) {};
+    \node [block, below of=u] (measurements) {Sensor};
+    \draw [draw,->] (input) -- node [pos=0] {Setpoint} (sum);
+    \draw [->] (sum) -- node {} (controller);
+    \draw [->] (system) -- node [name=y, pos=0.5] {} (output);
+    \draw [->] (system) -- node [pos=1.0] {Saída} (output);
+    \draw [->] (y) |- (measurements);
+    \draw [->] (measurements) -| node[pos=0.99] {$ - $} (sum);
+\end{tikzpicture} \\
+
+O servomotor em geral é um motor C.C., com corrente de campo constante, que apresenta resposta linear dentro da faixa de operação. A equação diferencial que o modela é a seguinte:
+\begin{align}
+	J \ddt{y} + \frac{B R_a + K_T K_b}{R_a} \dt{y} - \frac{K_T}{R_a} V_a = 0 \label{EqServo}
+\end{align}
+onde $ y $ é o deslocamento angular em relação à posição de repouso, $ V_a $ é a tensão aplicada à armadura, $ J $ é o momento de inércia total do conjunto, $ B $ é o amortecimento total devido a fricção, $ R_a $ é a resistência elétrica da armadura, $ K_T $ é a relação de torque do motor, dada por $ \frac{\tau}{i} $, onde $ \tau $ é o torque e $ i $, a corrente na armadura, e $ K_b $ é a relação de velocidade do servomotor, dada por $ \frac{\epsilon}{\omega} $ , onde $ \epsilon $ é a força eletromotriz e $ \omega $, a velocidade angular. Todos os parâmetros são constantes e independentes do tempo e a indutância da armadura, $ L_a $, em geral pode ser desprezada. \\
+Assim, a função de transferência do servomotor pode ser expressa por:
+\begin{align}
+	\mathpzc{G}(s) = \frac{\mathpzc{Y}(s)}{\mathpzc{V}_a(s)} = \frac{A}{s(s + a)} \label{EqG}
+\end{align}
+com $ A = \dfrac{K_T}{J R_a} \text { e } a = \dfrac{B R_a + K_T K_b}{J R_a} $. \\
+Note-se que tanto $ A \text{ quanto } a $ são sempre positivos, porque o servomotor é um sistema fisicamente estável. \\
+Segundo \cite{KAWAKAMI 1989}, o erro máximo tolerado para $ y $ é de 0.015 graus, devido à pequena largura do feixe de ondas a ser transmitido e recebido. \cite{NASA 1980} limita o erro de posicionamento a 3'. \\
+O sensor normalmente é do tipo \textit{encoder} de posição, e apresenta resposta linear e baixo ganho. Sua função de transferência $ \mathpzc{H}(s) $, portanto, pode ser expressa como uma constante $ K_s $, menor que 1. Além disso, um amplificador de potência, de ganho $ K_a $, é sempre colocado para alimentar o motor, para aumentar a sensibilidade e melhorar a resposta. \\
+Para um satélite não-geoestacionário o motor gira continuamente, dando uma volta a cada 24 h. Assim, a função $ \mathpzc{D}(s) $ deve prover pelo menos mais um polo em $ s = 0 $ de forma a zerar o erro em regime estacionário. Vamos assumir, por simplicidade, uma função proporcional + integral ideal: $ \mathpzc{D}(s) = \frac{K_c(s + \alpha)}{s} $.
+
+A partir desses dados, podemos redesenhar o diagrama de blocos:
+
+\begin{tikzpicture}[auto, node distance=2cm,>=latex']
+    \node [input, name=input] {};
+    \node [sum, right of=input, node distance=1.5cm] (sum) {};
+    \node [block, right of=sum, node distance=3cm] (controller) {$ \dfrac{K_c (s + \alpha)}{s} $};
+    \node [block, right of=controller, node distance=4cm] (system) {$ \dfrac{K_a A}{s(s + a)} $};
+    \draw [->] (controller) -- node[name=u] {$ \mathpzc{V}_a(s) $} (system);
+    \node [output, right of=system, node distance=4cm] (output) {};
+    \node [block, below of=u] (measurements) {$ K_s $};
+    \draw [draw,->] (input) -- node [pos=0] {$ \mathpzc{R}(s) $} (sum);
+    \draw [->] (sum) -- node {} (controller);
+    \draw [->] (system) -- node [name=y, pos=0.5] {} (output);
+    \draw [->] (system) -- node [pos=1.0] {$ \mathpzc{Y}(s) $} (output);
+    \draw [->] (y) |- (measurements);
+    \draw [->] (measurements) -| node[pos=0.99] {$ - $} (sum);
+\end{tikzpicture} \\
+
+Os dados de placa do servomotor TSM3304 da Tamagawa são os seguintes \cite{TAMAGAWA 2016}: \\
+\begin{minipage*}{\textwidth}
+\centering
+    \begin{tabular}{|c|c|c|}
+		\hline
+        \textbf{Tensão} & $ V_a $ & $ 200 \; V $ \\
+        \textbf{Potência} & $ P $ & $ 750 \; W $ \\
+        \textbf{Torque} & $ \tau $ & $ 2.39 \; N \cdot m $ \\
+        \textbf{Velocidade} & $ \omega $ & $ 3000 \; min^{-1} $ \\
+		\hline
+    \end{tabular}
+\end{minipage*} \\
+Servomotores de mercado com essa potência são normalmente motores C.A., não C.C. Esses dispositivos são construídos de forma a apresentar resposta linear, o que não acontece com  os motores de indução usuais; \cite{TAMAGAWA 2016} traz gráficos que demonstram essa característica. Neste trabalho continuaremos usando as equações e os termos empregados para motores C.C., apesar de não se aplicarem estritamente a essa classe de servomecanismos. \\
+Com esses dados, podemos calcular os parâmetros do motor, de acordo com o roteiro apontado por \cite{NASA 1980}, e considerando uma perda de 5\% na resistência da armadura:
+\begin{align*}
+	i_a & = \frac{P + \Delta P}{V_a} \\
+	& = \frac{750 \; W \times 1.05}{200 \; V} \\
+	& = 3.94 \; A\\
+	R_a & = \frac{\Delta P}{i_a^2} \\
+	& = \frac{750 \; W \times 0.05}{3.94 \; A)^2} \\
+	& = 2.42 \; \Omega \\
+	K_T & = \frac{\tau}{i_a} \\
+	& = {2.39 \; N \cdot m}{3.94 \; A} \\
+	& = 0.607 \; V \\
+	\epsilon & = V - R_a i_a \\
+	& = 200 \; V - 2.42 \; \Omega \times 3.94 \; A \\
+	& = 190 \; V \\
+	\omega & = 3000 \; min^{-1} \\
+	& = \frac{3000}{60 \; s} \\
+	& = 50.0 s^{-1} \\
+	K_b = \frac{\epsilon}{\omega} \\
+	& = \frac{190 \; V}{50 \; s^{-1}} \\
+	& = 3.80 \; V \cdot s \\
+\end{align*}
+O momento de inércia da antena é dado aproximadamente por $ J = \frac{mR^2}{4} $, onde $ R $ é o raio do disco, se a considerarmos como um disco plano e sua espessura for desprezada \cite{MOON 2008}. Para uma antena típica \cite{GATR 2015}, com raio de 2,4 m e pesando 45,4 kg, teremos:
+\begin{align*}
+	J = \frac{45.4 \; kg \times (2.4 \; m)^2}{4} = 260 N \cdot m^2 \\
+\end{align*}
+O atrito devido à fricção, segundo \cite{NASA 1980}, é altamente não-linear; os autores optaram por considerá-lo nulo para cálculo da função de transferência e tratar seu efeito como um distúrbio $ \mathpzc{T}(s) $ aplicado ao processo. Aqui adotaremos um procedimento mais simples: fazendo, na equação \ref{EqServo}, a aproximação $ \ddt{y} = 0 $, podemos estimar um limite máximo para $ B $:
+\begin{align*}
+	\frac{B_{max} R_a + K_T K_b}{R_a} \dt{y} = \frac{K_T}{R_a} V_a \\
+	\qquad \implies B_{max} & = \frac{K_T(V_a - \omega K_b)}{R_a} \\
+	& = \frac{0.607 \; V \cdot s \; (200 \; V - 50.0 \; s^{-1} \times 3.80 \; V \cdot s}{2.42 \; \Omega} \\
+	& = 2.51 \; N
+\end{align*}
+Assumiremos, então, por simplicidade, $ B = 2.00 \; N $ em condições típicas de funcionamento. Agora, os coeficientes da função de transferência em malha aberta podem ser calculados:
+\begin{align*}
+	A & = \frac{K_T}{J R_a} \\
+	& = \frac{0.607 \; V \cdot s}{260 \; N \cdot m^2 \times 2.42 \; \Omega} \\
+	& = 9.65 \times 10^{-4} \\
+	a & = \frac{B R_a + K_T K_b}{J R_a} \\
+	& = \frac{2.00 \; N \times 2.42 \; \Omega + 0.607 \; V \cdot s \times 3.80 \; V \cdot s}{260 \; N \cdot m^2 \times 2.42 \; \Omega} \\
+	& = 1.14 \times 10^{-2}
+\end{align*}
+O pequeno valor de $ A $ deixa mais clara a necessidade do amplificador na entrada. Para efeito de análise, consideraremos $ K_s = 0.4 \text{, } K_a = 20 $ e tentaremos encontrar valores satisfatórios para $ K_c \text{ e } \alpha $. Lembremos que, como o amplificador precisa ter alta potência na saída, da ordem de 750 W, o ganho não pode ser muito elevado. \\
+A função de transferência em malha fechada do sistema será:
+\begin{align}
+	\mathpzc{F}(s) & = \frac{\mathpzc{D}(s)\mathpzc{H}(s)\mathpzc{G}(s)}{1 + \mathpzc{D}(s)\mathpzc{H}(s)\mathpzc{G}(s)} \notag \\
+	& = \frac{K_c K_s K_a A (s + \alpha)}{s^2 (s + a) + K_c K_s K_a A (s + \alpha)} \notag \\
+	& = \frac{K_c C (s + \alpha)}{s^3 + as^2 + K_c C s + K_c C \alpha} \label{EqMalha}
+\end{align}
+com
+\begin{align*}
+	C & = K_s K_a A \\
+	& = 0.4 \times 20 \times 9.65 \times 10^{-4} \\
+	& = 7.72 \times 10^{-3}
+\end{align*}
+A equação diferencial correspondente a \ref{EqMalha} é:
+\begin{align}
+	\dddt{y} + a \ddt{y} + K_c C \dt{y} + K_c C \alpha y = K_c C \dt{f} + K_c C \alpha f \label{EqDifMalha}
+\end{align}
+Na formulação de variáveis de estado:
+\begin{equation*}
+	\begin{split}
+	x_1 & = y \\
+	x_2 & = \dt{y} = \dot{x_1} \\
+	x_3 & = \ddt{y} = \dot{x_2} \\
+	v_1 & = f \\
+	v_2 & = \dt{f} = \dot{v_1}
+	\end{split}
+	\qquad \implies
+	\begin{split}
+	\begin{bmatrix} \dot{x_1} \\ \dot{x_2} \\ \dot{x_3} \end{bmatrix} 
+	= 
+	\begin{bmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \\ -K_c C \alpha & - K_c C & - a \end{bmatrix}
+	\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}
+	+
+ 	\begin{bmatrix} 0 & 0 \\ 0 & 0 \\ K_c C \alpha & K_c C \end{bmatrix}
+ 	\begin{bmatrix} v_1 \\ v_2 \end{bmatrix}	
+	\end{split}
+\end{equation*}
+ou, mais brevemente, $ \matriz{\dot{x}} = \matriz{L} \matriz{x} + \matriz{M} \matriz{v} $. \\
+Os polos de $ \mathpzc{F}(s) $ são os autovalores da matriz $ \matriz{L} $. Foram geradas, no MATLAB, algumas matrizes para diversos valores de $ K_c $ e $ \alpha $, através da função listada abaixo. Ela também calcula os autovalores. \\
+\listingsO
+
+Para todos os valores testados há um autovalor puramente real e dois complexos, obviamente conjugados. Para $ \alpha = 0.1 $, a parte real desse par conjugado é positiva, independentemente do valor de $ K_c $, o que resulta num sistema instável. Aparentemente, à medida que $ \alpha $ aumenta, o valor da parte real dos polos complexos se aproxima assintoticamente de  - 0.006, e a do polo real tende a 0. O aumento de $ K_c $ diminui a estabilidade relativa do sistema, mas não parece suficiente para provocar instabilidade estrita. A melhor combinação parece ser $ K_c = 10000 \text{ e } \alpha = 0.001 $, que resulta no seguinte conjunto de autovalores: $ \{ -0.00100 \text{ e } - 0.00520 \pm \jmath 8.77 $, para uma função de transferência do controlador $ \mathpzc{D}(s) = 10000 + \frac{10}{s} $, cuja implementação é perfeitamente viável. \\
+
+\end{resposta}
+ 
+\clearpage
+ 
+\section{Análise e conclusões}
+Alguns algoritmos utilizam extração de raiz quadrada e divisões, que têm um custo computacional dependente da arquitetura do processador usado. Aqui adotaram-se os valores recomendados por \cite{FAH 2013} e \cite{INTEL 2016}.
+\tikzstyle{int}=[draw, fill=blue!20, minimum size=2em]
+\tikzstyle{init} = [pin edge={to-,thin,black}]
+
+\section{Anexos}
+Os seguintes arquivos constam do anexo (arquivo \textbf{\texttt{exercmat1.zip}}):
+\begin{lista}
+	\item arquivo fonte em C \textbf{\texttt{exercmat.c}}
+	\item arquivos fonte em MATLAB:
+	\begin{itemize}
+		\item \textbf{\texttt{gerachol.m}}: problema 2
+	\end{itemize}		
+	\item arquivos de dados:
+	\begin{itemize}
+		\item S\textit{n}: problemas 1, 3 e 4
+		\item C\textit{n}: problemas 2 e 8
+		\item D\textit{n}: problemas 5 e 6
+		\item MatA\textit{n}: problema 7
+		\item L\textit{m}: problema 11
+	\end{itemize}	
+\end{lista}
+
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{1pt}}
+
+\clearpage
+
+\glsaddall
+\printglossaries
+%\printglossary[type=main]
+%\printglossary[type=\acronymtype]
+
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{1pt}}
+
+\clearpage
+
+\begin{thebibliography}{30}
+
+\newbibit{FAH 2013}{FAH 2013}{Folding@home, Pande Lab, Stanford University}{FAQ: FLOPS}{https://folding.stanford.edu/home/faq/faq-flops/}{17/03/2016}
+
+\newbibit{GATR 2015}{GATR 2015}{GATR Technologies}{2.4m Antenna System Datasheet}{http://www.gatr.com/products/2-4-antenna-system}{21/03/2016}
+
+\newbibbk{INTEL 2016}{INTEL 2016}{INTEL Corporation}{Intel 64 and IA-32 Architectures Optimization Reference Manual}{2016, Tab. 15-3, pag. 15-9 a 15-10}
+
+\newbibpp{KAWAKAMI 1989}{KAWAKAMI 1989}{Y. KAWAKAMI, H. HOJO e M. UEBA}{Control Design of an Antenna Pointing Control System with Large On-board Reflectors}{T. NISHIMURA - 
+Automatic Control in Aerospace 1989: Selected Papers from The IFAC Symposium}
+
+\newbibbk{MOON 2008}{MOON 2008}{Francis C. MOON}{Applied Dynamics: With Applications to Multibody and Mechatronic Systems}{2\textsuperscript{nd} Ed., 2008, Weinheim, Wiley-VCH, ISBN 978-3-527-40751-4, Chap. 5, pp. 228 a 231}
+
+\newbibbk{NASA 1980}{NASA 1980}{National Aeronautics and Space Administration}{Satellite  Power  System (SPS) Antenna  Pointing  Control}{http://www.nss.org/settlement/ssp/library/NASACR3350-AntennaPointingControl.pdf}{21/03/2016}
+
+\newbibbk{PHILLIPS 1995}{PHILLIPS 1995}{Charles L. PHILLIPS e H. Troy NAGLE}{Digital Control System Analysis and Design}{Prentice Hall, Englewood Cliffs, 1995, 3 \textsuperscript{rd} Ed.}
+
+\newbibit{TAMAGAWA 2016}{TAMAGAWA 2016}{TAMAGAWA Seiki Corporation}{TBL-iIVseries AC Servomotor}{http://www.tamagawa-seiki.com/pdf/download/1699N1EJ_shusei.pdf}{21/03/2016}
+
+\newbibit{WEISSTEIN 2016}{WEISSTEIN 2016}{Eric W. WEISSTEIN}{Positive Definite Matrix \textit{MathWorld}}{http://mathworld.wolfram.com/PositiveDefiniteMatrix.html}{17/03/2016}
+
+\end{thebibliography}
+
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{1pt}}
+
+Programas testados com \textbf{Octave} 4.0.0 e \textbf{MinGW} C 4.8.2: \\
+\url{https://www.gnu.org/software/octave/} \\
+\url{https://www.mingw.org} \\
+Texto formatado com \textbf{pdflatex} em ambiente \textbf{MiKTeX} 2.9: \\
+\url{http://miktex.org/download/} \\ \\
+\end{document}

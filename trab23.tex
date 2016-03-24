@@ -1,0 +1,837 @@
+%\def\docclass{IEEE}
+%\def\docgraphicx{dvips}
+%\def\docgraphicx{dvipdf}
+%\def\docgraphicx{dvipsone}
+
+
+\ifx\docclass\undefined
+	\documentclass[12pt,fleqn]{amsart}
+\else
+	\documentclass[journal]{IEEEtran}
+\fi
+
+\usepackage{enumitem}
+\usepackage{xstring}
+\ifx\docgraphicx\undefined
+	\usepackage[pdftex]{graphicx}
+\else
+	\usepackage[\docgraphicx]{graphicx}
+\fi
+
+\usepackage[a4paper]{geometry}
+\usepackage[english,brazilian]{babel}
+\usepackage[ansinew]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{comment}
+% Fontes
+\usepackage{textgreek}
+\usepackage{yfonts}
+\usepackage{microtype}
+\usepackage{calligra}
+\usepackage{lmodern}
+\usepackage{bookman}
+\usepackage[scaled]{helvet}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage[hyphens]{url}
+\ifx\docclass\undefined
+	\usepackage{hyperref}
+\else
+	\usepackage{cite}
+\fi
+\usepackage{hyphenat}
+\hyphenation{mate-mática recu-perar}
+\usepackage{fmtcount}
+\usepackage[nonumberlist,acronym]{glossaries}
+% Formatação
+\usepackage{sidecap}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{matlab-prettifier}
+% Símbolos matemáticos
+\ifx\docclass\undefined
+	\usepackage{amsmath}
+\else
+	\usepackage[cmex10]{amsmath}
+	\interdisplaylinepenalty=2500
+\fi
+\usepackage{amssymb}
+\usepackage{wasysym}
+\usepackage{mathtools}
+\usepackage{bbm}
+\usepackage{mbboard}
+
+\ifx\docgraphicx\undefined
+	\graphicspath{{../pdf/}{../jpeg/}}
+	\DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+\else
+	\graphicspath{{../eps/}}
+	\DeclareGraphicsExtensions{.eps}
+\fi
+
+
+
+\renewcommand*\contentsname{Sumário}
+
+%\renewcommand{\thesubsection}{\textbf{\arabic{subsection}}}
+
+%\renewcommand{\thesection}{\color{red}}
+
+\makeatletter
+\def\subsubsection{\@startsection{subsubsection}{3}%
+  \z@{.5\linespacing\@plus.7\linespacing}{.1\linespacing}%
+  {\normalfont\itshape}}
+\makeatother\renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
+
+\newcommand{\newbibit}[6]{\bibitem[#1]{#2}#3, {\bf #4}. Disponível em \url{#5}, acesso em #6.}
+\newcommand{\newbibpp}[5]{\bibitem[#1]{#2}#3, {\bf #4}, \emph{in} #5.}
+\newcommand{\newbibbk}[5]{\bibitem[#1]{#2}#3, {\bf #4}, #5.}
+\newcommand{\newbibip}[6]{\bibitem[#1]{#2}#3, {\bf #4}, \emph{in} #5, disponível em \url{#6}.}
+\newcommand{\newbiboc}[4]{\bibitem[#1]{#2}#3, \textit{op. cit.}, #4.}
+\newcommand{\newbibsi}[7]{\bibitem[#1]{#2}#3, {\bf #4} : {#5}. Disponível em \url{#6}, acesso em #7.}
+
+\newenvironment{iquote}{\begin{quote}\itshape}{\end{quote}}
+
+\BeforeBeginEnvironment{figure}{\vskip-1ex}
+\AfterEndEnvironment{figure}{\vskip-4ex}
+
+\newenvironment{listae}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}	
+	\vspace{-5mm}}
+
+\newenvironment{listaef}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}}
+
+\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
+
+\newcommand{\Fourier}[1]{\mathbb{#1}(\omega) e^{j \omega t}}
+\newcommand{\FunR}[1]{\vec{#1}(x,y,z)}
+\newcommand{\phasor}[1]{\mathpzc{#1}}
+\newcommand{\uniphasor}[1]{\hat{\mathpzc{#1}}}
+\newcommand{\vecphasor}[1]{\vec{\mathpzc{#1}}}
+\newcommand{\FourFunR}[1]{\left( \phasor{#1} \FunR{#1} \right)}
+
+% Símbolos de funções
+\DeclareMathOperator{\sinc}{\mbox{sinc}}				% Função sinc
+\DeclareMathOperator{\sgn}{\mbox{sgn}}					% Função sinal
+\DeclareMathOperator{\atan}{\mbox{arctan}}				% Função arco-tangente
+\DeclareMathOperator{\acos}{\mbox{arccos}}				% Função arco-cosseno
+\DeclareMathOperator{\J}{\mbox{J}}						% Função de Bessel de primeira espécie
+\DeclareMathOperator{\Y}{\mbox{Y}}						% Função de Bessel de segunda espécie
+% Símbolos de elementos infinitesimais
+\newcommand {\dpx}[1]{\boldsymbol{\delta {#1}}}
+% Símbolos de constantes escalares (ex. carga do eletron: \ke{e})
+\newcommand {\ke}[1]{\text{\large \textfrak{#1}}}
+% Valores de constantes escalares (ex. carga do eletron: \kve{e})
+\newcommand {\kve}[1]{
+  \IfStrEqCase{#1}{
+    {e}{1,602 \times 10^{-19} \; C}
+    {mu}{4 \pi \times 10^{-7} \; H \; m^{-1}}
+    {ep}{8,854 \times 10^{-12} \; F \; m^{-1}}	
+    {c}{2,998 \times 10^{8} \; m \; s^{-1}}}
+	}
+% Símbolos de parâmetros escalares do problema
+ \newcommand{\ppe}[1]{\boldsymbol{#1}}					% genérico
+ \newcommand{\dcv}[1]{\ppe{\boldsymbol{\rho}_{v_{#1}}}}			% Densidade volumétrica de carga
+ \newcommand{\dcs}[1]{\ppe{\boldsymbol{\rho}_{S_{#1}}}}			% Densidade superficial de carga
+ \newcommand{\dcl}[1]{\ppe{\boldsymbol{\rho}_{l_{#1}}}}			% Densidade linear de carga
+% Símbolos de propriedades escalares do meio
+% Para letras gregas, usar o nome especial (precedido por 'bb')
+%(ex. condutividade: \ppe{\bbsigma})
+\newcommand {\pme}[1]{\mathbb{#1}}
+% Símbolos de propriedades tensoriais do meio
+% Para letras gregas, usar o nome especial (precedido por 'bb')
+%(ex. condutividade: \ppe{\bbsigma})
+\newcommand {\pmm}[1]{\pmb{\mathbb{#1}}}
+% Expressões de elementos diferenciais
+% Elemento de volume em coordenadas esféricas
+\newcommand {\dve}{r^2 \sin \theta \; dr \; d \theta \; d \phi}
+% Elemento de superfície em coordenadas cilíndricas
+\newcommand {\dsc}{\rho \; d \phi \; dz \; \a{\rho} + dz \; d \rho \; \a{\phi} + \rho \; d \rho \; d \phi \; \a{z}}
+% Elemento de superfície em coordenadas esféricas
+\newcommand {\dse}{r^2 \sin \theta \; d \theta \; d \phi \; \a{r} + r \sin \theta \; dr \; d \phi \; \a{\theta} + r \; dr \; d \theta \; \a{\phi}}
+% Elemento de deslocamento em coordenadas cilíndricas
+\newcommand {\dlc}{d \rho \; \a{\rho} + \rho \; d \phi \; \a{\phi} + dz \; \a{z}}
+% Elemento de deslocamento em coordenadas esféricas
+\newcommand {\dle}{dr \; \a{r} + r \; d \theta \; \a{\theta} + r \sin \theta \; d \phi \; \a{\phi} + dz \; \a{z}}
+% Conversão de vetores unitários
+\newcommand {\convarc}{\sin \theta \; \a{\rho} + \cos \theta \; \a{z}}
+\newcommand {\convark}{\sin \theta \; \cos \phi \; \a{x} + \sin \theta \; \sin \phi \; \a{y} + \cos \theta \; \a{z}}
+\newcommand {\convatc}{\cos \theta \; \a{\rho} - \sin \theta a; \a{z}}
+\newcommand {\convatk}{\cos \theta \; \cos \phi \; \a{x} + \cos \theta \; \sin \phi \; \a{y} - \sin \theta \; \a{z}}
+\newcommand {\convapk}{- \sin \phi \; \a{x} + \cos \phi \; \a{y}}
+\newcommand {\convahk}{\cos \phi \; \a{x} + \sin \phi \; \a{y}}
+\newcommand {\convaxc}{\cos \phi \; \a{\rho} - \sin \phi \; \a{\phi}}
+\newcommand {\convayc}{\sin \phi \; \a{\rho} + \cos \phi \; \a{\phi}}
+\newcommand {\convaxe}{\sin \theta \; \cos \phi \; \a{r} + \cos \theta \; \cos \phi \; \a{\theta} - \sin \phi \; \a{\phi}}
+\newcommand {\convaye}{\sin \theta \; \sin \phi \; \a{r} + \cos \theta \; \sin \phi \; \a{\theta} + \cos \phi \; \a{\phi}}
+\newcommand {\convaze}{\cos \theta \; \a{r} - \sin \theta \; \a{\theta}}
+\newcommand {\convahe}{\sin \theta \; \a{r} + \cos \theta \; \a{\theta}}
+% Conversão de coordenadas
+\newcommand {\convrc}{\sqrt{\rho^2 + z^2}}
+\newcommand {\convrk}{\sqrt{x^2 + y^2 + z^2}}
+\newcommand {\convtc}{\atan(\rho,z)}
+\newcommand {\convtk}{\acos(z,\sqrt{x^2 + y^2 + z^2})}
+\newcommand {\convpk}{\atan(y,x)}
+\newcommand {\convhk}{\sqrt{x^2 + y^2}}
+\newcommand {\convhe}{r \sin \theta}
+\newcommand {\convyc}{\rho \sin \phi}
+\newcommand {\convxe}{r \sin \theta \; \cos \phi}
+\newcommand {\convye}{r \sin \theta \; \sin \phi}
+\newcommand {\convze}{r \cos \theta}
+% Símbolos de operadores diferencias
+\newcommand{\grad}{\vec{\nabla}}
+\renewcommand{\div}{\grad \cdot}
+\newcommand{\rot}{\grad \times}
+\newcommand{\lap}{\nabla^2}
+\newcommand{\vlap}{\grad^2}
+\newcommand{\pd}[2]{\frac{\partial {#1}}{\partial {#2}}}
+\newcommand{\px}[1]{\frac{\partial {#1}}{\partial x}}
+\newcommand{\py}[1]{\frac{\partial {#1}}{\partial y}}
+\newcommand{\pz}[1]{\frac{\partial {#1}}{\partial z}}
+\newcommand{\pt}[1]{\frac{\partial {#1}}{\partial t}}
+\newcommand{\prho}[1]{\frac{\partial {#1}}{\partial \rho}}
+\newcommand{\pphi}[1]{\frac{\partial {#1}}{\partial \phi}}
+\newcommand{\pr}[1]{\frac{\partial {#1}}{\partial r}}
+\newcommand{\ptheta}[1]{\frac{\partial {#1}}{\partial \theta}}
+\newcommand{\ppx}[1]{\frac{\partial^2 {#1}}{\partial x^2}}
+\newcommand{\ppy}[1]{\frac{\partial^2 {#1}}{\partial y^2}}
+\newcommand{\ppz}[1]{\frac{\partial^2 {#1}}{\partial z^2}}
+\newcommand{\ppt}[1]{\frac{\partial^2 {#1}}{\partial t^2}}
+\newcommand{\ppphi}[1]{\frac{\partial^2 {#1}}{\partial \phi^2}}
+\renewcommand{\a}[1]{\hat{a}_{#1}}
+\newcommand{\ga}[3]{\px{#1} \a{x} + \py{#2} \a{y} + \pz{#3} \a{z}}
+\newcommand{\gc}[3]{\prho{#1} \a{\rho} + \frac{1}{\rho} \pphi{#2} \a{\phi} + \pz{} \a{z}}
+\newcommand{\gr}[3]{\pr{#1} \a{r} + \frac{1}{r \sin \theta} \pphi{#2} \a{\phi} + \frac{1}{r} \ptheta{#3} \a{\theta}}
+\newcommand{\de}[3]{\frac{1}{r^2} \pr{} r^2 \; {#1} \; \a{r} + \frac{1}{r \sin \theta} \pphi{} \; {#2} \; \a{\phi} + \frac{1}{r \sin \theta} \ptheta{} \sin \theta \; {#3} \; \a{\theta}}
+\newcommand{\dc}{\frac{1}{\rho} \prho{} \rho \; \a{\rho} + \frac{1}{\rho} \pphi{} \; \a{\phi} + \pz{} \a{z}}
+\newcommand{\la}[1]{\ppx{#1} + \ppy{#1} + \ppz{#1}}
+\newcommand{\lc}[1]{\frac{1}{\rho} \prho{} \rho \prho{#1} + \frac{1}{\rho^2} \ppphi{#1} + \ppz{#1}}
+\newcommand{\lr}[1]{\frac{1}{r^2} \pr{} r^2 \pr{#1} + \frac{1}{r^2 \sin \theta} \ptheta{} \sin \theta \ptheta{#1} + \frac{1}{r^2 \sin^2 \theta} \ppphi{#1}}
+\newcommand{\vla}[3]{\lap \; {#1} \; \a{x} + \lap \; {#2} \; \a{y} + \lap \; {#3} \; \a{z}}
+\renewcommand{\ra}[3]{\left( \py{#3} - \pz{#2} \right) \a{x} + \left( \pz{#1} - \px{#3} \right) \a{y} + \left( \px{#2} - \py{#1} \right) \a{z}}
+% Símbolos de operadores integrais
+\newcommand {\iv}[1]{\iiint \limits_{#1}}
+\newcommand {\ivv}[6]{\int_{#1}^{#2} \int_{#3}^{#4} \int_{#5}^{#6}}
+\newcommand {\is}[1]{\iint \limits_{#1}}
+\newcommand {\ios}[1]{\oiint \limits_{#1}}
+\newcommand {\iss}[4]{\int_{#1}^{#2} \int_{#3}^{#4}}
+\newcommand {\il}[1]{\int \limits_{#1}}
+\newcommand {\ill}[2]{\int_{#1}^{#2}}
+% Linhas divisórias
+\newcommand{\hhhlin}{\noindent\hfil\rule{0.25\textwidth}{.2pt}\hfil\newline}
+\newcommand{\hhlin}{\noindent\hfil\rule{0.5\textwidth}{.4pt}\hfil\newline}
+\newcommand{\hlin}{\noindent\hfil\rule{\textwidth}{.8pt}\hfil\newline}
+% Matriz coluna (3x1)
+\newcommand{\bigmc}[3]{\left( \begin{matrix} {#1} \\ {#2} \\ {#3} \end{matrix} \right)}
+\newcommand{\bigmci}[1]{\left( \begin{matrix} {#1}_1 \\ {#1}_2 \\ {#1}_3 \end{matrix} \right)}
+% Matriz linha (1x3)
+\newcommand{\bigml}[3]{\left( \begin{matrix} {#1} & {#2} & {#3} \end{matrix} \right)}
+\newcommand{\bigmli}[1]{\left( \begin{matrix} {#1}_1 & {#1}_2 & {#1}_3 \end{matrix} \right)}
+% Matriz quadrada (3x3)
+\newcommand{\bigmq}[9]{\left( \begin{matrix} {#1} & {#2} & {#3} \\ {#4} & {#5} & {#6} \\ {#7} & {#8} & {#9} \end{matrix} \right)}
+\newcommand{\bigmqi}[1]{\left( \begin{matrix} {#1}_{1,1} & {#1}_{1,2} & {#1}_{1,3} \\ {#1}_{2,1} & {#1}_{2,2} & {#1}_{2,3} \\ {#1}_{3,1} & {#1}_{3,2} & {#1}_{3,3} \end{matrix} \right)}
+\newcommand{\bigmqd}[9]{\left| \begin{matrix} {#1} & {#2} & {#3} \\ {#4} & {#5} & {#6} \\ {#7} & {#8} & {#9} \end{matrix} \right|}
+\newcommand{\bigmqid}[1]{\left| \begin{matrix} {#1}_{1,1} & {#1}_{1,2} & {#1}_{1,3} \\ {#1}_{2,1} & {#1}_{2,2} & {#1}_{2,3} \\ {#1}_{3,1} & {#1}_{3,2} & {#1}_{3,3} \end{matrix} \right|}
+
+
+% *** SPECIALIZED LIST PACKAGES ***
+%
+%\usepackage{algorithmic}
+% algorithmic.sty was written by Peter Williams and Rogerio Brito.
+% This package provides an algorithmic environment fo describing algorithms.
+% You can use the algorithmic environment in-text or within a figure
+% environment to provide for a floating algorithm. Do NOT use the algorithm
+% floating environment provided by algorithm.sty (by the same authors) or
+% algorithm2e.sty (by Christophe Fiorio) as IEEE does not use dedicated
+% algorithm float types and packages that provide these will not provide
+% correct IEEE style captions. The latest version and documentation of
+% algorithmic.sty can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/algorithms/
+% There is also a support site at:
+% http://algorithms.berlios.de/index.html
+% Also of interest may be the (relatively newer and more customizable)
+% algorithmicx.sty package by Szasz Janos:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/algorithmicx/
+
+
+
+
+% *** ALIGNMENT PACKAGES ***
+%
+%\usepackage{array}
+% Frank Mittelbach's and David Carlisle's array.sty patches and improves
+% the standard LaTeX2e array and tabular environments to provide better
+% appearance and additional user controls. As the default LaTeX2e table
+% generation code is lacking to the point of almost being broken with
+% respect to the quality of the end results, all users are strongly
+% advised to use an enhanced (at the very least that provided by array.sty)
+% set of table tools. array.sty is already installed on most systems. The
+% latest version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/required/tools/
+
+
+%\usepackage{mdwmath}
+%\usepackage{mdwtab}
+% Also highly recommended is Mark Wooding's extremely powerful MDW tools,
+% especially mdwmath.sty and mdwtab.sty which are used to format equations
+% and tables, respectively. The MDWtools set is already installed on most
+% LaTeX systems. The lastest version and documentation is available at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/mdwtools/
+
+
+% IEEEtran contains the IEEEeqnarray family of commands that can be used to
+% generate multiline equations as well as matrices, tables, etc., of high
+% quality.
+
+
+%\usepackage{eqparbox}
+% Also of notable interest is Scott Pakin's eqparbox package for creating
+% (automatically sized) equal width boxes - aka "natural width parboxes".
+% Available at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/eqparbox/
+
+
+
+
+
+% *** SUBFIGURE PACKAGES ***
+%\usepackage[tight,footnotesize]{subfigure}
+% subfigure.sty was written by Steven Douglas Cochran. This package makes it
+% easy to put subfigures in your figures. e.g., "Figure 1a and 1b". For IEEE
+% work, it is a good idea to load it with the tight package option to reduce
+% the amount of white space around the subfigures. subfigure.sty is already
+% installed on most LaTeX systems. The latest version and documentation can
+% be obtained at:
+% http://www.ctan.org/tex-archive/obsolete/macros/latex/contrib/subfigure/
+% subfigure.sty has been superceeded by subfig.sty.
+
+
+
+%\usepackage[caption=false]{caption}
+%\usepackage[font=footnotesize]{subfig}
+% subfig.sty, also written by Steven Douglas Cochran, is the modern
+% replacement for subfigure.sty. However, subfig.sty requires and
+% automatically loads Axel Sommerfeldt's caption.sty which will override
+% IEEEtran.cls handling of captions and this will result in nonIEEE style
+% figure/table captions. To prevent this problem, be sure and preload
+% caption.sty with its "caption=false" package option. This is will preserve
+% IEEEtran.cls handing of captions. Version 1.3 (2005/06/28) and later 
+% (recommended due to many improvements over 1.2) of subfig.sty supports
+% the caption=false option directly:
+%\usepackage[caption=false,font=footnotesize]{subfig}
+%
+% The latest version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/subfig/
+% The latest version and documentation of caption.sty can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/caption/
+
+
+
+
+% *** FLOAT PACKAGES ***
+%
+%\usepackage{fixltx2e}
+% fixltx2e, the successor to the earlier fix2col.sty, was written by
+% Frank Mittelbach and David Carlisle. This package corrects a few problems
+% in the LaTeX2e kernel, the most notable of which is that in current
+% LaTeX2e releases, the ordering of single and double column floats is not
+% guaranteed to be preserved. Thus, an unpatched LaTeX2e can allow a
+% single column figure to be placed prior to an earlier double column
+% figure. The latest version and documentation can be found at:
+% http://www.ctan.org/tex-archive/macros/latex/base/
+
+
+
+%\usepackage{stfloats}
+% stfloats.sty was written by Sigitas Tolusis. This package gives LaTeX2e
+% the ability to do double column floats at the bottom of the page as well
+% as the top. (e.g., "\begin{figure*}[!b]" is not normally possible in
+% LaTeX2e). It also provides a command:
+%\fnbelowfloat
+% to enable the placement of footnotes below bottom floats (the standard
+% LaTeX2e kernel puts them above bottom floats). This is an invasive package
+% which rewrites many portions of the LaTeX2e float routines. It may not work
+% with other packages that modify the LaTeX2e float routines. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/sttools/
+% Documentation is contained in the stfloats.sty comments as well as in the
+% presfull.pdf file. Do not use the stfloats baselinefloat ability as IEEE
+% does not allow \baselineskip to stretch. Authors submitting work to the
+% IEEE should note that IEEE rarely uses double column equations and
+% that authors should try to avoid such use. Do not be tempted to use the
+% cuted.sty or midfloat.sty packages (also by Sigitas Tolusis) as IEEE does
+% not format its papers in such ways.
+
+
+%\ifCLASSOPTIONcaptionsoff
+%  \usepackage[nomarkers]{endfloat}
+% \let\MYoriglatexcaption\caption
+% \renewcommand{\caption}[2][\relax]{\MYoriglatexcaption[#2]{#2}}
+%\fi
+% endfloat.sty was written by James Darrell McCauley and Jeff Goldberg.
+% This package may be useful when used in conjunction with IEEEtran.cls'
+% captionsoff option. Some IEEE journals/societies require that submissions
+% have lists of figures/tables at the end of the paper and that
+% figures/tables without any captions are placed on a page by themselves at
+% the end of the document. If needed, the draftcls IEEEtran class option or
+% \CLASSINPUTbaselinestretch interface can be used to increase the line
+% spacing as well. Be sure and use the nomarkers option of endfloat to
+% prevent endfloat from "marking" where the figures would have been placed
+% in the text. The two hack lines of code above are a slight modification of
+% that suggested by in the endfloat docs (section 8.3.1) to ensure that
+% the full captions always appear in the list of figures/tables - even if
+% the user used the short optional argument of \caption[]{}.
+% IEEE papers do not typically make use of \caption[]'s optional argument,
+% so this should not be an issue. A similar trick can be used to disable
+% captions of packages such as subfig.sty that lack options to turn off
+% the subcaptions:
+% For subfig.sty:
+% \let\MYorigsubfloat\subfloat
+% \renewcommand{\subfloat}[2][\relax]{\MYorigsubfloat[]{#2}}
+% For subfigure.sty:
+% \let\MYorigsubfigure\subfigure
+% \renewcommand{\subfigure}[2][\relax]{\MYorigsubfigure[]{#2}}
+% However, the above trick will not work if both optional arguments of
+% the \subfloat/subfig command are used. Furthermore, there needs to be a
+% description of each subfigure *somewhere* and endfloat does not add
+% subfigure captions to its list of figures. Thus, the best approach is to
+% avoid the use of subfigure captions (many IEEE journals avoid them anyway)
+% and instead reference/explain all the subfigures within the main caption.
+% The latest version of endfloat.sty and its documentation can obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/endfloat/
+%
+% The IEEEtran \ifCLASSOPTIONcaptionsoff conditional can also be used
+% later in the document, say, to conditionally put the References on a 
+% page by themselves.
+
+
+
+
+
+% *** Do not adjust lengths that control margins, column widths, etc. ***
+% *** Do not use packages that alter fonts (such as pslatex).         ***
+% There should be no need to do such things with IEEEtran.cls V1.6 and later.
+% (Unless specifically asked to do so by the journal or conference you plan
+% to submit to, of course. )
+
+
+\makeglossaries
+\makeindex
+\setglossarystyle{altlist}
+
+\newglossaryentry{CSTS}{
+  name={CST Studio},
+  description={Simulador de campos eletromagnéticos em estruturas tridimensionais, desenvolvido pela \acrshort{CSTa}}
+  }%
+\newglossaryentry{CST}{
+  name={CST (\textit{Computer Simulation Technology})},
+  description={Empresa alemã que desenvolve o \gls{CSTS}}
+  }%
+\newglossaryentry{ADS}{
+  name={ADS (\textit{Advanced Design System})},
+  description={Software para projeto de circuitos eletrônicos, desenvolvido pela Keysight}
+  }%
+\newacronym[see={[Glossary:]{ADS}}]{ADSa}{ADS}{\textit{Advanced Design System}}
+\newacronym[see={[Glossary:]{CST}}]{CSTa}{CST}{\textit{Computer Simulation Technology}}
+
+\begin{document}
+\title{Teoria Eletromagnética - Trabalho III}
+%
+%
+% author names and IEEE memberships
+% note positions of commas and nonbreaking spaces ( ~ ) LaTeX will not break
+% a structure at a ~ so this keeps an author's name from being broken across
+% two lines.
+% use \thanks{} to gain access to the first footnote area
+% a separate \thanks must be used for each paragraph as LaTeX2e's \thanks
+% was not built to handle multiple paragraphs
+%
+
+\author{Sérgio~Cordeiro %,~\IEEEmembership{Member,~IEEE,}
+        %John~Doe,~\IEEEmembership{Fellow,~OSA,}
+        %and~Jane~Doe,~\IEEEmembership{Life~Fellow,~IEEE
+        }% <-this % stops a space
+%\thanks{M. Shell is with the Department
+%of Electrical and Computer Engineering, Georgia Institute of Technology, Atlanta,
+%GA, 30332 USA e-mail: (see http://www.michaelshell.org/contact.html).}% <-this % stops a space
+%\thanks{J. Doe and J. Doe are with Anonymous University.}% <-this % stops a space
+%\thanks{Manuscript received April 19, 2005; revised January 11, 2007.}}
+
+% note the % following the last \IEEEmembership and also \thanks - 
+% these prevent an unwanted space from occurring between the last author name
+% and the end of the author line. i.e., if you had this:
+% 
+% \author{....lastname \thanks{...} \thanks{...} }
+%                     ^------------^------------^----Do not want these spaces!
+%
+% a space would be appended to the last name and could cause every name on that
+% line to be shifted left slightly. This is one of those "LaTeX things". For
+% instance, "\textbf{A} \textbf{B}" will typeset as "A B" not "AB". To get
+% "AB" then you have to do: "\textbf{A}\textbf{B}"
+% \thanks is no different in this regard, so shield the last } of each \thanks
+% that ends a line with a % and do not let a space in before the next \thanks.
+% Spaces after \IEEEmembership other than the last one are OK (and needed) as
+% you are supposed to have spaces between the names. For what it is worth,
+% this is a minor point as most people would not even notice if the said evil
+% space somehow managed to creep in.
+
+
+
+% The paper headers
+%\markboth{Journal of \LaTeX\ Class Files,~Vol.~6, No.~1, January~2007}%
+%{Shell \MakeLowercase{\textit{et al.}}: Bare Demo of IEEEtran.cls for Journals}
+% The only time the second header will appear is for the odd numbered pages
+% after the title page when using the twoside option.
+% 
+% *** Note that you probably will NOT want to include the author's ***
+% *** name in the headers of peer review papers.                   ***
+% You can use \ifCLASSOPTIONpeerreview for conditional compilation here if
+% you desire.
+
+
+
+
+% If you want to put a publisher's ID mark on the page you can do it like
+% this:
+%\IEEEpubid{0000--0000/00\$00.00~\copyright~2007 IEEE}
+% Remember, if you use this you must call \IEEEpubidadjcol in the second
+% column for its text to clear the IEEEpubid mark.
+
+
+
+% use for special paper notices
+%\IEEEspecialpapernotice{(Invited Paper)}
+
+
+
+
+% make the title area
+\maketitle
+
+
+\def\keywords{permissividade relativa complexa, FR-4}
+\begin{abstract}
+%\boldmath
+Este trabalho demonstra um método para obter-se o valor da permissividade elétrica complexa de um meio dielétrico. A parte real desse valor influencia a velocidade de propagação de uma onda eletromagnética no meio e a parte imaginária está associada às perdas incorridas à medida que ela o atravessa. Esse parâmetro é, juntamente com a permeabilidade magnética, a informação mais importante quando se deseja analisar o comportamento de uma onda que se propaga em um dado dielétrico. Levantar o valor correspondente a um certo material reveste-se, portanto, de grande relevância em muitas situações práticas. \\
+A permissividade elétrica de um dielétrico, em baixas frequências, tem sempre um valor puramente real, tornando-se complexa apenas em altas frequências. Para o presente trabalho, adotamos um valor de referência de 2.45 GHz para esse parâmetro. Como meio de trabalho, escolhemos o material conhecido como FR-4, que é um resina epóxi fortalecida com fibra de vidro, usada na indústria como suporte para as placas de circuito impresso rígidas. \\
+O método usado consiste na construção de um protótipo, medição de suas características e no emprego de um simulador para, a partir dos valores medidos, estimar os parâmetros construtivos, dentre estes, a permissividade do meio empregado. Para o presente trabalho, usamos o analisador de rede E5071C da Agilent para as medidas e os aplicativos \gls{CSTS} e \gls{ADS} para as simulações. \\
+\ifx\docclass\undefined
+	\vskip 1ex
+	\noindent \textbf{Palavras-chave:} \keywords.
+\fi
+\end{abstract}
+
+\ifx\docclass\undefined
+\else
+	\begin{IEEEkeywords}
+	\keywords.
+	\end{IEEEkeywords}
+% For peer review papers, you can put extra information on the cover
+% page as needed:
+% \ifCLASSOPTIONpeerreview
+% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
+% \fi
+%
+% For peerreview papers, this IEEEtran command inserts a page break and
+% creates the second title. It will be ignored for other modes.
+	\IEEEpeerreviewmaketitle
+\fi
+
+
+
+\section{Introducão}
+A permissividade elétrica complexa $ \pme{\epsilon} $ de um meio dielétrico pode ser escrita como: \\
+\begin{align}
+    \pme{\epsilon} = (\pme{\bbepsilon}_r^{(R)} + \jmath \pme{\bbepsilon}_r^{(I)}) \pme{\bbepsilon}_0
+\end{align}
+onde $ \pme{\bbepsilon}_0 $ é a permissividade elétrica do vácuo. A parte real $ \pme{\bbepsilon}_r^{(R)} $ influencia a velocidade de propagação de uma onda eletromagnética no meio e, portanto, o comprimento de onda $ \lambda $; a parte imaginária $ \pme{\bbepsilon}_r^{(I)} $ , as perdas incorridas à medida que a onda se propaga através dele. Construindo-se um protótipo e em seguida medindo-se o comprimento de onda e as perdas resultantes, podem-se determinar os parâmetros construtivos do isolante empregado. \\
+O protótipo para o presente trabalho foi uma linha de transmissão impressa em uma placa de FR-4, munida de um conector SMA fêmea na entrada para permitir a injeção dos sinais de teste. Os passos para o levantamento são os seguintes:
+\begin{itemize}
+    \item Caracterização do conector
+    \item Construção do protótipo
+    \item Medição dos parâmetros de propagação
+    \item Determinação dos parâmetros construtivos
+\end{itemize}
+Cada uma das etapas acima é descrita nas seções a seguir.
+
+\section{Caracterização do conector}
+O conector empregado deve possuir impedância característica igual à da linha, de forma a minimizar o coeficiente de reflexão. Evidentemente, como a linha foi construída a partir de dados aproximados, o casamento não será perfeito, mas a reflexão resultante não chegará a prejudicar o processo. A caracterização do conector consiste na determinação da perda $ A_c $ e na defasagem angular $ \phi_c $ que ele introduz na frequência de referência. Esses valores podem ser obtidos por meio de um analisador de rede. Conforme mostrado nas figuras abaixo, foram obtidos os valores de $ A_c = 0.061 \; dB \text{ e } Z_c = (0.27 - \jmath 41) \Omega \approx - \jmath 41 \; \Omega $, o que corresponde a:
+\begin{align*}
+	Z_c = - \jmath Z_0 \cot \phi \implies \cot \phi & = \frac{Z_c}{- \jmath Z_0} \\
+	\tan \phi & = \frac{- \jmath Z_0}{Z_c} \\
+	\phi & = \atan(- \jmath Z_0, Z_c) \\
+	& = \atan(- \jmath 50, - \jmath 41) \\
+	& = 51 ^{\circ} \\
+\end{align*}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab23fige.jpg} \\
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab23figf.jpg} \\
+\end{figure}
+\vskip 2ex
+Para conferência, o conector foi modelado por meio do \gls{CSTS} e suas características nele simuladas. O conector utilizado foi do tipo reto, fabricado em latão, com teflon como isolante, que se encaixa lateralmente na placa,  tem o contato central soldado na face superior e dois pinos de terra soldados na face inferior (dois pinos de terra ficam sem utilização, no nosso caso). A figura seguinte mostra as dimensões físicas do conector. Na simulação, supusemos que o latão empregado tem 65 \% de cobre \cite{AMPHENOL 2004}.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab23figg.pdf} \\
+\end{figure}
+
+\section{Construção do protótipo}
+Esta etapa segue o procedimento usual para fabricação manual de placas de circuito impresso e soldagem de componentes. A linha de transmissão consiste de uma tira com largura $ W $ impressa na face superior e outra, com largura indeterminada, na face oposta. As tiras possuem um comprimento $ \ell $. Tanto $ W \text{ quanto } \ell $ precisam ser calculados para a frequência de referência a ser usada. \\
+
+\subsection{Cálculo da largura da trilha}
+\cite{POZAR 2005} fornece uma fórmula direta para cálculo da largura $ W $ de uma trilha impressa. No caso de $ \dfrac{W}{d} > 2 \text{, onde } d $ é a espessura do meio isolante: \\
+\begin{align}
+    W & = \dfrac{2 d}{\pi} \left[ \mathbb{B} - 1 - \ln(2 \mathbb{B} - 1 ) + \dfrac{\pme{\bbepsilon}_r + 1}{2 \pme{\bbepsilon}_r} \left\{ \ln(\mathbb{B} - 1 ) + 0.39 + \dfrac{0.61}{\pme{\bbepsilon}_r} \right\} \right] \label{EqW} \\
+    & \qquad \Aboxed{\mathbb{B} = \dfrac{377 \pi}{2 Z_0 \sqrt{\pme{\bbepsilon}_r}}} \label{EqB}
+\end{align}
+onde $ Z_0 $ é a impedância característica desejada para a linha e $ \pme{\bbepsilon}_r $ é a permissividade relativa do meio. Para o valor medido de $ d = 1.50 \; mm $, a impedância desejada de $ 50 \; \Omega $ e a permissividade relativa aproximada de $ 4.3 $ para o FR-4, $ W = 3.3 \; mm $. \\
+Substituindo esse valor na fórmula fornecida pelo mesmo autor para a impedância: \\
+\begin{align}
+    Z_0 & = \dfrac{120 \pi}{\sqrt{\pme{\bbepsilon}_e \left( \dfrac{W}{d} + 1.393 + 0.667 \ln \left[ \frac{W}{d} + 1.444 \right] \right)}} \label{EqZ0} \\
+    \pme{\bbepsilon}_e & = \dfrac{\pme{\bbepsilon}_r + 1}{2} + \dfrac{\pme{\bbepsilon}_r - 1}{2} \; \sqrt{\frac{1}{1 + 12 \frac{d}{W}}} \label{Eqee}
+\end{align}
+onde $ \pme{\bbepsilon}_e $ é a permissividade relativa \textbb{efetiva}, que leva em conta a geometria do problema específico, o valor obtido foi de $ 46 \; \Omega $. \\
+Alternativamente, pode-se, em lugar de \ref{EqW} e \ref{EqB}, usar \ref{EqZ0} e \ref{Eqee} como uma fórmula implícita para o cálculo de $ \dfrac{W}{d} $, empregando um algoritmo iterativo. O valor encontrado neste caso é $ W = 2.9 \; mm $. \\
+Uma terceira opção é usar o \acrshort{ADSa} para projetar a linha. A figura abaixo mostra que o valor encontrado neste caso é também $ W = 2.9 \; mm $. \\
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab23figa.png} \\
+\end{figure}
+\vskip 2ex
+Como neste trabalho não foi possível obter uma precisão elevada na fabricação, consideramos ambos os valores calculados como aproximações válidas e construímos a placa com $ W = 3 \; mm $. \\
+
+\subsection{Cálculo do comprimento da trilha}
+O comprimento mínimo da trilha deve ser igual a $ \dfrac{\lambda}{2} \text{, onde } \lambda $ é o comprimento de onda de referência, de forma a que ela acomode pelo menos um ciclo completo da distribuição espacial da impedância $ Z(s) $. Para este trabalho, optamos por construir uma placa com $ \ell = 2 \lambda $. Considerando a expressão para a permissividade efetiva \ref{Eqee} \cite{POZAR 2005}: \\
+\begin{align}
+    \lambda & = \dfrac{v}{f} \notag \\
+    & = \dfrac{1}{\sqrt{\pme{\mu} \pme{\bbepsilon}} \; f} \notag \\
+    & = \dfrac{1}{\sqrt{\pme{\mu}_r \pme{\mu}_0 \pme{\bbepsilon}_e \pme{\bbepsilon}_0} \; f} \label{Eql}
+\end{align}
+onde $ v $ é a velocidade de propagação no meio e $ f $ é a frequência. Para $ f = 2.45 \; GHz \text{, } \ell = 13 \; mm $. \\
+
+\section{Medição dos parâmetros de propagação}
+Após a construção do protótipo, os parâmteros foram levantados por meio de um analisador de rede, conforme as figuras abaixo. A perda é $ A_e = -1.8 \; dB $, e a impedância de entrada com linha aberta é $ Z_e = (5.2 + \jmath 3.7) \Omega $ para a frequência de referência. Isso corresponde a um ângulo de $ 35 ^{\circ} $ para a impedância.
+
+\section{Determinação dos parâmetros construtivos}
+Nesta etapa, foi utilizado o \acrshort{ADSa} para, por meio de tentativas, descobrirem-se os valores dos parãmetros construtivos do protótipo, a partir das medições feitas e de um modelo físico. Esse modelo consiste de uma linha de transmissão fictícia com as características do conector, em série com uma indutância parasita e uma capacitância parasita em paralelo, que representam a influência dos contatos do conector, além da linha de transmissão a ser caracterizada, como ilustram as figuras a seguir.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab23figc.jpg} \\
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab23figd.jpg} \\
+\end{figure}
+\vskip 2ex
+Por meio da função \textit{Tuning} do \acrshort{ADSa}, podemos fazer coincidir a impedância total medida em diversas frequências. Para simplificar, fizemos apenas 3 medições; de acordo com elas, para $ f = 1.38 \; GHz \text{, } Z_e = (3.2 + \jmath 7.7) \; \Omega \text{, o que corresponde a } \phi = 67^{\circ} \text{, para } f = 2.45 \; GHz \text{, } Z_e = (5.8 + \jmath 4.0) \; \Omega \text{, o que corresponde a } \phi = 36^{\circ} \text{, e para } f = 2.50 \; GHz \text{, } Z_e = (6.0 + \jmath 18) \; \Omega \text{, o que corresponde a } \phi = 72^{\circ} $. A simulação no \acrshort{ADSa} resulta em $ C = 0.16 \; pF \text{ e } L = 3.6 \; nH $ para as componentes parasitas. Neste caso, o valor ajustado para a constante dielétrica foi $ \pme{\bbepsilon}_r = 4.0 $. \\
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab23figh.png} \\
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab23figi.png} \\
+\end{figure}
+\vskip 2ex
+A perda medida, em dB é dada por $ 1.7 - 0.061 \approx 1.7 \; dB $. Isso resulta em:
+\begin{align*}
+	\dfrac{P}{P_0} = 10^{\dfrac{-1.7}{10}} = 0.68
+\end{align*}
+Aplicando a definição:
+\begin{align*}
+    \dfrac{P}{P_0} = e^{- \tan \delta \; k \ell} \implies \tan \delta & = - \dfrac{1}{k \ell} \ln \left( \dfrac{P}{P_0} \right) \\
+    & = - \dfrac{c}{2 \pi f \sqrt{\pme{\bbepsilon}_r}} \ln \left( \dfrac{P}{P_0} \right) \\
+    & = 0.0034 
+\end{align*}
+
+\section{Conclusão}
+O procedimento estudado, quando combinado com uma técnica de fabricação de linhas impressas suficientemente preciso, permite a fácil determinação de parâmetros como a constante dielétrica do meio e capacitãncias e indutâncias parasitas. No entanto, o ângulo da impedância medida varia muito rapidamente com as componentes parasitas. Assim, seria desejável descobrir-se uma maneira de extrair o resultado desejado a partir de um número grande de medições em frequências diversas, e não de apenas 3, como feito aqui, a fim de aumentar a precisão. \\
+Outro ponto onde o método precisa ser aprimorado é no tratamento das perdas. Como elas são muito pequenas e devidas a diversos fatores distintos, é difícil determinar o valor da parte imaginária da constante dielétrica. \\
+
+% needed in second column of first page if using \IEEEpubid
+%\IEEEpubidadjcol
+
+% An example of a floating figure using the graphicx package.
+% Note that \label must occur AFTER (or within) \caption.
+% For figures, \caption should occur after the \includegraphics.
+% Note that IEEEtran v1.7 and later has special internal code that
+% is designed to preserve the operation of \label within \caption
+% even when the captionsoff option is in effect. However, because
+% of issues like this, it may be the safest practice to put all your
+% \label just after \caption rather than within \caption{}.
+%
+% Reminder: the "draftcls" or "draftclsnofoot", not "draft", class
+% option should be used if it is desired that the figures are to be
+% displayed while in draft mode.
+%
+%\begin{figure}[!t]
+%\centering
+%\includegraphics[width=2.5in]{myfigure}
+% where an .eps filename suffix will be assumed under latex, 
+% and a .pdf suffix will be assumed for pdflatex; or what has been declared
+% via \DeclareGraphicsExtensions.
+%\caption{Simulation Results}
+%\label{fig_sim}
+%\end{figure}
+
+% Note that IEEE typically puts floats only at the top, even when this
+% results in a large percentage of a column being occupied by floats.
+
+
+% An example of a double column floating figure using two subfigures.
+% (The subfig.sty package must be loaded for this to work.)
+% The subfigure \label commands are set within each subfloat command, the
+% \label for the overall figure must come after \caption.
+% \hfil must be used as a separator to get equal spacing.
+% The subfigure.sty package works much the same way, except \subfigure is
+% used instead of \subfloat.
+%
+%\begin{figure*}[!t]
+%\centerline{\subfloat[Case I]\includegraphics[width=2.5in]{subfigcase1}%
+%\label{fig_first_case}}
+%\hfil
+%\subfloat[Case II]{\includegraphics[width=2.5in]{subfigcase2}%
+%\label{fig_second_case}}}
+%\caption{Simulation results}
+%\label{fig_sim}
+%\end{figure*}
+%
+% Note that often IEEE papers with subfigures do not employ subfigure
+% captions (using the optional argument to \subfloat), but instead will
+% reference/describe all of them (a), (b), etc., within the main caption.
+
+
+% An example of a floating table. Note that, for IEEE style tables, the 
+% \caption command should come BEFORE the table. Table text will default to
+% \footnotesize as IEEE normally uses this smaller font for tables.
+% The \label must come after \caption as always.
+%
+%\begin{table}[!t]
+%% increase table row spacing, adjust to taste
+%\renewcommand{\arraystretch}{1.3}
+% if using array.sty, it might be a good idea to tweak the value of
+% \extrarowheight as needed to properly center the text within the cells
+%\caption{An Example of a Table}
+%\label{table_example}
+%\centering
+%% Some packages, such as MDW tools, offer better commands for making tables
+%% than the plain LaTeX2e tabular which is used here.
+%\begin{tabular}{|c||c|}
+%\hline
+%One & Two\\
+%\hline
+%Three & Four\\
+%\hline
+%\end{tabular}
+%\end{table}
+
+
+% Note that IEEE does not put floats in the very first column - or typically
+% anywhere on the first page for that matter. Also, in-text middle ("here")
+% positioning is not used. Most IEEE journals use top floats exclusively.
+% Note that, LaTeX2e, unlike IEEE journals, places footnotes above bottom
+% floats. This can be corrected via the \fnbelowfloat command of the
+% stfloats package.
+
+
+
+
+
+
+
+
+
+
+\ifx\docclass\undefined
+\else
+	\section{Conclusion}
+	\appendices
+	\section*{Acknowledgment}
+% Can use something like this to put references on a page
+% by themselves when using endfloat and the captionsoff option.
+	%\ifCLASSOPTIONcaptionsoff
+		\newpage
+	%\fi
+ \fi
+
+
+
+% trigger a \newpage just before the given reference
+% number - used to balance the columns on the last page
+% adjust value as needed - may need to be readjusted if
+% the document is modified later
+%\IEEEtriggeratref{8}
+% The "triggered" command can be changed if desired:
+%\IEEEtriggercmd{\enlargethispage{-5in}}
+
+% references section
+
+% can use a bibliography generated by BibTeX as a .bbl file
+% BibTeX documentation can be easily obtained at:
+% http://www.ctan.org/tex-archive/biblio/bibtex/contrib/doc/
+% The IEEEtran BibTeX style support page is at:
+% http://www.michaelshell.org/tex/ieeetran/bibtex/
+%\bibliographystyle{IEEEtran}
+% argument is your BibTeX string definitions and bibliography database(s)
+%\bibliography{IEEEabrv,../bib/paper}
+%
+% <OR> manually copy in the resultant .bbl file
+% set second argument of \begin to the number of references
+% (used to reserve space for the reference number labels box)
+
+\glsaddall
+\printglossary[type=main]
+%\printglossaries
+%\printglossary[type=\acronymtype]
+
+\begin{thebibliography}{1}
+
+\newbibit{AMPHENOL 2004}{AMPHENOL 2004}{AMPHENOL Connex}{SMA P.C.B. Jack 132134}{http://www.amphenolrf.com/downloads/dl/file/id/4007/product/2974/132134_10_customer_drawing.pdf}{26/11/2015}
+\newbibbk{POZAR 2005}{POZAR 2005}{David POZAR}{Microwave Engineering}{3\textsuperscript{rd} Ed., 2005, Wiley, ISBN 0-471-44878-8, Chap. 3, pp. 144 a 146}
+
+\end{thebibliography}
+
+\hlin \\
+Texto formatado com \textbf{pdflatex} em ambiente MiKTeX 2.9: \\
+\url{http://miktex.org/download/} \\
+
+%\begin{biography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{mshell}}]{Michael Shell}
+% or if you just want to reserve a space for a photo:
+
+%\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{picture}}]{John Doe}
+%\end{IEEEbiography}
+
+% You can push biographies down or up by placing
+% a \vfill before or after them. The appropriate
+% use of \vfill depends on what kind of text is
+% on the last page and whether or not the columns
+% are being equalized.
+
+%\vfill
+
+% Can be used to pull up biographies so that the bottom of the last one
+% is flush with the other column.
+%\enlargethispage{-5in}
+
+
+
+\end{document}
+
+

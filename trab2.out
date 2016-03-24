@@ -1,0 +1,12 @@
+\BOOKMARK [1][-]{section*.1}{Introdu\347\343o}{}% 1
+\BOOKMARK [1][-]{section*.2}{LLLM: LLLM}{}% 2
+\BOOKMARK [1][-]{section*.3}{ERAC}{}% 3
+\BOOKMARK [1][-]{section*.4}{Prote\347\343o contra perda de sincronismo}{}% 4
+\BOOKMARK [1][-]{section*.5}{Identifica\347\343o e classifica\347\343o centralizada de faltas}{}% 5
+\BOOKMARK [1][-]{section*.6}{Localiza\347\343o de faltas}{}% 6
+\BOOKMARK [2][-]{subsection.0.1}{1. Fatores que influenciam a precis\343o da localiza\347\343o de faltas}{section*.6}% 7
+\BOOKMARK [2][-]{subsection.0.2}{2. Localiza\347\343o de faltas utilizando medi\347\343o sincronizada em 2 terminais \(two-end\)}{section*.6}% 8
+\BOOKMARK [2][-]{subsection.0.3}{3. Localiza\347\343o de faltas em linhas com 3 terminais \(Three-Terminal\) e multiterminais \(Multiterminal\)}{section*.6}% 9
+\BOOKMARK [2][-]{subsection.0.4}{4. Localiza\347\343o de faltas em linhas com compensa\347\343o s\351rie}{section*.6}% 10
+\BOOKMARK [2][-]{subsection.0.5}{5. Localiza\347\343o de Falta adaptativa}{section*.6}% 11
+\BOOKMARK [1][-]{section*.7}{Refer\352ncias}{}% 12

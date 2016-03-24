@@ -1,0 +1,235 @@
+\documentclass[12pt,fleqn,usenames,dvipsnames]{amsart}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{xstring}
+\usepackage{graphicx}
+\usepackage[a4paper]{geometry}
+\usepackage[portuguese,brazilian]{babel}
+\usepackage[ansinew]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[scaled]{helvet}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+\usepackage{fmtcount}
+\usepackage{float}
+\usepackage{slantsc}
+
+
+\title{Gerdau Cosigua - Controle de motores}
+\date{15/06/2015}
+\author{Relatório histórico de desenvolvimento e implantação, rev. 0}
+
+\newenvironment{lista}{
+	\vspace{-5mm}
+	\begin{itemize}}{
+	\end{itemize}	
+	\vspace{-5mm}}
+
+\newenvironment{listaf}{
+	\vspace{-5mm}
+	\begin{itemize}}{
+	\end{itemize}}
+
+\newenvironment{listae}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=(\roman*)}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}	
+	\vspace{-5mm}}
+
+\newenvironment{listaef}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=(\roman*)}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}}
+
+	
+\begin{document}
+\setlength{\parskip}{1em}
+\setlength{\jot}{10pt}
+
+\maketitle
+
+
+\section{Montagem de plataforma para desenvolvimento do sistema}
+\textbf{Status: Em andamento, no prazo.} \\
+Dependências: nenhuma. \\
+Objetivos:
+\begin{listae}
+	\item Definir que recursos serão utilizados no desenvolvimento.
+\end{listae}
+Resultados obtidos até o momento:
+\begin{lista}
+	\item A princípio, não será nececessário obter licenças para desenvolvimento ou manutenção do software.
+	\begin{itemize}
+		\item O sistema será desenvolvido com o Visual Studio Express 2013 for Web, que pode ser obtido gratuitamente no site da Microsoft.
+		\item As bibliotecas gráficas especiais da DevExpress não serão mais empregadas. Em seu lugar, serão usados apenas objetos padrão da Microsoft.
+	\end{itemize}
+	\item O sistema usará o menor número de recursos possível, de forma a rodar na mais ampla variedade de plataformas.
+	\begin{itemize}
+		\item Serão realizados testes tanto na plataforma disponibilizada pela Gerdau Cosigua quanto em outras duas disponibilizadas pela Techsteel (ver descrição abaixo).
+		\begin{enumerate}
+			\item Plataforma de execução (cliente)
+			\begin{itemize}
+				\item Servidor SQLServer 2008 R2 Standard sobre Windows Server 2008
+				\item Servidor Internet Information Server 7.0 sobre Windows sobre Windows Server 2008
+				\item Admite-se a concessão de full-trust para o aplicativo
+			\end{itemize}
+			\item Plataforma de testes Web
+			\begin{itemize}
+				\item Servidor SQLServer 2008 R2 64 bits sobre Windows Server 2008
+				\item Servidor Internet Information Server 7.5 sobre Windows sobre Windows Server 2008
+				\item Admite-se apenas a concessão de medium-trust para o aplicativo
+			\end{itemize}
+			\item Plataforma de testes local
+			\begin{itemize}
+				\item SQL LocalDB e IIS Express sobre Windows 8.1
+				\item Admite-se a concessão de full-trust para o aplicativo
+			\end{itemize}			
+		\end{enumerate}
+		\item As bibliotecas gráficas especiais da DevExpress não serão mais empregadas. Em seu lugar, serão usados apenas objetos padrão da Microsoft.
+		\item O cliente usará navegador Google Chrome, versão mais atualizada.
+		\item O aplicativo desenvolvido pela VirtualWorks estava usando a versão 4.0 do ASP.NET. A versão atual é a 4.5. A princípio, deve ser possível usar esta última sem problemas. Isso deve ser testado pela versão preliminar do aplicativo.
+		\item Aparentemente, o aplicativo desenvolvido pela VirtualWorks estava usando Google Charts. Se possível, vamos evitar mais essa dependência, e usar apenas ferramentas padrão do Visual Studio.
+	\end{itemize}
+\end{lista}
+Entregáveis:
+\begin{listae}
+	\item Versão preliminar do aplicativo, funcional nas 3 plataformas listadas acima, exibindo as funcionalidades básicas de:
+	\begin{enumerate}
+		\item login e cadastramento de usuários
+		\item navegação de telas
+	\end{enumerate}
+\end{listae}
+Previsão para conclusão: 19/06/2015. \\
+Informações e/ou ações necessárias pelo cliente:
+\begin{listaef}
+	\item Características da plataforma de execução. \color{PineGreen} \textbf{Fornecidas em e-mail datado de 12/06/2015.} \color{black}
+	\item Liberação de acesso para instalação de software e gerenciamento do banco de dados. \color{Plum} \textbf{Solicitadas por e-mail datado de 15/06/2015.} \color{black}
+\end{listaef}
+
+
+\section{Estudo do código fonte e bancos de dados do sistema atual}
+\textbf{Status: Em andamento, no prazo.} \\
+Dependências: nenhuma. \\
+Objetivos:
+\begin{listae}
+	\item Descobrir possíveis \textit{bugs}.
+\end{listae}
+Entregáveis:
+\begin{listae}
+	\item Lista de problemas encontrados.
+\end{listae}
+Previsão para conclusão: 03/07/2015. \\
+Informações e/ou ações necessárias pelo cliente: nenhuma.
+
+\section{Correção de \textit{\textsc{bugs}} do sistema atual}
+\textbf{Status: Não iniciada.} \\
+Dependências:
+\begin{listae}
+	\item Conclusão da etapa de definição da plataforma.
+	\item Conclusão da etapa de levantamento de problemas.
+\end{listae}
+Objetivos:
+\begin{listae}
+	\item Correção dos problemas encontrados.
+\end{listae}
+Entregáveis:
+\begin{listae}
+	\item Versão inicial do aplicativo, sem \textit{bugs}, exibindo as funcionalidades básicas de:
+	\begin{enumerate}
+		\item login e cadastramento de usuários
+		\item navegação de telas
+		\item cadastros diversos: áreas, placas de motores e tags.
+	\end{enumerate}
+\end{listae}
+Previsão para conclusão: 10/07/2015. \\
+Informações e/ou ações necessárias pelo cliente:
+\begin{listaef}
+	\item Aprovação da lista de \textit{bugs} gerada anteriormente.
+\end{listaef}
+
+\section{Atendimento a solicitações de melhorias}
+\textbf{Status: Não iniciada.} \\
+Dependências:
+\begin{listae}
+	\item Conclusão da etapa de definição da plataforma.
+\end{listae}
+Objetivos:
+\begin{listae}
+	\item Adequação do aplicativo às necessidades do cliente.
+\end{listae}
+Entregáveis:
+\begin{listae}
+	\item Versão aprimorada do aplicativo, exibindo as funcionalidades seguintes:
+	\begin{itemize}
+		\item login e cadastramento de usuários
+		\item navegação de telas
+		\item cadastros
+		\item \textit{workflow} de ordem de serviço
+	\end{itemize}
+\end{listae}
+Previsão para conclusão: 17/07/2015. \\
+Informações e/ou ações necessárias pelo cliente:
+\begin{listaef}
+	\item Lista de melhorias solicitadas.
+\end{listaef}
+
+\section{Reconstrução de módulos do sistema}
+\textbf{Status: Não iniciada.} \\
+Dependências:
+\begin{listae}
+	\item Conclusão da etapa de correção de \textit{bugs}
+	\item Conclusão da etapa de implementação de melhorias
+\end{listae}
+Objetivos:
+\begin{listae}
+	\item Adequação do aplicativo às necessidades do cliente.
+\end{listae}
+Entregáveis:
+\begin{listae}
+	\item Versão final do aplicativo, exibindo as funcionalidades seguintes:
+	\begin{itemize}
+		\item login e cadastramento de usuários
+		\item navegação de telas
+		\item cadastros
+		\item \textit{workflow} de ordem de serviço
+		\item relatórios básicos: cadastramentos e rastreamento de ordem de serviço
+	\end{itemize}
+\end{listae}
+Previsão para conclusão: 31/07/2015. \\
+Informações e/ou ações necessárias pelo cliente: nenhuma
+
+\section{Implantação}
+\textbf{Status: Não iniciada.} \\
+Dependências:
+\begin{listae}
+	\item Conclusão da etapa de reconstrução dos módulos
+\end{listae}
+Objetivos:
+\begin{listae}
+	\item Implantar o aplicativo nas instalações do cliente.
+\end{listae}
+Entregáveis:
+\begin{listae}
+	\item Base de dados carregada com dados de fornecedores e preços carregados automaticamente.
+	\item Material para treinamento dos operadores.
+\end{listae}
+Previsão para conclusão: 07/08/2015. \\
+Informações e/ou ações necessárias pelo cliente:
+\begin{listaef}
+	\item Dados de fornecedores e preços
+	\item Fotos de equipamentos
+\end{listaef}
+			  
+
+			  
+\end{document}

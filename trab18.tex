@@ -1,0 +1,332 @@
+\documentclass[12pt,fleqn]{amsart}
+\usepackage{enumitem}
+\usepackage{xstring}
+\usepackage{graphicx}
+\usepackage[a4paper]{geometry}
+\usepackage[portuguese,brazilian]{babel}
+\usepackage[ansinew]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textgreek}
+% Fontes
+\usepackage{yfonts}
+\usepackage{microtype}
+\usepackage{calligra}
+\usepackage{lmodern}
+\usepackage{bookman}
+\usepackage[scaled]{helvet}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+% Formatação
+\usepackage{sidecap}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{matlab-prettifier}
+% Símbolos matemáticos
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{wasysym}
+\usepackage{mathtools}
+\usepackage{bbm}
+\usepackage{mbboard}
+\usepackage{boolexpr}
+
+
+\title{Computação de Alto Desempenho - Trabalho 2}
+\date{}
+\author{Sérgio Cordeiro}
+
+
+\newenvironment{listae}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}	
+	\vspace{-5mm}}
+
+\newenvironment{listaef}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}}
+
+\newenvironment{inthisrev}{
+	\color{blue}
+	}{
+	\color{black}
+	}
+
+\newenvironment{pergunta}{
+	\par
+	\trivlist
+	\fontfamily{phv}
+	\selectfont
+	\item\arabic{prob_num}. 
+	}{
+	\endtrivlist
+	}
+
+\newenvironment{resposta}{
+	\trivlist
+    \vspace{3pt}
+	\fontfamily{pbk}
+	\selectfont
+	\item
+	}{
+	\vspace{3pt}
+	\noindent\makebox[\linewidth]{\rule{\paperwidth}{1pt}}
+	\endtrivlist
+	\stepcounter{prob_num}
+	}
+
+\newcommand {\pme}[1]{\mathbb{#1}}
+
+% Linhas divisórias
+\newcommand{\hhhlin}{\noindent\hfil\rule{0.25\textwidth}{.2pt}\hfil\newline}
+\newcommand{\hhlin}{\noindent\hfil\rule{0.5\textwidth}{.4pt}\hfil\newline}
+\newcommand{\hlin}{\noindent\hfil\rule{\textwidth}{.8pt}\hfil\newline}
+
+ 
+% Perguntas
+\newcommand{\perguntaa}{Realize o cálculo do número PI, conforme expresso pela função $ \int_0^1 \frac{4}{1 + x^2} \; dx $. Utilize por exemplo integração trapezoidal para resolver o problema. Após esta etapa paralelize seu código utilizando OpenMP. Utilize uma referência como resultado para comparar sua solução.}
+\newcommand{\perguntab}{Implemente computacionalmente o Método dos Gradientes Conjugados (GC), resolva o  sistema linear a ser passado pelo professor. Aplique um pré-condicionador do tipo Jacobi no método e verifique se houve redução do número de iterações. Analise os resultados mostrando o número de condição da matriz, o número de iterações e o critério de parada utilizado. \\
+Paralelize o solver implementado utilizando OpenMP. Verifique se houve redução no tempo de processamento e faça uma análise dos resultados.}
+\newcommand{\perguntac}{Utilizando o sistema do item anterior, implemente um esquema que permita a partição do sistema de modo a ser processado em 4 máquinas interligadas em rede e operando em cluster com MPI. Apresente o algoritmo que realiza este procedimento.}
+\newcommand{\perguntad}{Faça uma análise comparativa de desempenho de operações de níveis 1, 2 e 3 da BLAS entre implementações suas e equivalentes utilizando a MKL da Intel. Em seu programa utilize um número de repetições que permitam o programa executar aproximadamente 1, 2 e 3 Gflop para os níveis 1, 2 e 3 respectivamente. Mostre como foram feitos estes cálculos de operações de ponto flutuante. Utilize o aplicativo GPROF e o comando time para auxílio de sua análise.}
+\newcommand{\perguntae}{Utilizando a biblioteca Sparsekit resolva o mesmo sistema do item 2, utilizando os solvers: CG, BiCG, GMRES, BCGSTAB disponíveis na mesma. Analise as respostas com e sem pré-condicionadores do tipo ILU, mostrando número de iterações, critério de parada utilizado os valores do lfill utilizado. Não se esqueça de fazer uma análise comparativa entre os solvers utilizados, apresentando as principais características de cada um.}
+
+
+\begin{document}
+\setlength{\parskip}{1em}
+\setlength{\jot}{10pt}
+\setlength{\parindent}{0pt}
+
+\lstset{language=C,frame=single,basicstyle={\tiny},breaklines=true,numbers=left,numberstyle={\color{red}},numbersep=9pt,showstringspaces=false,keepspaces=false,tabsize=2}
+
+\newcounter{prob_num}
+\setcounter{prob_num}{1}
+
+\maketitle
+
+\begin{pergunta}
+\perguntaa{}
+\end{pergunta}
+\begin{resposta}
+O programa em C listado abaixo calcula o valor de PI corretamente com algarismos significativos. A precisão é limitada pela resolução do tipo \textbf{double} nativo. Para desativar a paralelização, basta remover a linha indicada. O programa aceita como argumento um valor inteiro, que é o número de divisões do eixo x a ser empregado: um valor de n muito baixo levará a erro de arredondamento muito grande na integração, conforme a tabela a seguir.
+\lstinputlisting[caption=pi.c]{pi.c}
+\begin{table}[H]
+    \begin{tabular}{|c|c|c|c|}
+		\hline
+        n & resultado & \multicolumn{2}{|c|}{tempo de parede (\textmu s)} \\
+		  &           & sem OpenMP & com OpenMP \\
+		\hline
+		10 & 3.139926 & 0.15 & 81.5 \\
+		20 & 3.141176 & 0.46 & 81.5 \\
+		30 & 3.141407 & 0.62 & 81.5 \\
+		40 & 3.141488 & 0.78 & 81.5 \\
+		50 & 3.141526 & 0.93 & 81.5 \\
+		100 & 3.141576 & 1.71 & 81.5 \\
+		200 & 3.141588 & 3.28 & 81.6 \\
+		300 & 3.141591 & 5.00 & 81.6 \\
+		> 381 & 3.141592 & 6.40 & 81.6 \\
+		\hline
+    \end{tabular}
+\end{table}
+A tabela mostra que o uso de OpenMP neste caso não foi efetivo, pois o programa é muito simples. O ganho obtido com o paralelismo não compensa o custo associado. \\
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntab{}
+\end{pergunta}
+\begin{resposta}
+O programa em C listado abaixo resolve o sistema proposto. A paralelização e o precondicionamento são ativados ou não de acordo com os parâmetros passados na linha de comando. Um limite para o número de iterações e o erro tolerado, que são critérios de parada independentes, também são parãmetros. Como aproximação do número de condição foi tomada a diferença entre o maior e o menor coeficientes presentes na matriz. A matriz proposta está muito mal condicionada, e o precondicionador Jacobiano leva a expressiva redução no número de iterações necessárias, como mostra a tabela seguinte.
+\lstinputlisting[caption=gc.c]{gc.c}
+\begin{table}[H]
+    \begin{tabular}{|c|c|c|c|c|c|c|}
+		\hline
+        Iterações & Erro & Usou     & \multicolumn{2}{|c|}{Tempo de parede (ms)} & \multicolumn{2}{|c|}{Tempo de usuário (ms)} \\
+                  &      & precond. & sem OMP & com OMP & sem OMP & com OMP \\
+		\hline
+		123 & 10 \textsuperscript{-6} & Não & 11.4 & 26.6 & 4.16 & 11.7 \\
+		58 & 10 \textsuperscript{-6} & Sim & 5.39 & 18.6 & 1.75 & 8.33 \\
+		146 & 10 \textsuperscript{-7} & Não & 13.5 & 29.0 & 4.70 & 12.7 \\
+		66 & 10 \textsuperscript{-7} & Sim & 6.11 & 19.5 & 2.06 & 10.2 \\
+		158 & 10 \textsuperscript{-8} & Não & 14.5 & 34.1 & 4.77 & 19.7 \\
+		83 & 10 \textsuperscript{-8} & Sim & 7.69 & 21.3 & 2.78 & 11.6 \\
+		185 & 10 \textsuperscript{-9} & Não & 17.0 & 40.5 & 5.75 & 16.6 \\
+		89 & 10 \textsuperscript{-9} & Sim & 8.25 & 28.6 & 2.67 & 12.1 \\
+		\hline
+    \end{tabular}
+\end{table}
+A tabela também mostra que o uso de OpenMP neste caso não foi efetivo, pois a dimensão do problema é muito pequena. O ganho obtido com o paralelismo não compensa o custo associado. \\
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntac{}
+\end{pergunta}
+\begin{resposta}
+O programa em C listado abaixo resolve o sistema proposto com paralelização OpenMPI em lugar de OpenMP. No esquema proposto, o mestre interage com o usuário e lê os dados em disco, que anuncia para os demais processadores. A partir daí, cada etapa é calculada em paralelo e, ao final, os resultados são publicados para emprego de todos os processadores. Não foi realizado nenhum teste devido à indisponibilidade de um ambiente computacional adequado.
+\lstinputlisting[caption=gcmpi.c]{gc2.c}
+\end{resposta}
+
+\begin{pergunta}
+\perguntad{}
+\end{pergunta}
+\begin{resposta}
+O programa em C listado abaixo implementa as funções \textbf{ddot}, \textbf{dgemv} e \textbf{dgemm} da BLAS. Não se fez nenhuma tentativa séria de obter alto desempenho. O teste utilizou valores aleatórios gerados pelo próprio programa. O nível BLAS, o número de repetições e o tamanho dos vetores e matrizes é passado pela linha de comando, de forma a se atingirem as quantidades de operações desejadas em cada nível. Como não foi empregada paralelização, mediu-se apenas o tempo de usuário, como se vê na tabela seguinte.
+\lstinputlisting[caption=myblas.c]{myblas.c}
+\begin{table}[H]
+    \begin{tabular}{|c|c|c|c|c|}
+		\hline
+        Nível BLAS & FLOPs & tempo (s)\\
+		\hline
+		1 & 1.000 & 3.78 \\
+		2 & 1.999 & 3.69 \\
+		3 & 3.032 & 5.47 \\
+		\hline
+    \end{tabular}
+\end{table}
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntae{}
+\end{pergunta}
+\begin{resposta}
+O programa em C listado abaixo pode utilizar todos os solvers e pré-condicionadores disponíveis na biblioteca Sparskit. A tabela abaixo mostra o resultado apenas para os solvers solicitados no enunciado do problema e os pré-condicionadores de melhor desempenho. Foi usado um valor fixo de 5 para o $ \mathbf{lfil} $ e os pre-condiconadores foram aplicados à esquerda e à direita em todos os casos.
+\lstinputlisting[caption=sparskit.c]{sparskit.c}
+\begin{table}[H]
+    \begin{tabular}{|c|c|c|c|}
+		\hline
+        Solver & Iterações & Erro & Precond. \\ 
+		\hline
+		CG      & 5 & 10 \textsuperscript{-6} & - \\
+		BiCG    & 8 & 10 \textsuperscript{-6} & - \\
+		GMRES   & 5 & 10 \textsuperscript{-6} & - \\
+		BCGSTAB & 9 & 10 \textsuperscript{-6} & - \\
+		CG      & 5 & 10 \textsuperscript{-7} & - \\
+		BiCG    & 8 & 10 \textsuperscript{-7} & - \\
+		GMRES   & 5 & 10 \textsuperscript{-7} & - \\
+		BCGSTAB & 9 & 10 \textsuperscript{-7} & - \\
+		CG      & 5 & 10 \textsuperscript{-8} & - \\
+		BiCG    & 8 & 10 \textsuperscript{-8} & - \\
+		GMRES   & 5 & 10 \textsuperscript{-8} & - \\
+		BCGSTAB & 9 & 10 \textsuperscript{-8} & - \\
+		CG      & 29 & 10 \textsuperscript{-9} & - \\
+		BiCG    & 56 & 10 \textsuperscript{-9} & - \\
+		GMRES   & 14 & 10 \textsuperscript{-9} & - \\
+		BCGSTAB & - & 10 \textsuperscript{-9} & - \\
+		CG      & 43 & 10 \textsuperscript{-10} & - \\
+		BiCG    & 120 & 10 \textsuperscript{-10} & - \\
+		GMRES   & 29 & 10 \textsuperscript{-10} & - \\
+		BCGSTAB & - & 10 \textsuperscript{-10} & - \\
+		CG      & - & 10 \textsuperscript{-6} & ILUT \\
+		BiCG    & 520 & 10 \textsuperscript{-6} & ILUT \\
+		GMRES   & - & 10 \textsuperscript{-6} & ILUT \\
+		BCGSTAB & - & 10 \textsuperscript{-6} & ILUT \\
+		CG      & - & 10 \textsuperscript{-7} & ILUT \\
+		BiCG    & - & 10 \textsuperscript{-7} & ILUT \\
+		GMRES   & - & 10 \textsuperscript{-7} & ILUT \\
+		BCGSTAB & - & 10 \textsuperscript{-7} & ILUT \\
+		CG      & 3 & 10 \textsuperscript{-6} & ILUD \\
+		BiCG    & 96 & 10 \textsuperscript{-6} & ILUD \\
+		GMRES   & 3 & 10 \textsuperscript{-6} & ILUD \\
+		BCGSTAB & 3 & 10 \textsuperscript{-6} & ILUD \\
+		CG      & 4 & 10 \textsuperscript{-7} & ILUD \\
+		BiCG    & 128 & 10 \textsuperscript{-7} & ILUD \\
+		GMRES   & 4 & 10 \textsuperscript{-7} & ILUD \\
+		BCGSTAB & 5 & 10 \textsuperscript{-7} & ILUD \\
+		CG      & - & 10 \textsuperscript{-8} & ILUD \\
+		BiCG    & 142 & 10 \textsuperscript{-8} & ILUD \\
+		GMRES   & 8 & 10 \textsuperscript{-8} & ILUD \\
+		BCGSTAB & 179 & 10 \textsuperscript{-8} & ILUD \\
+		CG      & - & 10 \textsuperscript{-9} & ILUD \\
+		BiCG    & 152 & 10 \textsuperscript{-9} & ILUD \\
+		GMRES   & - & 10 \textsuperscript{-9} & ILUD \\
+		BCGSTAB & - & 10 \textsuperscript{-9} & ILUD \\
+		CG      & - & 10 \textsuperscript{-10} & ILUD \\
+		BiCG    & 174 & 10 \textsuperscript{-10} & ILUD \\
+		GMRES   & - & 10 \textsuperscript{-10} & ILUD \\
+		BCGSTAB & - & 10 \textsuperscript{-10} & ILUD \\
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \begin{tabular}{|c|c|c|c|}
+		\hline
+        Solver & Iterações & Erro & Precond. \\ 
+		\hline	
+		CG      & - & 10 \textsuperscript{-6} & ILUDP \\
+		BiCG    & 6 & 10 \textsuperscript{-6} & ILUDP \\
+		GMRES   & 3 & 10 \textsuperscript{-6} & ILUDP \\
+		BCGSTAB & 7 & 10 \textsuperscript{-6} & ILUDP \\
+		CG      & - & 10 \textsuperscript{-7} & ILUDP \\
+		BiCG    & 44 & 10 \textsuperscript{-7} & ILUDP \\
+		GMRES   & 4 & 10 \textsuperscript{-7} & ILUDP \\
+		BCGSTAB & 55 & 10 \textsuperscript{-7} & ILUDP \\
+		CG      & - & 10 \textsuperscript{-8} & ILUDP \\
+		BiCG    & 48 & 10 \textsuperscript{-8} & ILUDP \\
+		GMRES   & 7 & 10 \textsuperscript{-8} & ILUDP \\
+		BCGSTAB & 81 & 10 \textsuperscript{-8} & ILUDP \\
+		CG      & - & 10 \textsuperscript{-9} & ILUDP \\
+		BiCG    & 48 & 10 \textsuperscript{-9} & ILUDP \\
+		GMRES   & 14 & 10 \textsuperscript{-9} & ILUDP \\
+		BCGSTAB & 87 & 10 \textsuperscript{-9} & ILUDP \\
+		CG      & - & 10 \textsuperscript{-10} & ILUDP \\
+		BiCG    & 70 & 10 \textsuperscript{-10} & ILUDP \\
+		GMRES   & 93 & 10 \textsuperscript{-10} & ILUDP \\
+		BCGSTAB & 137 & 10 \textsuperscript{-10} & ILUDP \\
+		CG      & - & 10 \textsuperscript{-6} & ILUTP \\
+		BiCG    & 520 & 10 \textsuperscript{-6} & ILUTP \\
+		GMRES   & - & 10 \textsuperscript{-6} & ILUTP \\
+		BCGSTAB & - & 10 \textsuperscript{-6} & ILUTP \\
+		CG      & - & 10 \textsuperscript{-7} & ILUTP \\
+		BiCG    & - & 10 \textsuperscript{-7} & ILUTP \\
+		GMRES   & - & 10 \textsuperscript{-7} & ILUTP \\
+		BCGSTAB & - & 10 \textsuperscript{-7} & ILUTP \\
+		CG      & 2 & 10 \textsuperscript{-6} & ILUK \\
+		BiCG    & 2 & 10 \textsuperscript{-6} & ILUK \\
+		GMRES   & 2 & 10 \textsuperscript{-6} & ILUK \\
+		BCGSTAB & 3 & 10 \textsuperscript{-6} & ILUK \\
+		CG      & 2 & 10 \textsuperscript{-7} & ILUK \\
+		BiCG    & 2 & 10 \textsuperscript{-7} & ILUK \\
+		GMRES   & 2 & 10 \textsuperscript{-7} & ILUK \\
+		BCGSTAB & 3 & 10 \textsuperscript{-7} & ILUK \\
+		CG      & 2 & 10 \textsuperscript{-8} & ILUK \\
+		BiCG    & 2 & 10 \textsuperscript{-8} & ILUK \\
+		GMRES   & 2 & 10 \textsuperscript{-8} & ILUK \\
+		BCGSTAB & 3 & 10 \textsuperscript{-8} & ILUK \\
+		CG      & 2 & 10 \textsuperscript{-9} & ILUK \\
+		BiCG    & 2 & 10 \textsuperscript{-9} & ILUK \\
+		GMRES   & 2 & 10 \textsuperscript{-9} & ILUK \\
+		BCGSTAB & 3 & 10 \textsuperscript{-9} & ILUK \\
+		CG      & 2 & 10 \textsuperscript{-10} & ILUK \\
+		BiCG    & 2 & 10 \textsuperscript{-10} & ILUK \\
+		GMRES   & 2 & 10 \textsuperscript{-10} & ILUK \\
+		BCGSTAB & 3 & 10 \textsuperscript{-10} & ILUK \\
+		\hline
+    \end{tabular}
+\end{table}
+A tabela mostra que:
+\begin{listae}
+	\item Todos os solvers são capazes de resolver o problema proposto se a precisão exigida não for muito grande.
+	\item À medida que a precisão requerida aumenta, cresce o número de iterações necessárias para a solução e, eventualmente, alguns solvers não conseguem atingir o objetivo.
+	\item O emprego de precondicionadores, em geral, faz com que a solução seja atingida com menos iterações, mas algumas combinações solver/precondicionador não funcionam bem.
+	\item O melhor solver parece ser o GMRES, que funciona bem com vários precondicionadores e consegue atingir boa precisão com poucas iterações.
+	\item O melhor precondicionador parece ser o ILUK, que funciona bem com todos os solvers e atinge alta precisão com muito poucas iterações.
+\end{listae}
+
+\end{resposta}
+
+\end{document}

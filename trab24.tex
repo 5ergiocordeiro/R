@@ -1,0 +1,231 @@
+% Primeira lista de exercícios de Sistemas e Sinais
+% Preparado para MiKTeX 2.9. Gerar arquivo PDF com pdflatex.
+\documentclass[12pt,fleqn]{amsart}
+\usepackage{enumitem}
+\usepackage{xstring}
+\usepackage{graphicx}
+\usepackage[a4paper]{geometry}
+\usepackage[portuguese,brazilian]{babel}
+\usepackage[ansinew]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{comment}
+% Fontes
+\usepackage{textgreek}
+\usepackage{yfonts}
+\usepackage{microtype}
+\usepackage{calligra}
+\usepackage{lmodern}
+\usepackage{bookman}
+\usepackage[scaled]{helvet}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+\usepackage{fmtcount}
+% Formatação
+\usepackage{sidecap}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{matlab-prettifier}
+% Símbolos matemáticos
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{wasysym}
+\usepackage{mathtools}
+\usepackage{bbm}
+\usepackage{mbboard}
+
+
+\title{Sistemas e Sinais - Exercício I}
+\date{}
+\author{Sérgio Cordeiro}
+
+
+\newenvironment{pergunta}{
+	\par
+	\trivlist
+	\fontfamily{phv}
+	\selectfont
+	\item\arabic{prob_num}. 
+	}{
+	\endtrivlist
+	}
+
+\newenvironment{resposta}{
+	\trivlist
+    \vspace{3pt}
+	\fontfamily{pbk}
+	\selectfont
+	\item
+	}{
+	\vspace{3pt}
+	\noindent\makebox[\linewidth]{\rule{\paperwidth}{1pt}}
+	\endtrivlist
+	\stepcounter{prob_num}
+	}
+
+\newenvironment{listae}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}	
+	\vspace{-5mm}}
+
+\newenvironment{listaef}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}}
+
+\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
+
+\DeclareMathOperator{\La}{\mathcal{L}}					% Transformada de Laplace
+\DeclareMathOperator{\De}{\boldsymbol{\delta}}			% Função impulso
+\DeclareMathOperator{\dDe}{\boldsymbol{\dot{\delta}}}	% Derivada da função impulso
+\newcommand{\dt}[1]{\frac{d {#1}}{dt}}				% derivada temporal
+\newcommand{\ddt}[1]{\frac{d^2 {#1}}{dt^2}}			% derivada segunda temporal
+\newcommand{\dtau}[1]{\frac{d {#1}}{d \tau}}		% derivada temporal
+\newcommand{\ddtau}[1]{\frac{d^2 {#1}}{d \tau^2}}	% derivada segunda temporal
+
+
+% Linhas divisórias
+\newcommand{\hhhlin}{\noindent\hfil\rule{0.25\textwidth}{.2pt}\hfil\newline}
+\newcommand{\hhlin}{\noindent\hfil\rule{0.5\textwidth}{.4pt}\hfil\newline}
+\newcommand{\hlin}{\noindent\hfil\rule{\textwidth}{.8pt}\hfil\newline}
+
+
+% Perguntas
+\newcommand{\perguntaa}{Mostrar que o sistema descrito pela equação abaixo é linear, invariante no tempo e causal:
+\begin{align}
+	\ddt{y} + 5 \dt{y} + 6y = 3 \dt{x} + x
+\end{align}
+}
+
+\newcommand{\perguntab}{Demonstrar as propriedades \textgoth{P3} e \textgoth{P4} da Transformada de Laplace.
+}
+
+
+\begin{document}
+\setlength{\parskip}{1em}
+\setlength{\jot}{10pt}
+\setlength{\parindent}{0pt}
+
+\maketitle
+
+\newcounter{prob_num}
+\setcounter{prob_num}{1}
+
+
+\begin{pergunta}
+\perguntaa{}
+\end{pergunta}
+\begin{resposta}
+a) \textbf{Linearidade} \\
+Sejam $ y_1 $ e $ y_2 $ as respostas do sistema aos dois sinais de entrada $ x_1 $ e $ x_2 $, respectivamente. Nesse caso, teremos:
+\begin{align}
+	\ddt{y_1} + 5 \dt{y_1} + 6 y_1 = 3 \dt{x_1} + x_1 \label{Eqa1}
+\end{align}
+e
+\begin{align}
+	\ddt{y_2} + 5 \dt{y_2} + 6 y_2 = 3 \dt{x_2} + x_2 \label{Eqa2}
+\end{align}
+Seja $ x_3 $ uma combinação linear de $ x_1 $ e $ x_2 $. Podemos escrever:
+\begin{align}
+	x_3 = a x_1 + b x_2 \qquad \Aboxed{a,b \in \mathbb{R}} \label{Eqa3}
+\end{align}
+A resposta $ y_3 $ do sistema será, então:
+\begin{align}
+	\ddt{y_3} + 5 \dt{y_3} + 6 y_3 & = 3 \dt{x_3} + x_3 \notag \\
+	& = 3 \dt{}(a x_1 + b x_2) + (a x_1 + b x_2) \notag \\
+	& = 3 \dt{(a x_1)} + 3 \dt{(b x_2)} + a x_1 + b x_2 \notag \\
+	& = a \left( 3 \dt{x_1} + x_1 \right) + b \left( 3 \dt{x_2} + b x_2 \right) \label{Eqa4}
+\end{align}
+De acordo com \ref{Eqa1} e \ref{Eqa2}, \ref{Eqa4} se torna:
+\begin{align*}
+	\ddt{y_3} + 5 \dt{y_3} + 6 y_3 & = a \left( \ddt{y_1} + 5 \dt{y_1} + 6 y_1 \right) + b \left( \ddt{y_2} + 5 \dt{y_2} + 6 y_2 \right) \\
+	& = \ddt{}(a y_1 + b y_2) + 5 \dt{}(a y_1 + b y_2) + 6 (a y_1 + b y_2) \\
+	& \implies y_3 = a y_1 + b y_2
+\end{align*}
+Ou seja, a resposta do sistema a uma combinação linear de diferentes sinais de entrada é a combinação linear das respostas a cada um desses sinais. \\
+
+\hlin
+
+b) \textbf{Invariância no tempo} \\
+A resposta $ y $ a um impulso $ \De{}(t) $ é dada por:
+\begin{align}
+	\ddt{y} + 5 \dt{y} + 6 y & = 3 \dt{} \De{}(t) + \De{}(t) \notag \\
+	& = 3 \dDe{}(t) + \De{}(t) \label{Eqa5}
+\end{align}
+Seja $ x_1 = \De{}(t - a) $ uma entrada aplicada em $ t = a, \; a \in \mathbb{R} $. A resposta do sistema a essa entrada será:
+\begin{align*}
+	\ddt{y_1} + 5 \dt{y_1} + 6 y_1 & = 3 \dt{x_1} + x_1 \\
+	& = 3 \dDe{}(t - a) + \De{}(t - a)
+\end{align*}
+Fazendo $ \tau = t - a $, então $ d \tau = dt $ e teremos:	
+\begin{align}
+	\ddtau{y_1} + 5 \dtau{y_1} + 6 y_1 & = 3 \dDe{}(\tau) + \De{}(\tau) \label{Eqa6}
+\end{align}
+\ref{Eqa6} indica que $ y_1 $ tem a mesma forma de $ y $, estando apenas deslocada no eixo do tempo pela quantidade $ a $. \\
+
+\hlin
+\clearpage
+
+c) \textbf{Causalidade} \\
+Seja $ x = 0 \; \forall t < a, \; a \in \mathbb{R} $. Nesse caso, considerando-se condições iniciais nulas ($ y(0) = \dot{y}(0) = 0 $), a saída em $ t < a $ será:
+\begin{align*}
+	\ddt{y} + 5 \dt{y} + 6 y & = 0 \\
+	& \implies y = 0 \; \forall t < a
+\end{align*}
+Assim, o sistema é causal, pois a saída é nula antes de o sinal de entrada ser aplicado. \\
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntab{}
+\end{pergunta}
+\begin{resposta}
+a) Propriedade \textgoth{P3} (deslocamento na frequência): \\
+Seja $ F(s) = \La{} \{ f(t) \} $ e $ g(t) = e^{\alpha t} f(t), \; \alpha \in \mathbb{Z} $. Então:
+\begin{align*}
+	\La{} \{ g(t) \} & = \La{} \{ e^{\alpha t} f(t) \} \\ 
+	& = \int_0^\infty e^{\alpha t} f(t) e^{-st} \; dt \\
+	& = \int_0^\infty f(t) e^{-(s - \alpha)t} \; dt \\
+	& = \int_0^\infty f(t) e^{-zt} \; dt \qquad \Aboxed{z = s - a} \\
+	& = \left. F(z) \right|_{z = s - a} \\
+	& = F(s - a)
+\end{align*}
+
+\hlin
+
+b) Propriedade \textgoth{P4} (derivada): \\
+Seja $ F(s) = \La{} \{ f(t) \} $ e $ g(t) = \dt{} f(t) $. Então:
+\begin{align}
+	\La{} \{ g(t) \} & = \La{} \left\{ \dt{} f(t) \right\} \notag \\ 
+	& = \int_0^\infty \left[ \dt{} f(t) \right] e^{-st} \; dt \label{Eqb1}
+\end{align}
+Usando a técnica de integração por partes:
+\begin{align}
+	\int u \; dv & = u v - \int v \; du \notag \\
+	& \begin{matrix} u & = & e^{-st} & \implies & du & = & -s \; e^{-st} \; dt \\
+	                dv & = & \dt{} f(t) \; dt & \implies & v & = & f(t) \end{matrix} \notag \\
+	& \wasytherefore \; \begin{matrix} u v & = & e^{-st} f(t) \\
+                                       v \; du & = & -s e^{-st} \; f(t) \; dt \end{matrix} \label{Eqb2}
+\end{align}
+Substituindo \ref{Eqb2} em \ref{Eqb1}, teremos:
+\begin{align*}
+	\int_0^\infty \left[ \dt{} f(t) \right] e^{-st} \; dt & = \left. \left[ e^{-st} f(t) \right] \right|_0^\infty - \int_0^\infty -s e^{-st} \; f(t) \; dt \\
+	& = [0 - f(0)] + s \int_0^\infty e^{-st} \; f(t) \; dt \qquad \Aboxed{\Re \{s\} > 0} \\
+	& = s F(s) - f(0)
+\end{align*}
+
+\end{resposta}
+
+\end{document}
