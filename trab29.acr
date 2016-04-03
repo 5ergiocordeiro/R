@@ -1,0 +1,12 @@
+\glossarysection[\glossarytoctitle]{\glossarytitle}\glossarypreamble
+\begin{theglossary}\glossaryheader
+\glsgroupheading{glsnumbers}\relax \glsresetentrylist %
+\glossentry{MINRESa}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{15}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{24}\delimN 
+		\glsseeformat[Glossary:]{MINRES}{Z}}}%
+\glossentry{DIISa}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{15}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{24}\delimN 
+		\glsseeformat[Glossary:]{DIIS}{Z}}}%
+\end{theglossary}\glossarypostamble

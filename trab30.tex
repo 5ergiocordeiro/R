@@ -1,0 +1,383 @@
+% Quarta lista de exercícios de Sistemas e Sinais
+% Preparado para MiKTeX 2.9. Gerar arquivo PDF com pdflatex.
+\documentclass[12pt,fleqn]{amsart}
+\usepackage{enumitem}
+\usepackage{xstring}
+\usepackage{graphicx}
+\usepackage[a4paper]{geometry}
+\usepackage[portuguese,brazilian]{babel}
+\usepackage[ansinew]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{comment}
+% Fontes
+\usepackage{textgreek}
+\usepackage{yfonts}
+\usepackage{microtype}
+\usepackage{calligra}
+\usepackage{lmodern}
+\usepackage{bookman}
+\usepackage[scaled]{helvet}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+\usepackage{fmtcount}
+% Formatação
+\usepackage{sidecap}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{matlab-prettifier}
+% Símbolos matemáticos
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{wasysym}
+\usepackage{mathtools}
+\usepackage{bbm}
+\usepackage{mbboard}
+\usepackage{steinmetz}
+% Desenhos
+\usepackage{tikz}
+\usepackage{circuitikz}
+
+
+\title{Sistemas e Sinais - Exercício IV}
+\date{}
+\author{Sérgio Cordeiro}
+
+
+\newenvironment{pergunta}{
+	\par
+	\trivlist
+	\fontfamily{phv}
+	\selectfont
+	\item\arabic{prob_num}. 
+	}{
+	\endtrivlist
+	}
+
+\newenvironment{resposta}{
+	\trivlist
+    \vspace{3pt}
+	\fontfamily{pbk}
+	\selectfont
+	\item
+	}{
+	\vspace{3pt}
+	\noindent\makebox[\linewidth]{\rule{\paperwidth}{1pt}}
+	\endtrivlist
+	\stepcounter{prob_num}
+	}
+
+\newenvironment{listae}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}	
+	\vspace{-5mm}}
+
+\newenvironment{listaef}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}}
+
+\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
+
+\DeclareMathOperator{\atan}{\boldsymbol{atan}}			% Arco tangente
+\DeclareMathOperator{\La}{\mathcal{L}}					% Transformada de Laplace
+\DeclareMathOperator{\De}{\boldsymbol{\delta}}			% Função impulso
+\DeclareMathOperator{\dDe}{\boldsymbol{\dot{\delta}}}	% Derivada da função impulso
+\DeclareMathOperator{\He}{\boldsymbol{u}}				% Função defrau
+\newcommand{\dt}[1]{\frac{d {#1}}{dt}}					% derivada temporal
+\newcommand{\ddt}[1]{\frac{d^2 {#1}}{dt^2}}				% derivada segunda temporal
+\newcommand{\dtau}[1]{\frac{d {#1}}{d \tau}}			% derivada temporal
+\newcommand{\ddtau}[1]{\frac{d^2 {#1}}{d \tau^2}}		% derivada segunda temporal
+
+
+% Linhas divisórias
+\newcommand{\hhhlin}{\noindent\hfil\rule{0.25\textwidth}{.2pt}\hfil\newline}
+\newcommand{\hhlin}{\noindent\hfil\rule{0.5\textwidth}{.4pt}\hfil\newline}
+\newcommand{\hlin}{\noindent\hfil\rule{\textwidth}{.8pt}\hfil\newline}
+
+% Citações
+\newcommand{\newbibit}[6]{\bibitem[#1]{#2}#3, {\bf #4}. Disponível em \url{#5}, acesso em #6.}
+\newcommand{\newbibpp}[5]{\bibitem[#1]{#2}#3, {\bf #4}, \emph{in} #5.}
+\newcommand{\newbibbk}[5]{\bibitem[#1]{#2}#3, {\bf #4}, #5.}
+\newcommand{\newbibip}[6]{\bibitem[#1]{#2}#3, {\bf #4}, \emph{in} #5, disponível em \url{#6}.}
+\newcommand{\newbiboc}[4]{\bibitem[#1]{#2}#3, \textit{op. cit.}, #4.}
+\newcommand{\newbibsi}[7]{\bibitem[#1]{#2}#3, {\bf #4} : {#5}. Disponível em \url{#6}, acesso em #7.}
+
+\newenvironment{iquote}{\begin{quote}\itshape}{\end{quote}}
+
+% Perguntas
+\newcommand{\perguntaa}{Obter modelo no tempo para os sistemas: \\
+a)
+\begin{align*}
+	e(t) & = 10 \He{}(t) \\
+	y(t) & = 6 + 9.22 e^{-t} \cos (2t - 130.6 ^\circ) \\
+	t & \ge 0
+\end{align*}
+b)
+\begin{align*}
+	e(t) & = 3 e^{-5t} \He{}(t) \\
+	y(t) & = -2 e^{-5t} - e^{-2t} + 3 e^{-3t} \\
+	t & \ge 0	
+\end{align*}
+}
+\newcommand{\perguntab}{Dado $ h(t) = 1.3969 e^{-1.364t} - 1.3969 e^{-58.63t} \text{, e } t \ge 0 \text{, obter } R \text{, } L \text{ e } C $ para circuito RLC e saída $ v_c $.}
+\newcommand{\perguntac}{Para $ \mathpzc{G}(s) = \dfrac{1}{(s + 1)^3} $, aproximar para modelo de primeira ordem e discutir validade da aproximação.}
+\newcommand{\perguntad}{Modelar na frequência $ \mathpzc{G}(s) = \dfrac{80}{s^2 + 60s + 80} $, graficamente e por meio de equações. Simular com entrada \textit{chirp} e indicar como obter resposta em frequência a partir de simulação.}
+\newcommand{\perguntae}{Discutir como podemos obter resposta em frequência de modo experimental.}
+\newcommand{\perguntaf}{Para $ x_1 $ com tamanho $ N $ e $ x_2 $ com tamanho $ M $, qual é o tamanho da convolução $ x_1 * x_2 $?}
+\newcommand{\perguntag}{Para \\
+a) $ y[n] = \sum_{k = - \infty}^n e[k] $ \\
+b) $ y[n] = e[k] - e[k-1] $ \\
+Achar $ h[n] $ tal que $ y[n] = h[n] * e[n] $.}
+
+\begin{document}
+\setlength{\parskip}{1em}
+\setlength{\jot}{10pt}
+\setlength{\parindent}{0pt}
+
+\maketitle
+
+\newcounter{prob_num}
+\setcounter{prob_num}{1}
+
+
+\begin{pergunta}
+\perguntaa{}
+\end{pergunta}
+\begin{resposta}
+a)
+\begin{align*}
+	y(t) = y_h(t) + y_p(t) \implies \qquad y_h(t) & = 9.22 e^{-t} \cos (2t - 130.6 ^\circ) \\
+	y_p(t) & = 6
+\end{align*}
+\hhlin
+\begin{align*}
+	\lambda = -1 \pm \jmath 2 \implies \qquad \lambda_1 \lambda_2 & = (-1 - \jmath 2) (-1 + \jmath 2) \\
+	& = (-1)^2 - (\jmath 2)^2 \\
+	& = 5 \\
+	- (\lambda_1 + \lambda_2) & = (-1 - \jmath 2) + (-1 + \jmath 2) \\
+	& = 2 \\
+	& \wasytherefore \; \ddt{y_h} + 2 \dt{y_h} + 5 y_h = 0
+\end{align*}
+\hhhlin
+\begin{align*}
+	\ddt{y_p} + 2 \dt{y_p} + 5 y_p = \textrm{B} e(t) \implies \qquad 5 \cdot 6 & = 10 \textrm{B} \\
+	& \wasytherefore \; \textrm{B} = 3
+\end{align*}
+\hhlin
+\begin{align*}
+	y(0) & = 6 + 9.22 e^{0} \cos(0 - 130.6 ^\circ) \\
+	& = 0 \\
+	\dt{y} & = 9.22 \left[ \frac{}{} -e^{-t} \cos(2t - 130.6 ^\circ) - 2 e^{-t} \sin(2t - 130.6 ^\circ) \right] \\
+	& = - 9.22 e^{-t} \left[ \frac{}{} \cos(2t - 130.6 ^\circ) + 2 \sin(2t - 130.6 ^\circ) \right] \\
+	\left. \dt{y} \right|_{t = 0} & = - 9.22 e^{0} \left[ \frac{}{} \cos(0 - 130.6 ^\circ) + 2 \sin(0 - 130.6 ^\circ) \right] \\
+	& = 20
+\end{align*}
+\hhlin
+O modelo completo, portanto, é:
+\begin{align*}
+	& \ddt{y} + 2 \dt{y} + 5 y = 3 e \\
+	& y(0) = 0 \qquad \left. \dt{y} \right|_{t = 0} = 20
+\end{align*}
+\hlin
+b)
+\begin{align*}
+	y(t) = y_h(t) + y_p(t) \implies \qquad y_h(t) & = -e^{-2t} + 3 e^{-3t} \\
+	y_p(t) & = -2 e^{-5t}
+\end{align*}
+\hhlin
+\begin{align*}
+	\lambda = \{ -3, -2 \} \implies \qquad \lambda_1 \lambda_2 & = -3 \cdot -2 \\
+	& = 6 \\
+	- (\lambda_1 + \lambda_2) & = - (-2 - 3) \\
+	& = 5 \\
+	& \wasytherefore \; \ddt{y_h} + 5 \dt{y_h} + 6 y_h = 0
+\end{align*}
+\hhhlin
+\begin{align*}
+	\ddt{y_p} + 5 \dt{y_p} + 6 y_p = \textrm{B} e(t) \implies \qquad -50 e^{-5t} + 5 \cdot 10 e^{-5t} + 6 \cdot - 2 e^{-5t} & = 3 \textrm{B} e^{-5t} \\
+	& \wasytherefore \; \textrm{B} = - 4
+\end{align*}
+\hhlin
+\begin{align*}
+	y(0) & = -e^0 + 3 e^0 -2 e^0 \\
+	& = 0 \\
+	\dt{y} & = 2e^{-2t} - 9 e^{-3t} + 10 e^{-5t} \\
+	\left. \dt{y} \right|_{t = 0} & = 2 e^0 - 9 e^0 + 10 e^0 \\
+	& = 3
+\end{align*}
+\hhlin
+O modelo completo, portanto, é:
+\begin{align*}
+	& \ddt{y} + 5 \dt{y} + 6 y = - 4 e \\
+	& y(0) = 0 \qquad \left. \dt{y} \right|_{t = 0} = 3
+\end{align*}
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntab{}
+\end{pergunta}
+\begin{resposta}
+\begin{align*}
+	\lambda = \{ -58.63, -1.364 \} \implies \qquad \lambda_1 \lambda_2 & = (- 58.63) (-1.364) \\
+	& = 80 \\
+	- (\lambda_1 + \lambda_2) & = - (- 58.63 - 1.364) \\
+	& = 60 \\
+	& \wasytherefore \; \ddt{y} + 60 \dt{y} + 80 y = e
+\end{align*}
+No domínio da frequência complexa:
+\begin{align*}
+	\mathpzc{Y}(s) = \frac{\mathpzc{E}(s)}{s^2 + 60s + 80}
+\end{align*}
+O circuito modelo é o seguinte:
+\begin{figure}[H]
+    \begin{center}
+		\begin{circuitikz}
+			\draw (0,0)
+			to[V,v=$ \mathpzc{E}(s) $] (0,2)
+			to[R=$ R $] (2,2)
+			to[L=$ L $] (4,2)
+			to[C=$ C $] (6,2)
+			to[short] (6,0);	  
+			\draw (0,0)
+			to[short,i<=$ \mathpzc{I}(s) $] (6,0);	  
+        \end{circuitikz} \\
+    \end{center}
+\end{figure}
+\begin{align*}
+	\mathpzc{V}_c(s) & = \frac{1}{Cs} \; \mathpzc{I}(s) \\
+	& = \frac{1}{Cs} \; \dfrac{\mathpzc{E}(s)}{R + Ls + \frac{1}{Cs}} \\
+	& = \frac{\mathpzc{E}(s)}{LCs^2 + RCs + 1} \\
+	& = \dfrac{\mathpzc{E}(s)}{s^2 + \frac{R}{L}s + \frac{1}{LC}} \\
+\end{align*}
+Portanto:
+\begin{align*}
+	\frac{1}{LC} = 80 \qquad \text{e} \qquad \frac{R}{L} = 60 
+\end{align*}
+Para $ C = 100 \; \mu F $, teremos
+\begin{align*}
+	L & = \frac{1}{80 C} \\
+	& = \frac{1}{80 \times 100 \times 10^{-6}} \\
+	& = 125 \; H \\
+	R & = 60 L \\
+	& = 60 \times 125 \\
+	& = 7.5 \; k \Omega
+\end{align*}
+\end{resposta}
+
+\begin{pergunta}
+\perguntac{}
+\end{pergunta}
+\begin{resposta}
+A transformada inversa exata é $ g(t) = t^2 e^{-t} $. Uma aproximação de primeira ordem estaria na forma $ g_a(t) = e^{-at} $. Evidentemente, para $ t $ pequeno, $ g_a(t) $ é uma má aproximação; para $ t $ grande, $ g_a(t) $ coincide com $ g(t) $ para $ a = -1 $. \\
+Analisando no domínio da frequência real, para $ f $ baixo, a aproximação é boa; para $ f $ acima da frequência de corte, a amplitude cai e o ângulo de fase cresce muito mais devagar em $ \hat{g}_a $ do que em $ \hat{g} $.
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntad{}
+\end{pergunta}
+\begin{resposta}
+Como visto no problema 2, $ \lambda = \{ -58.63, -1.364 \} $. O sistema é de segunda ordem sobreamortecido. Um dos polos é claramente dominante, por isso o sistema também poderia ser aproximado razoavelmente bem por um de primeira ordem. \\
+Alternativamente, poderíamos obter a resposta em frequência por meio da Transformada de Fourier:
+\begin{align*}
+	\hat{\mathpzc{G}}(\omega) & = \left. \mathpzc{G}(s) \right|_{s = \jmath \omega} \\
+	& = \frac{80}{(\jmath \omega)^2 + 60 (\jmath \omega) + 80} \\
+	& = \frac{80}{80 - \omega^2 + \jmath 60 \omega} \\
+	& = \dfrac{1}{1 - \left( \frac{\omega}{\omega_c} \right)^2 + \jmath \frac{60}{\omega_c} \frac{\omega}{\omega_c}} \qquad \Aboxed{\omega_c^2 = 80} \\
+	& = \frac{1}{1 - \omega_r^2 + \jmath 3 \sqrt{5} \omega_r} \qquad \Aboxed{\omega_r = \frac{\omega}{\omega_c}}
+\end{align*}
+Em coordenadas polares:
+\begin{align*}
+	|\hat{\mathpzc{G}}(\omega)| & = \frac{1}{\sqrt{(1 - \omega_r^2)^2 + (3 \sqrt{5} \omega_r)^2}} \\
+	& = \frac{1}{\sqrt{1 - 2 \omega_r^2 + \omega_r^4 + 45 \omega_r^2}} \\
+	& = \frac{1}{\sqrt{1 + 43 \omega_r^2 + \omega_r^4}}
+\end{align*}
+\begin{align*}
+	\arg \{ \hat{\mathpzc{G}}(\omega) \} & = - \arg \{ 1 - \omega_r^2 + \jmath 3 \sqrt{5} \omega_r \} \\
+	& = \atan \left( \frac{3 \sqrt{5} \omega_r}{\omega_r^2 - 1} \right)
+\end{align*}
+
+
+O diagrama de simulação correspondente é mostrado abaixo:
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab30d1.jpg} \\
+\end{figure}%
+O sinal de entrada é da forma $ e(t) = A \cos (\omega t) \text{, com } \omega = at \text{, } a \in \mathbb{R} $. Ou seja, a frequência cresce linearmente com o tempo. A saída simulada é um sinal idêntico à entrada, apenas com a amplitude variando de acordo com a frequência. Os gráficos seguintes ilustram esse fenômeno. Os parãmetros usados foram $ A = 10 \text{ e } a = 0.01 $. \\
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab30d2.jpg} \\
+	$ 0 \le t \le 100 \;s $ 
+\end{figure}%
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab30d3.jpg} \\
+	$ 100 \le t \le 200 \;s $ 
+\end{figure}%
+A aplicação do sinal de frequência variável permite o levantamento da resposta em frequência do circuito, contanto que $ a $ não seja muito grande. \\
+\end{resposta}
+
+\begin{pergunta}
+\perguntae{}
+\end{pergunta}
+\begin{resposta}
+A resposta em frequência de um sistema linear é a Transformada de Fourier de sua resposta ao impulso $ h(t) $. Assim, ocorrem naturalmente ao pensamento duas formas de levantá-la experimentalmente:
+\begin{listae}[1]
+	\item Aplicar um impulso ao sistema, medir $ h(t) $ e calcular sua Transformada de Fourier
+	\item Aplicar entradas senoidais de frequências diversas e medir a resposta do sistema em termos de amplitude e ângulo de fase.
+\end{listae}
+O primeiro método tem a vantagem de ser mais rápido, envolvendo apenas um ensaio experimental, seguido da aplicação, por exemplo, da FFT ao resultado. As dificuldades são duas: primeiro, que o sistema pode apresentar instabilidade quando submetido a uma entrada impulsiva, levando a uma resposta com suporte infinito no tempo, ao qual não é possível aplicar a transformada; segundo, que o número de amostras e a frequência de amostragem escolhidos limitarão a resolução do resultado. Além disso, para frequências muito altas, a atenuação será muito grande, o que prejudica a precisão do ensaio. O segundo método não possui essas desvantagens, mas o tempo de levantamento será maior. Pode-se, como feito no problema anterior, aplicar um sinal cuja frequência varie lentamente para levantar a resposta do sistema. \\
+ \end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntaf{}
+\end{pergunta}
+\begin{resposta}
+A convolução funciona como uma amostragem da primeira sequência feita pela segunda, que é invertida e deslocada no tempo. Para que a convolução dê um resultado não nulo, é preciso que haja pelo menos uma amostra comum a $ x_1 \text{ e } x_2 $ . Assim, o comprimento será $ M + N - 1 $ amostras.
+\end{resposta}
+ 
+ \begin{pergunta}
+\perguntag{}
+\end{pergunta}
+\begin{resposta}
+a) 
+\begin{align*}
+	y[n] & = \sum_{k = -\infty}^n x[k] \\
+	& = \sum_{k = -\infty}^n 1 \cdot x[k] \\
+	& = \sum_{k = -\infty}^n h[k-n] \cdot x[k] \qquad \Aboxed{h[n] = \He{}[n]} \\
+	& = h[k] * x[k]
+\end{align*}
+b) 
+\begin{align*}
+	y[n] & = x[n] - x[n-1] \\
+	& = \sum_{k = 0}^0 x[n-k] - \sum_{k = 1}^1 x[n-k] \\
+	& = \sum_{k = 0}^n \He{}[n-k] x[n-k] - \sum_{k = 0}^n \He{}[n-k+1] x[n-k] \\
+	& = \sum_{k = 0}^n \He{}[n-k] x[n-k] - \He{}[n-k+1] x[n-k] \\
+	& = ( \He{}[0] + \He{}[1] ) * x[n]
+\end{align*}
+\end{resposta}
+ 
+\clearpage
+
+Simulação realizada com \textbf{Scilab} 5.5.2: \\
+\url{https://www.scilab.org} \\
+Texto formatado com \textbf{pdflatex} em ambiente \textbf{MiKTeX} 2.9: \\
+\url{http://miktex.org/download/} \\ \\
+\end{document}

@@ -1,6 +1,7 @@
 % Segunda lista de exercícios de Métodos Numéricos
 % Preparado para MiKTeX 2.9. Gerar arquivo PDF com pdflatex.
 \documentclass[12pt,fleqn]{amsart}
+%\begin{}Preãmbulo
 \usepackage{enumitem}
 \usepackage{xstring}
 \usepackage[pdftex]{graphicx}
@@ -49,10 +50,14 @@
 
 \usetikzlibrary{shapes,arrows}
 
+%\end{}
+
 \title{Métodos Numéricos - Lista de Exercícios II}
 \date{}
 \author{Sérgio Cordeiro}
+%\end{}
 
+%\begin{}Comandos
 \renewcommand*\contentsname{Sumário}
 
 \newenvironment{inthisrev}{
@@ -123,7 +128,6 @@
 	\begin{enumerate}}{
 	\end{enumerate}}
 
-
 \DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
 
 \newcommand{\matriz}[1]{\mathbf{#1}}
@@ -139,7 +143,7 @@
 \newcommand{\newbibbk}[5]{\bibitem[#1]{#2}#3, {\bf #4}, #5.}
 \newcommand{\newbibip}[6]{\bibitem[#1]{#2}#3, {\bf #4}, \emph{in} #5, disponível em \url{#6}.}
 \newcommand{\newbiboc}[4]{\bibitem[#1]{#2}#3, \textit{op. cit.}, #4.}
-\newcommand{\newbibsi}[7]{\bibitem[#1]{#2}#3, {\bf #4} : {#5}. Disponível em \url{#6}, acesso em #7.}
+\newcommand{\newbibsi}[7]{\bibitem[#1]{#2}#3, {\bf #4}: {#5}. Disponível em \url{#6}, acesso em #7.}
 
 \newenvironment{iquote}{\begin{quote}\itshape}{\end{quote}}
 
@@ -156,14 +160,10 @@
 \newcommand{\listingsC}{\lstset{language=C,frame=single,basicstyle={\tiny},breaklines=true,numbers=left,numberstyle={\color{red}},numbersep=9pt,showstringspaces=false,keepspaces=false,tabsize=2}}
 \newcommand{\listingsG}{\lstset{language=Ada,frame=none,basicstyle={\ttfamily\bfseries},numbers=none,tabsize=2,mathescape}}
 
-\renewcommand{\glossarymark}[1]{}
-\glsnogroupskiptrue
-\makeglossaries
-\makeindex
-\setglossarystyle{list}
+%\end{}
 
+%\begin{}Perguntas
 
-% Perguntas
 \newcommand{\perguntaa}{Solução de SL de ordem nxn usando decomposição LU com pivotação parcial. Calcular o determinante.}
 \newcommand{\perguntab}{Decomposição de Cholesky.}
 \newcommand{\perguntac}{Refinamento de solução de SL (nxn).}
@@ -171,50 +171,65 @@
 \newcommand{\perguntae}{Solução de SL de ordem nxn usando o método iterativo de Jacobi.}
 \newcommand{\perguntaf}{Solução de SL de ordem nxn usando o método iterativo de Gauss Seidel.}
 \newcommand{\perguntag}{Determinação do maior e do menor auto-valor de uma matriz e cálculo do numero de condicionamento.}
-\newcommand{\perguntah}{Determinação de todos os autovalores e auovetores de uma matriz.}
+\newcommand{\perguntah}{Determinação de todos os autovalores e autovetores de uma matriz.}
 \newcommand{\perguntai}{Pesquise sobre sistemas tridiagonais e desenvolva um método para sua solução.}
 \newcommand{\perguntaj}{Pesquisa sobre a técnica de solução de SL chamada GMRES.}
 \newcommand{\perguntak}{Estude a resposta dinâmica (estável/não estável (encontrar e avaliar os autovalores)) de um sistema real (o aluno deverá propor e descrever completamente o sistema).}
+%\end{}
 
+%\begin{}Glossário
+\renewcommand{\glossarymark}[1]{}
+\glsnogroupskiptrue
+\makeglossaries
+\makeindex
+\setglossarystyle{list}
 
+\newglossaryentry{DecQR}{
+  name={Decomposição QR},
+  text={decomposição QR},  
+  description={É decomposição de uma matrz em um produto de duas matrizes, $ \matriz{Q} \text{ e } \matriz{R} \text{, em que } \matriz{Q} $ é uma \gls{MatOrt} e $ \matriz{R} $ é uma matriz triangular superior}
+  }%
+\newglossaryentry{DIIS}{
+  name={\textit{Direct Inversion in the Iterative Subspace}},
+  text={DIIS},
+  description={Também conhecida como \textbf{Mistura de Pulay} (\textit{Pulay Mixing}), é uma técnica iterativa de extrapolação em que o novo valor é obtido como combinação dos vetores de erro referentes às iterações prévias, de forma a minimizar o vetor de coeficientes}
+  }%
 \newglossaryentry{MatHess}{
   name={Matriz de Hessenberg},
   text={matriz de Hessenberg},  
-  description={}
+  description={É uma matriz quase triangular, ou seja, uma matriz cujos elementos são nulos a não ser acima da diagonal imediatamente abaixo da principal (matriz de Hessenberg superior) ou abaixo da diagonal imediatamente acima da principal (matriz de Hessenberg inferior)}
+  }%
+\newglossaryentry{MatOrt}{
+  name={Matriz ortogonal},
+  text={matriz ortogonal},  
+  description={É uma matriz quadrada cujas linhas e colunas são todas vetores ortonormais}
   }%
 \newglossaryentry{MatSemSep}{
   name={Matriz semi-separável},
   text={matriz semi-separável},  
-  description={}
-  }%
-\newglossaryentry{DecQR}{
-  name={Decomposição QR},
-  text={decomposição QR},  
-  description={}
+  description={É uma matriz cujo rank, considerada apenas a parte inferior até a diagonal acima da principal, é igual ou menor que 1}
   }%
 \newglossaryentry{MINRES}{
-  name={MINRES},
+  name={\textit{Minimal Residual}},
   text={MINRES},  
-  description={}
+  description={Método iterativo para solução de sistemas lineares simétricos e esparsos que tenta minimizar alguma norma do resíduo}
   }%
-\newglossaryentry{DIIS}{
-  name={DIIS},
-  text={DIIS},  
-  description={}
+\newglossaryentry{Ref}{
+  name={Refletor},
+  text={refletor},
+  plural={refletores},
+  description={É uma matriz cujo determinate é igual a -1}
   }%
-\newglossaryentry{IterArn}{
-  name={iteração de Arnoldi},
-  text={iteração de Arnoldi}, 
-  description={}
+\newglossaryentry{RefHou}{
+  name={Refletor de Householder},
+  text={refletor de Householder},  
+  plural={refletores de Householder},  
+  description={É um \gls{Ref} que, aplicado a uma outra matriz, produz uma reflexão da mesma em torno da origem. É usado no algoritmo de \gls{DecQR}}
   }%
+\newacronym[see={[Glossary:]{MINRES}}]{MINRESa}{MINRES}{\glslink{MINRES}{\textit{Minimal Residual}}}%
+\newacronym[see={[Glossary:]{DIIS}}]{DIISa}{DIIS}{\glslink{DIIS}{\textit{Direct Inversion in the Iterative Subspace}}}%
 
-\newglossaryentry{k-means}{
-  name={\textit{k-means}},
-  text={\textit{k-means}},
-  description={É uma técnica de \glslink{Clustering}{aglutinação} que usa alguma média dos valores dos elementos como critério para particionamento}
-  }%
-\newacronym[see={[Glossary:]{PCA}}]{PCAa}{PCA}{\glslink{PCA}{\textit{Principal Component Analysis}}}%
-\newacronym[see={[Glossary:]{SVM}}]{SVMa}{SVM}{\glslink{SVM}{\textit{Support Vector Machines}}}%
+%\end{}
 
 \begin{document}
 
@@ -445,15 +460,30 @@ Os resultados obtidos estão tabelados a seguir. Foi usada apenas precisão simple
         \textbf{n} & \multicolumn{2}{|c|}{\textbf{Autovalores}} & \multicolumn{2}{|c|}{\textbf{custo} \footnote{Número de operações de ponto flutuante necessárias.}} & \multicolumn{2}{|c|}{\textbf{iterações}} & \textbf{tolerância} \\
 		& \textbf{menor} & \textbf{maior} & \textbf{menor} & \textbf{maior} & \textbf{menor} & \textbf{maior} & \\
 		\hline
-		$ 3 $ & $ 0.499284 $ & $ 1.361155 $ & $ 265 $ & $ 232 $ & $ 3 $ \footnotemark[13] & $ 7 $ & $ 10^{-5} $ \\
-		$ 3 $ & $ 0.499284 $ & $ 1.361152 $ & $ 265 $ & $ 292 $ & $ 3 $ \footnotemark[13] & $ 9 $ & $ 10^{-6} $ \\
-		$ 30 $ & $ 0.057670 $ & $ 15.053532 $ & $ 34897 $ & $ 4000 $ & $ 7 $ & $ 3 $ \footnotemark[13] & $ 10^{-5} $ \\
-		$ 30 $ & $ 0.057670 $ & $ 15.053532 $ & $ 37066 $ & $ 4000 $ & $ 8 $ & $ 3 $ \footnotemark[13] & $ 10^{-6} $ \\
-		$ 300 $ & $ 0.181859 $ & $ 149.791565 $ & $ 18505777 $ & $ 454849 $ & $ 2 $ \footnotemark[13] & $ 4 $ & $ 10^{-5} $ \\
-		$ 300 $ & $ 0.181859 $ & $ 149.791534 $ & $ 18505777 $ & $ 546058 $ & $ 2 $ \footnotemark[13] & $ 5 $ & $ 10^{-6} $ \\
+		$ 3 $ & $ 0.000022 $ & $ 2.248022 $ & $ 2359032 $ & $ 262 $ & $ 3 $ & $ 8 $ & $ 10^{-5} $ \\
+		$ 3 $ & $ 0.000022 $ & $ 2.248020 $ & $ 2359032 $ & $ 292 $ & $ 3 $ & $ 9 $ & $ 10^{-5} $ \\
+		$ 30 $ & $ 0.000249 $ & $ 227.683487 $ & $ 2359032 $ & $ 5029 $ & $ 1 $ \footnotemark[13] & $ 4 $ & $ 10^{-5} $ \\
+		$ 30 $ & $ 0.000249 $ & $ 227.683487 $ & $ 2359032 $ & $ 5029 $ & $ 1 $ \footnotemark[13] & $ 4 $ & $ 10^{-6} $ \\
+		$ 300 $ & $ 0.000122 $ & $ 22499.882812 $ & $ 2359032 $ & $ 363640 $ & $ 1 $ \footnotemark[13] & $ 3 $ & $ 10^{-5} $ \\
+		$ 300 $ & $ 0.000122 $ & $ 22499.884766 $ & $ 2359032 $ & $ 454849 $ & $ 1 $ \footnotemark[13] & $ 4 $ & $ 10^{-6} $ \\
 		\hline
     \end{tabular}
-\end{minipage*} \\
+\end{minipage*}
+\\[\baselineskip]
+\begin{minipage*}{\textwidth}
+\centering
+    \begin{tabular}{|c|c|c|}
+		\hline
+        \textbf{n} & \textbf{Número de condição} & \textbf{tolerância} \\
+		\hline
+		$ 3 $ & $ 103355 $ & $ 10^{-5} $ \\
+		$ 30 $ & $ 895948 $ & $ 10^{-5} $ \\
+		$ 300 $ & $ 194748459 $ & $ 10^{-5} $ \\		
+		$ 300 $ & $ 194748452 $ & $ 10^{-6} $ \\		
+		\hline
+    \end{tabular}
+\end{minipage*}
+\\[2\baselineskip]
 \footnotetext[13]{O método divergiu nestes casos.}
 \end{resposta}
 
@@ -475,25 +505,41 @@ Os resultados obtidos estão tabelados a seguir. Foi usada apenas precisão simple
 \centering
     \begin{tabular}{|c|c|c|c|c|}
 		\hline
-        \textbf{n} & \textbf{custo} \footnotemark[14] & \textbf{iterações} & \textbf{tolerância} \\
+        \textbf{n} & \multicolumn{2}{|c|}{\textbf{custo} \footnotemark[14]} & \textbf{iterações} & \textbf{tolerância} \\
+        & \textbf{autovalores} & \textbf{autovetores} & & \\
 		\hline
-		$ 3 $ & $ 228 $ & $ 1 $ & $ 10^{-6} $ \\
-		$ 30 $ & $ 22800 $ & $ 19 $ & $ 10^{-6} $ \\		
-		$ 300 $ & $ 2188800 $ & $ 191 $ & $ 10^{-5} $ \\
-		$ 300 $ & $ 3123600 $ & $ 273 $ & $ 10^{-6} $ \\
+		$ 3 $ & $ 135 $ & $ 207 $ & $ 1 $ & $ 10^{-6} $ \\
+		$ 30 $ & $ 19575 $ & $ 781695 $ & $ 19 $ & $ 10^{-6} $ \\		
+		$ 300 $ & $ 2018250 $ & $ 8048646450 $ & $ 191 $ & $ 10^{-6} $ \\
 		\hline
     \end{tabular}
-\end{minipage*} \\
+\end{minipage*}
+\\[2\baselineskip]
 \footnotetext[14]{Número de operações de ponto flutuante necessárias.}
 \end{resposta}
 
 \clearpage
 
+%\end{}section
+
+\section{Análise e conclusões}
+Os métodos iterativos, mesmo para matrizes densas como as que foram usadas aqui, apresentam menor esforço computacional que os métodos diretos para sistemas grandes. O método de Gauss-Seidel mostrou desempenho um pouco melhor que o de Jacobi. \\
+Dentre os métodos diretos, a decomposição LU parace ser superior, apesar de o algoritmo não ser tão simples. A forma fechada da decomposição de Cholesky se presta mais à demostração de teoremas, não a aplicações práticas de solução de sistemas lineares. A decomposição Gaussiana com pivotação, estudada na lista anterior, ainda é a de menor custo, a não ser que haja vários sistemas a resolver com a mesma matriz, quando então a decomposição LU deve ser a preferida. \\
+O custo de inversão de uma matriz grande é proibitivo. A solução de um sistema linear por essa abordagem não é econômicamente viável. \\
+Com relação ao cálculo de autovalores, também se trata de operação de alto custo. Os algoritmos testados apresentam convergância lenta e instabilidade. O cálculo de autovetores pelo método de rotações de Jacobi é ainda mais caro; para matrizes grandes, é melhor usar os autovalores calculados para resolver $ n $ sistemas lineares da forma $ (\matriz{A} - \lambda \matriz{I}) \matriz{b} = 0 $ por decomposição LU. \\
+Alguns algoritmos utilizam extração de raiz quadrada e divisões, que têm um custo computacional dependente da arquitetura do processador usado. Aqui adotaram-se os valores recomendados por \cite{VANDENBERGHE 2012}, \cite{FAH 2013} e \cite{INTEL 2016}.
+
+\clearpage
+
+%\end{}section
+
+\section{Pesquisas}
+
 \begin{pergunta}
 \perguntai{}
 \end{pergunta}
 \begin{resposta}
-Um sistema linear tridiagonal é aquele em que a matriz dos coeficientes $ \matriz{A} $ é tridiagonal. Uma matriz tridiagonal é uma matriz quadrada em que os coeficientes são $ a_{i,j} $ nulos para $ |j - i| > 1 $; em outras palavras, apenas coeficientes na diagonal principal e nas diagonais adjacentes não são nulos. \\
+Um sistema linear tridiagonal é aquele em que a matriz dos coeficientes $ \matriz{A} $ é tridiagonal. Uma matriz tridiagonal é uma matriz quadrada em que os coeficientes $ a_{i,j} $ são nulos para $ |j - i| > 1 $; em outras palavras, apenas coeficientes na diagonal principal e nas diagonais adjacentes não são nulos. \\
 Uma matriz tridiagonal genérica pode ter seus coeficientes expressos da forma usual:
 \begin{align*}
 	\begin{bmatrix}
@@ -516,7 +562,7 @@ ou da forma alternativa:
    0 & 0 & 0 & 0 & 0 & \hdots & 0 & a_n & b_n \\
 	\end{bmatrix}
 \end{align*}
-Esta última facilita o armazenamento eficaz de grandes matrizes, pois é preciso gravar apenas os 3 vetores $ \matriz{a} \text{, } \matriz{b} \text{ e } \matriz{c} $, todos com comprimento $ n $. Note-se que sempre $ a_1 = c_n = 0 $. \\
+Esta última possibilita o armazenamento eficaz de grandes matrizes, pois é preciso gravar apenas os 3 vetores $ \matriz{a} \text{, } \matriz{b} \text{ e } \matriz{c} $, todos com comprimento $ n $. Note-se que sempre $ a_1 = c_n = 0 $. \\
 Lançando-se mão da forma alternativa, o sistema tridiagonal $ \matriz{A} \matriz{x} = \matriz{d} $, cuja equação genérica é:
 \begin{align*}
 	\sum_{j = 1}^n a_{i,j} x_{j} = d_i
@@ -525,15 +571,30 @@ pode ser escrito simplesmente como:
 \begin{align*}
 	a_i x_{i - 1} + b_i x_i + c_i x_{i + 1} = d_i
 \end{align*}
-o que faculta a solução por meio de uma modificação da eliminação Gaussiana conhecida como \textbf{algoritmo de Thomas}. O custo computacional deste método é linear em $ n \text{: } \mathcal{O}(n) $. A matriz inversa $ \matriz{V} $ pode ser obtida por meio das expressões seguintes:
-\begin{align*}
-	v_{i,j} & = \begin{cases} (-1)^{i+j} \; \dfrac{\theta_{i-1} \phi_{j+1}}{\theta_n} \; \prod \limits_i^{j-1} c_k & i \le j \\ (-1)^{i+j} \; \dfrac{\theta_{j-1} \phi_{i+1}}{\theta_n} \; \prod \limits_j^{i-1} a_k & i > j \end{cases} \\
-	\theta_i & = \begin{cases} 1 & i = 0 \\ b_1 & i = 1 \\ b_i \theta_{i-1} - a_{i-1} c_{i-1} \theta_{i-2} & 2 \le i \le n \end{cases} \\
-	\phi_i & = \begin{cases} 1 & i = n + 1 \\ b_n & i = n \\ b_i \phi_{i+1} - a_i c_i \phi_{i+2} & n-1 \ge i \ge 1 \end{cases}
-\end{align*}
-$ \matriz{V} $ é sempre uma \gls{MatSemSep}.
-Toda matriz tridiagonal é um tipo de \gls{MatHess}, por isso pode ser reduzida a uma matriz triangular por meio de processos iterativos, como a \gls{DecQR}. Esses processos são muito estáveis numericamente. \\
+o que faculta a solução por meio de uma modificação da eliminação Gaussiana conhecida como \textbf{algoritmo de Thomas}. O custo computacional deste método é linear em $ n \text{: } \mathcal{O}(n) $, mas a matriz precisa ser também diagonalmente dominante. \\
 
+\clearpage
+
+O algoritmo pode ser escrito na forma matricial como: \\
+\listingsG
+\begin{lstlisting}[language=Ada]
+		M = a[2:n] ./ b[1:n-1];
+		b[2:n] -= M .* c[1:n-1];
+		d[2:n] -= M .* d[1:n-1];
+		a[2:n] = 0;
+\end{lstlisting}
+Após essas operações, a matriz se torna triangular superior, e pode ser resolvida pelos meios tradicionais. \\
+A matriz inversa $ \matriz{V} $ pode ser obtida por meio das expressões seguintes:
+\begin{align*}
+	v_{i,j} & = \begin{cases} (-1)^{i+j} \; \dfrac{\theta_{i-1} \phi_{j+1}}{\theta_n} \; \prod \limits_i^{j-1} c_k & \qquad i \le j \\ (-1)^{i+j} \; \dfrac{\theta_{j-1} \phi_{i+1}}{\theta_n} \; \prod \limits_j^{i-1} a_k & \qquad i > j \end{cases} \\
+	\theta_i & = \begin{cases} 1 & \qquad i = 0 \\ b_1 & \qquad i = 1 \\ b_i \theta_{i-1} - a_{i-1} c_{i-1} \theta_{i-2} & \qquad 2 \le i \le n \end{cases} \\
+	\phi_i & = \begin{cases} 1 & \qquad i = n + 1 \\ b_n & \qquad i = n \\ b_i \phi_{i+1} - a_i c_i \phi_{i+2} & \qquad n-1 \ge i \ge 1 \end{cases}
+\end{align*}
+$ \matriz{V} $ é sempre uma \gls{MatSemSep}. \\
+O cálculo do determinante de uma matriz tridiagonal possui custo da ordem $ n \text{: } \mathcal{O}(n) $; para uma matriz densa, esse custo é da ordem $ n \text{: } \mathcal{O}(n^3) $. \\
+Toda matriz tridiagonal é um tipo de \gls{MatHess}, por isso pode ser reduzida a uma matriz triangular por meio de processos iterativos, como a \gls{DecQR}. Esses processos são muito estáveis numericamente. \\
+Existem algoritmos para semidiagonalizar matrizes genéricas. Por exemplo, os \glspl{RefHou} são ferramentas robustas para transformar qualquer matriz para a forma de Hessenberg; o algoritmo de Gram-Schmidt é outra, menos estável, mas que possui a vantagem de oferecer resultado mesmo quando executado de forma parcial. \\
+Uma matriz tridiagonal simétrica é chamada de \textbf{Matriz de Jacobi} ou, melhor, \textbf{Matriz Tridiagonal de Jacobi}, para evitar confusão com a matriz de operadores diferenciais conhecida também como \textbf{Jacobiano} \cite{USMANI 1994,VANDEBRIL 2004}. \\
 \end{resposta}
 
 \clearpage
@@ -546,13 +607,32 @@ O algoritmo GMRES (\textit{Generalized Minimal Residual Method})é um método iter
 \begin{align*}
 	\matriz{r} = \matriz{A} \matriz{x} - \matriz{b}
 \end{align*}
-Ele foi desenvolvido por Saad e Schultz em 1986, a partir dos algoritmos \gls{MINRES} e \gls{DIIS}, e seu custo computacional está entre $ \mathcal{O}(pn^2+p^2n) $ para matrizes densas e $ \mathcal{O}(p^2+pn) $ para matrizes muito esparsas, onde $ p $ é o número de iterações necessárias. \\
+Ele foi desenvolvido por Saad e Schultz em 1986, a partir dos algoritmos \gls{MINRESa} e \gls{DIISa}, e seu custo computacional está entre $ \mathcal{O}(pn^2+p^2n) $ para matrizes densas e $ \mathcal{O}(p^2+pn) $ para matrizes muito esparsas, onde $ p $ é o número de iterações necessárias. \\
 A convergência é garantidamente monotônica e $ p < n $; em geral, $ p \ll n $, o que torna o custo muito atrativo. Outra característica do método é que a velocidade da convergência não depende do número de condição, e sim do valor absoluto do menor autovalor. \\
-Outra grande vantagem do algoritmo é que ele não exige que $ \matriz{A} $ seja diagonalmente dominante ou definida positiva. \\
-A minimização do resíduo, que consiste na solução de um problema de otimização pela técnica dos mínimos quadrados, baseia-se na \gls{DecQR} não de $ \matriz{A} $ e sim da matriz $ \matriz{H} $, que tem dimensão (p+1 x p) e que é obtida por meio de \gls{IterArn}. \\
-
-
-Existem algoritmos para tridiagonalizar matrizes genéricas. Por exemplo, os refletores de Householder são ferramentas robustas para transformar qualquer matriz para a forma de Hessenberg; o algoritmo de Gram-Schmidt para decomposição QR, por outro lado, é menos estável, mas possui a vantagem de oferecer resultado mesmo quando executado de forma parcial. \\
+Outra grande vantagem do algoritmo é que ele não exige que $ \matriz{A} $ seja diagonalmente dominante nem definida positiva. \\
+A minimização do resíduo, que consiste na solução de um problema de otimização pela técnica dos mínimos quadrados, baseia-se não na $ \matriz{A} $ e sim na matriz $ \matriz{H} $, que é uma \gls{MatHess} de dimensão (p+1 x p), obtida por meio de \textbf{Iterações de Arnoldi}. Este método é uma variação do divisado por Lanczos, de montar uma base ortogonal a partir do conjunto $ \mathbb{K} = \{ \matriz{b}, \matriz{A} \matriz{b}, \matriz{A}^2 \matriz{b}... \matriz{A}^{n-1} \matriz{b} \} $, conhecido como \textbf{espaço de Krylov}. O algoritmo de Arnoldi é mais estável do que o de Lanczos e, ao contrário deste, funciona também para matrizes não-simétricas. Ele utiliza o algoritmo de Gram-Schmidt em lugar dos \glspl{RefHou} para a semidiagonalização. \\
+As matrizes $ \matriz{A} \text{ e } \matriz{H} $ estão relacionadas pela expressão:
+\begin{align}
+	\matriz{A} = \matriz{Q} \matriz{H} \matriz{Q}^{(T)} \implies \qquad \matriz{A} = \matriz{Q}^{(T)} \matriz{H} \matriz{Q} 
+\end{align}	
+A matriz $ \matriz{Q} $ é composta pelas matrizes-coluna, ou vetores, $ \matriz{q} $. Os vetores $ \matriz{q}_k $ e os coeficientes $ h_{i,j} $ são obtidos iterativamente por meio das fórmulas:
+\begin{align}
+	\matriz{q}_1 & = \matriz{a} \\
+	\matriz{v} & = \matriz{A} \matriz{q}_k \\
+	\matriz{q}_{k+1} & = \dfrac{1}{h_{k+1,k}} \; \left[ \matriz{v} - \sum_{i = 1}^{k} h_{i,k} \matriz{q}_i \right] \\
+	h_{j,k} & = \matriz{q}_j^{(T)} \matriz{v} \\
+	h_{k+1,k} & = \| \matriz{v} \|_2
+\end{align}
+onde $ \matriz{a} $ é um vetor unitário arbitrário. A cada iteração, deve-se resolver o sistema linear
+\begin{align}
+	\matriz{H} \matriz{y} = | \matriz{b} | \matriz{q}_1
+\end{align}
+e então calcular o novo vetor solução:
+\begin{align}
+	\matriz{x}_k = \matriz{Q}_k \matriz{y}
+\end{align}
+A matriz $ \matriz{H} $ obtida é a projeção de $ \matriz{A} \text{ em } \mathbb{K}$, e tem dimensão em geral bem menor que a de $ \matriz{A} $. \\
+Todos os métodos iterativos baseados no espaço de Krylov possuem a grande virtude de produzir bons resultados mesmo quando as iterações não são levadas até o final. No entanto, o espaço necessário para armazenar $ \mathbb{K} $ é um ponto fraco do método \cite{FASSHAUER 2006,TERAN 2013}. \\
 
 \end{resposta}
 
@@ -564,6 +644,8 @@ Existem algoritmos para tridiagonalizar matrizes genéricas. Por exemplo, os refl
 \begin{resposta}
 A seguir apresenta-se uma visão simplificada do funcionamento de um sistema de posicionamento de antena terrestre para comunicação com satélite, seguindo o apresentado por \cite{PHILLIPS 1995} Modelos mais sofisticados podem ser encontrados em \cite{KAWAKAMI 1989} e \cite{NASA 1980}. \\
 Um sistema de posicionamento de antena de satélite consiste de um controlador digital, um sensor de posição e um servomotor de potência, como ilustrado no diagrama de blocos abaixo.
+%\tikzstyle{int}=[draw, fill=blue!20, minimum size=2em]
+%\tikzstyle{init} = [pin edge={to-,thin,black}]
 
 \tikzstyle{block} = [draw, fill=blue!20, rectangle, minimum height=3em, minimum width=6em]
 \tikzstyle{sum} = [draw, fill=blue!20, circle, node distance=1cm]
@@ -713,40 +795,42 @@ Na formulação de variáveis de estado:
 \end{equation*}
 ou, mais brevemente, $ \matriz{\dot{x}} = \matriz{L} \matriz{x} + \matriz{M} \matriz{v} $. \\
 Os polos de $ \mathpzc{F}(s) $ são os autovalores da matriz $ \matriz{L} $. Foram geradas, no MATLAB, algumas matrizes para diversos valores de $ K_c $ e $ \alpha $, através da função listada abaixo. Ela também calcula os autovalores. \\
-\listingsO
 
+\clearpage
+
+\listingsO
+\lstinputlisting[caption=geraL.m,language=Octave]{geraL.m}
 Para todos os valores testados há um autovalor puramente real e dois complexos, obviamente conjugados. Para $ \alpha = 0.1 $, a parte real desse par conjugado é positiva, independentemente do valor de $ K_c $, o que resulta num sistema instável. Aparentemente, à medida que $ \alpha $ aumenta, o valor da parte real dos polos complexos se aproxima assintoticamente de  - 0.006, e a do polo real tende a 0. O aumento de $ K_c $ diminui a estabilidade relativa do sistema, mas não parece suficiente para provocar instabilidade estrita. A melhor combinação parece ser $ K_c = 10000 \text{ e } \alpha = 0.001 $, que resulta no seguinte conjunto de autovalores: $ \{ -0.00100 \text{ e } - 0.00520 \pm \jmath 8.77 $, para uma função de transferência do controlador $ \mathpzc{D}(s) = 10000 + \frac{10}{s} $, cuja implementação é perfeitamente viável. \\
 
 \end{resposta}
  
 \clearpage
  
-\section{Análise e conclusões}
-Alguns algoritmos utilizam extração de raiz quadrada e divisões, que têm um custo computacional dependente da arquitetura do processador usado. Aqui adotaram-se os valores recomendados por \cite{FAH 2013} e \cite{INTEL 2016}.
-\tikzstyle{int}=[draw, fill=blue!20, minimum size=2em]
-\tikzstyle{init} = [pin edge={to-,thin,black}]
+%\end{}section
 
 \section{Anexos}
 Os seguintes arquivos constam do anexo (arquivo \textbf{\texttt{exercmat1.zip}}):
 \begin{lista}
 	\item arquivo fonte em C \textbf{\texttt{exercmat.c}}
-	\item arquivos fonte em MATLAB:
+	\item arquivos fontes em MATLAB:
 	\begin{itemize}
 		\item \textbf{\texttt{gerachol.m}}: problema 2
+		\item \textbf{\texttt{geradsis.m}}: problema 5
+		\item \textbf{\texttt{geraL.m}}: problema 11
 	\end{itemize}		
 	\item arquivos de dados:
 	\begin{itemize}
 		\item S\textit{n}: problemas 1, 3 e 4
-		\item C\textit{n}: problemas 2 e 8
+		\item C\textit{n}: problemas 2, 7 e 8
 		\item D\textit{n}: problemas 5 e 6
-		\item MatA\textit{n}: problema 7
-		\item L\textit{m}: problema 11
 	\end{itemize}	
 \end{lista}
 
 \noindent\makebox[\linewidth]{\rule{\paperwidth}{1pt}}
 
 \clearpage
+
+%\end{}section
 
 \glsaddall
 \printglossaries
@@ -761,6 +845,8 @@ Os seguintes arquivos constam do anexo (arquivo \textbf{\texttt{exercmat1.zip}})
 
 \newbibit{FAH 2013}{FAH 2013}{Folding@home, Pande Lab, Stanford University}{FAQ: FLOPS}{https://folding.stanford.edu/home/faq/faq-flops/}{17/03/2016}
 
+\newbibsi{FASSHAUER 2006}{FASSHAUER 2006}{Greg FASSHAUER}{Numerical Linear Algebra/Computational Mathematics I}{Illinois Institute of Technology, 2006}{http://www.math.iit.edu/~fass/477577_Chapter_16.pdf}{25/03/2016}
+
 \newbibit{GATR 2015}{GATR 2015}{GATR Technologies}{2.4m Antenna System Datasheet}{http://www.gatr.com/products/2-4-antenna-system}{21/03/2016}
 
 \newbibbk{INTEL 2016}{INTEL 2016}{INTEL Corporation}{Intel 64 and IA-32 Architectures Optimization Reference Manual}{2016, Tab. 15-3, pag. 15-9 a 15-10}
@@ -770,11 +856,19 @@ Automatic Control in Aerospace 1989: Selected Papers from The IFAC Symposium}
 
 \newbibbk{MOON 2008}{MOON 2008}{Francis C. MOON}{Applied Dynamics: With Applications to Multibody and Mechatronic Systems}{2\textsuperscript{nd} Ed., 2008, Weinheim, Wiley-VCH, ISBN 978-3-527-40751-4, Chap. 5, pp. 228 a 231}
 
-\newbibbk{NASA 1980}{NASA 1980}{National Aeronautics and Space Administration}{Satellite  Power  System (SPS) Antenna  Pointing  Control}{http://www.nss.org/settlement/ssp/library/NASACR3350-AntennaPointingControl.pdf}{21/03/2016}
+\newbibit{NASA 1980}{NASA 1980}{National Aeronautics and Space Administration}{Satellite  Power  System (SPS) Antenna  Pointing  Control}{http://www.nss.org/settlement/ssp/library/NASACR3350-AntennaPointingControl.pdf}{21/03/2016}
 
 \newbibbk{PHILLIPS 1995}{PHILLIPS 1995}{Charles L. PHILLIPS e H. Troy NAGLE}{Digital Control System Analysis and Design}{Prentice Hall, Englewood Cliffs, 1995, 3 \textsuperscript{rd} Ed.}
 
 \newbibit{TAMAGAWA 2016}{TAMAGAWA 2016}{TAMAGAWA Seiki Corporation}{TBL-iIVseries AC Servomotor}{http://www.tamagawa-seiki.com/pdf/download/1699N1EJ_shusei.pdf}{21/03/2016}
+
+\newbibsi{TERAN 2013}{TERAN 2013}{Joseph M. TERAN}{Applied Numerical Linear Algebra Course Notes: Week 5}{Mathematics Department, UCLA, 2013}{http://www.math.ucla.edu/~jteran/270c.1.13s/notes_wk6.pdf}{25/03/2016}
+
+\newbibsi{USMANI 1994}{USMANI 1994}{Riaz A. USMANI}{Inversion of a Tridiagonal Jacobi Matrix}{Department  of Applied Mathematics, University of Manitoba, 1994}{http://ac.els-cdn.com/0024379594904146/1-s2.0-0024379594904146-main.pdf?_tid=1dc5a5dc-f2f2-11e5-9bd3-00000aacb35f&acdnat=1458955920_5a0cc77d01e9dbdd1dfc2d1e0b8627b1}{25/03/2016}
+
+\newbibsi{VANDENBERGHE 2012}{VANDENBERGHE 2012}{L. VANDENBERGHE}{Complexity of matrix algorithms}{EE103 - Applied Numerical Computing (Fall 2011-12), UCLA}{http://www.seas.ucla.edu/~vandenbe/103/lectures/flops.pdf}{26/03/2016}
+
+\newbibsi{VANDEBRIL 2004}{VANDEBRIL 2004}{Raf VANDEBRIL}{Semiseparable matrices and the symmetric eigenvalue problem}{Katholieke Universiteit Leuven, Faculteit Toegepaste Wetenschappen - Departement Computerwetenschappen, 2004}{http://www.cs.kuleuven.be/publicaties/doctoraten/tw/TW2004_03.pdf}{25/03/2016}
 
 \newbibit{WEISSTEIN 2016}{WEISSTEIN 2016}{Eric W. WEISSTEIN}{Positive Definite Matrix \textit{MathWorld}}{http://mathworld.wolfram.com/PositiveDefiniteMatrix.html}{17/03/2016}
 

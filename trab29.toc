@@ -1,5 +1,8 @@
 \select@language {brazilian}
 \contentsline {section}{\tocsection {}{1}{Exerc\IeC {\'\i }cios}}{2}{section.1}
-\contentsline {section}{\tocsection {}{2}{An\'alise e conclus\~oes}}{21}{section.2}
-\contentsline {section}{\tocsection {}{3}{Anexos}}{21}{section.3}
-\contentsline {section}{\tocsection {}{}{Refer\^encias}}{23}{section*.2}
+\contentsline {section}{\tocsection {}{2}{An\'alise e conclus\~oes}}{12}{section.2}
+\contentsline {section}{\tocsection {}{3}{Pesquisas}}{13}{section.3}
+\contentsline {section}{\tocsection {}{4}{Anexos}}{23}{section.4}
+\contentsline {section}{\tocsection {}{}{Gloss\'ario}}{24}{section*.3}
+\contentsline {section}{\tocsection {}{}{Siglas}}{24}{section*.5}
+\contentsline {section}{\tocsection {}{}{Refer\^encias}}{25}{section*.6}

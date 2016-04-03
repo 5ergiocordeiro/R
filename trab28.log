@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (MiKTeX 2.9) (preloaded format=pdflatex 2015.4.4)  22 MAR 2016 16:20
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (MiKTeX 2.9) (preloaded format=pdflatex 2015.4.4)  29 MAR 2016 15:52
 entering extended mode
 **trab28.tex
 (trab28.tex
@@ -1279,32 +1279,28 @@ LaTeX Font Info:    Font shape `T1/pbk/bx/n' in size <12> not available
 LaTeX Font Info:    Font shape `T1/pbk/b/n' in size <12> not available
 (Font)              Font shape `T1/pbk/db/n' tried instead on input line 145.
 \c@prob_num=\count177
-LaTeX Font Info:    Try loading font information for T1+phv on input line 150.
+LaTeX Font Info:    Try loading font information for T1+phv on input line 158.
 
 ("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\psnfss\t1phv.fd"
 File: t1phv.fd 2001/06/04 scalable font definitions for T1/phv.
 )
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 11.39996pt on input line 150.
+(Font)              scaled to size 11.39996pt on input line 158.
 Package microtype Info: Loading generic settings for font family
 (microtype)             `phv' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-
-Underfull \hbox (badness 10000) in paragraph at lines 150--152
-
- []
 
 ("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\microtype\mt-cmr.cfg"
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
 (RS)
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 157.
+(Font)              <12> on input line 159.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 157.
+(Font)              <8> on input line 159.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 157.
+(Font)              <6> on input line 159.
 
 ("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\microtype\mt-msa.cfg"
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
@@ -1320,57 +1316,77 @@ Package microtype Info: Loading generic settings for font family
 <trab28figb1.jpg, id=6, 578.16pt x 433.62pt>
 File: trab28figb1.jpg Graphic file (type jpg)
  <use trab28figb1.jpg>
-Package pdftex.def Info: trab28figb1.jpg used on input line 163.
+Package pdftex.def Info: trab28figb1.jpg used on input line 165.
 (pdftex.def)             Requested size: 292.77629pt x 219.58177pt.
 
 <trab28figb2.jpg, id=7, 578.16pt x 433.62pt>
 File: trab28figb2.jpg Graphic file (type jpg)
  <use trab28figb2.jpg>
-Package pdftex.def Info: trab28figb2.jpg used on input line 168.
+Package pdftex.def Info: trab28figb2.jpg used on input line 170.
 (pdftex.def)             Requested size: 292.77629pt x 219.58177pt.
 
 <trab28figb3.jpg, id=8, 578.16pt x 433.62pt>
 File: trab28figb3.jpg Graphic file (type jpg)
  <use trab28figb3.jpg>
-Package pdftex.def Info: trab28figb3.jpg used on input line 173.
+Package pdftex.def Info: trab28figb3.jpg used on input line 175.
 (pdftex.def)             Requested size: 292.77629pt x 219.58177pt.
+
+Underfull \vbox (badness 5637) has occurred while \output is active []
+
 LaTeX Font Info:    Font shape `T1/pbk/m/n' in size <9> not available
-(Font)              Font shape `T1/pbk/l/n' tried instead on input line 175.
+(Font)              Font shape `T1/pbk/l/n' tried instead on input line 177.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 175.
+(babel)             in language  on input line 177.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 175.
+(babel)             in language  on input line 177.
  [1{C:/Documents and Settings/Cliente/Configurações locais/Dados de aplicativ
 os/MiKTeX/2.9/pdftex/config/pdftex.map} <./trab28figb1.jpg>]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 179.
+(babel)             in language  on input line 180.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 179.
+(babel)             in language  on input line 180.
  [2 <./trab28figb2.jpg> <./trab28figb3.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 191--193
+Underfull \hbox (badness 10000) in paragraph at lines 195--197
+
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 214.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 214.
+[3
+
+] <trab28figc1.jpg, id=37, 578.16pt x 433.62pt>
+File: trab28figc1.jpg Graphic file (type jpg)
+ <use trab28figc1.jpg>
+Package pdftex.def Info: trab28figc1.jpg used on input line 218.
+(pdftex.def)             Requested size: 292.77629pt x 219.58177pt.
+
+<trab28figc2.jpg, id=38, 578.16pt x 433.62pt>
+File: trab28figc2.jpg Graphic file (type jpg)
+ <use trab28figc2.jpg>
+Package pdftex.def Info: trab28figc2.jpg used on input line 224.
+(pdftex.def)             Requested size: 292.77629pt x 219.58177pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 221--226
 
  []
 
 
-Underfull \vbox (badness 2680) has occurred while \output is active []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 210.
+(babel)             in language  on input line 227.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 210.
- [3]
-Underfull \hbox (badness 10000) in paragraph at lines 210--212
-
- []
-
-LaTeX Font Info:    Font shape `T1/pbk/m/sc' in size <12> not available
-(Font)              Font shape `T1/pbk/l/sc' tried instead on input line 215.
+(babel)             in language  on input line 227.
+ [4 <./trab28figc1.jpg>]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 215.
+(babel)             in language  on input line 229.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 229.
+ [5 <./trab28figc2.jpg>]
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 232.
 
-LaTeX Warning: Empty `thebibliography' environment on input line 219.
-
-LaTeX Font Info:    Try loading font information for T1+pcr on input line 224.
 ("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\psnfss\t1pcr.fd"
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
@@ -1379,44 +1395,39 @@ Package microtype Info: Loading generic settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 
-Underfull \hbox (badness 10000) in paragraph at lines 223--227
+Underfull \hbox (badness 10000) in paragraph at lines 231--235
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 223--227
+Underfull \hbox (badness 10000) in paragraph at lines 231--235
 
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 227.
+(babel)             in language  on input line 235.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 227.
-[4]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 227.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 227.
+(babel)             in language  on input line 235.
+[6
+
+]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 235.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 235.
  (trab28.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 227.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 227.
-
-
-Package rerunfilecheck Warning: File `trab28.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `trab28.out':
-(rerunfilecheck)             Before: D41D8CD98F00B204E9800998ECF8427E;0
-(rerunfilecheck)             After:  13BD7A0DF065189AAECD82BA16616325;51.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 227.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 235.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 235.
+Package rerunfilecheck Info: File `trab28.out' has not changed.
+(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 235.
  ) 
 Here is how much of TeX's memory you used:
- 29443 strings out of 493698
- 591169 string characters out of 3141115
- 753669 words of memory out of 3000000
- 31977 multiletter control sequences out of 15000+200000
- 46331 words of font info for 87 fonts, out of 3000000 for 9000
+ 29449 strings out of 493698
+ 591295 string characters out of 3141115
+ 754675 words of memory out of 3000000
+ 31982 multiletter control sequences out of 15000+200000
+ 44313 words of font info for 85 fonts, out of 3000000 for 9000
  1186 hyphenation exceptions out of 8191
- 55i,15n,56p,933b,591s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 55i,15n,56p,933b,440s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Arquivos de programas/MiKTeX 2.9/fonts/enc/dvips/fontname/8r.enc}{C:/Arqu
 ivos de programas/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathex.enc}{C:/Arquivos de p
 rogramas/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Arquivos de programas/
@@ -1432,9 +1443,9 @@ iKTeX 2.9/fonts/type1/urw/bookman/ubkd8a.pfb><C:/Arquivos de programas/MiKTeX 2
 s/type1/urw/courier/ucrr8a.pfb><C:/Arquivos de programas/MiKTeX 2.9/fonts/type1
 /urw/helvetic/uhvr8a.pfb><C:/Arquivos de programas/MiKTeX 2.9/fonts/type1/publi
 c/wasy/wasy10.pfb>
-Output written on trab28.pdf (4 pages, 435225 bytes).
+Output written on trab28.pdf (6 pages, 504060 bytes).
 PDF statistics:
- 89 PDF objects out of 1000 (max. 8388607)
- 12 named destinations out of 1000 (max. 500000)
- 17436 words of extra memory for PDF output out of 20736 (max. 10000000)
+ 99 PDF objects out of 1000 (max. 8388607)
+ 13 named destinations out of 1000 (max. 500000)
+ 16934 words of extra memory for PDF output out of 17280 (max. 10000000)
 

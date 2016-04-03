@@ -1,4 +1,6 @@
-\glossaryentry{000001?\glossentry{PCAa}|glsseeformat[Glossary:]{PCA}}{Z}
-\glossaryentry{000002?\glossentry{SVMa}|glsseeformat[Glossary:]{SVM}}{Z}
-\glossaryentry{000001?\glossentry{PCAa}|setentrycounter[]{page}\glsnumberformat}{22}
-\glossaryentry{000002?\glossentry{SVMa}|setentrycounter[]{page}\glsnumberformat}{22}
+\glossaryentry{000001?\glossentry{MINRESa}|glsseeformat[Glossary:]{MINRES}}{Z}
+\glossaryentry{000002?\glossentry{DIISa}|glsseeformat[Glossary:]{DIIS}}{Z}
+\glossaryentry{000001?\glossentry{MINRESa}|setentrycounter[]{page}\glsnumberformat}{15}
+\glossaryentry{000002?\glossentry{DIISa}|setentrycounter[]{page}\glsnumberformat}{15}
+\glossaryentry{000001?\glossentry{MINRESa}|setentrycounter[]{page}\glsnumberformat}{24}
+\glossaryentry{000002?\glossentry{DIISa}|setentrycounter[]{page}\glsnumberformat}{24}

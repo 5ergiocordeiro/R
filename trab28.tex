@@ -147,11 +147,13 @@ e $ 0 \le n \le 100 $ e plotar o resultado.
 \setcounter{prob_num}{1}
 
 
+\iffalse
 \begin{pergunta}
 \perguntaa{}
 \end{pergunta}
 \begin{resposta}
 \end{resposta}
+\fi
 
 \begin{pergunta}
 \perguntab{}
@@ -210,20 +212,24 @@ Assim:
 	& = \frac{3 \times 5^n}{\jmath 8} \left( \frac{}{} \cos(2.21 n) + \jmath \sin(2.21 n) - \cos{-2.21 n} - \jmath \sin(-2.21 n) \right) \\
 	& = - \frac{3 \times 5^n}{4} \sin(2.21 n)
 \end{align*}
-A resposta a outro sinal $ e(t) $ pode ser obtida por convolução: $ y[n] = h[n] * e[n] $. \\
-
+O sistema é instável, e a resposta ao impulso diverge rapidamente. 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab28figc1.jpg} \\
+	$ h[n] $ \\
+\end{figure}%
+A resposta a outro sinal $ e(t) $ pode ser obtida por convolução: $ y[n] = h[n] * e[n] $. Por exemplo, se $ e[n] $ é um degrau unitário ($ u[n] = {1, 1, 1...} $): \\
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab28figc2.jpg} \\
+	$ y[n] = h[n] * u[n] $ \\
+\end{figure}%
 \end{resposta}
 
-\begin{thebibliography}{30}
+\clearpage
 
-%\newbibbk{LATHI 1998}{LATHI 1998}{Bhagawandas Pannalai LATHI}{Signal Processing and Linear Systems}{Cambridge Berkeley Press, Carmichael, 1998, ISBN 0-941413-35-7, Chap. 4.7, pp. 277 a 289}
-
-\end{thebibliography}
-
-\noindent\makebox[\linewidth]{\rule{\paperwidth}{1pt}}
-
-Simulação realizada com \textbf{Scilab} 5.5.2: \\
-\url{https://www.scilab.org} \\
+Gráficos produzidos com \textbf{Octave} 4.0.0: \\
+\url{https://www.gnu.org/software/octave/} \\
 Texto formatado com \textbf{pdflatex} em ambiente \textbf{MiKTeX} 2.9: \\
 \url{http://miktex.org/download/} \\ \\
 \end{document}
