@@ -265,7 +265,7 @@ Para esses dados (PIB e PIB per capita) faça:
 \perguntaa{}
 \end{pergunta}
 \begin{resposta}
-A decomposição SVD de uma matriz $ \matriz{A} $ consiste na sua substituição pelo produto de três outras matrizes: $ \matriz{A} = $ \matriz{U} \matriz{S} \matriz{V}^{(T)} \text{, onde } \matriz{U} \text{ e } \matriz{V} $ são unitárias e $ \matriz{S} $ é diagonal. Pode-se demonstrar que toda matriz pode ser decomposta dessa forma, e que a decomposição é única. \\
+A decomposição SVD de uma matriz $ \matriz{A} $ consiste na sua substituição pelo produto de três outras matrizes: $ \matriz{A} = \matriz{U} \matriz{S} \matriz{V}^{(T)} \text{, onde } \matriz{U} \text{ e } \matriz{V} $ são unitárias e $ \matriz{S} $ é diagonal. Pode-se demonstrar que toda matriz pode ser decomposta dessa forma, e que a decomposição é única, a menos da ordem das colunas das matrizes. \\
 \hlin
 A aplicação imediata da decomposição SVD é a solução mais fácil de um sistema linear, pois $ \matriz{U} \text{ e } \matriz{V} $ são matrizes unitárias, por isso suas transpostas são as inversas; $ \matriz{S} $, por sua vez, é diagonal, e encontrar sua inversa é trivial. Portanto:
 \begin{align*}
@@ -295,71 +295,72 @@ Os resultados obtidos são mostrados e tabelados a seguir. Foi usada apenas preci
     \begin{tabular}{|c|c|c|c|c|c|c|c|}
 		\hline
         \multicolumn{2}{|c|}{\textbf{n}} & \textbf{nome} & \multicolumn{2}{|c|}{\textbf{Número de condição}} & \multicolumn{2}{|c|}{\textbf{custo} \tablefootnote{Número de operações de ponto flutuante necessárias.}} & \textbf{iterações} \\
-		\textbf{antes} & \textbf{depois} & & \textbf{antes} & \textbf{depois} & \textbf{decomposição} &¨\textbf{compressão} & \\
+		\textbf{antes} & \textbf{depois} & & \textbf{antes} & \textbf{depois} & \textbf{decomp.} &¨\textbf{compr.} & \\
 		\hline
-		\multirow{4}{*}{$ 512 $} & $ 347 $ & \multirow{4}{*}{Lena} & \multirow{4}{*}{$ 38.146271 $} & $ 1.860093 $ & \multirow{4}{*}{$ 68728250624 $} & \multirow{4}{*}{$ 521 $} & \multirow{4}{*}{$ 406 $} \\
-		& $ 240 $ & & & $ 1.495879 $ & & & \\
-		& $ 149 $ & & & $ 1.273939 $ & & & \\
-		& $ 71 $ & & & $ 1.142361 $ & & & \\
-		\multirow{4}{*}{$ 512 $} & $ 336 $ & \multirow{4}{*}{Bárbara} & \multirow{4}{*}{$ 23.812378 $} & $ 1.879261 $ & \multirow{4}{*}{$ 68728250624 $} & \multirow{4}{*}{$ 521 $} & \multirow{4}{*}{$ 348 $} \\
-		& $ 232 $ & & & $ 1.471599 $ & & & \\
-		& $ 145 $ & & & $ 1.275514 $ & & & \\
-		& $ 68 $ & & & $ 1.138802 $ & & & \\
+		\multirow{4}{*}{$ 512 $} & $ 347 $ & \multirow{4}{*}{Lena} & \multirow{4}{*}{$ 38.146271 $} & $ 1.860093 $ & \multirow{4}{*}{$ 35047344300288 $} & $ 304347657 $ & \multirow{4}{*}{$ 406 $} \\
+		& $ 240 $ & & & $ 1.495879 $ & & $ 184041993 $ & \\
+		& $ 149 $ & & & $ 1.273939 $ & & $ 100176393 $ & \\
+		& $ 71 $ & & & $ 1.142361 $ & & $ 41789961 $ & \\
+		\hline
+		\multirow{4}{*}{$ 512 $} & $ 336 $ & \multirow{4}{*}{Bárbara} & \multirow{4}{*}{$ 23.812378 $} & $ 1.879261 $ & \multirow{4}{*}{$ 35047344300288 $} & $ 290898441 $ & \multirow{4}{*}{$ 348 $} \\
+		& $ 232 $ & & & $ 1.471599 $ & & $ 175989257 $ & \\
+		& $ 145 $ & & & $ 1.275514 $ & & $ 96879113 $ & \\
+		& $ 68 $ & & & $ 1.138802 $ & & $ 39793161 $ & \\
 		\hline
     \end{tabular}
 \end{minipage*}
 \\[2\baselineskip]
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.7\textwidth]{lena_gray.jpg} \\
+	\includegraphics[width=0.5\textwidth]{lena_gray.jpg} \\
 	Imagem original: Lena com 512 valores singulares
 \end{figure}%
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.7\textwidth]{barbara_gray.jpg} \\
+	\includegraphics[width=0.5\textwidth]{barbara_gray.jpg} \\
 	Imagem original: Bárbara com 512 valores singulares
 \end{figure}%
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.7\textwidth]{lena_347.jpg} \\
+	\includegraphics[width=0.5\textwidth]{lena_347.jpg} \\
 	Imagem comprimida: Lena com 347 valores singulares
 \end{figure}%
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.7\textwidth]{barbara_336.jpg} \\
+	\includegraphics[width=0.5\textwidth]{barbara_336.jpg} \\
 	Imagem comprimida: Bárbara com 336 valores singulares
 \end{figure}%
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.7\textwidth]{lena_240.jpg} \\
+	\includegraphics[width=0.5\textwidth]{lena_240.jpg} \\
 	Imagem comprimida: Lena com 240 valores singulares
 \end{figure}%
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.7\textwidth]{barbara_232.jpg} \\
+	\includegraphics[width=0.5\textwidth]{barbara_232.jpg} \\
 	Imagem comprimida: Bárbara com 232 valores singulares
 \end{figure}%
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.7\textwidth]{lena_149.jpg} \\
+	\includegraphics[width=0.5\textwidth]{lena_149.jpg} \\
 	Imagem comprimida: Lena com 149 valores singulares
 \end{figure}%
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.7\textwidth]{barbara_145.jpg} \\
+	\includegraphics[width=0.5\textwidth]{barbara_145.jpg} \\
 	Imagem comprimida: Bárbara com 145 valores singulares
 \end{figure}%
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.7\textwidth]{lena_71.jpg} \\
+	\includegraphics[width=0.5\textwidth]{lena_71.jpg} \\
 	Imagem comprimida: Lena com 71 valores singulares
 \end{figure}%
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.7\textwidth]{barbara_68.jpg} \\
+	\includegraphics[width=0.5\textwidth]{barbara_68.jpg} \\
 	Imagem comprimida: Bárbara com 68 valores singulares
 \end{figure}%
-Para a pronunciada compressão obtida, as imagens mostram que a informação importante foi preservada. 
+Para a pronunciada compressão obtida, as imagens mostram que a informação importante foi preservada. \\
 \end{resposta}
 
 \clearpage
@@ -368,6 +369,31 @@ Para a pronunciada compressão obtida, as imagens mostram que a informação import
 \perguntab{}
 \end{pergunta}
 \begin{resposta}
+A função de transferência $ \mathpzc{G}(s) = \frac{\mathpzc{I}(s)}{\mathpzc{V}(s)} $ correspondente é:
+\begin{align*}
+	\mathpzc{G}(s) &= \dfrac{1}{R + Ls + \frac{1}{Cs}} \\
+	& = \frac{Cs}{LCs^2 + RCs + 1}
+	& = \frac{Cs}{As^2 + Bs + 1} \qquad \Aboxed{LC = A \text{,} RC = B}
+\end{align*}
+O diagrama de simulação correspondente é o seguinte:
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab31b1.jpg} \\
+\end{figure}%
+e a saída simulada é a seguinte, para $ A = 0.001 \text{, } B = 0.003 \text{ e } C = 0.1 $:
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab31b2.jpg} \\
+\end{figure}%
+Evidentemente, $ C = 0.1 \; F \text{, } L = \frac{A}{C} = \frac{0.001}{0.1} = 0.01 \; H \text{ e } R = \frac{B}{C} = \frac{0.003}{0.1} = 0.03 \; \Omega $, que não são valores muito realísticos, mas servem como ilustração. \\
+As raízes da equação característica são:
+\begin{align*}
+	A \lambda^2 + B \lambda  + 1 = 0 \implies \qquad \lambda & = \frac{-B \pm \sqrt{B^2 - 4A}}{2A} \\
+	& = \frac{-0.003 \pm \sqrt{0.003^2 - 4 \times 0.001}}{2 \times 0.001} \\
+	& = \frac{-0.003 \pm \jmath 0.0632}{0.002} \\
+	& = -1.5 \pm \jmath 31.6
+\end{align*}
+Assim, a forma da resposta será $ y = D e^{-1.5t} \sin (31.6 t + E) $. Como $ y(0) = 0 \text{, então } E = 0 $. \\
 \end{resposta}
 
 \clearpage
@@ -376,6 +402,64 @@ Para a pronunciada compressão obtida, as imagens mostram que a informação import
 \perguntac{}
 \end{pergunta}
 \begin{resposta}
+I) Interpolação de Hermite: \\
+O programa \textbf{\texttt{exercmat.c}}, em anexo, escrito em C, lê uma tabela em disco e interpola um ponto pelo método de Hermite. Basta digitar:
+\listingsG
+\begin{lstlisting}[language=Ada]
+	exercmat 21 $ \textit{n} $
+\end{lstlisting}
+onde $ n $ é o tamanho da tabela (n x 3). Ele também calcula o número de operações em ponto flutuante necessário. \\
+Um caso prático, trabalhado por \cite{TOBÓN 2011}, é a aproximação da função $ y = \ln(x) $ por meio de um polinômio; em todos os pontos se conhece a derivada $ y' = \frac{1}{x}. $ Neste caso, foram usadas tabela com 6, 10 e 20 entradas, para $ 1 \le x \le 5.5 $, resultando em polinômios de grau crescente. O ponto interpolado foi $ x = 3.1 $; o valor exato é $ y = 1.131402 $. Os resultados obtidos estão mostrados abaixo. O valor obtido pela interpolação de Lagrange é também mostrado, para comparação. A interpolação de Lagrange pode ser obtida digitando-se:
+\listingsG
+\begin{lstlisting}[language=Ada]
+	exercmat 19 $ \textit{n} $
+\end{lstlisting}
+A técnica de Lagrange não considera o valor da derivada. \\
+\\[\baselineskip]
+\begin{minipage*}{\textwidth}
+\centering
+    \begin{tabular}{|c|c|c|c|}
+		\hline
+        \textbf{n} & \textbf{Hermite} & \textbf{Lagrange} & \textbf{custo} \tablefootnote{Número de operações de ponto flutuante necessárias.} \\
+		\hline
+		$ 3 $ & $ 1.31482 $ & $ 1.138113 $ & $ 81 $ \\
+		$ 5 $ & $ 1.31399 $ & $ 1.130888 $ & $ 215 $ \\
+		$ 10 $ & $ 1.31400 $ & $ 1.131401 $ & $ 830 $ \\
+		\hline
+    \end{tabular}
+\end{minipage*}
+O número ideal de entradas é 10, neste caso, 5 para $ y $ e 5 para $ y' $, que corresponde a um polinômio interpolador de grau 9. Mais pontos não melhoram muito a precisão e aumentam bastante o custo computacional. A técnica se mostrou superior à interpolação de Lagrange para o mesmo número de pontos. \\
+Uma grande desvantagem da técnica é que cada ponto a ser interpolado exige o recálculo de todos as grandezas \cite{FREITAS 2010,TOBÓN 2011}. \\
+\hlin
+II) \textit{Spline} cúbico: \\
+O problema anterior pode ser resolvido de forma alternativa por meio de \textit{spline} cúbico. O programa \textbf{\texttt{exercmat.c}}, em anexo, escrito em C, lê uma tabela em disco e interpola um ponto por tal método, considerando as derivadas ou não. Basta digitar:
+\listingsG
+\begin{lstlisting}[language=Ada]
+	exercmat 22 $ \textit{n} $
+\end{lstlisting}
+onde $ n $ é o tamanho da tabela. Ele também calcula o número de operações em ponto flutuante necessário. Verifica-se que a consideração da derivada melhora bastante a precisão e diminui o custo computacional. A exatidão, contudo, é inferior à obtida com um polinômio de mais alto grau. A técnica do spline, além de ser mais simples, ainda permite o reaproveitamento dos coeficientes para interpolação de outros pontos \cite{KUCKIR 2014,ONEILL 2002}. \\
+\\[\baselineskip]
+\begin{minipage*}{\textwidth}
+\centering
+    \begin{tabular}{|c|c|c|c}
+		\hline
+        \textbf{n} & \textbf{derivadas} & \textbf{resultado} & \textbf{custo} \tablefootnote{Número de operações de ponto flutuante necessárias.} \\
+		\hline
+		$ 5 $ & Não & $ 1.119492 $ & $ 127 $ \\
+		$ 10 $ & Não & $ 1.120845 $ & $ 317 $ \\
+		$ 5 $ & Sim & $ 1.31414 $ & $ 20 $ \\
+		$ 10 $ & Sim & $ 1.31404 $ & $ 20 $ \\
+		\hline
+    \end{tabular}
+\end{minipage*}
+\hlin
+III) Extrapolação: \\
+O problema anterior pode também ser resolvido por meio de extrapolação. O programa \textbf{\texttt{exercmat.c}}, em anexo, escrito em C, lê uma tabela em disco e extrapola um ponto por dois métodos: a extrapolação polinomial normal e a extrapolação de Richardson. Basta digitar:
+\listingsG
+\begin{lstlisting}[language=Ada]
+	exercmat 23 $ \textit{n} $
+\end{lstlisting}
+onde $ n $ é o tamanho da tabela. Ele também calcula o número de operações em ponto flutuante necessário. \\
 \end{resposta}
 
 \clearpage
@@ -440,32 +524,18 @@ Os seguintes arquivos constam do anexo (arquivo \textbf{\texttt{exercmat1.zip}})
 
 \begin{thebibliography}{30}
 
-\newbibit{FAH 2013}{FAH 2013}{Folding@home, Pande Lab, Stanford University}{FAQ: FLOPS}{https://folding.stanford.edu/home/faq/faq-flops/}{17/03/2016}
 
-\newbibsi{FASSHAUER 2006}{FASSHAUER 2006}{Greg FASSHAUER}{Numerical Linear Algebra/Computational Mathematics I}{Illinois Institute of Technology, 2006}{http://www.math.iit.edu/~fass/477577_Chapter_16.pdf}{25/03/2016}
+\newbibit{ONEILL 2002}{ONEILL 2002}{Charles O’NEILL}{Cubic Spline Interpolation MAE 5093}{http://charles-oneill.com/projects/cubicspline.pdf}{04/04/2016}
 
-\newbibit{GATR 2015}{GATR 2015}{GATR Technologies}{2.4m Antenna System Datasheet}{http://www.gatr.com/products/2-4-antenna-system}{21/03/2016}
+\newbibit{KUCKIR 2014}{KUCKIR 2014}{Ivan KUCKIR}{Interpolation with Cubic Splines}{http://blog.ivank.net/interpolation-with-cubic-splines.html}{05/04/2016}
 
-\newbibbk{INTEL 2016}{INTEL 2016}{INTEL Corporation}{Intel 64 and IA-32 Architectures Optimization Reference Manual}{2016, Tab. 15-3, pag. 15-9 a 15-10}
+\newbibit{TOBÓN 2011}{TOBÓN 2011}{Luis E. TOBÓN}{Newton, Lagrange and Hermite Interpolation: Convergence and Runge phenomena}{http://people.duke.edu/~let12/pdf/courses/math225/LuisTobon_HW1_Interpolation.pdf}{04/04/2016}
 
-\newbibpp{KAWAKAMI 1989}{KAWAKAMI 1989}{Y. KAWAKAMI, H. HOJO e M. UEBA}{Control Design of an Antenna Pointing Control System with Large On-board Reflectors}{T. NISHIMURA - 
-Automatic Control in Aerospace 1989: Selected Papers from The IFAC Symposium}
+\newbibit{FREITAS 2010}{FREITAS 2010}{Pedro Garcia FREITAS}{3.1.4 Aproximação de Funções — Interpolação — Interpolação de Hermite}{http://www.sawp.com.br/blog/?p=880}{04/04/2016}
 
-\newbibbk{MOON 2008}{MOON 2008}{Francis C. MOON}{Applied Dynamics: With Applications to Multibody and Mechatronic Systems}{2\textsuperscript{nd} Ed., 2008, Weinheim, Wiley-VCH, ISBN 978-3-527-40751-4, Chap. 5, pp. 228 a 231}
 
-\newbibit{NASA 1980}{NASA 1980}{National Aeronautics and Space Administration}{Satellite  Power  System (SPS) Antenna  Pointing  Control}{http://www.nss.org/settlement/ssp/library/NASACR3350-AntennaPointingControl.pdf}{21/03/2016}
 
-\newbibbk{PHILLIPS 1995}{PHILLIPS 1995}{Charles L. PHILLIPS e H. Troy NAGLE}{Digital Control System Analysis and Design}{Prentice Hall, Englewood Cliffs, 1995, 3 \textsuperscript{rd} Ed.}
 
-\newbibit{TAMAGAWA 2016}{TAMAGAWA 2016}{TAMAGAWA Seiki Corporation}{TBL-iIVseries AC Servomotor}{http://www.tamagawa-seiki.com/pdf/download/1699N1EJ_shusei.pdf}{21/03/2016}
-
-\newbibsi{TERAN 2013}{TERAN 2013}{Joseph M. TERAN}{Applied Numerical Linear Algebra Course Notes: Week 5}{Mathematics Department, UCLA, 2013}{http://www.math.ucla.edu/~jteran/270c.1.13s/notes_wk6.pdf}{25/03/2016}
-
-\newbibsi{USMANI 1994}{USMANI 1994}{Riaz A. USMANI}{Inversion of a Tridiagonal Jacobi Matrix}{Department  of Applied Mathematics, University of Manitoba, 1994}{http://ac.els-cdn.com/0024379594904146/1-s2.0-0024379594904146-main.pdf?_tid=1dc5a5dc-f2f2-11e5-9bd3-00000aacb35f&acdnat=1458955920_5a0cc77d01e9dbdd1dfc2d1e0b8627b1}{25/03/2016}
-
-\newbibsi{VANDENBERGHE 2012}{VANDENBERGHE 2012}{L. VANDENBERGHE}{Complexity of matrix algorithms}{EE103 - Applied Numerical Computing (Fall 2011-12), UCLA}{http://www.seas.ucla.edu/~vandenbe/103/lectures/flops.pdf}{26/03/2016}
-
-\newbibsi{VANDEBRIL 2004}{VANDEBRIL 2004}{Raf VANDEBRIL}{Semiseparable matrices and the symmetric eigenvalue problem}{Katholieke Universiteit Leuven, Faculteit Toegepaste Wetenschappen - Departement Computerwetenschappen, 2004}{http://www.cs.kuleuven.be/publicaties/doctoraten/tw/TW2004_03.pdf}{25/03/2016}
 
 \newbibit{WEISSTEIN 2016}{WEISSTEIN 2016}{Eric W. WEISSTEIN}{Positive Definite Matrix \textit{MathWorld}}{http://mathworld.wolfram.com/PositiveDefiniteMatrix.html}{17/03/2016}
 
