@@ -409,27 +409,32 @@ O programa \textbf{\texttt{exercmat.c}}, em anexo, escrito em C, lê uma tabela e
 	exercmat 21 $ \textit{n} $
 \end{lstlisting}
 onde $ n $ é o tamanho da tabela (n x 3). Ele também calcula o número de operações em ponto flutuante necessário. \\
-Um caso prático, trabalhado por \cite{TOBÓN 2011}, é a aproximação da função $ y = \ln(x) $ por meio de um polinômio; em todos os pontos se conhece a derivada $ y' = \frac{1}{x}. $ Neste caso, foram usadas tabela com 6, 10 e 20 entradas, para $ 1 \le x \le 5.5 $, resultando em polinômios de grau crescente. O ponto interpolado foi $ x = 3.1 $; o valor exato é $ y = 1.131402 $. Os resultados obtidos estão mostrados abaixo. O valor obtido pela interpolação de Lagrange é também mostrado, para comparação. A interpolação de Lagrange pode ser obtida digitando-se:
+Um caso prático, trabalhado por \cite{TOBÓN 2011}, é a aproximação da função $ y = \ln(x) $ por meio de um polinômio; em todos os pontos se conhece a derivada $ y' = \frac{1}{x}. $ Neste caso, foram usadas tabela com 6, 10 e 20 entradas, para $ 1 \le x \le 5.5 $, resultando em polinômios de grau crescente. O ponto interpolado foi $ x = 3.1 $; o valor exato é $ y = 1.131402 $. Os resultados obtidos estão mostrados abaixo. O valor obtido pela interpolação pelos métodos de Lagrange e de Neville também são mostrados, para comparação. A interpolação de Lagrange pode ser obtida digitando-se:
 \listingsG
 \begin{lstlisting}[language=Ada]
 	exercmat 19 $ \textit{n} $
 \end{lstlisting}
-A técnica de Lagrange não considera o valor da derivada. \\
+e a interpolação de Neville é obtida digitando-se:
+\listingsG
+\begin{lstlisting}[language=Ada]
+	exercmat 24 $ \textit{n} $
+\end{lstlisting}
+As técnicas de Lagrange e de Neville não consideram o valor da derivada. \\
 \\[\baselineskip]
 \begin{minipage*}{\textwidth}
 \centering
-    \begin{tabular}{|c|c|c|c|}
+    \begin{tabular}{|c|c|c|c|c|}
 		\hline
-        \textbf{n} & \textbf{Hermite} & \textbf{Lagrange} & \textbf{custo} \tablefootnote{Número de operações de ponto flutuante necessárias.} \\
+        \textbf{n} & \textbf{Hermite} & \textbf{Lagrange} & \textbf{Neville} & \textbf{custo} \tablefootnote{Número de operações de ponto flutuante necessárias.} \\
 		\hline
-		$ 3 $ & $ 1.31482 $ & $ 1.138113 $ & $ 81 $ \\
-		$ 5 $ & $ 1.31399 $ & $ 1.130888 $ & $ 215 $ \\
-		$ 10 $ & $ 1.31400 $ & $ 1.131401 $ & $ 830 $ \\
+		$ 3 $ & $ 1.31482 $ & $ 1.138113 $ & $ 1.124153 $ & $ 81 $ \\
+		$ 5 $ & $ 1.31399 $ & $ 1.130888 $ & $ 1.131802 $ & $ 215 $ \\
+		$ 10 $ & $ 1.31400 $ & $ 1.131401 $ & $ 1.131402 $ & $ 830 $ \\
 		\hline
     \end{tabular}
 \end{minipage*}
-O número ideal de entradas é 10, neste caso, 5 para $ y $ e 5 para $ y' $, que corresponde a um polinômio interpolador de grau 9. Mais pontos não melhoram muito a precisão e aumentam bastante o custo computacional. A técnica se mostrou superior à interpolação de Lagrange para o mesmo número de pontos. \\
-Uma grande desvantagem da técnica é que cada ponto a ser interpolado exige o recálculo de todos as grandezas \cite{FREITAS 2010,TOBÓN 2011}. \\
+O número ideal de entradas é 10, neste caso, 5 para $ y $ e 5 para $ y' $, que corresponde a um polinômio interpolador de grau 9. Mais pontos não melhoram muito a precisão e aumentam bastante o custo computacional. A técnica se mostrou superior às interpolações de Lagrange e de Neville para o mesmo número de pontos. \\
+Uma grande desvantagem da técnica é que cada ponto a ser interpolado exige o recálculo de todos as grandezas \cite{FREITAS 2010,PRESS 1992,TOBÓN 2011}. \\
 \hlin
 II) \textit{Spline} cúbico: \\
 O problema anterior pode ser resolvido de forma alternativa por meio de \textit{spline} cúbico. O programa \textbf{\texttt{exercmat.c}}, em anexo, escrito em C, lê uma tabela em disco e interpola um ponto por tal método, considerando as derivadas ou não. Basta digitar:
@@ -459,7 +464,21 @@ O problema anterior pode também ser resolvido por meio de extrapolação. O progra
 \begin{lstlisting}[language=Ada]
 	exercmat 23 $ \textit{n} $
 \end{lstlisting}
-onde $ n $ é o tamanho da tabela. Ele também calcula o número de operações em ponto flutuante necessário. \\
+onde $ n $ é o tamanho da tabela. Ele também calcula o número de operações em ponto flutuante necessário. Os resultados são mostrados abaixo: \\
+\\[\baselineskip]
+\begin{minipage*}{\textwidth}
+\centering
+    \begin{tabular}{|c|c|c|c}
+		\hline
+        \textbf{n} & \textbf{derivadas} & \textbf{resultado} & \textbf{custo} \tablefootnote{Número de operações de ponto flutuante necessárias.} \\
+		\hline
+		$ 10 $ & $ 1.791759 $ & $ 1.795995 $ & $ 1.798942 $ \\
+		$ 5 $ & Sim & $ 1.31414 $ & $ 20 $ \\
+		$ 10 $ & Sim & $ 1.31404 $ & $ 20 $ \\
+		\hline
+    \end{tabular}
+\end{minipage*}
+
 \end{resposta}
 
 \clearpage
@@ -533,8 +552,7 @@ Os seguintes arquivos constam do anexo (arquivo \textbf{\texttt{exercmat1.zip}})
 
 \newbibit{FREITAS 2010}{FREITAS 2010}{Pedro Garcia FREITAS}{3.1.4 Aproximação de Funções — Interpolação — Interpolação de Hermite}{http://www.sawp.com.br/blog/?p=880}{04/04/2016}
 
-
-
+{PRESS 1992}{PRESS 1992}{William H. PRESS, Saul A. TEUKOLSKY, William T. VETTERLING and Brian P. FLANNERY}{Numerical recipes in Fortran 77: The art of scientific computing Vol. 1}{Cambridge University Press, 2nd. Ed., 1992, ISBN 0-521-43064-X, Chap. 3. pp. 99 a 122}{http://www.fing.edu.uy/if/cursos/fiscomp/extras/numrec/book/f3.pdf}{06/04/2016}
 
 
 \newbibit{WEISSTEIN 2016}{WEISSTEIN 2016}{Eric W. WEISSTEIN}{Positive Definite Matrix \textit{MathWorld}}{http://mathworld.wolfram.com/PositiveDefiniteMatrix.html}{17/03/2016}
