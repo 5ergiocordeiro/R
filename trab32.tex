@@ -1,0 +1,573 @@
+% Quarta lista de exercícios de Métodos Numéricos
+% Preparado para MiKTeX 2.9. Gerar arquivo PDF com pdflatex.
+\documentclass[12pt,fleqn]{amsart}
+%\begin{}Preãmbulo
+\usepackage{enumitem}
+\usepackage{xstring}
+\usepackage[pdftex]{graphicx}
+\usepackage[a4paper]{geometry}
+\usepackage[english,brazilian]{babel}
+\usepackage[ansinew]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{comment}
+\usepackage{bigfoot}
+% Fontes
+\usepackage{textgreek}
+\usepackage{yfonts}
+\usepackage{microtype}
+\usepackage{calligra}
+\usepackage{lmodern}
+\usepackage{bookman}
+\usepackage[scaled]{helvet}
+%\usepackage{courier}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+%\usepackage{hyphenat}
+%\hyphenation{mate-mática recu-perar}
+\usepackage{fmtcount}
+\usepackage[nonumberlist,acronym,sort=def]{glossaries}
+% Formatação
+\usepackage{sidecap}
+\usepackage{fixltx2e}
+\usepackage{float}
+\usepackage{listings}
+\usepackage[numbered,framed]{matlab-prettifier}
+\usepackage{multirow}
+\usepackage{pdflscape}
+\usepackage{footnote}
+\usepackage{tablefootnote}
+% Símbolos matemáticos
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{wasysym}
+\usepackage{mathtools}
+\usepackage{bbm}
+\usepackage{mbboard}
+\usepackage{bm}
+% Desenhos
+\usepackage{tikz}
+
+\usetikzlibrary{shapes,arrows}
+
+%\end{}
+
+\title{Métodos Numéricos - Lista de Exercícios III}
+\date{}
+\author{Sérgio Cordeiro}
+%\end{}
+
+%\begin{}Comandos
+\renewcommand*\contentsname{Sumário}
+
+\newenvironment{inthisrev}{
+	\color{blue}
+	}{
+	\color{black}
+	}
+
+\newenvironment{myquote}{
+	\begin{quote}
+	\fontfamily{lmr} \selectfont
+	{\huge ``}}{{\huge ''}
+	\end{quote}
+	}
+
+\newenvironment{pergunta}{
+	\par
+	\trivlist
+	\fontfamily{phv}
+	\selectfont
+	\item\arabic{prob_num}. 
+	}{
+	\endtrivlist
+	}
+
+\newenvironment{resposta}{
+	\trivlist
+    \vspace{3pt}
+	\fontfamily{pbk}
+	\selectfont
+	\item
+	}{
+	\vspace{3pt}
+	\noindent\makebox[\linewidth]{\rule{\paperwidth}{1pt}}
+	\endtrivlist
+	\stepcounter{prob_num}
+	}
+
+\newenvironment{lista}{
+	\vspace{-5mm}
+	\begin{itemize}}{
+	\end{itemize}	
+	\vspace{-5mm}}
+
+\newenvironment{listaf}{
+	\vspace{-5mm}
+	\begin{itemize}}{
+	\end{itemize}}
+
+\newenvironment{listae}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}	
+	\vspace{-5mm}}
+
+\newenvironment{listaef}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}}
+
+\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
+
+\newcommand{\matriz}[1]{\mathbf{#1}}
+
+\newcommand{\dt}[1]{\frac{d {#1}}{dt}}					% derivada temporal
+\newcommand{\ddt}[1]{\frac{d^2 {#1}}{dt^2}}				% derivada segunda temporal
+\newcommand{\dddt}[1]{\frac{d^3 {#1}}{dt^3}}			% derivada terceira temporal
+\newcommand{\dtau}[1]{\frac{d {#1}}{d \tau}}			% derivada temporal
+\newcommand{\ddtau}[1]{\frac{d^2 {#1}}{d \tau^2}}		% derivada segunda temporal
+
+\newcommand{\newbibit}[6]{\bibitem[#1]{#2}#3, {\bf #4}. Disponível em \url{#5}, acesso em #6.}
+\newcommand{\newbibpp}[5]{\bibitem[#1]{#2}#3, {\bf #4}, \emph{in} #5.}
+\newcommand{\newbibbk}[5]{\bibitem[#1]{#2}#3, {\bf #4}, #5.}
+\newcommand{\newbibip}[6]{\bibitem[#1]{#2}#3, {\bf #4}, \emph{in} #5, disponível em \url{#6}.}
+\newcommand{\newbiboc}[4]{\bibitem[#1]{#2}#3, \textit{op. cit.}, #4.}
+\newcommand{\newbibsi}[7]{\bibitem[#1]{#2}#3, {\bf #4}: {#5}. Disponível em \url{#6}, acesso em #7.}
+
+\newenvironment{iquote}{\begin{quote}\itshape}{\end{quote}}
+
+\BeforeBeginEnvironment{figure}{\vskip-1ex}
+\AfterEndEnvironment{figure}{\vskip-4ex}
+
+% Linhas divisórias
+\newcommand{\hhhlin}{\noindent\hfil\rule{0.25\textwidth}{.2pt}\hfil\newline}
+\newcommand{\hhlin}{\noindent\hfil\rule{0.5\textwidth}{.4pt}\hfil\newline}
+\newcommand{\hlin}{\noindent\hfil\rule{\textwidth}{.8pt}\hfil\newline}
+
+% Listagens
+\newcommand{\listingsO}{\lstset{language=Octave,literate={^}{\textasciicircum}1,frame=single,style=Matlab-editor,basicstyle={\tiny},breaklines=true,numbers=left,numberstyle={\color{red}},numbersep=9pt,showstringspaces=false,keepspaces=false,tabsize=2}}
+\newcommand{\listingsC}{\lstset{language=C,frame=single,basicstyle={\tiny},breaklines=true,numbers=left,numberstyle={\color{red}},numbersep=9pt,showstringspaces=false,keepspaces=false,tabsize=2}}
+\newcommand{\listingsG}{\lstset{language=Ada,frame=none,basicstyle={\ttfamily\bfseries},numbers=none,tabsize=2,mathescape}}
+
+%\end{}
+
+%\begin{}Perguntas
+
+\newcommand{\perguntaa}{Sobre SVD: apresente modelagem matemática para calculo; apresente aplicações práticas; escolha uma aplicação associada à compressão de matrizes e faça a decomposição, a compressão e a analise o número de condicionamento antes e depois da compressão. Comente e analise todos os resultados.}
+\newcommand{\perguntab}{Simule (utilizando qualquer software) o circuito da figura 1 e obtenha a tabela de valores (t (seg) e I (A)). Resolva analiticamente o circuito. Faça o ajuste da função utilizando regressão (avalie a que melhor se adeque a esse problema). Plote em um gráfico os valores simulados, calculados (solução analítica) e os valores obtidos a partir da regressão. Escolha os valores para os elementos de forma que a resposta seja oscilatória. Comente os resultados.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab31figb1.jpg} \\
+\end{figure}%
+}
+\newcommand{\perguntac}{Para os Tópicos: Interpolação de Hermite, Interpolação com Spline Cúbico e Extrapolação faça:
+\begin{lista}
+	\item Descrição de um problema real;
+	\item Modelagem matemática e numérica (código em anexo);
+	\item Resultados e conclusões
+\end{lista}
+}
+\newcommand{\perguntad}{O gráfico a seguir apresenta as variações do PIB e PIB/percapita.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab31figd1.jpg} \\
+\end{figure}%
+Para esses dados (PIB e PIB per capita) faça:
+\begin{listae}[1]
+	\item Encontre o polinômio interpolador que melhor represente essa função (PI de maior grau possível) (Use interpolação);
+	\item Plote o diagrama de dispersão e o PI encontrado;
+	\item Comente todos os resultados
+\end{listae}
+}
+%\end{}
+
+%\begin{}Glossário
+\renewcommand{\glossarymark}[1]{}
+\glsnogroupskiptrue
+\makeglossaries
+\makeindex
+\setglossarystyle{list}
+
+\newglossaryentry{DecQR}{
+  name={Decomposição QR},
+  text={decomposição QR},  
+  description={É decomposição de uma matrz em um produto de duas matrizes, $ \matriz{Q} \text{ e } \matriz{R} \text{, em que } \matriz{Q} $ é uma \gls{MatOrt} e $ \matriz{R} $ é uma matriz triangular superior}
+  }%
+\newglossaryentry{DIIS}{
+  name={\textit{Direct Inversion in the Iterative Subspace}},
+  text={DIIS},
+  description={Também conhecida como \textbf{Mistura de Pulay} (\textit{Pulay Mixing}), é uma técnica iterativa de extrapolação em que o novo valor é obtido como combinação dos vetores de erro referentes às iterações prévias, de forma a minimizar o vetor de coeficientes}
+  }%
+\newglossaryentry{MatHess}{
+  name={Matriz de Hessenberg},
+  text={matriz de Hessenberg},  
+  description={É uma matriz quase triangular, ou seja, uma matriz cujos elementos são nulos a não ser acima da diagonal imediatamente abaixo da principal (matriz de Hessenberg superior) ou abaixo da diagonal imediatamente acima da principal (matriz de Hessenberg inferior)}
+  }%
+\newglossaryentry{MatOrt}{
+  name={Matriz ortogonal},
+  text={matriz ortogonal},  
+  description={É uma matriz quadrada cujas linhas e colunas são todas vetores ortonormais}
+  }%
+\newglossaryentry{MatSemSep}{
+  name={Matriz semi-separável},
+  text={matriz semi-separável},  
+  description={É uma matriz cujo rank, considerada apenas a parte inferior até a diagonal acima da principal, é igual ou menor que 1}
+  }%
+\newglossaryentry{MINRES}{
+  name={\textit{Minimal Residual}},
+  text={MINRES},  
+  description={Método iterativo para solução de sistemas lineares simétricos e esparsos que tenta minimizar alguma norma do resíduo}
+  }%
+\newglossaryentry{Ref}{
+  name={Refletor},
+  text={refletor},
+  plural={refletores},
+  description={É uma matriz cujo determinate é igual a -1}
+  }%
+\newglossaryentry{RefHou}{
+  name={Refletor de Householder},
+  text={refletor de Householder},  
+  plural={refletores de Householder},  
+  description={É um \gls{Ref} que, aplicado a uma outra matriz, produz uma reflexão da mesma em torno da origem. É usado no algoritmo de \gls{DecQR}}
+  }%
+\newacronym[see={[Glossary:]{MINRES}}]{MINRESa}{MINRES}{\glslink{MINRES}{\textit{Minimal Residual}}}%
+\newacronym[see={[Glossary:]{DIIS}}]{DIISa}{DIIS}{\glslink{DIIS}{\textit{Direct Inversion in the Iterative Subspace}}}%
+
+%\end{}
+
+\begin{document}
+
+\setlength{\parskip}{1em}
+\setlength{\jot}{10pt}
+\setlength{\parindent}{0pt}
+
+\maketitle
+
+\tableofcontents
+
+\newcounter{prob_num}
+\setcounter{prob_num}{1}
+
+\clearpage
+
+\begin{pergunta}
+\perguntaa{}
+\end{pergunta}
+\begin{resposta}
+A decomposição SVD de uma matriz $ \matriz{A} $ consiste na sua substituição pelo produto de três outras matrizes: $ \matriz{A} = \matriz{U} \matriz{S} \matriz{V}^{(T)} \text{, onde } \matriz{U} \text{ e } \matriz{V} $ são unitárias e $ \matriz{S} $ é diagonal. Pode-se demonstrar que toda matriz pode ser decomposta dessa forma, e que a decomposição é única, a menos da ordem das colunas das matrizes. \\
+\hlin
+A aplicação imediata da decomposição SVD é a solução mais fácil de um sistema linear, pois $ \matriz{U} \text{ e } \matriz{V} $ são matrizes unitárias, por isso suas transpostas são as inversas; $ \matriz{S} $, por sua vez, é diagonal, e encontrar sua inversa é trivial. Portanto:
+\begin{align*}
+	\matriz{A} \matriz{x} = \matriz{b} \implies \qquad \matriz{x} & = \matriz{A}^{-1} \matriz{b} \\
+	& = \left( \frac{}{} \matriz{U} \matriz{S} \matriz{V}^{(T)} \right)^{-1} \matriz{b} \\
+	& = \matriz{V} \matriz{S}^{-1} \matriz{U}^{(T)} \matriz{b} \\
+\end{align*}
+Uma segunda aplicação é a compressão da matriz, que pode ser expressa pelo produto $ \matriz{\hat{U}} \matriz{\hat{S}} \matriz{\hat{V}}^{(T)} $, com as matrizes $ \matriz{\hat{U}} \text{, } \matriz{\hat{S}} \text{ e } \matriz{\hat{V}}^{(T)} $ derivadas das originais por eliminação de colunas menos significativas, correspondentes a valores singulares de menor valor absoluto. \\
+Uma terceira aplicação é a diminuição do número de condicionamento da matriz, através da eliminação dos valores singulares com menor valor absoluto. \\
+\hlin
+A compressão de matrizes por meio da decomposição SVD usa a técnica conhecida como \textit{low-rank approximation}: após encontrarem-se os $ n $ autovalores, selecionam-se os $ m $ maiores; todas linhas de $ \matriz{U} \text{ e } \matriz{V} $ são mantidas, mas apenas as $ m $ colunas que correspondem aos maiores autovalores dessas matrizes; quanto a $ \matriz{S} $, são selecionadas tanto as linhas quanto as colunas que correspondem aos autovalores mais importantes. O resultado é uma matriz $ \matriz{C} $ que tem o mesmo tamanho da matriz original, mas apenas $ m $ autovalores. \\
+A manutenção dos maiores autovalores faz com que a maior parte da variãncia original seja preservada, e com ela, a informação relevante. O número de condição, por sua vez, é bastante melhorado. \\ 
+\hlin
+A aplicação escolhida foi a compressão de imagens em preto e branco, com e sem introdução de ruído. As imagens originais foram obtidas no banco de dados do Departamento de Engenharia Elétrica e de Computação do Instituto Politécnico da Universidade de Nova York. \\
+O programa \textbf{\texttt{exercmat.c}}, em anexo, escrito em C, lê uma matriz em disco e comprime-a pelo método de decomposição SVD, calculando o número de condicionamento antes e depois da compressão. Basta digitar:
+\listingsG
+\begin{lstlisting}[language=Ada]
+	exercmat 20 $ \textit{n} $
+\end{lstlisting}
+onde $ n $ é o tamanho da matriz (n x n). Ele também calcula o número de operações em ponto flutuante necessário para cada etapa. O próprio programa tenta descobrir qual é a maior taxa de compressão possível sem que resulte perda expressiva de dados. \\
+O algoritmo é totalmente genérico, e pode ser aplicado diretamente a uma matriz que representa uma imagem. Para este exercício, experimentou-se com alguns valores diferentes para a taxa de compressão. \\
+O algoritmo usa o método de Jacobi para encontrar os autovalores e autovetores da matriz $ \matriz{A}^{(T)} \matriz{A} $, o que não é uma solução ótima. \\
+Os resultados obtidos são mostrados e tabelados a seguir. Foi usada apenas precisão simples, de forma a favorecer a ocorrência de erros de arredondamento. \\
+\\[\baselineskip]
+\begin{minipage*}{\textwidth}
+\centering
+    \begin{tabular}{|c|c|c|c|c|c|c|c|}
+		\hline
+        \multicolumn{2}{|c|}{\textbf{n}} & \textbf{nome} & \multicolumn{2}{|c|}{\textbf{Número de condição}} & \multicolumn{2}{|c|}{\textbf{custo} \tablefootnote{Número de operações de ponto flutuante necessárias.}} & \textbf{iterações} \\
+		\textbf{antes} & \textbf{depois} & & \textbf{antes} & \textbf{depois} & \textbf{decomp.} &¨\textbf{compr.} & \\
+		\hline
+		\multirow{4}{*}{$ 512 $} & $ 347 $ & \multirow{4}{*}{Lena} & \multirow{4}{*}{$ 38.146271 $} & $ 1.860093 $ & \multirow{4}{*}{$ 35047344300288 $} & $ 304347657 $ & \multirow{4}{*}{$ 406 $} \\
+		& $ 240 $ & & & $ 1.495879 $ & & $ 184041993 $ & \\
+		& $ 149 $ & & & $ 1.273939 $ & & $ 100176393 $ & \\
+		& $ 71 $ & & & $ 1.142361 $ & & $ 41789961 $ & \\
+		\hline
+		\multirow{4}{*}{$ 512 $} & $ 336 $ & \multirow{4}{*}{Bárbara} & \multirow{4}{*}{$ 23.812378 $} & $ 1.879261 $ & \multirow{4}{*}{$ 35047344300288 $} & $ 290898441 $ & \multirow{4}{*}{$ 348 $} \\
+		& $ 232 $ & & & $ 1.471599 $ & & $ 175989257 $ & \\
+		& $ 145 $ & & & $ 1.275514 $ & & $ 96879113 $ & \\
+		& $ 68 $ & & & $ 1.138802 $ & & $ 39793161 $ & \\
+		\hline
+    \end{tabular}
+\end{minipage*}
+\\[2\baselineskip]
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{lena_gray.jpg} \\
+	Imagem original: Lena com 512 valores singulares
+\end{figure}%
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{barbara_gray.jpg} \\
+	Imagem original: Bárbara com 512 valores singulares
+\end{figure}%
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{lena_347.jpg} \\
+	Imagem comprimida: Lena com 347 valores singulares
+\end{figure}%
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{barbara_336.jpg} \\
+	Imagem comprimida: Bárbara com 336 valores singulares
+\end{figure}%
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{lena_240.jpg} \\
+	Imagem comprimida: Lena com 240 valores singulares
+\end{figure}%
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{barbara_232.jpg} \\
+	Imagem comprimida: Bárbara com 232 valores singulares
+\end{figure}%
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{lena_149.jpg} \\
+	Imagem comprimida: Lena com 149 valores singulares
+\end{figure}%
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{barbara_145.jpg} \\
+	Imagem comprimida: Bárbara com 145 valores singulares
+\end{figure}%
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{lena_71.jpg} \\
+	Imagem comprimida: Lena com 71 valores singulares
+\end{figure}%
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{barbara_68.jpg} \\
+	Imagem comprimida: Bárbara com 68 valores singulares
+\end{figure}%
+Para a pronunciada compressão obtida, as imagens mostram que a informação importante foi preservada. \\
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntab{}
+\end{pergunta}
+\begin{resposta}
+A função de transferência $ \mathpzc{G}(s) = \frac{\mathpzc{I}(s)}{\mathpzc{V}(s)} $ correspondente é:
+\begin{align*}
+	\mathpzc{G}(s) &= \dfrac{1}{R + Ls + \frac{1}{Cs}} \\
+	& = \frac{Cs}{LCs^2 + RCs + 1}
+	& = \frac{Cs}{As^2 + Bs + 1} \qquad \Aboxed{LC = A \text{,} RC = B}
+\end{align*}
+O diagrama de simulação correspondente é o seguinte:
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab31b1.jpg} \\
+\end{figure}%
+e a saída simulada é a seguinte, para $ A = 0.001 \text{, } B = 0.003 \text{ e } C = 0.1 $:
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab31b2.jpg} \\
+\end{figure}%
+Evidentemente, $ C = 0.1 \; F \text{, } L = \frac{A}{C} = \frac{0.001}{0.1} = 0.01 \; H \text{ e } R = \frac{B}{C} = \frac{0.003}{0.1} = 0.03 \; \Omega $, que não são valores muito realísticos, mas servem como ilustração. \\
+As raízes da equação característica são:
+\begin{align*}
+	A \lambda^2 + B \lambda  + 1 = 0 \implies \qquad \lambda & = \frac{-B \pm \sqrt{B^2 - 4A}}{2A} \\
+	& = \frac{-0.003 \pm \sqrt{0.003^2 - 4 \times 0.001}}{2 \times 0.001} \\
+	& = \frac{-0.003 \pm \jmath 0.0632}{0.002} \\
+	& = -1.5 \pm \jmath 31.6
+\end{align*}
+Assim, a forma da resposta será $ y = D e^{-1.5t} \sin (31.6 t + E) $. Como $ y(0) = 0 \text{, então } E = 0 $. \\
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntac{}
+\end{pergunta}
+\begin{resposta}
+I) Interpolação de Hermite: \\
+O programa \textbf{\texttt{exercmat.c}}, em anexo, escrito em C, lê uma tabela em disco e interpola um ponto pelo método de Hermite. Basta digitar:
+\listingsG
+\begin{lstlisting}[language=Ada]
+	exercmat 21 $ \textit{n} $
+\end{lstlisting}
+onde $ n $ é o tamanho da tabela (n x 3). Ele também calcula o número de operações em ponto flutuante necessário. \\
+Um caso prático, trabalhado por \cite{TOBÓN 2011}, é a aproximação da função $ y = \ln(x) $ por meio de um polinômio; em todos os pontos se conhece a derivada $ y' = \frac{1}{x}. $ Neste caso, foram usadas tabela com 6, 10 e 20 entradas, para $ 1 \le x \le 5.5 $, resultando em polinômios de grau crescente. O ponto interpolado foi $ x = 3.1 $; o valor exato é $ y = 1.131402 $. Os resultados obtidos estão mostrados abaixo. O valor obtido pela interpolação pelos métodos de Lagrange e de Neville também são mostrados, para comparação. A interpolação de Lagrange pode ser obtida digitando-se:
+\listingsG
+\begin{lstlisting}[language=Ada]
+	exercmat 19 $ \textit{n} $
+\end{lstlisting}
+e a interpolação de Neville é obtida digitando-se:
+\listingsG
+\begin{lstlisting}[language=Ada]
+	exercmat 24 $ \textit{n} $
+\end{lstlisting}
+As técnicas de Lagrange e de Neville não consideram o valor da derivada. \\
+\\[\baselineskip]
+\begin{minipage*}{\textwidth}
+\centering
+    \begin{tabular}{|c|c|c|c|c|}
+		\hline
+        \textbf{n} & \textbf{Hermite} & \textbf{Lagrange} & \textbf{Neville} & \textbf{custo} \tablefootnote{Número de operações de ponto flutuante necessárias.} \\
+		\hline
+		$ 3 $ & $ 1.31482 $ & $ 1.138113 $ & $ 1.124153 $ & $ 81 $ \\
+		$ 5 $ & $ 1.31399 $ & $ 1.130888 $ & $ 1.131802 $ & $ 215 $ \\
+		$ 10 $ & $ 1.31400 $ & $ 1.131401 $ & $ 1.131402 $ & $ 830 $ \\
+		\hline
+    \end{tabular}
+\end{minipage*}
+O número ideal de entradas é 10, neste caso, 5 para $ y $ e 5 para $ y' $, que corresponde a um polinômio interpolador de grau 9. Mais pontos não melhoram muito a precisão e aumentam bastante o custo computacional. A técnica se mostrou superior às interpolações de Lagrange e de Neville para o mesmo número de pontos. \\
+Uma grande desvantagem da técnica é que cada ponto a ser interpolado exige o recálculo de todos as grandezas \cite{FREITAS 2010,PRESS 1992,TOBÓN 2011}. \\
+\hlin
+II) \textit{Spline} cúbico: \\
+O problema anterior pode ser resolvido de forma alternativa por meio de \textit{spline} cúbico. O programa \textbf{\texttt{exercmat.c}}, em anexo, escrito em C, lê uma tabela em disco e interpola um ponto por tal método, considerando as derivadas ou não. Basta digitar:
+\listingsG
+\begin{lstlisting}[language=Ada]
+	exercmat 22 $ \textit{n} $
+\end{lstlisting}
+onde $ n $ é o tamanho da tabela. Ele também calcula o número de operações em ponto flutuante necessário. Verifica-se que a consideração da derivada melhora bastante a precisão e diminui o custo computacional. A exatidão, contudo, é inferior à obtida com um polinômio de mais alto grau. A técnica do spline, além de ser mais simples, ainda permite o reaproveitamento dos coeficientes para interpolação de outros pontos \cite{KUCKIR 2014,ONEILL 2002}. \\
+\\[\baselineskip]
+\begin{minipage*}{\textwidth}
+\centering
+    \begin{tabular}{|c|c|c|c}
+		\hline
+        \textbf{n} & \textbf{derivadas} & \textbf{resultado} & \textbf{custo} \tablefootnote{Número de operações de ponto flutuante necessárias.} \\
+		\hline
+		$ 5 $ & Não & $ 1.119492 $ & $ 127 $ \\
+		$ 10 $ & Não & $ 1.120845 $ & $ 317 $ \\
+		$ 5 $ & Sim & $ 1.31414 $ & $ 20 $ \\
+		$ 10 $ & Sim & $ 1.31404 $ & $ 20 $ \\
+		\hline
+    \end{tabular}
+\end{minipage*}
+\hlin
+III) Extrapolação: \\
+O problema anterior pode também ser resolvido por meio de extrapolação. O programa \textbf{\texttt{exercmat.c}}, em anexo, escrito em C, lê uma tabela em disco e extrapola um ponto por dois métodos: a extrapolação polinomial normal e a extrapolação de Richardson. Basta digitar:
+\listingsG
+\begin{lstlisting}[language=Ada]
+	exercmat 23 $ \textit{n} $
+\end{lstlisting}
+onde $ n $ é o tamanho da tabela. Ele também calcula o número de operações em ponto flutuante necessário. Os resultados são mostrados abaixo: \\
+\\[\baselineskip]
+\begin{minipage*}{\textwidth}
+\centering
+    \begin{tabular}{|c|c|c|c}
+		\hline
+        \textbf{n} & \textbf{derivadas} & \textbf{resultado} & \textbf{custo} \tablefootnote{Número de operações de ponto flutuante necessárias.} \\
+		\hline
+		$ 10 $ & $ 1.791759 $ & $ 1.795995 $ & $ 1.798942 $ \\
+		$ 5 $ & Sim & $ 1.31414 $ & $ 20 $ \\
+		$ 10 $ & Sim & $ 1.31404 $ & $ 20 $ \\
+		\hline
+    \end{tabular}
+\end{minipage*}
+
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntad{}
+\end{pergunta}
+\begin{resposta}
+O programa \textbf{\texttt{exercmat.c}}, em anexo, escrito em C, lê uma tabela em disco e encontra o polinômio interpolador com o maior grau possível. Basta digitar:
+\listingsG
+\begin{lstlisting}[language=Ada]
+	exercmat 18 $ \textit{n} $
+\end{lstlisting}
+onde $ n $ é o tamanho da tabela (n x 2). Ele também calcula o número de operações em ponto flutuante necessário para cada etapa. \\
+Os coeficientes encontrados para o PIB foram: \\
+$ a_9 = 5.900000 \text{, } a_8 = 24.808952 \text{, } a_7 = -60.370991 \text{, } a_6 = 49.870708 \text{, } a_5 = -19.498470 \text{,} $ \\
+$ a_4 = 3.804901 \text{, } a_3 = -0.311178 \text{, } a_2 = -0.005871 \text{, } a_1 = 0.002509 \text{, } a_0 = -0.000111 $ \\
+A expressão do polinômio interpolador é: \\
+$ y = \sum_{i = 0}^9 a_i x^i $ \\
+com $ x = ano - 1994 $.
+Os coeficientes encontrados para o PIB per capita foram: \\
+$ a_9 = 4.300000 \text{, } a_8 = 26.969584 \text{, } a_7 = -64.837807 \text{, } a_6 = 53.848827 \text{, } a_5 = -21.452248 \text{,} $ \\
+$ a_4 = 4.385204 \text{, } a_3 = -0.417683 \text{, } a_2 = 0.005891 \text{, } a_1 = 0.001795 \text{, } a_0 = -0.000093 $. \\
+\end{resposta}
+
+\clearpage
+
+%\end{}section
+
+\section{Anexos}
+Os seguintes arquivos constam do anexo (arquivo \textbf{\texttt{exercmat1.zip}}):
+\begin{lista}
+	\item arquivo fonte em C \textbf{\texttt{exercmat.c}}
+	\item arquivos fontes em MATLAB:
+	\begin{itemize}
+		\item \textbf{\texttt{gerachol.m}}: problema 2
+		\item \textbf{\texttt{geradsis.m}}: problema 5
+		\item \textbf{\texttt{geraL.m}}: problema 11
+	\end{itemize}		
+	\item arquivos de dados:
+	\begin{itemize}
+		\item S\textit{n}: problemas 1, 3 e 4
+		\item C\textit{n}: problemas 2, 7 e 8
+		\item D\textit{n}: problemas 5 e 6
+	\end{itemize}	
+\end{lista}
+
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{1pt}}
+
+\clearpage
+
+%\end{}section
+
+\glsaddall
+\printglossaries
+%\printglossary[type=main]
+%\printglossary[type=\acronymtype]
+
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{1pt}}
+
+\clearpage
+
+\begin{thebibliography}{30}
+
+\newbibsi{INTEL 2016}{INTEL 2016}{INTEL Corporation}{Intel 64 and IA-32 Architectures Optimization Reference Manual}{2016, Tab. 15-3, pag. 15-9 a 15-10}{https://www-ssl.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-optimization-manual.pdf}{16/04/2016}
+
+
+\newbibit{ONEILL 2002}{ONEILL 2002}{Charles O’NEILL}{Cubic Spline Interpolation MAE 5093}{http://charles-oneill.com/projects/cubicspline.pdf}{04/04/2016}
+
+\newbibit{KUCKIR 2014}{KUCKIR 2014}{Ivan KUCKIR}{Interpolation with Cubic Splines}{http://blog.ivank.net/interpolation-with-cubic-splines.html}{05/04/2016}
+
+\newbibit{TOBÓN 2011}{TOBÓN 2011}{Luis E. TOBÓN}{Newton, Lagrange and Hermite Interpolation: Convergence and Runge phenomena}{http://people.duke.edu/~let12/pdf/courses/math225/LuisTobon_HW1_Interpolation.pdf}{04/04/2016}
+
+\newbibit{FREITAS 2010}{FREITAS 2010}{Pedro Garcia FREITAS}{3.1.4 Aproximação de Funções — Interpolação — Interpolação de Hermite}{http://www.sawp.com.br/blog/?p=880}{04/04/2016}
+
+{PRESS 1992}{PRESS 1992}{William H. PRESS, Saul A. TEUKOLSKY, William T. VETTERLING and Brian P. FLANNERY}{Numerical recipes in Fortran 77: The art of scientific computing Vol. 1}{Cambridge University Press, 2nd. Ed., 1992, ISBN 0-521-43064-X, Chap. 3. pp. 99 a 122}{http://www.fing.edu.uy/if/cursos/fiscomp/extras/numrec/book/f3.pdf}{06/04/2016}
+
+
+\newbibit{WEISSTEIN 2016}{WEISSTEIN 2016}{Eric W. WEISSTEIN}{Positive Definite Matrix \textit{MathWorld}}{http://mathworld.wolfram.com/PositiveDefiniteMatrix.html}{17/03/2016}
+
+\end{thebibliography}
+
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{1pt}}
+
+Programas testados com \textbf{Octave} 4.0.0 e \textbf{MinGW} C 4.8.2: \\
+\url{https://www.gnu.org/software/octave/} \\
+\url{https://www.mingw.org} \\
+Texto formatado com \textbf{pdflatex} em ambiente \textbf{MiKTeX} 2.9: \\
+\url{http://miktex.org/download/} \\ \\
+\end{document}
+Imagens de teste obtidas em:
+\url{http://eeweb.poly.edu/~yao/EL5123/SampleData.html}

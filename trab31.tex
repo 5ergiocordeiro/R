@@ -171,7 +171,7 @@
 	\includegraphics[width=0.7\textwidth]{trab31figb1.jpg} \\
 \end{figure}%
 }
-\newcommand{\perguntac}{Para os Tópicos: Interpolação de Hermite, Interpolação com Spline Cúbico e Extrapolação faça:
+\newcommand{\perguntac}{Para os Tópicos: Interpolação de Hermite, Interpolação com \textit{Spline} Cúbico e Extrapolação faça:
 \begin{lista}
 	\item Descrição de um problema real;
 	\item Modelagem matemática e numérica (código em anexo);
@@ -261,6 +261,7 @@ Para esses dados (PIB e PIB per capita) faça:
 
 \clearpage
 
+\section{Problemas}
 \begin{pergunta}
 \perguntaa{}
 \end{pergunta}
@@ -292,20 +293,40 @@ Os resultados obtidos são mostrados e tabelados a seguir. Foi usada apenas preci
 \\[\baselineskip]
 \begin{minipage*}{\textwidth}
 \centering
-    \begin{tabular}{|c|c|c|c|c|c|c|c|}
+    \begin{tabular}{|c|c|c|c|c|c|}
 		\hline
-        \multicolumn{2}{|c|}{\textbf{n}} & \textbf{nome} & \multicolumn{2}{|c|}{\textbf{Número de condição}} & \multicolumn{2}{|c|}{\textbf{custo} \tablefootnote{Número de operações de ponto flutuante necessárias.}} & \textbf{iterações} \\
-		\textbf{antes} & \textbf{depois} & & \textbf{antes} & \textbf{depois} & \textbf{decomp.} &¨\textbf{compr.} & \\
+        \multicolumn{2}{|c|}{\textbf{n}} & \textbf{nome} & \multicolumn{2}{|c|}{\textbf{Número de condição}} & \textbf{iterações} \\
+		\textbf{antes} & \textbf{depois} & & \textbf{antes} & \textbf{depois} & \\
 		\hline
-		\multirow{4}{*}{$ 512 $} & $ 347 $ & \multirow{4}{*}{Lena} & \multirow{4}{*}{$ 38.146271 $} & $ 1.860093 $ & \multirow{4}{*}{$ 35047344300288 $} & $ 304347657 $ & \multirow{4}{*}{$ 406 $} \\
-		& $ 240 $ & & & $ 1.495879 $ & & $ 184041993 $ & \\
-		& $ 149 $ & & & $ 1.273939 $ & & $ 100176393 $ & \\
-		& $ 71 $ & & & $ 1.142361 $ & & $ 41789961 $ & \\
+		\multirow{4}{*}{$ 512 $} & $ 347 $ & \multirow{4}{*}{Lena} & \multirow{4}{*}{$ 38.146271 $} & $ 1.860093 $ & \multirow{4}{*}{$ 406 $} \\
+		& $ 240 $ & & & $ 1.495879 $ & \\
+		& $ 149 $ & & & $ 1.273939 $ & \\
+		& $ 71 $ & & & $ 1.142361 $ & \\
 		\hline
-		\multirow{4}{*}{$ 512 $} & $ 336 $ & \multirow{4}{*}{Bárbara} & \multirow{4}{*}{$ 23.812378 $} & $ 1.879261 $ & \multirow{4}{*}{$ 35047344300288 $} & $ 290898441 $ & \multirow{4}{*}{$ 348 $} \\
-		& $ 232 $ & & & $ 1.471599 $ & & $ 175989257 $ & \\
-		& $ 145 $ & & & $ 1.275514 $ & & $ 96879113 $ & \\
-		& $ 68 $ & & & $ 1.138802 $ & & $ 39793161 $ & \\
+		\multirow{4}{*}{$ 512 $} & $ 336 $ & \multirow{4}{*}{Bárbara} & \multirow{4}{*}{$ 23.812378 $} & $ 1.879261 $ & \multirow{4}{*}{$ 348 $} \\
+		& $ 232 $ & & & $ 1.471599 $ & \\
+		& $ 145 $ & & & $ 1.275514 $ & \\
+		& $ 68 $ & & & $ 1.138802 $ & \\
+		\hline
+    \end{tabular}
+\end{minipage*}
+\\[\baselineskip]
+\begin{minipage*}{\textwidth}
+\centering
+    \begin{tabular}{|c|c|c|c|c|}
+		\hline
+        \multicolumn{2}{|c|}{\textbf{n}} & \textbf{nome} & \multicolumn{2}{|c|}{\textbf{custo} \footnote{Número de operações de ponto flutuante necessárias.}} \\
+		\textbf{antes} & \textbf{depois} & & \textbf{decomposição} &¨\textbf{compressão} \\
+		\hline
+		\multirow{4}{*}{$ 512 $} & $ 347 $ & \multirow{4}{*}{Lena} & \multirow{4}{*}{$ 35047344300288 $} & $ 304347657 $ \\
+		& $ 240 $ & & & $ 184041993 $ \\
+		& $ 149 $ & & & $ 100176393 $ \\
+		& $ 71 $ & & & $ 41789961 $ \\
+		\hline
+		\multirow{4}{*}{$ 512 $} & $ 336 $ & \multirow{4}{*}{Bárbara} & \multirow{4}{*}{$ 35047344300288 $} & $ 290898441 $ \\
+		& $ 232 $ & & & $ 175989257 $ \\
+		& $ 145 $ & & & $ 96879113 $ \\
+		& $ 68 $ & & & $ 39793161 $ \\
 		\hline
     \end{tabular}
 \end{minipage*}
@@ -393,7 +414,13 @@ As raízes da equação característica são:
 	& = \frac{-0.003 \pm \jmath 0.0632}{0.002} \\
 	& = -1.5 \pm \jmath 31.6
 \end{align*}
-Assim, a forma da resposta será $ y = D e^{-1.5t} \sin (31.6 t + E) $. Como $ y(0) = 0 \text{, então } E = 0 $. \\
+Assim, a forma da resposta será $ y = D e^{-1.5t} \sin (31.6 t + E) $. Como $ y(0) = 0 \text{, então } E = 0 $. 
+O programa \textbf{\texttt{exercmat.c}}, em anexo, escrito em C, lê uma matriz em disco e ajusta a ela um polinômio por regressão linear múltipla, usando o método dos mínimos quadrados. Basta digitar:
+\listingsG
+\begin{lstlisting}[language=Ada]
+	exercmat 25 $ \textit{n} $
+\end{lstlisting}
+onde $ n $ é o tamanho do problema. Ele também calcula o número de operações em ponto flutuante necessário para cada etapa.
 \end{resposta}
 
 \clearpage
@@ -403,6 +430,7 @@ Assim, a forma da resposta será $ y = D e^{-1.5t} \sin (31.6 t + E) $. Como $ y(
 \end{pergunta}
 \begin{resposta}
 I) Interpolação de Hermite: \\
+A interpolação de Hermite utiliza $ n \text{ pontos } (x,y) \text{ da função e } n \textit{ pontos } (x, y') $ de sua derivada. Permite o uso de um polinômio de grau muito menor, $ \frac{n - 1}{2} $ em lugar de $ n - 1 $, o que, entre outras coisas, implica em menor oscilação do resultado \footnote{O chamado \textit{Fenômeno de Runge.}}. Os coeficientes são obtidos a partir da fórmula para os coeficientes de Lagrange. Evidentemente, seu emprego se limita aos casos em que os pontos da derivada são conhecidos. \\
 O programa \textbf{\texttt{exercmat.c}}, em anexo, escrito em C, lê uma tabela em disco e interpola um ponto pelo método de Hermite. Basta digitar:
 \listingsG
 \begin{lstlisting}[language=Ada]
@@ -425,7 +453,7 @@ As técnicas de Lagrange e de Neville não consideram o valor da derivada. \\
 \centering
     \begin{tabular}{|c|c|c|c|c|}
 		\hline
-        \textbf{n} & \textbf{Hermite} & \textbf{Lagrange} & \textbf{Neville} & \textbf{custo} \tablefootnote{Número de operações de ponto flutuante necessárias.} \\
+        \textbf{n} & \textbf{Hermite} & \textbf{Lagrange} & \textbf{Neville} & \textbf{custo} \footnote{Número de operações de ponto flutuante necessárias.} \\
 		\hline
 		$ 3 $ & $ 1.31482 $ & $ 1.138113 $ & $ 1.124153 $ & $ 81 $ \\
 		$ 5 $ & $ 1.31399 $ & $ 1.130888 $ & $ 1.131802 $ & $ 215 $ \\
@@ -434,21 +462,29 @@ As técnicas de Lagrange e de Neville não consideram o valor da derivada. \\
     \end{tabular}
 \end{minipage*}
 O número ideal de entradas é 10, neste caso, 5 para $ y $ e 5 para $ y' $, que corresponde a um polinômio interpolador de grau 9. Mais pontos não melhoram muito a precisão e aumentam bastante o custo computacional. A técnica se mostrou superior às interpolações de Lagrange e de Neville para o mesmo número de pontos. \\
-Uma grande desvantagem da técnica é que cada ponto a ser interpolado exige o recálculo de todos as grandezas \cite{FREITAS 2010,PRESS 1992,TOBÓN 2011}. \\
+Uma grande desvantagem da técnica é que cada ponto a ser interpolado exige o recálculo de todos os coeficientes \cite{FREITAS 2010,TOBÓN 2011}. \\
 \hlin
 II) \textit{Spline} cúbico: \\
-O problema anterior pode ser resolvido de forma alternativa por meio de \textit{spline} cúbico. O programa \textbf{\texttt{exercmat.c}}, em anexo, escrito em C, lê uma tabela em disco e interpola um ponto por tal método, considerando as derivadas ou não. Basta digitar:
+O problema anterior pode ser resolvido de forma alternativa por meio de \textit{spline} cúbico. A técnica consiste em não ajustar um mesmo polinômio a todos os pontos conhecidos, e sim ajustar polinômios de grau 3 diferentes a grupos de 4 pontos consecutivios. Condições extras são introduzidas de forma a evitar descontinuidades nas derivadas primeiras e segundas. Condições adicionais devem ser impostas às derivadas primeira e segunda nos pontos extremos: 
+\begin{listae}[1]
+	\item $ y''(x_1) = y''(x_1) = 0 $ (a chamda condição de \textbf{\textit{spline} natural}), ou
+	\item $ y''(x_1) = y''(x_2) \text{ e } y''(x_{n-1}) = y''(x_n) $, ou
+	\item $ y''(x_1) \text{ e } y''(x_n) $ são obtidos por extrapolação linear, ou
+	\item $ y'(x_1) = \textrm{A} \text{ e } y'(x_{n-1}) = \textrm{B} $
+\end{listae}
+O programa \textbf{\texttt{exercmat.c}}, em anexo, escrito em C, lê uma tabela em disco e interpola um ponto por tal método, considerando as derivadas ou não. Basta digitar:
 \listingsG
 \begin{lstlisting}[language=Ada]
 	exercmat 22 $ \textit{n} $
 \end{lstlisting}
-onde $ n $ é o tamanho da tabela. Ele também calcula o número de operações em ponto flutuante necessário. Verifica-se que a consideração da derivada melhora bastante a precisão e diminui o custo computacional. A exatidão, contudo, é inferior à obtida com um polinômio de mais alto grau. A técnica do spline, além de ser mais simples, ainda permite o reaproveitamento dos coeficientes para interpolação de outros pontos \cite{KUCKIR 2014,ONEILL 2002}. \\
+onde $ n $ é o tamanho da tabela. Ele também calcula o número de operações em ponto flutuante necessário. A condição de \textit{spline} natural é sempre imposta. \\
+Verifica-se que a consideração da derivada melhora bastante a precisão e diminui o custo computacional. A exatidão, contudo, é inferior à obtida com um polinômio de mais alto grau. A técnica do \textit{spline}, além de ser mais simples, ainda permite o reaproveitamento dos coeficientes para interpolação de outros pontos \cite{KOKKOTAS 2015,KUCKIR 2014,ONEILL 2002,OUYED 2011,PRESS 1992}. \\
 \\[\baselineskip]
 \begin{minipage*}{\textwidth}
 \centering
-    \begin{tabular}{|c|c|c|c}
+    \begin{tabular}{|c|c|c|c|}
 		\hline
-        \textbf{n} & \textbf{derivadas} & \textbf{resultado} & \textbf{custo} \tablefootnote{Número de operações de ponto flutuante necessárias.} \\
+        \textbf{n} & \textbf{derivadas} & \textbf{resultado} & \textbf{custo} \footnote{Número de operações de ponto flutuante necessárias.} \\
 		\hline
 		$ 5 $ & Não & $ 1.119492 $ & $ 127 $ \\
 		$ 10 $ & Não & $ 1.120845 $ & $ 317 $ \\
@@ -459,7 +495,8 @@ onde $ n $ é o tamanho da tabela. Ele também calcula o número de operações em po
 \end{minipage*}
 \hlin
 III) Extrapolação: \\
-O problema anterior pode também ser resolvido por meio de extrapolação. O programa \textbf{\texttt{exercmat.c}}, em anexo, escrito em C, lê uma tabela em disco e extrapola um ponto por dois métodos: a extrapolação polinomial normal e a extrapolação de Richardson. Basta digitar:
+As técnicas de interpolação podem também, a princípio, ser usadas para extrapolação, contanto que o ponto extrapolado não esteja muito distante do intervalo onde os pontos são conhecidos. A técnica do \textit{spline} cúbico natural, devido às condições extras impostas aos pontos extremos, não se presta a esse uso. \\
+O programa \textbf{\texttt{exercmat.c}}, em anexo, escrito em C, lê uma tabela em disco e extrapola um ponto por quatro métodos: o de Lagrange, o de Neville, o de Hermite e o \textit{spline} cúbico. Basta digitar:
 \listingsG
 \begin{lstlisting}[language=Ada]
 	exercmat 23 $ \textit{n} $
@@ -468,17 +505,17 @@ onde $ n $ é o tamanho da tabela. Ele também calcula o número de operações em po
 \\[\baselineskip]
 \begin{minipage*}{\textwidth}
 \centering
-    \begin{tabular}{|c|c|c|c}
+    \begin{tabular}{|c|c|c|c|c|}
 		\hline
-        \textbf{n} & \textbf{derivadas} & \textbf{resultado} & \textbf{custo} \tablefootnote{Número de operações de ponto flutuante necessárias.} \\
+        \textbf{n} & \textbf{valor exato} & \textbf{Lagrange} & \textbf{Hermite} & \textbf{Neville} \\
 		\hline
-		$ 10 $ & $ 1.791759 $ & $ 1.795995 $ & $ 1.798942 $ \\
-		$ 5 $ & Sim & $ 1.31414 $ & $ 20 $ \\
-		$ 10 $ & Sim & $ 1.31404 $ & $ 20 $ \\
+		$ 5 $ & $ 1.629240 $ & $ 1.626772 $ & $ 1.629260 $ & $ 1.769480 $ \\
+		$ 10 $ & $ 1.722767 $ & $ 1.722921 $ & $ 1.712949 $ & $ 1.713927 $ \\
 		\hline
     \end{tabular}
 \end{minipage*}
-
+\\[\baselineskip]
+A tabela confirma a tendência de a técnica de Hermite ser a mais precisa e mais cara, e a de Neville, a menos precisa e mais barata.
 \end{resposta}
 
 \clearpage
@@ -514,15 +551,14 @@ Os seguintes arquivos constam do anexo (arquivo \textbf{\texttt{exercmat1.zip}})
 	\item arquivo fonte em C \textbf{\texttt{exercmat.c}}
 	\item arquivos fontes em MATLAB:
 	\begin{itemize}
-		\item \textbf{\texttt{gerachol.m}}: problema 2
-		\item \textbf{\texttt{geradsis.m}}: problema 5
-		\item \textbf{\texttt{geraL.m}}: problema 11
+
+\item \textbf{\texttt{gerachol.m}}: problema 2
 	\end{itemize}		
 	\item arquivos de dados:
 	\begin{itemize}
-		\item S\textit{n}: problemas 1, 3 e 4
-		\item C\textit{n}: problemas 2, 7 e 8
-		\item D\textit{n}: problemas 5 e 6
+		\item A\textit{n}: problema 1
+		\item E\textit{n}: problema 2
+		\item B\textit{n}: problemas 3 e 4
 	\end{itemize}	
 \end{lista}
 
@@ -543,17 +579,19 @@ Os seguintes arquivos constam do anexo (arquivo \textbf{\texttt{exercmat1.zip}})
 
 \begin{thebibliography}{30}
 
+\newbibit{FREITAS 2010}{FREITAS 2010}{Pedro Garcia FREITAS}{3.1.4 Aproximação de Funções — Interpolação — Interpolação de Hermite}{http://www.sawp.com.br/blog/?p=880}{04/04/2016}
 
-\newbibit{ONEILL 2002}{ONEILL 2002}{Charles O’NEILL}{Cubic Spline Interpolation MAE 5093}{http://charles-oneill.com/projects/cubicspline.pdf}{04/04/2016}
+\newbibit{KOKKOTAS 2015}{KOKKOTAS 2015}{Kostas KOKKOTAS}{Interpolation, Extrapolation ans Polynomial Approximation}{http://www.tat.physik.uni-tuebingen.de/~kokkotas/Teaching/Num_Methods_files/Comp_Phys3.pdf}{17/04/2016}
 
 \newbibit{KUCKIR 2014}{KUCKIR 2014}{Ivan KUCKIR}{Interpolation with Cubic Splines}{http://blog.ivank.net/interpolation-with-cubic-splines.html}{05/04/2016}
 
+\newbibit{ONEILL 2002}{ONEILL 2002}{Charles O’NEILL}{Cubic Spline Interpolation MAE 5093}{http://charles-oneill.com/projects/cubicspline.pdf}{04/04/2016}
+
+\newbibit{OUYED 2011}{OUYED 2011}{Rachid OUYED e Woflgang DOBLER}{Interpolation, Extrapolation ans Polynomial Approximation}{Chap. 4, 2011, pp. 53 a 55}{http://pjl.ucalgary.ca/courses/physics381/computational-physics/Ouyed-Chapter-4-Interpolation-Extrapolation-Techniques.pdf}{17/04/2016}
+
+\newbibsi{PRESS 1992}{PRESS 1992}{William H. PRESS, Saul A. TEUKOLSKY, William T. VETTERLING and Brian P. FLANNERY}{Numerical recipes in Fortran 77: The art of scientific computing Vol. 1}{Cambridge University Press, 2nd. Ed., 1992, ISBN 0-521-43064-X, Chap. 3. pp. 99 a 122}{http://www.fing.edu.uy/if/cursos/fiscomp/extras/numrec/book/f3.pdf}{06/04/2016}
+
 \newbibit{TOBÓN 2011}{TOBÓN 2011}{Luis E. TOBÓN}{Newton, Lagrange and Hermite Interpolation: Convergence and Runge phenomena}{http://people.duke.edu/~let12/pdf/courses/math225/LuisTobon_HW1_Interpolation.pdf}{04/04/2016}
-
-\newbibit{FREITAS 2010}{FREITAS 2010}{Pedro Garcia FREITAS}{3.1.4 Aproximação de Funções — Interpolação — Interpolação de Hermite}{http://www.sawp.com.br/blog/?p=880}{04/04/2016}
-
-{PRESS 1992}{PRESS 1992}{William H. PRESS, Saul A. TEUKOLSKY, William T. VETTERLING and Brian P. FLANNERY}{Numerical recipes in Fortran 77: The art of scientific computing Vol. 1}{Cambridge University Press, 2nd. Ed., 1992, ISBN 0-521-43064-X, Chap. 3. pp. 99 a 122}{http://www.fing.edu.uy/if/cursos/fiscomp/extras/numrec/book/f3.pdf}{06/04/2016}
-
 
 \newbibit{WEISSTEIN 2016}{WEISSTEIN 2016}{Eric W. WEISSTEIN}{Positive Definite Matrix \textit{MathWorld}}{http://mathworld.wolfram.com/PositiveDefiniteMatrix.html}{17/03/2016}
 
