@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (MiKTeX 2.9) (preloaded format=pdflatex 2015.4.4)  8 APR 2016 17:00
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (MiKTeX 2.9) (preloaded format=pdflatex 2015.4.4)  17 APR 2016 19:09
 entering extended mode
 **trab27.tex
 (trab27.tex
@@ -1348,99 +1348,99 @@ Package glossaries Info: Writing glossary file trab27.acn on input line 198.
 
 Writing index file trab27.idx
 (trab27.aux)
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 223.
-LaTeX Font Info:    ... okay on input line 223.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 223.
-LaTeX Font Info:    ... okay on input line 223.
-LaTeX Font Info:    Checking defaults for OT1/mbb/m/n on input line 223.
-LaTeX Font Info:    ... okay on input line 223.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 223.
-LaTeX Font Info:    ... okay on input line 223.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 223.
-LaTeX Font Info:    ... okay on input line 223.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 223.
-LaTeX Font Info:    ... okay on input line 223.
-LaTeX Font Info:    Checking defaults for LGR/cmr/m/n on input line 223.
-LaTeX Font Info:    Try loading font information for LGR+cmr on input line 223.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 221.
+LaTeX Font Info:    ... okay on input line 221.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 221.
+LaTeX Font Info:    ... okay on input line 221.
+LaTeX Font Info:    Checking defaults for OT1/mbb/m/n on input line 221.
+LaTeX Font Info:    ... okay on input line 221.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 221.
+LaTeX Font Info:    ... okay on input line 221.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 221.
+LaTeX Font Info:    ... okay on input line 221.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 221.
+LaTeX Font Info:    ... okay on input line 221.
+LaTeX Font Info:    Checking defaults for LGR/cmr/m/n on input line 221.
+LaTeX Font Info:    Try loading font information for LGR+cmr on input line 221.
 
 
 ("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\cbfonts-fd\lgrcmr.fd"
 File: lgrcmr.fd 2013/09/01 v1.0 Greek European Computer Regular
 )
-LaTeX Font Info:    ... okay on input line 223.
-LaTeX Font Info:    Checking defaults for LY/yfrak/m/n on input line 223.
-LaTeX Font Info:    ... okay on input line 223.
-LaTeX Font Info:    Checking defaults for LYG/ygoth/m/n on input line 223.
-LaTeX Font Info:    ... okay on input line 223.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 223.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 223.
+LaTeX Font Info:    ... okay on input line 221.
+LaTeX Font Info:    Checking defaults for LY/yfrak/m/n on input line 221.
+LaTeX Font Info:    ... okay on input line 221.
+LaTeX Font Info:    Checking defaults for LYG/ygoth/m/n on input line 221.
+LaTeX Font Info:    ... okay on input line 221.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 221.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 221.
 
 
 ("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\base\ts1cmr.fd"
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 223.
-LaTeX Font Info:    Try loading font information for T1+pbk on input line 223.
+LaTeX Font Info:    ... okay on input line 221.
+LaTeX Font Info:    Try loading font information for T1+pbk on input line 221.
 
 ("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\psnfss\t1pbk.fd"
 File: t1pbk.fd 2001/06/04 font definitions for T1/pbk.
 )
 LaTeX Font Info:    Font shape `T1/pbk/m/n' in size <12> not available
-(Font)              Font shape `T1/pbk/l/n' tried instead on input line 223.
+(Font)              Font shape `T1/pbk/l/n' tried instead on input line 221.
 LaTeX Font Info:    Font shape `T1/pbk/m/n' in size <10> not available
-(Font)              Font shape `T1/pbk/l/n' tried instead on input line 223.
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 223.
+(Font)              Font shape `T1/pbk/l/n' tried instead on input line 221.
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 221.
 
 
 ("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\lm\ot1lmr.fd"
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 223.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 221.
 
 
 ("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\lm\omllmm.fd"
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 223
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 221
 .
 
 ("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\lm\omslmsy.fd"
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 223
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 221
 .
 
 ("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\lm\omxlmex.fd"
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 223.
+(Font)              <10> on input line 221.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 223.
+(Font)              <7> on input line 221.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 223.
-LaTeX Font Info:    Try loading font information for U+msa on input line 223.
+(Font)              <5> on input line 221.
+LaTeX Font Info:    Try loading font information for U+msa on input line 221.
 
 ("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 223.
+LaTeX Font Info:    Try loading font information for U+msb on input line 221.
 
 ("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for U+wasy on input line 223.
+LaTeX Font Info:    Try loading font information for U+wasy on input line 221.
 
 ("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\wasysym\uwasy.fd"
 File: uwasy.fd 2003/10/30 v2.0 Wasy-2 symbol font definitions
 )
 
 LaTeX Font Warning: Font shape `U/wasy/b/n' in size <7> not available
-(Font)              Font shape `U/wasy/m/n' tried instead on input line 223.
+(Font)              Font shape `U/wasy/m/n' tried instead on input line 221.
 
 
 LaTeX Font Warning: Font shape `U/wasy/b/n' in size <5> not available
-(Font)              Font shape `U/wasy/m/n' tried instead on input line 223.
+(Font)              Font shape `U/wasy/m/n' tried instead on input line 221.
 
 ("C:\Arquivos de programas\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -1492,7 +1492,7 @@ LaTeX Font Warning: Font shape `U/wasy/b/n' in size <5> not available
 
 \footinsdefault=\insert231
 \FN@cache231=\box77
-LaTeX Info: Redefining \microtypecontext on input line 223.
+LaTeX Info: Redefining \microtypecontext on input line 221.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
@@ -1536,23 +1536,20 @@ LaTeX Info: Redefining \selectfont on input line 126.
 
 ABD: EveryShipout initializing macros
 LaTeX Font Info:    Font shape `T1/pbk/bx/n' in size <12> not available
-(Font)              Font shape `T1/pbk/b/n' tried instead on input line 225.
+(Font)              Font shape `T1/pbk/b/n' tried instead on input line 223.
 LaTeX Font Info:    Font shape `T1/pbk/b/n' in size <12> not available
-(Font)              Font shape `T1/pbk/db/n' tried instead on input line 225.
+(Font)              Font shape `T1/pbk/db/n' tried instead on input line 223.
 
 
 Class amsart Warning: Abstract should precede \maketitle in AMS document classe
-s; reported on input line 228.
+s; reported on input line 226.
 
 LaTeX Font Info:    Font shape `T1/pbk/m/sc' in size <10> not available
-(Font)              Font shape `T1/pbk/l/sc' tried instead on input line 228.
+(Font)              Font shape `T1/pbk/l/sc' tried instead on input line 226.
 LaTeX Font Info:    Font shape `T1/pbk/m/sc' in size <12> not available
-(Font)              Font shape `T1/pbk/l/sc' tried instead on input line 234.
+(Font)              Font shape `T1/pbk/l/sc' tried instead on input line 232.
 LaTeX Font Info:    Font shape `T1/pbk/m/it' in size <12> not available
-(Font)              Font shape `T1/pbk/l/it' tried instead on input line 235.
-
-LaTeX Warning: Citation `JARDINE 2006' on page 1 undefined on input line 235.
-
+(Font)              Font shape `T1/pbk/l/it' tried instead on input line 233.
 [1{C:/Documents and Settings/Cliente/ConfiguraÃ§Ãµes locais/Dados de aplicativo
 s/MiKTeX/2.9/pdftex/config/pdftex.map}]
 ("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\microtype\mt-cmr.cfg"
@@ -1560,11 +1557,11 @@ File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman
 (RS)
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 240.
+(Font)              <12> on input line 238.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 240.
+(Font)              <8> on input line 238.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 240.
+(Font)              <6> on input line 238.
 
 ("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\microtype\mt-msa.cfg"
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
@@ -1579,166 +1576,77 @@ Package microtype Info: Loading generic settings for font family
 
 
 LaTeX Font Warning: Font shape `U/wasy/b/n' in size <8> not available
-(Font)              Font shape `U/wasy/m/n' tried instead on input line 240.
+(Font)              Font shape `U/wasy/m/n' tried instead on input line 238.
 
 
 LaTeX Font Warning: Font shape `U/wasy/b/n' in size <6> not available
-(Font)              Font shape `U/wasy/m/n' tried instead on input line 240.
+(Font)              Font shape `U/wasy/m/n' tried instead on input line 238.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 245--247
+Underfull \hbox (badness 10000) in paragraph at lines 243--245
 
  []
 
 <trab27fig1.jpg, id=11, 218.61674pt x 134.904pt>
 File: trab27fig1.jpg Graphic file (type jpg)
  <use trab27fig1.jpg>
-Package pdftex.def Info: trab27fig1.jpg used on input line 252.
+Package pdftex.def Info: trab27fig1.jpg used on input line 250.
 (pdftex.def)             Requested size: 292.77629pt x 180.68396pt.
 LaTeX Font Info:    Font shape `T1/pbk/m/n' in size <8> not available
-(Font)              Font shape `T1/pbk/l/n' tried instead on input line 256.
+(Font)              Font shape `T1/pbk/l/n' tried instead on input line 254.
 
-Underfull \hbox (badness 10000) in paragraph at lines 256--258
+Underfull \hbox (badness 10000) in paragraph at lines 254--256
 
  []
 
 [2 <./trab27fig1.jpg>]
+LaTeX Font Info:    Try loading font information for LGR+pbk on input line 270.
 
-LaTeX Warning: Citation `JARDINE 2006' on page 3 undefined on input line 270.
+LaTeX Font Info:    No file LGRpbk.fd. on input line 270.
 
-
-LaTeX Warning: Citation `YAN 2014' on page 3 undefined on input line 270.
-
-
-LaTeX Warning: Citation `YAN 2014' on page 3 undefined on input line 270.
-
-
-LaTeX Warning: Citation `YAN 2014' on page 3 undefined on input line 272.
-
-LaTeX Font Info:    Try loading font information for LGR+pbk on input line 277.
-
-LaTeX Font Info:    No file LGRpbk.fd. on input line 277.
 
 LaTeX Font Warning: Font shape `LGR/pbk/m/n' undefined
-(Font)              using `LGR/cmr/m/n' instead on input line 277.
+(Font)              using `LGR/cmr/m/n' instead on input line 270.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 270--280
+Underfull \hbox (badness 10000) in paragraph at lines 263--273
 
  []
 
 LaTeX Font Info:    Font shape `T1/pbk/m/n' in size <10.95> not available
-(Font)              Font shape `T1/pbk/l/n' tried instead on input line 280.
-[3] [4] [5]
+(Font)              Font shape `T1/pbk/l/n' tried instead on input line 273.
+[3] [4] [5] (trab27.gls
+LaTeX Font Info:    Font shape `T1/pbk/bx/it' in size <12> not available
+(Font)              Font shape `T1/pbk/b/it' tried instead on input line 5.
+LaTeX Font Info:    Font shape `T1/pbk/b/it' in size <12> not available
+(Font)              Font shape `T1/pbk/db/it' tried instead on input line 5.
+
+Overfull \hbox (4.65193pt too wide) in paragraph at lines 5--6
+[]\T1/pbk/l/n/12 (-20) É um ins-ti-tuto de pes-
+ []
+
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [6]
-LaTeX Font Info:    Try loading font information for OT1+pzc on input line 300.
-
-
-("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\psnfss\ot1pzc.fd"
-File: ot1pzc.fd 2001/06/04 font definitions for OT1/pzc.
-)
-LaTeX Font Info:    Font shape `OT1/pzc/m/it' in size <12> not available
-(Font)              Font shape `OT1/pzc/mb/it' tried instead on input line 300.
-
-Package microtype Info: Loading generic settings for font family
-(microtype)             `pzc' (encoding: OT1).
-(microtype)             For optimal results, create family-specific settings.
-(microtype)             See the microtype manual for details.
-LaTeX Font Info:    Font shape `OT1/pzc/m/it' in size <8> not available
-(Font)              Font shape `OT1/pzc/mb/it' tried instead on input line 300.
-
-LaTeX Font Info:    Font shape `OT1/pzc/m/it' in size <6> not available
-(Font)              Font shape `OT1/pzc/mb/it' tried instead on input line 300.
-
-LaTeX Font Info:    Font shape `OT1/pzc/m/it' in size <10> not available
-(Font)              Font shape `OT1/pzc/mb/it' tried instead on input line 300.
-
-LaTeX Font Info:    Font shape `OT1/pzc/m/it' in size <7> not available
-(Font)              Font shape `OT1/pzc/mb/it' tried instead on input line 300.
-
-LaTeX Font Info:    Font shape `OT1/pzc/m/it' in size <5> not available
-(Font)              Font shape `OT1/pzc/mb/it' tried instead on input line 300.
-
-
-Underfull \vbox (badness 2326) has occurred while \output is active []
-
- [7]
-[8]
-LaTeX Font Info:    Font shape `T1/pbk/m/n' in size <6> not available
-(Font)              Font shape `T1/pbk/l/n' tried instead on input line 326.
-
-
-LaTeX Warning: Reference `COIFMAN 1992' on page 9 undefined on input line 342.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 338--343
-
- []
-
-<trab27_wpt.jpg, id=45, 654.64575pt x 341.47575pt>
-File: trab27_wpt.jpg Graphic file (type jpg)
- <use trab27_wpt.jpg>
-Package pdftex.def Info: trab27_wpt.jpg used on input line 345.
-(pdftex.def)             Requested size: 292.77629pt x 152.71956pt.
-
-Underfull \vbox (badness 2293) has occurred while \output is active []
-
- [9]
-Underfull \hbox (badness 10000) in paragraph at lines 377--378
-
- []
-
-[10 <./trab27_wpt.jpg>] [11] <trab27_db3.jpg, id=58, 650.43pt x 271.0125pt>
-File: trab27_db3.jpg Graphic file (type jpg)
-
-<use trab27_db3.jpg>
-Package pdftex.def Info: trab27_db3.jpg used on input line 397.
-(pdftex.def)             Requested size: 292.77629pt x 121.9917pt.
- <trab27_spline.jpg, id=59, 722.7pt x 487.8225pt>
-File: trab27_spline.jpg Graphic file (type jpg)
-
-<use trab27_spline.jpg>
-Package pdftex.def Info: trab27_spline.jpg used on input line 403.
-(pdftex.def)             Requested size: 292.77629pt x 197.62657pt.
- [12 <./trab27_db3.jpg> <./trab27_spline.jpg>]
-Overfull \hbox (10.03148pt too wide) in paragraph at lines 426--432
-\T1/pbk/l/n/12 (-20) ver-sões, pos-si-bi-lita a aná-lise de si-nais não-periódi
-cos,
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 426--432
-
- []
-
-[13]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [14]
-Overfull \hbox (4.0743pt too wide) in paragraph at lines 443--444
-\T1/pbk/l/n/12 (-20) re-fe-rên-cia foi or-ga-ni-zada a par-tir de uma pre-seleç
-ão
- []
-
-
-Overfull \hbox (38.47316pt too wide) in paragraph at lines 446--448
- \T1/pbk/l/n/12 (-20) 6.1.1.\T1/pbk/l/it/12 Artigos.[] \T1/pbk/l/n/12 (-20) Os 
-ar-ti-gos téc-ni-cos fo-ram pre-selecionados
- []
-
+ [6])
+(trab27.acr)
+\NMSB@catbib=\write10
+ (trab27.sbb
 LaTeX Font Info:    Font shape `T1/pbk/bx/n' in size <10> not available
-(Font)              Font shape `T1/pbk/b/n' tried instead on input line 452.
+(Font)              Font shape `T1/pbk/b/n' tried instead on input line 4.
 LaTeX Font Info:    Font shape `T1/pbk/b/n' in size <10> not available
-(Font)              Font shape `T1/pbk/db/n' tried instead on input line 452.
+(Font)              Font shape `T1/pbk/db/n' tried instead on input line 4.
+LaTeX Font Info:    Font shape `T1/pbk/bx/n' in size <17.28> not available
+(Font)              Font shape `T1/pbk/b/n' tried instead on input line 4.
+LaTeX Font Info:    Font shape `T1/pbk/b/n' in size <17.28> not available
+(Font)              Font shape `T1/pbk/db/n' tried instead on input line 4.
 
-LaTeX Warning: Reference `ssecnum:Anexo1' on page 15 undefined on input line 45
-2.
+Overfull \hbox (78.15973pt too wide) in paragraph at lines 4--6
+[] [] 
+ []
 
-[15]
-LaTeX Font Info:    Try loading font information for T1+pcr on input line 465.
- ("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\psnfss\t1pcr.fd"
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 10.
+("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\psnfss\t1pcr.fd"
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
 Package microtype Info: Loading generic settings for font family
@@ -1746,273 +1654,158 @@ Package microtype Info: Loading generic settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [16]
-Overfull \hbox (16.50677pt too wide) in paragraph at lines 506--507
-\T1/pbk/db/n/12 tics and prog-nos-tics im-ple-men-ting condition-
- []
-
-[17] [18]
-Overfull \hbox (27.25352pt too wide) in paragraph at lines 519--520
-[]\T1/pbk/db/n/12 Qiao Hu, Zheng-jia He, Zhou-suo Zhang, Yanyang
+Underfull \hbox (badness 1259) in paragraph at lines 10--11
+\T1/pbk/l/n/10 (+20) kan Jour-nal of Elec-tri-cal & Com-pu-ter En-gi-ne-e-ring,
+ 2014,
  []
 
 
-Overfull \hbox (11.80266pt too wide) in paragraph at lines 521--522
-\T1/pbk/db/n/12 Fault Di-ag-no-sis in In-duc-tion Ma-chi-nes Using
+Underfull \hbox (badness 2913) in paragraph at lines 10--11
+\T1/pcr/m/n/10 bajece / article / download / 5000102024 / 5000095108$\T1/pbk/l/
+n/10 (+20) , acesso
  []
 
-
-Overfull \hbox (2.0589pt too wide) in paragraph at lines 521--522
-\T1/pbk/db/n/12 an Analy-tic Wavelet-Based Op-ti-mi-zed Baye-
- []
-
-[19]
-Overfull \hbox (1.59389pt too wide) in paragraph at lines 524--525
-\T1/pbk/l/n/12 (-20) Wa-ve-let Pac-ket Trans-form Com-bi-ned with Sup-
- []
-
-\NMSB@catbib=\write10
-(trab27.sbb
-LaTeX Font Info:    Font shape `T1/pbk/bx/n' in size <17.28> not available
-(Font)              Font shape `T1/pbk/b/n' tried instead on input line 4.
-LaTeX Font Info:    Font shape `T1/pbk/b/n' in size <17.28> not available
-(Font)              Font shape `T1/pbk/db/n' tried instead on input line 4.
-
-Overfull \hbox (125.11945pt too wide) in paragraph at lines 4--6
-[] [] 
- []
-
-
-Overfull \hbox (125.11945pt too wide) in paragraph at lines 10--10
-[] [] 
- []
-
-[20]
 LaTeX Font Info:    Font shape `T1/pbk/m/it' in size <10> not available
-(Font)              Font shape `T1/pbk/l/it' tried instead on input line 28.
+(Font)              Font shape `T1/pbk/l/it' tried instead on input line 22.
 
-Underfull \hbox (badness 1062) in paragraph at lines 28--29
-[]\T1/pbk/l/n/10 (+20) M. Ab-desh Sha-fiel Ka-fiey KHAN and M.
+Underfull \hbox (badness 10000) in paragraph at lines 22--23
+\T1/pbk/l/n/10 (+20) 7, In-Tech, 2010.http://www.intechopen.com/books/fault-
  []
 
 
-Underfull \hbox (badness 3701) in paragraph at lines 28--29
-\T1/pbk/l/n/10 (+20) Azi-zur RAH-MAN, \T1/pbk/db/n/10 Wa-ve-let Ba-sed Di-ag-no
--sis and
+Underfull \hbox (badness 10000) in paragraph at lines 22--23
+\T1/pbk/l/n/10 (+20) detection/wavelet-based-diagnosis-and-protection-of-electr
+ic-
  []
 
 
-Underfull \hbox (badness 3158) in paragraph at lines 28--29
-\T1/pbk/db/n/10 Pro-tec-tion of Elec-tric Mo-tors\T1/pbk/l/n/10 (+20) , \T1/pbk
-/l/it/10 in \T1/pbk/l/n/10 (+20) Fault De-tec-
+Underfull \hbox (badness 1389) in paragraph at lines 40--41
+\T1/pbk/db/n/10 pi-das do Ro-tor Atra-vés da Pro-te-ção com Zero Ajus-tes\T1/pb
+k/l/n/10 (+20) .
  []
 
 
-Underfull \hbox (badness 1694) in paragraph at lines 28--29
-\T1/pbk/l/n/10 (+20) tion, Wei Zhang (Ed.), ISBN: 978-953-307-037-7,
+Underfull \hbox (badness 8038) in paragraph at lines 40--41
+\T1/pbk/l/n/10 (+20) Dis-po-ní-vel em $\T1/pcr/m/n/10 http : / / www . selinc .
+ com . br / art _ tecnicos /
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 28--29
-\T1/pbk/l/n/10 (+20) detection/wavelet-based-diagnosis-and-protection-of-
- []
-
-
-Underfull \hbox (badness 1895) in paragraph at lines 34--35
-\T1/pbk/l/n/10 (+20) CHER-KA-OUI e Moham-med OU-AS-SAID, \T1/pbk/db/n/10 Di-ag-
-no-sis
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 34--35
-\T1/pbk/l/n/10 (+20) Dis-po-ní-vel em $\T1/pcr/m/n/10 http : / / www . wseas . 
-us / e -[] library /
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 34--35
-\T1/pcr/m/n/10 conferences / 2014 / Gdansk / MATH / MATH -[] 51 . pdf$\T1/pbk/l
-/n/10 (+20) ,
- []
-
-
-Underfull \hbox (badness 4316) in paragraph at lines 40--41
-\T1/pcr/m/n/10 science / article / pii / S088832700300075X$\T1/pbk/l/n/10 (+20)
- , acesso
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 46--47
-[]\T1/pbk/l/n/10 (+20) Carlos PEZ-ZANI et. al., \T1/pbk/db/n/10 De-tec-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 46--47
-\T1/pbk/db/n/10 ção de Bar-ras Rom-pi-das do Ro-tor Atra-vés
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 46--47
-\T1/pbk/db/n/10 da Pro-te-ção com Zero Ajus-tes\T1/pbk/l/n/10 (+20) . Dis-po-ní
--vel
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 46--47
-\T1/pbk/l/n/10 (+20) em $\T1/pcr/m/n/10 http : / / www . selinc . com . br / ar
-t _ tecnicos /
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 46--47
+Underfull \hbox (badness 10000) in paragraph at lines 40--41
 \T1/pcr/m/n/10 6512 _ Deteccao -[] de -[] Barras -[] Rompidas -[] do -[] Rotor 
--[]
+-[] Atraves -[]
+ []
+
+[7]
+Underfull \hbox (badness 1102) in paragraph at lines 46--47
+[]\T1/pbk/l/n/10 (+20) Aditya PRA-KASH, Vi-kash Ku. AGARWAL, Amit
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 46--47
-\T1/pcr/m/n/10 Atraves -[] da -[] Protecao -[] com -[] Zero -[] Ajustes . pdf$\
-T1/pbk/l/n/10 (+20) ,
+Underfull \hbox (badness 6675) in paragraph at lines 46--47
+\T1/pbk/l/n/10 (+20) KU-MAR, Bhas-kra NAND, \T1/pbk/db/n/10 A re-view on ma-chi
+ne con-
  []
 
 
-Underfull \hbox (badness 4316) in paragraph at lines 52--53
-\T1/pcr/m/n/10 project / paper / f201409151410798115 . pdf$\T1/pbk/l/n/10 (+20)
- , acesso
+Underfull \hbox (badness 6526) in paragraph at lines 46--47
+\T1/pbk/db/n/10 di-tion mo-ni-to-ring and fault di-ag-nos-tics using wa-ve-
+ []
+
+
+Underfull \hbox (badness 1412) in paragraph at lines 46--47
+\T1/pbk/db/n/10 let trans-form \T1/pbk/l/n/10 (+20) : In-ter-na-ti-o-nal Jour-n
+al of En-gi-ne-e-ring Te-
+ []
+
+
+Underfull \hbox (badness 4752) in paragraph at lines 46--47
+\T1/pbk/l/n/10 (+20) ch-no-logy, Ma-na-ge-ment and Ap-plied Sci-en-ces Sep-tem-
+ber
+ []
+
+
+Underfull \hbox (badness 4429) in paragraph at lines 46--47
+\T1/pbk/l/n/10 (+20) 2014, Vo-lume 2 Is-sue 4, ISSN 2349-447684. Dis-po-ní-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 76--77
+\T1/pcr/m/n/10 profile / Ruqiang _ Yan / publication / 259098512 _ Wavelets _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 76--77
+\T1/pcr/m/n/10 for _ fault _ diagnosis _ of _ rotary _ machines _ A _ review _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 76--77
+\T1/pcr/m/n/10 with _ applications / links / 5508e5380cf2d7a2812b5ade . pdf$\T1
+/pbk/l/n/10 (+20) ,
+ []
+
+
+Overfull \hbox (78.15973pt too wide) in paragraph at lines 81--83
+[] [] 
+ []
+
+
+Underfull \hbox (badness 6125) in paragraph at lines 87--88
+[]\T1/pbk/l/n/10 (+20) . Dis-po-ní-vel em $\T1/pcr/m/n/10 http : / / electrical
+ -[] engineering -[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 87--88
+\T1/pcr/m/n/10 portal . com / download -[] center / books -[] and -[] guides /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 87--88
+\T1/pcr/m/n/10 electrical -[] engineering / squirrel -[] cage -[] rotor -[] tes
+ting -[]
+ []
+
+
+Overfull \hbox (78.15973pt too wide) in paragraph at lines 92--94
+[] [] 
  []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [21]
-Underfull \hbox (badness 10000) in paragraph at lines 58--59
-[]\T1/pbk/l/n/10 (+20) Jeevanand SESHA-DRI-NATH,
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 58--59
-\T1/pbk/l/n/10 (+20) po-ní-vel em $\T1/pcr/m/n/10 http : / / 210 . 30 . 190 . 1
-20 / ckwx / yuan /
- []
-
-
-Underfull \hbox (badness 1629) in paragraph at lines 64--65
-[]\T1/pbk/l/n/10 (+20) SHI Pu, CHEN Zheng, Yu-riy VA-GA-POV,
- []
-
-
-Underfull \hbox (badness 1226) in paragraph at lines 64--65
-\T1/pbk/db/n/10 In-ter-na-ti-o-nal Jour-nal of Com-pu-ter Ap-pli-ca-ti-ons,
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 64--65
-\T1/pbk/l/n/10 (+20) em $\T1/pcr/m/n/10 http : / / research . ijcaonline . org 
-/ volume69 /
- []
-
-
-Underfull \hbox (badness 1629) in paragraph at lines 70--71
-[]\T1/pbk/l/n/10 (+20) SHI Pu, CHEN Zheng, Yu-riy VA-GA-POV,
- []
-
-
-Underfull \hbox (badness 1226) in paragraph at lines 70--71
-\T1/pbk/db/n/10 In-ter-na-ti-o-nal Jour-nal of Com-pu-ter Ap-pli-ca-ti-ons,
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 70--71
-\T1/pbk/l/n/10 (+20) em $\T1/pcr/m/n/10 http : / / research . ijcaonline . org 
-/ volume69 /
- []
-
-
-Underfull \hbox (badness 1163) in paragraph at lines 76--77
-\T1/pbk/db/n/10 let Trans-form Ap-pro-ach to Ro-tor Faults De-tec-
- []
-
-
-Overfull \hbox (125.11945pt too wide) in paragraph at lines 82--82
-[] [] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 88--89
-\T1/pcr/m/n/10 portal . com / download -[] center / books -[] and -[]
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 88--89
-\T1/pcr/m/n/10 guides / electrical -[] engineering / squirrel -[] cage -[]
- []
-
-
-Overfull \hbox (125.11945pt too wide) in paragraph at lines 93--95
-[] [] 
- []
-
-
-Underfull \hbox (badness 3965) in paragraph at lines 105--106
-[]\T1/pbk/l/n/10 (+20) R. CLAY-PO-OLE, \T1/pbk/db/n/10 Adap-tive Wa-ve-let
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [22])
-
-Package glossaries Warning: No \printglossary or \printglossaries found.
-(Remove \makeglossaries if you don't want any glossaries.)
-This document will not have a glossary.
-
-[23] (trab27.aux)
+ [8])
+[9] (trab27.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
  ) 
 Here is how much of TeX's memory you used:
- 32815 strings out of 493698
- 670166 string characters out of 3141115
- 916787 words of memory out of 3000000
- 34997 multiletter control sequences out of 15000+200000
- 90263 words of font info for 226 fonts, out of 3000000 for 9000
+ 32750 strings out of 493698
+ 669137 string characters out of 3141115
+ 907697 words of memory out of 3000000
+ 34946 multiletter control sequences out of 15000+200000
+ 85725 words of font info for 210 fonts, out of 3000000 for 9000
  1186 hyphenation exceptions out of 8191
- 55i,22n,111p,1815b,617s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Arquivos de programas/MiKTeX 2.9/fonts/enc/dvips/fontname/8r.enc}{C:/Arqu
-ivos de programas/MiKTeX 2.9/fonts/enc/dvips/lm/lm-rm.enc}{C:/Arquivos de progr
-amas/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathit.enc} <C:\Documents and Settings\Cl
-iente\ConfiguraÃ§Ãµes locais\Dados de aplicativos\MiKTeX\2.9\fonts\pk\ljfour\pu
-blic\mbboard\dpi600\mbb12.pk>{C:/Arquivos de programas/MiKTeX 2.9/fonts/enc/dvi
-ps/lm/lm-mathex.enc}{C:/Arquivos de programas/MiKTeX 2.9/fonts/enc/dvips/lm/lm-
-mathsy.enc} <C:\Documents and Settings\Cliente\ConfiguraÃ§Ãµes locais\Dados de 
-aplicativos\MiKTeX\2.9\fonts\pk\ljfour\unknown\unknown\dpi600\grmn1200.pk><C:/A
-rquivos de programas/MiKTeX 2.9/fonts/type1/public/lm/lmbx12.pfb><C:/Arquivos d
-e programas/MiKTeX 2.9/fonts/type1/public/lm/lmex10.pfb><C:/Arquivos de program
-as/MiKTeX 2.9/fonts/type1/public/lm/lmmi10.pfb><C:/Arquivos de programas/MiKTeX
- 2.9/fonts/type1/public/lm/lmmi12.pfb><C:/Arquivos de programas/MiKTeX 2.9/font
-s/type1/public/lm/lmmi6.pfb><C:/Arquivos de programas/MiKTeX 2.9/fonts/type1/pu
-blic/lm/lmmi8.pfb><C:/Arquivos de programas/MiKTeX 2.9/fonts/type1/public/lm/lm
-r12.pfb><C:/Arquivos de programas/MiKTeX 2.9/fonts/type1/public/lm/lmr6.pfb><C:
-/Arquivos de programas/MiKTeX 2.9/fonts/type1/public/lm/lmr8.pfb><C:/Arquivos d
-e programas/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb><C:/Arquivos de program
-as/MiKTeX 2.9/fonts/type1/public/lm/lmsy8.pfb><C:/Arquivos de programas/MiKTeX 
-2.9/fonts/type1/urw/bookman/ubkd8a.pfb><C:/Arquivos de programas/MiKTeX 2.9/fon
-ts/type1/urw/bookman/ubkl8a.pfb><C:/Arquivos de programas/MiKTeX 2.9/fonts/type
-1/urw/bookman/ubkli8a.pfb><C:/Arquivos de programas/MiKTeX 2.9/fonts/type1/urw/
-courier/ucrr8a.pfb><C:/Arquivos de programas/MiKTeX 2.9/fonts/type1/urw/zapfcha
-n/uzcmi8a.pfb>
-Output written on trab27.pdf (23 pages, 446731 bytes).
+ 55i,11n,121p,1815b,626s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/Arquivos de programas/MiKTeX 2.9/fonts/enc/dvips/fontname/8r.enc} <C:\Doc
+uments and Settings\Cliente\ConfiguraÃ§Ãµes locais\Dados de aplicativos\MiKTeX\
+2.9\fonts\pk\ljfour\unknown\unknown\dpi600\grmn1200.pk>{C:/Arquivos de programa
+s/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Arquivos de programas/MiKTeX 
+2.9/fonts/enc/dvips/lm/lm-rm.enc}{C:/Arquivos de programas/MiKTeX 2.9/fonts/enc
+/dvips/lm/lm-mathsy.enc}<C:/Arquivos de programas/MiKTeX 2.9/fonts/type1/public
+/lm/lmmi12.pfb><C:/Arquivos de programas/MiKTeX 2.9/fonts/type1/public/lm/lmmi8
+.pfb><C:/Arquivos de programas/MiKTeX 2.9/fonts/type1/public/lm/lmr12.pfb><C:/A
+rquivos de programas/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb><C:/Arquivos d
+e programas/MiKTeX 2.9/fonts/type1/urw/bookman/ubkd8a.pfb><C:/Arquivos de progr
+amas/MiKTeX 2.9/fonts/type1/urw/bookman/ubkdi8a.pfb><C:/Arquivos de programas/M
+iKTeX 2.9/fonts/type1/urw/bookman/ubkl8a.pfb><C:/Arquivos de programas/MiKTeX 2
+.9/fonts/type1/urw/bookman/ubkli8a.pfb><C:/Arquivos de programas/MiKTeX 2.9/fon
+ts/type1/urw/courier/ucrr8a.pfb>
+Output written on trab27.pdf (9 pages, 151206 bytes).
 PDF statistics:
- 163 PDF objects out of 1000 (max. 8388607)
+ 81 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 26657 words of extra memory for PDF output out of 29859 (max. 10000000)
+ 23058 words of extra memory for PDF output out of 24883 (max. 10000000)
 

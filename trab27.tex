@@ -1,5 +1,6 @@
 % Trabalho de Sistemas e Sinais
-% Versão 0.00.02 
+% Versão 0.00.03 - 
+% Versão 0.00.02 - 17/04/2016 - Entregue ao Giovanni como cumprimento da segunda fase.
 % Versão 0.00.01 - 13/03/2016 - Mostrada ao Giovanni como cumprimento da primeira fase.
 % Preparado para MiKTeX 2.9. Gerar arquivo PDF com pdflatex.
 \documentclass[12pt,fleqn]{amsart}
@@ -124,13 +125,13 @@
 	}
 
 \newenvironment{lista}{
-	\vspace{-5mm}
+	\vspace{0mm}
 	\begin{itemize}}{
 	\end{itemize}	
-	\vspace{-5mm}}
+	\vspace{0mm}}
 
 \newenvironment{listaf}{
-	\vspace{-5mm}
+	\vspace{0mm}
 	\begin{itemize}}{
 	\end{itemize}}
 
@@ -189,7 +190,7 @@
 \setcounter{secnumdepth}{3}
 
 \BeforeBeginEnvironment{figure}{\vskip-1ex}
-\AfterEndEnvironment{figure}{\vskip-4ex}
+\AfterEndEnvironment{figure}{\vskip-2ex}
 
 
 %\begin{}Glossário
@@ -208,16 +209,14 @@
 
 %\end{}
 
-\begin{category}[A]{Obras consultadas}
-	\begin{category}{Artigos}
-		\SBentries{AYAZ 2014,BOUZIDA 2013,KAHN 2010,NGOTE 2014,PENG 2004,PEZZANI 2015,PRAKASH 2014,SESHADRINATH 2014,SHI 2013 1,SHI 2013 2,SZABO 2004}
-	\end{category}
-	\begin{category}{Figuras}
-		\SBentries{Fig1}
-	\end{category}
+\begin{category}{Obras consultadas}
+	\SBentries{AYAZ 2014,BOUZIDA 2013,KAHN 2010,NGOTE 2014,PENG 2004,PEZZANI 2015,PRAKASH 2014,SESHADRINATH 2014,SHI 2013 1,SHI 2013 2,SZABO 2004,YAN 2014}
 \end{category}
-\begin{category}[B]{Obras complementares}
-	\SBentries{BONNETT 1988,CLAYPOOLE 1999,COIFMAN 1992,DELEROI 1984,HAMID 2002,KIM 2007,KLIMAN 1988,MALLAT 1989,PENROSE 2008,SWELDENS 1998}
+\begin{category}{Figuras}
+	\SBentries{EEP 2016}
+\end{category}
+\begin{category}{Obras complementares}
+	\SBentries{BONNETT 1988,CLAYPOOLE 1999,COIFMAN 1992,DELEROI 1984,HAMID 2002,JARDINE 2006,KIM 2007,KLIMAN 1988,MALLAT 1989,PENROSE 2008,SWELDENS 1998}
 \end{category}
 
 \begin{document}
@@ -250,21 +249,16 @@ As figuras abaixo mostram os elementos construtivos de um rotor de gaiola típico
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.7\textwidth]{trab27fig1.jpg} \\
-	Fonte: \cite{Fig1}
-\end{figure}%
+	Fonte: \cite{EEP 2016}
+\end{figure}
 A respeito da quebra de barras na gaiola, que é um dos defeitos mais comuns que incidem sobre o rotor, citamos \cite{PEZZANI 2015}:
 \quote{A detecção precoce de uma barra rompida no rotor minimiza os danos ao motor e reduz os custos de reparo. Em alguns casos, a condição de uma barra rompida começa com uma trinca na junção entre a barra do rotor e o anel da extremidade como resultado de estresse térmico e mecânico [3] \footnotemark[1]. Esses estresses são mais significativos durante a partida de motores com cargas de alta inércia. A flexão de uma barra trincada devido a variações na temperatura provoca o rompimento da barra. Quando uma barra rompe, as barras adjacentes conduzem correntes superiores aos respectivos valores de projeto, causando mais danos se a condição de barra rompida não for imediatamente detectada. As correntes entre as barras que aparecem em função da barra rompida afetam a evolução da falta no rotor, causando danos nas laminações do núcleo do rotor [3] \footnotemark[1]. A análise da assinatura da corrente do motor (“Motor Current Signature Analysis” – MCSA) é o método mais popular para detecção de faltas na gaiola do rotor [4] \footnotemark[2] [5]\footnotemark[3]. Este método efetua a análise do espectro de frequência das correntes  do  estator  para  determinar  as  condições eletromecânicas do motor e equipamentos acionados. Quando ocorre a ruptura de uma ou mais barras, bandas laterais superior e inferior aparecem em $ (1 \pm 2s)f_o $, onde $ s $ é a frequência de escorregamento do motor e $ f_o $ é a frequência do sistema [6] \footnotemark[4]. As magnitudes dessas bandas laterais aumentam com o número de barras rompidas.}
 Com base nisso, a Shweitzer disponibiliza um relé capaz de acusar rompimento de barras no rotor, que analisa a corrente do estator por meio da Transformada de Fourier. De acordo com \cite{PEZZANI 2015}, o algoritmo não funciona bem para cargas leves, porque o escorregamento é muito pequeno nesse caso. \\
 
-\footnotetext[1]{A. H. Bonnett and G. C. Soukup, “Analysis of Rotor Failures in
-Squirrel-Cage Induction Motors,” IEEE Transactions on Industry Applications, vol. 24, no. 6, pp. 1124–1130, novembro/dezembro 1988.}
-\footnotetext[2]{H. Penrose, Electrical Motor Diagnostics, 2nd ed. Success by Design, maio de 2008.}
-\footnotetext[3]{G. B. Kliman, R. A. Koegl, J. Stein, R. D. Endicott, and M. W. Madden, “Noninvasive Detection of Broken Rotor Bars in Operating Induction
-Motors,” IEEE Transactions on Energy Conversion, vol. 3, no. 4,
-pp. 873–879, dezembro de 1988.}
-\footnotetext[4]{W. Deleroi, “Der Stabbruch im Käfigläufer eines Asynchronmotors,
-Teil 1: Beschreibung mittels Überlagerung eines Störfeldes,” Archiv Für
-Elektrotechnik, vol. 67, pp. 91–99, 1984.}
+\footnotetext[1]{\cite{BONNETT 1988}.}
+\footnotetext[2]{\cite{PENROSE 2008}.}
+\footnotetext[3]{\cite{KLIMAN 1988}.}
+\footnotetext[4]{\cite{DELEROI 1984}.}
 
 \section{Revisão Bibliográfica}
 \cite{JARDINE 2006} é uma obra bastante abrangente e muito citada, mas não trata especificamente da Transformada de Wavelet nem de máquinas rotativas. Tal foco está presente tanto em \cite{PENG 2004} quanto em \cite{YAN 2014}, que por esse motivo foram mais consultados na pesquisa; pode-se, até certo ponto, entender este último artigo como uma atualização do anterior. \cite{YAN 2014} relata alguns desenvolvimentos recentes na teoria de wavelets e novas aplicações da técnica em CBM surgidas no período (2004-2014). \cite{PENG 2004} havia feito o mesmo para o período (1990-2004). Outra resenha consultada foi \cite{PRAKASH 2014}. \\
@@ -277,6 +271,9 @@ A maioria das aplicações consolidadas, não apenas da Transformada de Wavelets, m
 \cite{NGOTE 2014} apresenta uma abordagem nova, que consiste em analisar não a corrente de estator, mas o que os autores chamam "corrente residual", que é a diferença entre a corrente e sua média ao longo de vários ciclos. A corrente residual apresenta a vantagem de seu espectro contem apenas componentes relacionadas com aspectos mecânicos do motor. A plataforma empregou motores de 3kW com tacômetros óptico, frequência de amostragem de 25.6 kHz, 10 níveis de decomposição e a wavelet de Daubechies 5. Não foi usado um rotor defeituoso neste caso; o defeito foi simulado por meio da adição de uma resistência de 40 m\textOmega em série com uma das fases. Os autores não conseguiram distinguir com segurança, usando a corrente de estator, a assinatura de um motor com defeito da de um sem defeito. Com a corrente residual, no entanto, uma detecção confiável foi possível. \\
 A dificuldade em distinguir com segurança a assinatura de um motor defeituoso da de um motor são levou \cite{SHI 2013 2} a associar a análise de wavelets a uma ferramenta de inteligência computacional, a rede neural probabilística (PNN: \textit{Probability Neural Network}), criando o que chamar de wavelets neural network. Em tal rede neural, as funções de ativação dos neurônios da camada escondida são baseadas em wavelets. O treinamento não foi feito pelo algoritmo usual de \textit{backpropagation}, e sim pelo de cardumes (PSO: \textit{Particle Swarm Optimization}), que é um algoritmo evolucionário. A plataforma foi montada com motores de 3.7 kW com número de barras quebradas variável, e submetidos a cargas variadas. Foi usada a wavelet de Daubechies 10, com frequência de amostragem de 1 kHz. Para composição do vetor de características, forma empregados não os valores da energia em cada banda, mas medidas estatísticas como média, média absoluta, mediana e seus respectivos desvios. Segundo os autores, o sistema de diagnóstico, além de preciso, precisava ser rápido o bastante para produzir respostas em tempo real. \\ 
 \cite{SESHADRINATH 2014} alega que as redes neurais apresentam um grande inconveniente, que é a dificuldade de sintonizarem-se os seus múltiplos parâmetros, e defende o emprego de uma estrutura otimizada por meio de algoritmos de otimização (mínimos quadrados) e genéticos, seguida de um classificador baseado em filtro Bayesiano. O problema prático estudado foi o diagnóstico de curtos entre espiras no enrolamento do estator, também por meio da análise da assinatura de corrente. As falhas em questão causam assimetria na impedância da máquina e produzem correntes de sequência negativa; mas tal condição é também causada por assimetrias na carga, o que dificulta o diagnóstico. Outra dificuldade, segundo os autores, é que a técnica de wavelets é sensível a deslocamento e insensível, em alguns casos, a oscilações do sinal; por essa razão, foi usada a DTCWT, que não apresenta esses problemas. O vetor de características usado é composto apenas pela energia espectral na 13\textsuperscript{a} decomposição. A plataforma empreou motores de 5 HP, sob condições de carga variável, a wavelet de Daubechies 10 como mãe e uma frequência de amostragem de 12.5 kHz. A DTCWT apresentou maior sensibilidade e seletividade que a DWT no caso estudado. \\
+\cite{AYAZ 2003} pesquisou a efetividade da técnica MCA no diagnóstico de desgaste nos mancais.
+
+
 
 \section{Wavelets}
 A Transformada de Wavelets é uma ferramenta matemática que converte um sinal do domínio do tempo para um domínio misto tempo/frequência, ou tempo/escala-de-tempo, como também se diz. Para tanto, o sinal é decomposto em uma série de wavelets, cada uma delas com uma amplitude e uma frequência determinadas, mas com a mesma forma geral; tal forma geral é frequentemente chamada de wavelet-mãe, e as wavelets geradas a partir dela, wavelets-filhas ou família de wavelets. A wavelet-mãe deve ser selecionada de acordo com a aplicação. Para que uma função matemática possa servir como wavelet, ela deve cumprir pelo menos os seguintes requisitos:
@@ -502,11 +499,11 @@ A tabela e a lista que seguem apresentam os artigos cujos metadados foram analis
 \begin{listae}[1]
 	\item Ruqiang Yan, Mengxiao Shan, Jianwei Cui e Yahui Wu - Mutual Information-Assisted Wavelet Function Selection for Enhanced Rolling Bearing Fault Diagnosis - Shock and Vibration, Vol. 2015, Article ID 794921.
 	\item Zhenyou Zhang, Yi Wang e Kesheng Wang - Intelligent fault diagnosis and prognosis approach for rotating machinery integrating wavelet transform, principal component analysis, and artificial neural networks - Journal of Advanced Manufacturing Technology, Sep. 2013.
-	\item {PENG 2004}
-	\item \textbf{Andrew K.S. Jardine, Daming Lin e Dragan Banjevic - A review on machinery diagnostics and prognostics implementing condition-based maintenance - Mechanical Systems and Signal Processing, Vol. 20, Issue 7, Oct. 2006, pp. 1483 a 1510}
+	\item \cite{PENG 2004}
+	\item \textbf{\cite{JARDINE 2005}}
 	\item Hongyu Yang - Automatic Fault Diagnosis of Rolling Element Bearings Using Wavelet Based Pursuit Features - School of Mechanical, Manufacturing and Medical Engineering, Queensland University of Technology, Oct. 2004
 	\item Lixin Gao, Zhiqiang Ren, Wenliang Tang, Huaqing Wang e Peng Chen - Intelligent gearbox diagnosis methods based on SVM, wavelet lifting and RBR - Sensors 2010, 10, pp. 4602 a 4621.
-	\item \textbf{Ruqiang Yan, Robert X. Gao, Xuefeng Chen  - Wavelets for fault diagnosis of rotary machines: A review with applications - Signal Processing, Vol. 96, Part A, Mar. 2014, pp. 1 a 15}
+	\item \textbf{\cite{YAN 2014}}
 	\item Pratesh Jayaswal, A. K. Wadhwani e K. B. Mulchandani - Machine Fault Signature Analysis - International Journal of Rotating Machinery, Vol. 2008, Article ID 58398.
 	\item \textbf{T. W. S. Chow, Shi Hai - Induction machine fault diagnostic analysis with wavelet technique - IEEE Transactions on Industrial Electronics, Vol. 51, Issue 3, Jun. 2004, pp. 558 a 565}
 	\item Derek Kanneg, Wilson Wang - A Wavelet Spectrum Technique for Machinery Fault Diagnosis - Journal of Signal and Information Processing, 2011, 2, pp. 322 a 329.
@@ -564,9 +561,17 @@ Rotating Machinery}
 28 {Machine fault diagnosis through an effective exact wavelet analysis}
 \fi
 
+\glsaddall
+\printglossaries
+
+\renewcommand{\refname}{}
+
 \begin{thebibliography}{99}
 
 \newbibsi{AYAZ 2014}{AYAZ 2014}{E. AYAZ}{A Review Study on Mathematical Methods for Fault Detection Problems in Induction Motors}{Balkan Journal of Electrical \& Computer Engineering, 2014, Vol.2, No.3}{http://dergipark.ulakbim.gov.tr/bajece/article/download/5000102024/5000095108}{26/03/2016}
+
+\newbibpp{AYAZ 2003}{AYAZ 2003}{Emine AYAZ, Serhat SEKER e Erdinç TÜRKCAN}{Combination of spectral and multi-resolution wavelet analysis for fault detection in electric motors}{http://www.emo.org.tr/ekler/66eaa9527eb956f_ek.pdf}{19/04/2016}
+
 
 \newbibsi{BOUZIDA 2013}{BOUZIDA 2013}{Ahcène BOUZIDA, Omar TOUHAMI e Radia ABDELLI}{Rotor Fault Diagnosis in Three Phase Induction Motors Using the Wavelet Transform}{International Conference on Control, Engineering \& Information Technology (CEIT'13) Proceedings Engineering \& Technology - Vol.1, pp. 186-191, 2013}{http://ipco-co.com/PET_Journal/presented\%20papers/095.pdf}{26/03/2016}
 
@@ -574,7 +579,7 @@ Rotating Machinery}
 
 \newbibsi{NGOTE 2014}{NGOTE 2014}{Nabil NGOTE, Said GUEDIRA, Mohamed CHERKAOUI e Mohammed OUASSAID}{Diagnosis of Induction Motor Rotor Fault through Discrete Wavelet Transform Applied to Residual Current}{Jerzy Balicki (Ed.) - Advances in Applied and Pure Mathematics, ISBN: 978-960-474-380-3, pp. 390 a 396}{http://www.wseas.us/e-library/conferences/2014/Gdansk/MATH/MATH-51.pdf}{26/03/2016}
 
-\newbibsi{PENG 2004}{PENG 2004}{PENG Z. K. e CHU F. L.}{Application of the wavelet transform in machine condition monitoring and fault diagnostics: a review with bibliography}{Mechanical Systems and Signal Processing, Vol. 18, Issue 2, March 2004, pp. 199 a 221.}{http://www.sciencedirect.com/science/article/pii/S088832700300075X}{26/03/2016}
+\newbibsi{PENG 2004}{PENG 2004}{PENG Z. K. e CHU F. L.}{Application of the wavelet transform in machine condition monitoring and fault diagnostics: a review with bibliography}{Mechanical Systems and Signal Processing, Vol. 18, Issue 2, March 2004, pp. 199 a 221}{http://www.sciencedirect.com/science/article/pii/S088832700300075X}{26/03/2016}
 
 \newbibit{PEZZANI 2015}{PEZZANI 2015}{Carlos PEZZANI et. al.}{Detecção de Barras Rompidas do Rotor Através da Proteção com Zero Ajustes}{http://www.selinc.com.br/art_tecnicos/6512_Deteccao-de-Barras-Rompidas-do-Rotor-Atraves-da-Protecao-com-Zero-Ajustes.pdf}{26/03/2016}
 
@@ -586,9 +591,11 @@ Rotating Machinery}
 
 \newbibsi{SHI 2013 2}{SHI 2013 2}{SHI Pu, CHEN Zheng, Yuriy VAGAPOV}{International Journal of Computer Applications, Volume 69, No.14, May 2013, pp. 44 a}{WFault Detection and Diagnosis of Induction Machines based on Wavelet and Probabilistic Neural Network}{http://research.ijcaonline.org/volume69/number14/pxc3888034.pdf}{26/03/2016}
 
-\newbibsi{SZABO 2004}{SZABO 2004}{Loránd SZABÓ, Károly Ágoston BIRÓ, Jenõ Barna DOBAI, Dénes FODOR, József VASS}{Wavelet Transform Approach to Rotor Faults Detection in Induction Motors}{INES 2004}{http://www.ines-conf.org/ines-conf/75_INES2004.pdf}{26/03/2016}
+\newbibsi{SZABO 2004}{SZABO 2004}{Loránd SZABÓ, Károly Ágoston BIRÓ, Jenõ Barna DOBAI, Dénes FODOR e József VASS}{Wavelet Transform Approach to Rotor Faults Detection in Induction Motors}{INES 2004}{http://www.ines-conf.org/ines-conf/75_INES2004.pdf}{26/03/2016}
 
-\newbibfig{Fig1}{Fig1}{http://electrical-engineering-portal.com/download-center/books-and-guides/electrical-engineering/squirrel-cage-rotor-testing-methods}{26/03/2016}
+\newbibsi{YAN 2014}{YAN 2014}{YAN Ruqiang, Robert X. GAO e CHEN Xuefeng}{Wavelets for fault diagnosis of rotary machines: A review with applications}{Signal Processing Vol. 96, Part A, Mar. 2014, pp. 1 a 15}{http://www.researchgate.net/profile/Ruqiang_Yan/publication/259098512_Wavelets_for_fault_diagnosis_of_rotary_machines_A_review_with_applications/links/5508e5380cf2d7a2812b5ade.pdf}{26/03/2016}
+
+\newbibfig{EEP 2016}{EEP 2016}{http://electrical-engineering-portal.com/download-center/books-and-guides/electrical-engineering/squirrel-cage-rotor-testing-methods}{26/03/2016}
 
 \newbibpp{BONNETT 1988}{BONNETT 1988}{A. H. BONNETT e G. C. SOUKUP}{Analysis of Rotor Failures in Squirrel-Cage Induction Motors}{IEEE Transactions on Industry Applications, vol. 24, no. 6, pp. 1124 a 1130, novembro/dezembro 1988}
 
@@ -599,6 +606,8 @@ Rotating Machinery}
 \newbibpp{DELEROI 1984}{DELEROI 1984}{W. DELEROI}{Der Stabbruch im Käfigläufer eines Asynchronmotors Teil 1: Beschreibung mittels Überlagerung eines Störfeldes}{Archiv Für Elektrotechnik, vol. 67, pp. 91–99, 1984}
 
 \newbibpp{HAMID 2002}{HAMID 2002}{E. Y. HAMID e KAWASAKI Z. I.}{Wavelet based data compression of power system disturbances using the minimum description length data}{IEEE Transactions on Power Delivery, Vol. 17, No. 2, 2002, pp. 460 a 466}
+
+\newbibpp{JARDINE 2006}{JARDINE 2006}{Andrew K.S. JARDINE, Daming LIN ,Dragan BANJEVIC}{A review on machinery diagnostics and prognostics implementing condition-based maintenance}{Mechanical Systems and Signal Processing, Volume 20, Issue 7, October 2006, pp. 1483 a 1510}
 
 \newbibpp{KIM 2007}{KIM 2007}{B. S. KIM, S. H. LEE, M. G. LEE, J. NI, J.Y. SONG e C.W. LEE}{A comparative study on damage detection in speed-up and coast-down process of grinding spindle-typed rotor-bearing system}{Journal of Materials Processing Technology, 187–188, 2007, pp. 30 a 36}
 
@@ -611,6 +620,5 @@ Rotating Machinery}
 \newbibpp{SWELDENS 1998}{SWELDENS 1998}{W. SWELDENS}{The lifting scheme: a construction of second generation wavelets}{SIAM Journal on Mathematical Analysis, 29, 2, 1998, pp. 511 a 546}
 
 \end{thebibliography}
-
 
 \end{document}

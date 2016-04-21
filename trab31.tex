@@ -420,7 +420,16 @@ O programa \textbf{\texttt{exercmat.c}}, em anexo, escrito em C, lê uma matriz e
 \begin{lstlisting}[language=Ada]
 	exercmat 25 $ \textit{n} $
 \end{lstlisting}
-onde $ n $ é o tamanho do problema. Ele também calcula o número de operações em ponto flutuante necessário para cada etapa.
+onde $ n $ é o tamanho do problema. Ele também calcula o número de operações em ponto flutuante necessário para cada etapa. \\
+Para ajustar um polinômio aos pontos disponíveis, tentamos criar novas variáveis $ X_1 \text{ a } X_3 \text{, sendo } X_1 = \sin(Ax), \; X_2 = x \sin(Ax), \; X_3 = x^2 \sin(Ax) $, de forma a obter um polinômio da forma $ \alpha_0 + \alpha_1 X_1 + \alpha_2 X_2 + \alpha_3 X_3 \text{, ou melhor, } \alpha_0 + (\alpha_1 + \alpha_2 x + \alpha_3 x^2) \sin(Ax) $. O valor de $ A $ pode ser calculado a partir dos pontos de passagem por 0 da massa de dados original. \\
+O programa \textbf{\texttt{exercmat.c}}, em anexo, escrito em C, lê os dados brutos e calcula o período médio. Basta digitar:
+\listingsG
+\begin{lstlisting}[language=Ada]
+	exercmat 31 $ \textit{n} $
+\end{lstlisting}
+onde $ n $ é o tamanho da amostra. \\
+Selecionaram-se as amostras correspondentes aos 100 valores anteriores a $ x = 1 $. O valor obtido foi $ 0.098874 \; s$, o que dá um valor de $ 33.77 \text{ para } A \text{, próximo ao valor exato teórico de } 31.6 $. A precisão poderia melhorar com uma amostra maior. \\
+Dessas 100 amostras, selecionaram-se 10 igualmente espaçadas para montagem do arquivo a ser usado na regressão múltipla. Os valores obtidos foram os seguintes: $ \alpha_0 = 0.010530, \; \alpha_1 = -0.011361, \; \alpha_2 = -0.882807, \; \alpha_3 = 1.880448 $.
 \end{resposta}
 
 \clearpage
@@ -448,7 +457,7 @@ e a interpolação de Neville é obtida digitando-se:
 	exercmat 24 $ \textit{n} $
 \end{lstlisting}
 As técnicas de Lagrange e de Neville não consideram o valor da derivada. \\
-\\[\baselineskip]
+\clearpage
 \begin{minipage*}{\textwidth}
 \centering
     \begin{tabular}{|c|c|c|c|c|}
@@ -559,7 +568,7 @@ Os seguintes arquivos constam do anexo (arquivo \textbf{\texttt{exercmat1.zip}})
 		\item A\textit{n}: problema 1
 		\item E\textit{n}: problema 2
 		\item B\textit{n}: problemas 3 e 4
-	\end{itemize}	
+	\end{itemize}
 \end{lista}
 
 \noindent\makebox[\linewidth]{\rule{\paperwidth}{1pt}}

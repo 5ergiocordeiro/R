@@ -4,87 +4,86 @@
 {Obras consultadas}
 \relax
 \par\addpenalty{5000}\relax
-\par\addpenalty{-500}\relax
-\item[]\SBsubtitle
-{Obras consultadas}
-{Artigos}
-\relax
-\par\addpenalty{5000}\relax
 \bibitem
-[AAYAZ 2014]
+[AYAZ 2014]
 {AYAZ 2014}
 E. AYAZ, {\bf A Review Study on Mathematical Methods for Fault Detection Problems in Induction Motors} : {Balkan Journal of Electrical \& Computer Engineering, 2014, Vol.2, No.3}. Disponível em \url {http://dergipark.ulakbim.gov.tr/bajece/article/download/5000102024/5000095108}, acesso em 26/03/2016. 
 
 
 \bibitem
-[ABOUZIDA 2013]
+[BOUZIDA 2013]
 {BOUZIDA 2013}
 Ahcène BOUZIDA, Omar TOUHAMI e Radia ABDELLI, {\bf Rotor Fault Diagnosis in Three Phase Induction Motors Using the Wavelet Transform} : {International Conference on Control, Engineering \& Information Technology (CEIT'13) Proceedings Engineering \& Technology - Vol.1, pp. 186-191, 2013}. Disponível em \url {http://ipco-co.com/PET_Journal/presented\%20papers/095.pdf}, acesso em 26/03/2016. 
 
 
 \bibitem
-[AKAHN 2010]
+[KAHN 2010]
 {KAHN 2010}
 M. Abdesh Shafiel Kafiey KHAN and M. Azizur RAHMAN, {\bf Wavelet Based Diagnosis and Protection of Electric Motors}, \emph {in} Fault Detection, Wei Zhang (Ed.), ISBN: 978-953-307-037-7, InTech, 2010.{http://www.intechopen.com/books/fault-detection/wavelet-based-diagnosis-and-protection-of-electric-motors}{26/03/2016} 
 
 
 \bibitem
-[ANGOTE 2014]
+[NGOTE 2014]
 {NGOTE 2014}
 Nabil NGOTE, Said GUEDIRA, Mohamed CHERKAOUI e Mohammed OUASSAID, {\bf Diagnosis of Induction Motor Rotor Fault through Discrete Wavelet Transform Applied to Residual Current} : {Jerzy Balicki (Ed.) - Advances in Applied and Pure Mathematics, ISBN: 978-960-474-380-3, pp. 390 a 396}. Disponível em \url {http://www.wseas.us/e-library/conferences/2014/Gdansk/MATH/MATH-51.pdf}, acesso em 26/03/2016. 
 
 
 \bibitem
-[APENG 2004]
+[PENG 2004]
 {PENG 2004}
-PENG Z. K. e CHU F. L., {\bf Application of the wavelet transform in machine condition monitoring and fault diagnostics: a review with bibliography} : {Mechanical Systems and Signal Processing, Vol. 18, Issue 2, March 2004, pp. 199 a 221.}. Disponível em \url {http://www.sciencedirect.com/science/article/pii/S088832700300075X}, acesso em 26/03/2016. 
+PENG Z. K. e CHU F. L., {\bf Application of the wavelet transform in machine condition monitoring and fault diagnostics: a review with bibliography} : {Mechanical Systems and Signal Processing, Vol. 18, Issue 2, March 2004, pp. 199 a 221}. Disponível em \url {http://www.sciencedirect.com/science/article/pii/S088832700300075X}, acesso em 26/03/2016. 
 
 
 \bibitem
-[APEZZANI 2015]
+[PEZZANI 2015]
 {PEZZANI 2015}
 Carlos PEZZANI et. al., {\bf Detecção de Barras Rompidas do Rotor Através da Proteção com Zero Ajustes}. Disponível em \url {http://www.selinc.com.br/art_tecnicos/6512_Deteccao-de-Barras-Rompidas-do-Rotor-Atraves-da-Protecao-com-Zero-Ajustes.pdf}, acesso em 26/03/2016. 
 
 
 \bibitem
-[APRAKASH 2014]
+[PRAKASH 2014]
 {PRAKASH 2014}
 Aditya PRAKASH, Vikash Ku. AGARWAL, Amit KUMAR, Bhaskra NAND, {\bf A review on machine condition monitoring and fault diagnostics using wavelet transform} : {International Journal of Engineering Technology, Management and Applied Sciences September 2014, Volume 2 Issue 4, ISSN 2349-447684}. Disponível em \url {http://www.ijetmas.com/admin/resources/project/paper/f201409151410798115.pdf}, acesso em 26/03/2016. 
 
 
 \bibitem
-[ASESHADRINATH 2014]
+[SESHADRINATH 2014]
 {SESHADRINATH 2014}
 Jeevanand SESHADRINATH, Bhim SINGH e Bijaya Ketan PANIGRAHI, {\bf Incipient Interturn Fault Diagnosis in Induction Machines Using an Analytic Wavelet-Based Optimized Bayesian Inference} : {IEEE Transactions on Neural Networks and Learning Systems, Vol. 25, No. 5, May 2014}. Disponível em \url {http://210.30.190.120/ckwx/yuan/mhgzzd/201408250110.pdf}, acesso em 26/03/2016. 
 
 
 \bibitem
-[ASHI 2013 1]
+[SHI 2013 1]
 {SHI 2013 1}
 SHI Pu, CHEN Zheng, Yuriy VAGAPOV, {\bf International Journal of Computer Applications, Volume 69, No.14, May 2013, pp. 36 a 43} : {Wavelet Transform based Broken Rotor-bar Fault detection and Diagnosis Performance Evaluations}. Disponível em \url {http://research.ijcaonline.org/volume69/number14/pxc3888033.pdf}, acesso em 26/03/2016. 
 
 
 \bibitem
-[ASHI 2013 2]
+[SHI 2013 2]
 {SHI 2013 2}
 SHI Pu, CHEN Zheng, Yuriy VAGAPOV, {\bf International Journal of Computer Applications, Volume 69, No.14, May 2013, pp. 44 a} : {WFault Detection and Diagnosis of Induction Machines based on Wavelet and Probabilistic Neural Network}. Disponível em \url {http://research.ijcaonline.org/volume69/number14/pxc3888034.pdf}, acesso em 26/03/2016. 
 
 
 \bibitem
-[ASZABO 2004]
+[SZABO 2004]
 {SZABO 2004}
-Loránd SZABÓ, Károly Ágoston BIRÓ, Jenõ Barna DOBAI, Dénes FODOR, József VASS, {\bf Wavelet Transform Approach to Rotor Faults Detection in Induction Motors} : {INES 2004}. Disponível em \url {http://www.ines-conf.org/ines-conf/75_INES2004.pdf}, acesso em 26/03/2016. 
+Loránd SZABÓ, Károly Ágoston BIRÓ, Jenõ Barna DOBAI, Dénes FODOR e József VASS, {\bf Wavelet Transform Approach to Rotor Faults Detection in Induction Motors} : {INES 2004}. Disponível em \url {http://www.ines-conf.org/ines-conf/75_INES2004.pdf}, acesso em 26/03/2016. 
 
 
-\par\addpenalty{-500}\relax
-\item[]\SBsubtitle
-{Obras consultadas}
+\bibitem
+[YAN 2014]
+{YAN 2014}
+YAN Ruqiang, Robert X. GAO e CHEN Xuefeng, {\bf Wavelets for fault diagnosis of rotary machines: A review with applications} : {Signal Processing Vol. 96, Part A, Mar. 2014, pp. 1 a 15}. Disponível em \url {http://www.researchgate.net/profile/Ruqiang_Yan/publication/259098512_Wavelets_for_fault_diagnosis_of_rotary_machines_A_review_with_applications/links/5508e5380cf2d7a2812b5ade.pdf}, acesso em 26/03/2016. 
+
+
+\par\addpenalty{-5000}\relax
+\item[]\SBtitle
 {Figuras}
 \relax
 \par\addpenalty{5000}\relax
 \bibitem
-[AFig1]
-{Fig1}
+[EEP 2016]
+{EEP 2016}
 . Disponível em \url {http://electrical-engineering-portal.com/download-center/books-and-guides/electrical-engineering/squirrel-cage-rotor-testing-methods}, acesso em 26/03/2016. 
 
 
@@ -121,6 +120,12 @@ W. DELEROI, {\bf Der Stabbruch im Käfigläufer eines Asynchronmotors Teil 1: Besc
 [HAMID 2002]
 {HAMID 2002}
 E. Y. HAMID e KAWASAKI Z. I., {\bf Wavelet based data compression of power system disturbances using the minimum description length data}, \emph {in} IEEE Transactions on Power Delivery, Vol. 17, No. 2, 2002, pp. 460 a 466. 
+
+
+\bibitem
+[JARDINE 2006]
+{JARDINE 2006}
+Andrew K.S. JARDINE, Daming LIN ,Dragan BANJEVIC, {\bf A review on machinery diagnostics and prognostics implementing condition-based maintenance}, \emph {in} Mechanical Systems and Signal Processing, Volume 20, Issue 7, October 2006, pp. 1483 a 1510. 
 
 
 \bibitem
