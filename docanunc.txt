@@ -1,0 +1,52 @@
+Descrição das área de interface com o Anunciador de Alarmes:
+As áreas de interface são
+1) Buffer de eventos: área onde são gravados os eventos detectados pelos IEDs, um de cada vez, para leitura pelo Anunciador.
+2) Buffer de mensagens de atualização: área onde o Anunciador solicita e o IED grava o estado de um ponto específico.
+3) Indicação do estado dos IEDs: área onde os IEDs informam ao Anunciador se estão operando normalmente.
+
+==================================================================================================================================
+Layout das áreas:
+O buffer de eventos e o buffer de mensagens de atualização possuem o mesmo layout, mostrado abaixo. Cada buffer acomoda apenas um ponto de cada vez. O IED deve proceder da seguinte maneira:
+Buffer de eventos
+a) Aguardar a leitura dos dados pelo Anunciador, que liberará o buffer para atualização escrevendo o valor 2 no campo flag_acao.
+b) Escrever 0 no campo flag_liberado, para avisar ao Anunciador que o buffer não deve ser lido ainda.
+c) Escrever os dados do evento no buffer.
+d) Escrever 1 no campo flag_acao.
+e) Escrever 1 no campo flag_liberado, para avisar ao Anunciador que o buffer já deve ser lido.
+Buffer de mensagens de atualização
+a) Aguardar o pedido dos dados pelo Anunciador, que escreverá a identificação do ponto requerido e o valor 1 no campo flag_acao.
+b) Escrever 0 no campo flag_liberado, para avisar ao Anunciador que o buffer não deve ser lido ainda.
+c) Escrever os dados do ponto no buffer.
+d) Escrever 3 no campo flag_acao.
+e) Escrever 1 no campo flag_liberado, para avisar ao Anunciador que o buffer já deve ser lido.
+Os buffers trabalham de forma independente, mas é conveniente que os IEDs, quando tiverem muitos eventos a enviar, inibam a solicitação de atualizações pelo Anunciador, gravando o valor 0 no campo 'tipo' do buffer de mensagens de atualização.
+Os eventos possuem timestamp, por isso não precisam ser enviados de forma perfeitamente ordenada ao Anunciador. As mensagens de atualização devem também receber um timestamp, mesmo que ele não tenha a mesma precisão dos eventos.
+----------------------------------------------------------------------------------------------------------------------------------
+Layout do buffer de eventos e do buffer de mensagens de atualização (16 bytes):
+| tipo | rede | IED | ponto | status | flag_liberado | ano | mes | dia | hora | minuto | segundo | ms | ms | VAGO | flag_acao |
+
+tipo: sempre 2 para pontos da rede de IEDs; quando o valor for 0, inibe a leitura do buffer.
+rede/IED/ponto: identificação única do ponto.
+status: 0 = alarmado; 80 = normal (convenção Siemens).
+flag_liberado:
+	0 = não liberado (buffer sendo atualizado pelo IED);
+	1 = buffer liberado para leitura do Anunciador.
+ano: a partir de 2000 (ex. 16 = 2016).
+mês: de 1 a 12.
+dia: auto-explicativo.
+hora: de 0 a 23.
+minuto: auto-explicativo.
+segundo: auto-explicativo.
+ms: de 0 a 999 (dois bytes).
+flag_acao:
+	1 = novo evento a ser lido pelo Anunciador (buffer de eventos) OU nova atualização solicitada pelo Anunciador (buffer de atualização)
+	2 = evento lido pelo anunciador; o buffer pode ser atualizado.
+	3 = nova atualização a ser lida pelo anunciador.
+	4 = atualização lida pelo anunciador.
+----------------------------------------------------------------------------------------------------------------------------------
+
+A área de indicação do estado dos IEDs possui o layout indicado abaixo. Os campos são independentes, e podem ser atualizados a qualquer momento. O Anunciador nunca escreve nessa área.
+----------------------------------------------------------------------------------------------------------------------------------
+Layout da área de indicação do estado dos IEDs (32 bytes): Um byte para cada IED, na sequência. O valor 1 indica que o IED está 
+operando normalmente.
+----------------------------------------------------------------------------------------------------------------------------------

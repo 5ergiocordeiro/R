@@ -266,8 +266,8 @@ Para esses dados (PIB e PIB per capita) faça:
 \perguntaa{}
 \end{pergunta}
 \begin{resposta}
-A decomposição SVD de uma matriz $ \matriz{A} $ consiste na sua substituição pelo produto de três outras matrizes: $ \matriz{A} = \matriz{U} \matriz{S} \matriz{V}^{(T)} \text{, onde } \matriz{U} \text{ e } \matriz{V} $ são unitárias e $ \matriz{S} $ é diagonal. Pode-se demonstrar que toda matriz pode ser decomposta dessa forma, e que a decomposição é única, a menos da ordem das colunas das matrizes. \\
-\hlin
+Os \textbf{valores singulares} são uma generalização dos autovalores, pois aplicam-se não apenas a matrizes quadradas. A decomposição SVD de uma matriz $ \matriz{A} $ consiste na sua substituição pelo produto de três outras matrizes: $ \matriz{A} = \matriz{U} \matriz{S} \matriz{V}^{(T)} \text{, onde } \matriz{U} \text{ e } \matriz{V} $ são unitárias e $ \matriz{S} $ é diagonal. Pode-se demonstrar que toda matriz pode ser decomposta dessa forma, e que a decomposição é única, a menos da ordem das colunas das matrizes. \\
+A generalização dos autovetores são os \textbf{vetores singulares}. As colunas de $ \matriz{U} $ são chamadas de vetores singulares à esquerda, e as de $ \matriz{U} $, de vetores singulares à direita. \\
 A aplicação imediata da decomposição SVD é a solução mais fácil de um sistema linear, pois $ \matriz{U} \text{ e } \matriz{V} $ são matrizes unitárias, por isso suas transpostas são as inversas; $ \matriz{S} $, por sua vez, é diagonal, e encontrar sua inversa é trivial. Portanto:
 \begin{align*}
 	\matriz{A} \matriz{x} = \matriz{b} \implies \qquad \matriz{x} & = \matriz{A}^{-1} \matriz{b} \\
@@ -275,7 +275,17 @@ A aplicação imediata da decomposição SVD é a solução mais fácil de um sistema li
 	& = \matriz{V} \matriz{S}^{-1} \matriz{U}^{(T)} \matriz{b} \\
 \end{align*}
 Uma segunda aplicação é a compressão da matriz, que pode ser expressa pelo produto $ \matriz{\hat{U}} \matriz{\hat{S}} \matriz{\hat{V}}^{(T)} $, com as matrizes $ \matriz{\hat{U}} \text{, } \matriz{\hat{S}} \text{ e } \matriz{\hat{V}}^{(T)} $ derivadas das originais por eliminação de colunas menos significativas, correspondentes a valores singulares de menor valor absoluto. \\
-Uma terceira aplicação é a diminuição do número de condicionamento da matriz, através da eliminação dos valores singulares com menor valor absoluto. \\
+Uma terceira aplicação é a diminuição do número de condicionamento da matriz, através da eliminação dos valores singulares com menor valor absoluto. A melhoria no condicionamento torna a matriz mais adequada ao trataemnto por métodos iterativos. \\
+Finalmente, uma quarta aplicação é no cálculo da \textbf{pseudoinversa} de uma matriz, que é definida como:
+\begin{align*}
+	\matriz{A}^\dagger & = \matriz{A}A^T(\matriz{A}\matriz{A}^T)^{-1} \text{ ou } \\
+	\matriz{A}^\dagger & = (\matriz{A}A^T \matriz{A})^{-1} \matriz{A}^T
+\end{align*}
+dependendo de qual produto, $ \matriz{A}\matriz{A}^T \text{ ou } \matriz{A}A^T \matriz{A} $, for invertível. A pseudoinversa é dada por:
+\begin{align*}
+	\matriz{A}^\dagger = \matriz{V} \matriz{S}^\dagger \matriz{U}^T
+\end{align*}
+cujo cálculo é fácil, uma vez que $ \matriz{S} $ é diagnonal \cite{FASSHAUER 2006,PRESS 1992 1,VETTERLI 2014}. \\
 \hlin
 A compressão de matrizes por meio da decomposição SVD usa a técnica conhecida como \textit{low-rank approximation}: após encontrarem-se os $ n $ autovalores, selecionam-se os $ m $ maiores; todas linhas de $ \matriz{U} \text{ e } \matriz{V} $ são mantidas, mas apenas as $ m $ colunas que correspondem aos maiores autovalores dessas matrizes; quanto a $ \matriz{S} $, são selecionadas tanto as linhas quanto as colunas que correspondem aos autovalores mais importantes. O resultado é uma matriz $ \matriz{C} $ que tem o mesmo tamanho da matriz original, mas apenas $ m $ autovalores. \\
 A manutenção dos maiores autovalores faz com que a maior parte da variãncia original seja preservada, e com ela, a informação relevante. O número de condição, por sua vez, é bastante melhorado. \\ 
@@ -316,7 +326,7 @@ Os resultados obtidos são mostrados e tabelados a seguir. Foi usada apenas preci
     \begin{tabular}{|c|c|c|c|c|}
 		\hline
         \multicolumn{2}{|c|}{\textbf{n}} & \textbf{nome} & \multicolumn{2}{|c|}{\textbf{custo} \footnote{Número de operações de ponto flutuante necessárias.}} \\
-		\textbf{antes} & \textbf{depois} & & \textbf{decomposição} &¨\textbf{compressão} \\
+		\textbf{antes} & \textbf{depois} & & \textbf{decomposição} & \textbf{compressão} \\
 		\hline
 		\multirow{4}{*}{$ 512 $} & $ 347 $ & \multirow{4}{*}{Lena} & \multirow{4}{*}{$ 35047344300288 $} & $ 304347657 $ \\
 		& $ 240 $ & & & $ 184041993 $ \\
@@ -415,21 +425,60 @@ As raízes da equação característica são:
 	& = -1.5 \pm \jmath 31.6
 \end{align*}
 Assim, a forma da resposta será $ y = D e^{-1.5t} \sin (31.6 t + E) $. Como $ y(0) = 0 \text{, então } E = 0 $. 
-O programa \textbf{\texttt{exercmat.c}}, em anexo, escrito em C, lê uma matriz em disco e ajusta a ela um polinômio por regressão linear múltipla, usando o método dos mínimos quadrados. Basta digitar:
+O programa \textbf{\texttt{exercmat.c}}, em anexo, escrito em C, lê uma matriz em disco e ajusta a ela um polinômio por regressão polinomial, usando o método dos mínimos quadrados. Basta digitar:
 \listingsG
 \begin{lstlisting}[language=Ada]
-	exercmat 25 $ \textit{n} $
+	exercmat 32 $ \textit{n} $
 \end{lstlisting}
-onde $ n $ é o tamanho do problema. Ele também calcula o número de operações em ponto flutuante necessário para cada etapa. \\
-Para ajustar um polinômio aos pontos disponíveis, tentamos criar novas variáveis $ X_1 \text{ a } X_3 \text{, sendo } X_1 = \sin(Ax), \; X_2 = x \sin(Ax), \; X_3 = x^2 \sin(Ax) $, de forma a obter um polinômio da forma $ \alpha_0 + \alpha_1 X_1 + \alpha_2 X_2 + \alpha_3 X_3 \text{, ou melhor, } \alpha_0 + (\alpha_1 + \alpha_2 x + \alpha_3 x^2) \sin(Ax) $. O valor de $ A $ pode ser calculado a partir dos pontos de passagem por 0 da massa de dados original. \\
-O programa \textbf{\texttt{exercmat.c}}, em anexo, escrito em C, lê os dados brutos e calcula o período médio. Basta digitar:
-\listingsG
-\begin{lstlisting}[language=Ada]
-	exercmat 31 $ \textit{n} $
-\end{lstlisting}
-onde $ n $ é o tamanho da amostra. \\
-Selecionaram-se as amostras correspondentes aos 100 valores anteriores a $ x = 1 $. O valor obtido foi $ 0.098874 \; s$, o que dá um valor de $ 33.77 \text{ para } A \text{, próximo ao valor exato teórico de } 31.6 $. A precisão poderia melhorar com uma amostra maior. \\
-Dessas 100 amostras, selecionaram-se 10 igualmente espaçadas para montagem do arquivo a ser usado na regressão múltipla. Os valores obtidos foram os seguintes: $ \alpha_0 = 0.010530, \; \alpha_1 = -0.011361, \; \alpha_2 = -0.882807, \; \alpha_3 = 1.880448 $.
+onde $ n $ é o tamanho do problema. Ele também calcula a qualidade da aproximação e o número de operações em ponto flutuante necessário para cada etapa. \\
+Para ajustar um polinômio aos pontos disponíveis, selecionaram-se as amostras correspondentes aos 100 valores anteriores a $ x = 1 $ e tentaram-se graus crescentes para o polinômio. Os resultados obtidos são mostrados na tabela abaixo e ilustrados pelos gráficos que se seguem. Os gráficos foram plotados em baixa definição, usando-se apenas 10 pontos, de forma a não incorrer em custo de processamento alto.
+\\[\baselineskip]
+\begin{minipage*}{\textwidth}
+\centering
+    \begin{tabular}{|c|c|c|c|c|}
+		\hline
+        \textbf{grau} & \textbf{coeficiente de} & \textbf{variãncia} & \multicolumn{2}{|c|}{\textbf{custo} \footnote{Número de operações de ponto flutuante necessárias.}} \\
+        & \textbf{determinação} & \textbf{residual} & \textbf{ajuste} & \textbf{avaliação} \\	\hline
+		$ 1 $ & $ 0.006412 $ & $ 0.065045 $ & $ 739 $ & $ 1670 $ \\
+		$ 2 $ & $ 0.282749 $ & $ 0.047438 $ & $ 1578 $ & $ 2709 $ \\
+		$ 3 $ & $ 0.991840 $ & $ 0.000545 $ & $ 2632 $ & $ 3963 $ \\
+		$ 4 $ & $ 0.983997 $ & $ 0.001081 $ & $ 3905 $ & $ 5436 $ \\
+		$ 5 $ & $ 0.989866 $ & $ 0.000692 $ & $ 5401 $ & $ 7132 $ \\
+		\hline
+    \end{tabular}
+\end{minipage*}
+\\[\baselineskip]
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab31figb2.jpg} \\
+	$ \alpha_1 = 0.680600 \text{, } \alpha_0 = -1.105716 $
+\end{figure}%
+\clearpage
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab31figb3.jpg} \\
+	$ \alpha_2 = 560.891174 \text{, } \alpha_1 = -1060.951416 \text{, } \alpha_0 = 500.748230 $
+\end{figure}%
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab31figb4.jpg} \\
+	$ \alpha_3 = 156.376862 \text{, } \alpha_2 = -144.615555 \text{, } $ \\
+	$ \alpha_1 = -145.984055 \text{, } \alpha_0 = 134.404083 $
+\end{figure}%
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab31figb5.jpg} \\
+	$ \alpha_4 = 196.042389 \text{, } \alpha_3 = -263.384857 \text{, } \alpha_2 = 15.143293 \text{, } $ \\
+	$ \alpha_1 = 14.279124  \text{, } \alpha_0 = 38.165676 $
+\end{figure}
+\vskip 2ex
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab31figb6.jpg} \\
+	$ \alpha_5 = 23.204826 \text{, } \alpha_4 = 13.646919 \text{, } \alpha_3 = 43.347961 \text{, } $ \\
+	$ \alpha_2 = -84.813011 \text{, } \alpha_1 = -95.061539 \text{, } \alpha_0 = 99.884033 $
+\end{figure}%
+As curvas mostram que não há melhoria apreciável quando o grau do polinômio é aumentado a partir de 3. Os índices da qualidade do ajuste inclusive indicam que a melhor aproximação é obtida com um polinômio do terceiro grau. Evidentemente, se outro trecho da curva tivesse sido escolhido. \\
 \end{resposta}
 
 \clearpage
@@ -487,7 +536,7 @@ O programa \textbf{\texttt{exercmat.c}}, em anexo, escrito em C, lê uma tabela e
 	exercmat 22 $ \textit{n} $
 \end{lstlisting}
 onde $ n $ é o tamanho da tabela. Ele também calcula o número de operações em ponto flutuante necessário. A condição de \textit{spline} natural é sempre imposta. \\
-Verifica-se que a consideração da derivada melhora bastante a precisão e diminui o custo computacional. A exatidão, contudo, é inferior à obtida com um polinômio de mais alto grau. A técnica do \textit{spline}, além de ser mais simples, ainda permite o reaproveitamento dos coeficientes para interpolação de outros pontos \cite{KOKKOTAS 2015,KUCKIR 2014,ONEILL 2002,OUYED 2011,PRESS 1992}. \\
+Verifica-se que a consideração da derivada melhora bastante a precisão e diminui o custo computacional. A exatidão, contudo, é inferior à obtida com um polinômio de mais alto grau. A técnica do \textit{spline}, além de ser mais simples, ainda permite o reaproveitamento dos coeficientes para interpolação de outros pontos \cite{KOKKOTAS 2015,KUCKIR 2014,ONEILL 2002,OUYED 2011,PRESS 1992 2}. \\
 \\[\baselineskip]
 \begin{minipage*}{\textwidth}
 \centering
@@ -558,11 +607,6 @@ $ a_4 = 4.385204 \text{, } a_3 = -0.417683 \text{, } a_2 = 0.005891 \text{, } a_
 Os seguintes arquivos constam do anexo (arquivo \textbf{\texttt{exercmat1.zip}}):
 \begin{lista}
 	\item arquivo fonte em C \textbf{\texttt{exercmat.c}}
-	\item arquivos fontes em MATLAB:
-	\begin{itemize}
-
-\item \textbf{\texttt{gerachol.m}}: problema 2
-	\end{itemize}		
 	\item arquivos de dados:
 	\begin{itemize}
 		\item A\textit{n}: problema 1
@@ -577,16 +621,9 @@ Os seguintes arquivos constam do anexo (arquivo \textbf{\texttt{exercmat1.zip}})
 
 %\end{}section
 
-\glsaddall
-\printglossaries
-%\printglossary[type=main]
-%\printglossary[type=\acronymtype]
-
-\noindent\makebox[\linewidth]{\rule{\paperwidth}{1pt}}
-
-\clearpage
-
 \begin{thebibliography}{30}
+
+\newbibsi{FASSHAUER 2006}{FASSHAUER 2006}{Greg FASSHAUER}{Numerical Linear Algebra/Computational Mathematics I}{Illinois Institute of Technology, 2006}{http://www.math.iit.edu/~fass/477577_Chapter_2.pdf}{25/03/2016}
 
 \newbibit{FREITAS 2010}{FREITAS 2010}{Pedro Garcia FREITAS}{3.1.4 Aproximação de Funções — Interpolação — Interpolação de Hermite}{http://www.sawp.com.br/blog/?p=880}{04/04/2016}
 
@@ -598,17 +635,20 @@ Os seguintes arquivos constam do anexo (arquivo \textbf{\texttt{exercmat1.zip}})
 
 \newbibit{OUYED 2011}{OUYED 2011}{Rachid OUYED e Woflgang DOBLER}{Interpolation, Extrapolation ans Polynomial Approximation}{Chap. 4, 2011, pp. 53 a 55}{http://pjl.ucalgary.ca/courses/physics381/computational-physics/Ouyed-Chapter-4-Interpolation-Extrapolation-Techniques.pdf}{17/04/2016}
 
-\newbibsi{PRESS 1992}{PRESS 1992}{William H. PRESS, Saul A. TEUKOLSKY, William T. VETTERLING and Brian P. FLANNERY}{Numerical recipes in Fortran 77: The art of scientific computing Vol. 1}{Cambridge University Press, 2nd. Ed., 1992, ISBN 0-521-43064-X, Chap. 3. pp. 99 a 122}{http://www.fing.edu.uy/if/cursos/fiscomp/extras/numrec/book/f3.pdf}{06/04/2016}
+\newbibsi{PRESS 1992 1}{PRESS 1992 1}{William H. PRESS, Saul A. TEUKOLSKY, William T. VETTERLING and Brian P. FLANNERY}{Numerical recipes in Fortran 77: The art of scientific computing Vol. 1}{Cambridge University Press, 2nd. Ed., 1992, ISBN 0-521-43064-X, Chap. 3. pp. 51 a 63}{http://www.fing.edu.uy/if/cursos/fiscomp/extras/numrec/book/f3.pdf}{06/04/2016}
+
+\newbiboc{PRESS 1992 2}{PRESS 1992 2}{William H. PRESS, Saul A. TEUKOLSKY, William T. VETTERLING and Brian P. FLANNERY}{Chap. 2. pp. 99 a 122}
 
 \newbibit{TOBÓN 2011}{TOBÓN 2011}{Luis E. TOBÓN}{Newton, Lagrange and Hermite Interpolation: Convergence and Runge phenomena}{http://people.duke.edu/~let12/pdf/courses/math225/LuisTobon_HW1_Interpolation.pdf}{04/04/2016}
 
-\newbibit{WEISSTEIN 2016}{WEISSTEIN 2016}{Eric W. WEISSTEIN}{Positive Definite Matrix \textit{MathWorld}}{http://mathworld.wolfram.com/PositiveDefiniteMatrix.html}{17/03/2016}
+\newbibbk{VETTERLI 2014}{VETTERLI 2014}{M. VETTERLI, J. KOVACEVIC e V. K. GOYAL}{Foundations of Signal Processing}{Cambridge University Press, March 2014, ISBN 110703860X [free version], pp. 59 a 60 e 146 a 147}{30/04/2016}
 
 \end{thebibliography}
 
 \noindent\makebox[\linewidth]{\rule{\paperwidth}{1pt}}
 
-Programas testados com \textbf{Octave} 4.0.0 e \textbf{MinGW} C 4.8.2: \\
+Programas testados com \textbf{Octave} 4.0.0, \textbf{Scilab} 5.5.2 e \textbf{MinGW} C 4.8.2: \\
+\url{https://www.scilab.org} \\
 \url{https://www.gnu.org/software/octave/} \\
 \url{https://www.mingw.org} \\
 Texto formatado com \textbf{pdflatex} em ambiente \textbf{MiKTeX} 2.9: \\

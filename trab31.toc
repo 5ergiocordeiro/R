@@ -1,4 +1,4 @@
 \select@language {brazilian}
 \contentsline {section}{\tocsection {}{1}{Problemas}}{2}{section.1}
-\contentsline {section}{\tocsection {}{2}{Anexos}}{17}{section.2}
-\contentsline {section}{\tocsection {}{}{Refer\^encias}}{19}{section*.2}
+\contentsline {section}{\tocsection {}{2}{Anexos}}{19}{section.2}
+\contentsline {section}{\tocsection {}{}{Refer\^encias}}{20}{section*.2}

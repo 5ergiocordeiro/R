@@ -1,0 +1,277 @@
+% Quinta lista de exercícios de Sistemas e Sinais
+% Preparado para MiKTeX 2.9. Gerar arquivo PDF com pdflatex.
+\documentclass[12pt,fleqn]{amsart}
+\usepackage{enumitem}
+\usepackage{xstring}
+\usepackage{graphicx}
+\usepackage[a4paper]{geometry}
+\usepackage[portuguese,brazilian]{babel}
+\usepackage[ansinew]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{comment}
+% Fontes
+\usepackage{textgreek}
+\usepackage{yfonts}
+\usepackage{microtype}
+\usepackage{calligra}
+\usepackage{lmodern}
+\usepackage{bookman}
+\usepackage[scaled]{helvet}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+\usepackage{fmtcount}
+% Formatação
+\usepackage{sidecap}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{matlab-prettifier}
+% Símbolos matemáticos
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{wasysym}
+\usepackage{mathtools}
+\usepackage{bbm}
+\usepackage{mbboard}
+\usepackage{steinmetz}
+% Desenhos
+\usepackage{tikz}
+\usepackage{circuitikz}
+
+
+\title{Sistemas e Sinais - Exercício V}
+\date{}
+\author{Sérgio Cordeiro}
+
+
+\newenvironment{pergunta}{
+	\par
+	\trivlist
+	\fontfamily{phv}
+	\selectfont
+	\item\arabic{prob_num}. 
+	}{
+	\endtrivlist
+	}
+
+\newenvironment{resposta}{
+	\trivlist
+    \vspace{3pt}
+	\fontfamily{pbk}
+	\selectfont
+	\item
+	}{
+	\vspace{3pt}
+	\noindent\makebox[\linewidth]{\rule{\paperwidth}{1pt}}
+	\endtrivlist
+	\stepcounter{prob_num}
+	}
+
+\newenvironment{listae}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}	
+	\vspace{-5mm}}
+
+\newenvironment{listaef}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}}
+
+\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
+
+\DeclareMathOperator{\atan}{\boldsymbol{atan}}			% Arco tangente
+\DeclareMathOperator{\La}{\mathcal{L}}					% Transformada de Laplace
+\DeclareMathOperator{\De}{\boldsymbol{\delta}}			% Função impulso
+\DeclareMathOperator{\dDe}{\boldsymbol{\dot{\delta}}}	% Derivada da função impulso
+\DeclareMathOperator{\He}{\boldsymbol{u}}				% Função defrau
+\newcommand{\dt}[1]{\frac{d {#1}}{dt}}					% derivada temporal
+\newcommand{\ddt}[1]{\frac{d^2 {#1}}{dt^2}}				% derivada segunda temporal
+\newcommand{\dtau}[1]{\frac{d {#1}}{d \tau}}			% derivada temporal
+\newcommand{\ddtau}[1]{\frac{d^2 {#1}}{d \tau^2}}		% derivada segunda temporal
+
+
+% Linhas divisórias
+\newcommand{\hhhlin}{\noindent\hfil\rule{0.25\textwidth}{.2pt}\hfil\newline}
+\newcommand{\hhlin}{\noindent\hfil\rule{0.5\textwidth}{.4pt}\hfil\newline}
+\newcommand{\hlin}{\noindent\hfil\rule{\textwidth}{.8pt}\hfil\newline}
+
+% Citações
+\newcommand{\newbibit}[6]{\bibitem[#1]{#2}#3, {\bf #4}. Disponível em \url{#5}, acesso em #6.}
+\newcommand{\newbibpp}[5]{\bibitem[#1]{#2}#3, {\bf #4}, \emph{in} #5.}
+\newcommand{\newbibbk}[5]{\bibitem[#1]{#2}#3, {\bf #4}, #5.}
+\newcommand{\newbibip}[6]{\bibitem[#1]{#2}#3, {\bf #4}, \emph{in} #5, disponível em \url{#6}.}
+\newcommand{\newbiboc}[4]{\bibitem[#1]{#2}#3, \textit{op. cit.}, #4.}
+\newcommand{\newbibsi}[7]{\bibitem[#1]{#2}#3, {\bf #4} : {#5}. Disponível em \url{#6}, acesso em #7.}
+
+\newenvironment{iquote}{\begin{quote}\itshape}{\end{quote}}
+
+% Perguntas
+\newcommand{\perguntaa}{Usar o MATLAB para obter filtros discretos de terceira ordem, passa altas e baixas, tipos Butterworth, Chebyshev e elíptico, com $ f_c = 1000 \; Hz \text{ e } f_s = 10 k \; Hz $. Obter gráficos de resposta em frequência e mapa de polos e zeros.}
+\newcommand{\perguntab}{Mostrar que funções exponenciais contínuas são ortogonais.}
+
+\begin{document}
+\setlength{\parskip}{1em}
+\setlength{\jot}{10pt}
+\setlength{\parindent}{0pt}
+
+\maketitle
+
+\newcounter{prob_num}
+\setcounter{prob_num}{1}
+
+
+\begin{pergunta}
+\perguntaa{}
+\end{pergunta}
+\begin{resposta}
+Os filtros de terceira ordem terão todos a função de transferência na forma:
+\begin{align*}
+	F(z) = \dfrac{a_0 + a_1 z + a_2 z^2 + a_3 z^3}{b_0 + b_1 z + b_2 z^2 + z^3}
+\end{align*}
+variando apenas o valor dos coeficientes. Para os filtros de Chebyshev e elíptico, é preciso escolher um valor para o \textit{ripple} permitido; o valor escolhido foi 10\%. \\
+Filtro passa-baixas Butterworth: $ a_0 = a_3 = 0.0985312 \text{, } a_1 = a_2 = 0.2955935z \text{, } b_0 = - 0.0562972 \text{, } b_1 = 0.4217870 \text{, } b_2 = - 0.5772405 $. \\
+Filtro passa-altas Butterworth: $ a_0 = - 0.2569156 \text{, } a_1 = 0.7707468 \text{, } a_2 = - 0.7707468b_0 \text{, } a_3 = 0.2569156 \text{, } b_1 = 0.4217870 \text{, } b_2 = - 0.5772405 $. \\
+Filtro passa-baixas Chebyshev tipo 1: $ a_0 = a_3 = 0.0758127 \text{, } a_1 = a_2 = 0.2274381 \text{, } b_0 = - 0.2800204 \text{, } b_1 = 0.8350895 \text{, } b_2 = - 0.9485676 $. 
+Filtro passa-altas Chebyshev tipo 1: $ a_0 = - 0.2184734 \text{, } a_1 = 0.6554203 \text{, } a_2 = - 0.6554203 \text{, } a_3 = 0.2184734 \text{, } b_0 = 0.1066800 \text{, } b_1 = 0.5231798  \text{, } b_2 = - 0.3312878 $.
+Filtro passa-baixas Chebyshev tipo 2: $ a_0 = a_3 = 0.1396569 \text{, } a_1 = a_2 = 0.0911027 \text{, } b_0 = - 0.1205026 \text{, } b_1 = 0.727458 \text{, } b_2 = 1.1454362 $. \\
+Filtro passa-altas Chebyshev tipo 2: $ a_0 = - 0.2537110 \text{, } a_1 = 0.4733077 \text{, } a_2 = - 0.4733077 \text{, } a_3 = 0.2537110 \text{, } b_0 = - 0.0343049 \text{, } b_1 = 0.4205823 \text{, } b_2 = 0.0008498 $. \\
+Filtro passa-baixas elíptico: $ a_0 = a_3 = 0.1888360 \text{, } a_1 = a_2 = 0.2103067 \text{, } b_0 = - 0.2551121 \text{, } b_1 = 0.9029815 \text{, } b_2 = - 0.8495838 $. \\
+Filtro passa-altas elíptico: $ a_0 = - 0.3424305 \text{, } a_1 = 0.7545202 \text{, } a_2 = - 0.7545202 \text{, } a_3 = 0.3424305 \text{, } b_0 = 0.0339332 \text{, } b_1 = 0.7048425 \text{, } b_2 = - 0.5229920 $. \\
+Os gráficos de resposta em frequência são os seguintes:
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{trab32figa1_1.jpg} \\
+	Filtro passa-baixas Butterworth
+\end{figure}%
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{trab32figa2_1.jpg} \\
+	Filtro passa-altas Butterworth
+\end{figure}%
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{trab32figa3_1.jpg} \\
+	Filtro passa-baixas Chebyshev tipo 1
+\end{figure}%
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{trab32figa4_1.jpg} \\
+	Filtro passa-altas Chebyshev tipo 1
+\end{figure}%
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{trab32figa5_1.jpg} \\
+	Filtro passa-baixas Chebyshev tipo 2
+\end{figure}%
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{trab32figa6_1.jpg} \\
+	Filtro passa-altas Chebyshev tipo 
+\end{figure}%
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{trab32figa7_1.jpg} \\
+	Filtro passa-baixas elíptico
+\end{figure}%
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{trab32figa8_1.jpg} \\
+	Filtro passa-altas elíptico
+\end{figure}%
+Os diagramas de polos e zeros são os seguintes:
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{trab32figa1_2.jpg} \\
+	Filtro passa-baixas Butterworth
+\end{figure}%
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{trab32figa2_2.jpg} \\
+	Filtro passa-altas Butterworth
+\end{figure}%
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{trab32figa3_2.jpg} \\
+	Filtro passa-baixas Chebyshev tipo 1
+\end{figure}%
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{trab32figa4_2.jpg} \\
+	Filtro passa-altas Chebyshev tipo 1
+\end{figure}%
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{trab32figa5_2.jpg} \\
+	Filtro passa-baixas Chebyshev tipo 2
+\end{figure}%
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{trab32figa6_2.jpg} \\
+	Filtro passa-altas Chebyshev tipo 
+\end{figure}%
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{trab32figa7_2.jpg} \\
+	Filtro passa-baixas elíptico
+\end{figure}%
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{trab32figa8_2.jpg} \\
+	Filtro passa-altas elíptico
+\end{figure}%
+\end{resposta}
+
+\clearpage
+
+\begin{pergunta}
+\perguntab{}
+\end{pergunta}
+\begin{resposta}
+\begin{align*}
+	\langle e^{at},e^{bt} \rangle & = \int_{-\infty}^{\infty} e^{at} \; \left( e^{bt} \right) ^*\; dt \qquad \Aboxed{a,b \in \mathbb{C}} \\
+	& = \int_{-\infty}^{\infty} e^{(a + b^*)t} \; dt \\
+	& = \int_{-\infty}^{\infty} e^{ct} \; dt \qquad \Aboxed{c = [(\Re{\{a\}} + \Re{\{b\}}) + \jmath (\Im{\{a\}} - \Im{\{a\}})]} \\
+	& = \left. \dfrac{e^{ct}}{c} \right|_{-\infty}^{\infty}
+\end{align*}
+A integral só converge de $ \Re{\{c\}} < 0 $; assim, $ \Re{\{a + b\}} \le 0 $. Para $ \Re{\{a + b\}} < 0 $, o produto interno será nulo. Resta tratar a situação em que $ \Re{\{a + b\}} = 0 $; neste caso $ c $ é puramente imaginário, e pode-se escrever $ c = \jmath d $. \\
+Para $ d \ne 0 $, a função $ e^{\jmath dt} $ é periódica com período $ T = \frac{2 \pi}{d} $ e podemos redefinir o produto interno como:
+\begin{align*}
+	\langle e^{at},e^{bt} \rangle & = \frac{1}{T} \int_{0}^{T} e^{\jmath dt} \; dt \qquad \Aboxed{d \in \mathbb{R}} \\
+	& = \frac{1}{T} \; \frac{1}{\jmath d} \; \left. e^{\jmath dt} \right|_0^T \\
+	& = \frac{1}{T} \; \frac{1}{\jmath d} \; (e^{\jmath d T} - 1) \\
+	& = \frac{1}{T} \; \frac{1}{\jmath d} \; (e^{\jmath 2 \pi} - 1) \\
+	& = \frac{1}{T} \; \frac{1}{\jmath d} \; (1 - 1) \\
+\end{align*}
+ Finalmente, para $ d = 0 $, teremos:
+\begin{align*}
+	\langle e^{at},e^{bt} \rangle & = \frac{1}{T} \int_{0}^{T} dt \\
+	& = \frac{1}{T} \; \left. t \right|_0^T \\
+	& = \frac{1}{T} \; T \\
+	& = 1 \\
+\end{align*}
+Esse caso especial acontece quando $ \Im{a} = \Im{b} $. Como já tínhamos $ \Re{\{a\}} = \Re{\{b\}} $, segue-se que $ d = 0 \implies a = b $.
+Sumarizando:
+\begin{align*}
+	\langle e^{at},e^{bt} \rangle & = \begin{cases} 0 & \left[\left( \frac{}{} \Re{\{a\}} = \Re{\{b\}} \land \Im{\{a\}} \ne \Im{\{a\}} \right) \lor \Re{\{a\}} \ne \Re{\{b\}} \right] \land \Re{\{a + b\}} < 0 \\ 1 & a = b \land \Re{\{a\}} < 0 \\ \mathrm{Indefinido} & \Re{\{a + b\}} > 0 \end{cases}
+\end{align*}
+Portanto, as funções são ortogonais. \\
+\end{resposta}
+ 
+\clearpage
+
+Simulação realizada com \textbf{Scilab} 5.5.2: \\
+\url{https://www.scilab.org} \\
+Texto formatado com \textbf{pdflatex} em ambiente \textbf{MiKTeX} 2.9: \\
+\url{http://miktex.org/download/} \\ \\
+\end{document}
