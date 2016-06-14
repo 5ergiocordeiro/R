@@ -1,0 +1,282 @@
+% Quinta lista de exercícios de Métodos Numéricos
+% Preparado para MiKTeX 2.9. Gerar arquivo PDF com pdflatex.
+\documentclass[12pt,fleqn]{amsart}
+\usepackage{enumitem}
+\usepackage{xstring}
+\usepackage[pdftex]{graphicx}
+\usepackage[a4paper]{geometry}
+\usepackage[portuguese,brazilian]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[ansinew]{inputenc}
+\usepackage{comment}
+\usepackage{bigfoot}
+% Fontes
+\usepackage{textgreek}
+\usepackage{yfonts}
+\usepackage{microtype}
+\usepackage{calligra}
+\usepackage{lmodern}
+\usepackage{bookman}
+\usepackage[scaled]{helvet}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+\usepackage{fmtcount}
+% Formatação
+\usepackage{sidecap}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{matlab-prettifier}
+% Símbolos matemáticos
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{wasysym}
+\usepackage{mathtools}
+\usepackage{bbm}
+\usepackage{mbboard}
+\usepackage{steinmetz}
+% Desenhos
+\usepackage{tikz}
+\usepackage{circuitikz}
+\usepackage{pgfplots}
+
+\usetikzlibrary{lindenmayersystems}
+\usetikzlibrary{calc}
+\usetikzlibrary{circuits.ee.IEC}
+
+
+\title{Métodos Numéricos - Exercício V}
+\date{}
+\author{Sérgio Cordeiro}
+
+
+\newenvironment{pergunta}{
+	\par
+	\trivlist
+	\fontfamily{phv}
+	\selectfont
+	\item\arabic{prob_num}. 
+	}{
+	\endtrivlist
+	}
+
+\newenvironment{resposta}{
+	\trivlist
+    \vspace{3pt}
+	\fontfamily{pbk}
+	\selectfont
+	\item
+	}{
+	\vspace{3pt}
+	\noindent\makebox[\linewidth]{\rule{\paperwidth}{1pt}}
+	\endtrivlist
+	\stepcounter{prob_num}
+	}
+
+\newenvironment{listae}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}	
+	\vspace{-5mm}}
+
+\newenvironment{listaef}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}}
+
+\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
+
+%\BeforeBeginEnvironment{figure}{\vskip-1ex}
+\AfterEndEnvironment{figure}{\vskip-4ex}
+
+\DeclareMathOperator{\atan}{\boldsymbol{atan}}						% Arco tangente
+\DeclareMathOperator{\La}{\mathcal{L}}								% Transformada de Laplace
+\DeclareMathOperator{\Fou}{\mathcal{F}}								% Transformada de Fourier
+\DeclareMathOperator{\De}{\boldsymbol{\delta}}						% Função impulso
+\DeclareMathOperator{\dDe}{\boldsymbol{\dot{\delta}}}				% Derivada da função impulso
+\DeclareMathOperator{\He}{\boldsymbol{u}}							% Função degrau
+\DeclareMathOperator{\tri}{\boldsymbol{tri}}						% Função triangular
+\DeclareMathOperator{\rect}{\boldsymbol{rect}}						% Função retangular
+\DeclareMathOperator{\sinc}{\boldsymbol{sinc}}						% Função sinc
+\newcommand{\PL}[1]{\boldsymbol{P_L}^{(#1)}}						% Polinômio de Legendre
+\newcommand{\Walsh}[1]{\boldsymbol{W}^{(#1)}}						% Função de Walsh
+\newcommand{\E}[1]{\mathpzc{E} \left\{ \frac{}{} {#1} \right\}}		% Energia
+\newcommand{\dt}[1]{\frac{d {#1}}{dt}}					% derivada temporal
+\newcommand{\ddt}[1]{\frac{d^2 {#1}}{dt^2}}				% derivada segunda temporal
+\newcommand{\dtau}[1]{\frac{d {#1}}{d \tau}}			% derivada temporal
+\newcommand{\ddtau}[1]{\frac{d^2 {#1}}{d \tau^2}}		% derivada segunda temporal
+
+\newcommand{\matriz}[1]{\mathbf{#1}}
+
+% Linhas divisórias
+\newcommand{\hhhlin}{\noindent\hfil\rule{0.25\textwidth}{.2pt}\hfil\newline}
+\newcommand{\hhlin}{\noindent\hfil\rule{0.5\textwidth}{.4pt}\hfil\newline}
+\newcommand{\hlin}{\noindent\hfil\rule{\textwidth}{.8pt}\hfil\newline}
+
+% Listagens
+\newcommand{\listingsO}{\lstset{language=Octave,literate={^}{\textasciicircum}1,frame=single,style=Matlab-editor,basicstyle={\tiny},breaklines=true,numbers=left,numberstyle={\color{red}},numbersep=9pt,showstringspaces=false,keepspaces=false,tabsize=2}}
+\newcommand{\listingsM}{\lstset{language=Matlab,literate={^}{\textasciicircum}1,frame=single,style=Matlab-editor,basicstyle={\tiny},breaklines=true,numbers=left,numberstyle={\color{red}},numbersep=9pt,showstringspaces=false,keepspaces=false,tabsize=2}}
+\newcommand{\listingsC}{\lstset{language=C,frame=single,basicstyle={\tiny},breaklines=true,numbers=left,numberstyle={\color{red}},numbersep=9pt,showstringspaces=false,keepspaces=false,tabsize=2}}
+\newcommand{\listingsG}{\lstset{language=Ada,frame=none,basicstyle={\ttfamily\bfseries},numbers=none,tabsize=2,mathescape}}
+
+% Citações
+\newcommand{\newbibit}[6]{\bibitem[#1]{#2}#3, {\bf #4}. Disponível em \url{#5}, acesso em #6.}
+\newcommand{\newbibpp}[5]{\bibitem[#1]{#2}#3, {\bf #4}, \emph{in} #5.}
+\newcommand{\newbibbk}[5]{\bibitem[#1]{#2}#3, {\bf #4}, #5.}
+\newcommand{\newbibip}[6]{\bibitem[#1]{#2}#3, {\bf #4}, \emph{in} #5, disponível em \url{#6}.}
+\newcommand{\newbiboc}[4]{\bibitem[#1]{#2}#3, \textit{op. cit.}, #4.}
+\newcommand{\newbibsi}[7]{\bibitem[#1]{#2}#3, {\bf #4} : {#5}. Disponível em \url{#6}, acesso em #7.}
+
+\newenvironment{iquote}{\begin{quote}\itshape}{\end{quote}}
+
+% Perguntas
+\newcommand{\perguntaa}{Resolver os problemas seguintes problemas do livro: “Elementos de eletromagnetismo- Sadiku”: \\
+a.	FEM – 15.29 (Desenvolva seu próprio código). (métodos iterativos e matriz de banda). \\
+b.	FEM – 15.30 \\
+c.	FEM – 15.31 \\
+
+Observações:
+- Todos os desenvolvimento numéricos podem ser feitos no MATLAB \\
+- Apresente uma descrição teórica do problema \\
+- Apresente o código \\
+- Apresente comparações aumentando a malha de discretização \\
+- Apresente conclusões detalhadas \\
+}
+	
+%\begin{}
+\begin{document}
+\setlength{\parskip}{1em}
+\setlength{\jot}{10pt}
+\setlength{\parindent}{0pt}
+
+\maketitle
+
+\newcounter{prob_num}
+\setcounter{prob_num}{1}
+%\end{}
+
+\begin{pergunta}
+\perguntaa{}
+\end{pergunta}
+\begin{resposta}
+a) O problema consiste em resolver a equação de Laplace em um espaço quadrado, cujos lados medem 1.0 m, e com um potencial $ V_0 $ de 100 V aplicado ao lado superior e os demais aterrados. Deve ser aplicado o método dos elementos finitos, com elementos triangulares. A solução exata é:
+\begin{align}
+	V(x,y) = \frac{4 V_0}{\pi} \sum_{k = 0}^{\infty} \frac{\sin(n \pi x) \sinh(n \pi y)}{n \sinh(n \pi)} \qquad n = 2k + 1
+\end{align}
+Um programa para solução por sistema linear foi fornecido, bem como a grade numerada abaixo: \\
+\newcommand*\rows{5}
+\begin{tikzpicture}[scale=2.5,circuit ee IEC]
+	%¨Bordas
+	\draw[color=blue!40!white] (0,0) grid (\rows,\rows);
+	\draw[color=yellow!90!black, ultra thick] ($(0,0)$) rectangle ($(\rows,\rows)$);
+	\pgfmathsetmacro{\middle}{\rows/2}
+	\draw[color=yellow!90!black, ultra thick] (\middle,0) -- (\middle,-0.5) node [ground, right, rotate=-90] {};
+	\draw[color=blue, ultra thick] ($(0,\rows)$) -- ($(\rows,\rows)$);
+	\node[color=blue, text width=3cm] at (\rows - 1.1,\rows + 0.1) {$V = V_0$};	
+	\pgfmathtruncatemacro{\limit}{\rows - 1}
+	\foreach \i in {0, 1, ...,\rows} {
+		\foreach \j in {0, 1, ...,\rows} {
+			\IfStrEq{\i}{\rows}{}{
+				\IfStrEq{\j}{\rows}{}{
+					% Numeração dos elementos
+					\draw[color=blue!40!white] ($1.0*(\i,\j)$) -- ($(\i+1.0,\j+1.0)$);
+					\pgfmathtruncatemacro{\nodenum}{\j * 2 * \rows + 2 * \i + 1}
+					\node[fill=blue!40!white, circle] at ($(\i+0.25,\j+0.75)$) {\nodenum};
+					\pgfmathtruncatemacro{\nodenum}{\j * 2 * \rows + 2 * \i + 2}
+					\node[fill=blue!40!white, circle] at ($(\i+0.75,\j+0.25)$) {\nodenum};
+					}
+				}
+			% Numeração dos nós
+			\pgfmathtruncatemacro{\nodenum}{\j * (\rows + 1) + \i + 1}
+			\node[anchor=north east, color=red!70!black, ultra thick] at ($(\i,\j)$) {\nodenum};
+			\draw[fill=red!70!black] ($(\i,\j)$) circle(0.08);
+			}
+		}
+\end{tikzpicture} \\
+\\[\baselineskip]
+No programa fornecido pela bibliografia, os dados devem ser lidos a partir de um arquivo. No nosso caso, para facilitar o recálculo com várias divisões da grade, tais dados são calculados a partir da geometria do problema por uma função de inicialização especial, aproveitando a simplicidade da geometria. A função que resolve o problema permaneceu completamente genérica. Construiu-se também uma função para saída de dados, que também é específica para a geometria dada. O programa de cálculo foi adaptado da bibliografia e poderia ainda ser melhorado. O código está listado abaixo. \\
+\listingsM
+\lstinputlisting[caption=FEM\_Tri\_SolveG1.m,language=Matlab]{FEM_Tri_SolveG1.m}
+\lstinputlisting[caption=FEM\_Tri\_SolveI.m,language=Matlab]{FEM_Tri_SolveI.m}
+\lstinputlisting[caption=FEM\_Tri\_SolveS.m,language=Matlab]{FEM_Tri_SolveS.m}
+\lstinputlisting[caption=FEM\_Tri\_SolveP.m,language=Matlab]{FEM_Tri_SolveP.m}
+A distribuição de potencial obtida, bem como aquela calculada analiticamente, estão ilustradas abaixo:
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab39figa1.jpg} \\
+	\caption{Distribuição calculada (grade com 5 intervalos)}
+\end{figure} 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab39figa2.jpg} \\
+	\caption{Distribuição teórica (grade com 5 intervalos)}
+\end{figure} 
+Percebe-se que a solução não é satisfatória para os pontos onde o potencial varia abruptamente (cantos superiores da grade). A generalidade dos programas permite variar à vontade o tamanho da malha, o que melhora a precisão. Para $ n $ = 50, o resultado foi o seguinte:
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab39figa3.jpg} \\
+	\caption{Distribuição calculada (grade com 50 intervalos)}
+\end{figure} 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab39figa4.jpg} \\
+	\caption{Distribuição teórica (grade com 50 intervalos)}
+\end{figure}
+Nota-se que as equipotenciais são mais lisas e que a solução é precisa nos cantos superiores. \\
+\end{resposta}
+\begin{resposta}
+b) O problema consiste em resolver o problema anterior com um potencial $ V_0 = 100 \sin(\pi x) $. A solução exata é:
+\begin{align}
+	V(x,y) = \frac{100 \sin(\pi x) \sinh(\pi y)}{\sinh(\pi)}
+\end{align}
+Foi usado o mesmo código empregado no problema anterior, uma vez que a geometria é a mesma e muda apenas o valor do potencial em alguns pontos fixos. Essa  mudança foi tratada por meio de uma mudança na função de controle geral da execução. \\
+\listingsO
+\lstinputlisting[caption=FEM\_Tri\_SolveG2.m,language=Matlab]{FEM_Tri_SolveG2.m}
+A distribuição de potencial obtida, bem como aquela calculada analiticamente, estão ilustradas abaixo:
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab39figb1.jpg} \\
+	\caption{Distribuição calculada (grade com 5 intervalos)}
+\end{figure} 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab39figb2.jpg} \\
+	\caption{Distribuição teórica (grade com 5 intervalos)}
+\end{figure} 
+Para $ n $ = 50, o resultado foi o seguinte:
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab39figb3.jpg} \\
+	\caption{Distribuição calculada (grade com 50 intervalos)}
+\end{figure} 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab39figb4.jpg} \\
+	\caption{Distribuição teórica (grade com 50 intervalos)}
+\end{figure}
+Neste caso, a malha de 5 divisões também não se mostra fina o bastante mas, como o potencial nos cantos superiores não varia de forma abrupta, o erro não é tão grande. Um valor de $ n $ = 50 é mais do que suficiente para uma solução perfeita. \\
+\end{resposta}
+\begin{resposta}
+c) O problema consiste em demonstrar que, quando uma malha quadrada é usada no método das diferenças finitas, obtém-se a mesma matriz de coeficientes que quando se usa o método dos elementos finitos com os quadrados divididos ao meio, formando triângulos. \\
+Pode-se notar facilmente que, em ambos os casos, os nós são exatamente os mesmos. Sendo assim, a matriz de coeficientes e o vetor correspondente à contribuição dos pontos fixos são idênticos nos dois casos, porque eles são determinados unicamente pela geometria do problema. Portanto, o sistema linear a ser resolvido:
+\begin{align*}
+	\matriz{A} \matriz{x} = \matriz{b}
+\end{align*}
+é o mesmo para ambos os métodos. Pode-se concluir daí que o método dos elementos finitos é mais geral que o das diferenças finitas, e que em alguns casos ambos coincidem, inclusive em precisão e esforço computacional necessário. \\
+\end{resposta}
+
+Programas testados com \textbf{MATLAB} R2016a \\
+\url{https://www.mathworks.com} \\
+Texto formatado com \textbf{pdflatex} em ambiente \textbf{MiKTeX} 2.9: \\
+\url{http://miktex.org/download/} \\ \\
+\end{document}

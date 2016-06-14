@@ -1,0 +1,831 @@
+% Trabalho de Métodos Numéricos
+% Preparado para MiKTeX 2.9. Gerar arquivo PDF com pdflatex.
+\documentclass[12pt,fleqn]{amsart}
+%\begin{}Preãmbulo
+\usepackage{enumitem}
+\usepackage{xstring}
+\usepackage[pdftex]{graphicx}
+\usepackage[a4paper]{geometry}
+\usepackage[english,brazilian]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[ansinew]{inputenc}
+\usepackage{comment}
+\usepackage{bigfoot}
+% Fontes
+\usepackage{textgreek}
+\usepackage{yfonts}
+\usepackage{microtype}
+\usepackage{calligra}
+\usepackage{lmodern}
+\usepackage{bookman}
+\usepackage[scaled]{helvet}
+%\usepackage{courier}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+\usepackage{hyphenat}
+%\hyphenation{mate-mática recu-perar}
+\usepackage{fmtcount}
+\usepackage[nonumberlist,acronym,sort=def]{glossaries}
+% Formatação
+\usepackage{sidecap}
+\usepackage{fixltx2e}
+\usepackage{float}
+\usepackage{listings}
+\usepackage[numbered,framed]{matlab-prettifier}
+\usepackage{multirow}
+\usepackage{pdflscape}
+\usepackage{footnote}
+\usepackage{tablefootnote}
+% Símbolos matemáticos
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{wasysym}
+\usepackage{mathtools}
+\usepackage{bbm}
+\usepackage{mbboard}
+\usepackage{bm}
+% Desenhos
+\usepackage{tikz}
+
+\usetikzlibrary{shapes,arrows}
+%\end{}
+
+\title{Métodos Numéricos - Trabalho}
+\date{}
+\author{Sérgio Cordeiro}
+%\end{}
+
+%\begin{}Comandos
+\renewcommand*\contentsname{Sumário}
+
+\newenvironment{inthisrev}{
+	\color{blue}
+	}{
+	\color{black}
+	}
+
+\newenvironment{myquote}{
+	\begin{quote}
+	\fontfamily{lmr} \selectfont
+	{\huge ``}}{{\huge ''}
+	\end{quote}
+	}
+
+\newenvironment{pergunta}{
+	\par
+	\trivlist
+	\fontfamily{phv}
+	\selectfont
+	\item\arabic{prob_num}. 
+	}{
+	\endtrivlist
+	}
+
+\newenvironment{resposta}{
+	\trivlist
+    \vspace{3pt}
+	\fontfamily{pbk}
+	\selectfont
+	\item
+	}{
+	\vspace{3pt}
+	\noindent\makebox[\linewidth]{\rule{\paperwidth}{1pt}}
+	\endtrivlist
+	\stepcounter{prob_num}
+	}
+
+\newenvironment{lista}{
+	\vspace{-5mm}
+	\begin{itemize}}{
+	\end{itemize}	
+	\vspace{-5mm}}
+
+\newenvironment{listaf}{
+	\vspace{-5mm}
+	\begin{itemize}}{
+	\end{itemize}}
+
+\newenvironment{listae}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}	
+	\vspace{-3mm}}
+
+\newenvironment{listaef}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}}
+
+\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
+
+\newcommand{\matriz}[1]{\mathbf{#1}}
+
+\newcommand{\dt}[1]{\frac{d {#1}}{dt}}					% derivada temporal
+\newcommand{\ddt}[1]{\frac{d^2 {#1}}{dt^2}}				% derivada segunda temporal
+\newcommand{\dddt}[1]{\frac{d^3 {#1}}{dt^3}}			% derivada terceira temporal
+\newcommand{\dtau}[1]{\frac{d {#1}}{d \tau}}			% derivada temporal
+\newcommand{\ddtau}[1]{\frac{d^2 {#1}}{d \tau^2}}		% derivada segunda temporal
+\newcommand{\pr}[1]{\frac{\partial {#1}}{\partial r}}
+\newcommand{\ppr}[1]{\frac{\partial ^2 {#1}}{\partial r^2}}
+\newcommand {\pme}[1]{\mathbb{#1}}
+\renewcommand{\a}[1]{\hat{a}_{#1}}
+\newcommand{\grad}{\vec{\nabla}}
+\newcommand{\px}[1]{\frac{\partial {#1}}{\partial x}}
+\newcommand{\py}[1]{\frac{\partial {#1}}{\partial y}}
+\newcommand{\ppx}[1]{\frac{\partial^2 {#1}}{\partial x^2}}
+\newcommand{\ppy}[1]{\frac{\partial^2 {#1}}{\partial y^2}}
+\renewcommand{\div}{\grad \cdot}
+\newcommand{\lap}{\nabla^2}
+\newcommand{\rot}{\grad \times}
+\renewcommand{\a}[1]{\hat{a}_{#1}}
+% Símbolos de parâmetros escalares do problema
+ \newcommand{\ppe}[1]{\boldsymbol{#1}}					% genérico
+ \newcommand{\dcv}[1]{\ppe{\boldsymbol{\rho}_{v_{#1}}}}			% Densidade volumétrica de carga
+ \newcommand{\dcs}[1]{\ppe{\boldsymbol{\rho}_{S_{#1}}}}			% Densidade superficial de carga
+ \newcommand{\dcl}[1]{\ppe{\boldsymbol{\rho}_{l_{#1}}}}			% Densidade linear de carga
+
+
+\newcommand{\newbibit}[6]{\bibitem[#1]{#2}#3, {\bf #4}. Disponível em \url{#5}, acesso em #6.}
+\newcommand{\newbibpp}[5]{\bibitem[#1]{#2}#3, {\bf #4}, \emph{in} #5.}
+\newcommand{\newbibbk}[5]{\bibitem[#1]{#2}#3, {\bf #4}, #5.}
+\newcommand{\newbibip}[6]{\bibitem[#1]{#2}#3, {\bf #4}, \emph{in} #5, disponível em \url{#6}.}
+\newcommand{\newbiboc}[4]{\bibitem[#1]{#2}#3, \textit{op. cit.}, #4.}
+\newcommand{\newbibsi}[7]{\bibitem[#1]{#2}#3, {\bf #4}: {#5}. Disponível em \url{#6}, acesso em #7.}
+\newcommand{\newbibpd}[4]{\bibitem[#1]{#2}#3, {\bf #4}}
+
+\newenvironment{iquote}{\begin{quote}\itshape}{\end{quote}}
+
+\BeforeBeginEnvironment{figure}{\vskip-1ex}
+\AfterEndEnvironment{figure}{\vskip-1ex}
+
+% Linhas divisórias
+\newcommand{\hhhlin}{\noindent\hfil\rule{0.25\textwidth}{.2pt}\hfil\newline}
+\newcommand{\hhlin}{\noindent\hfil\rule{0.5\textwidth}{.4pt}\hfil\newline}
+\newcommand{\hlin}{\noindent\hfil\rule{\textwidth}{.8pt}\hfil\newline}
+
+% Listagens
+\newcommand{\listingsO}{\lstset{language=Octave,literate={^}{\textasciicircum}1,frame=single,style=Matlab-editor,basicstyle={\tiny},breaklines=true,numbers=left,numberstyle={\color{red}},numbersep=9pt,showstringspaces=false,keepspaces=false,tabsize=2}}
+\newcommand{\listingsM}{\lstset{language=Matlab,literate={^}{\textasciicircum}1,frame=single,style=Matlab-editor,basicstyle={\tiny},breaklines=true,numbers=left,numberstyle={\color{red}},numbersep=9pt,showstringspaces=false,keepspaces=false,tabsize=2}}
+\newcommand{\listingsC}{\lstset{language=C,frame=single,basicstyle={\tiny},breaklines=true,numbers=left,numberstyle={\color{red}},numbersep=9pt,showstringspaces=false,keepspaces=false,tabsize=2}}
+\newcommand{\listingsG}{\lstset{language=Ada,frame=none,basicstyle={\ttfamily\bfseries},numbers=none,tabsize=2,mathescape}}
+
+%\end{}
+
+%\begin{}Perguntas
+
+\newcommand{\perguntaa}{Resolver o problema da seção 3.7.1 do Livro: Numerical Techinique in Electromagnetics with Matlab (Matthew N. O. Sadiku). \\
+Descrever detalhadamente o problema \\
+Apresentar gráficos de equipotenciais e campo elétrico \\
+Calcular a impedância característica \\
+Realizar análise numérica detalhada \\
+Comentar os resultados detalhadamente \\
+}
+%\end{}
+
+\begin{document}
+
+\maketitle
+
+\newcounter{prob_num}
+\setcounter{prob_num}{1}
+
+\begin{pergunta}
+\perguntaa{}
+\end{pergunta}
+
+\tableofcontents
+
+\fontfamily{pbk}
+\selectfont
+
+%\begin{}
+\section{Descrição do problema}
+
+\subsection{Resumo}
+O problema demonstra uma aplicação do método das diferenças finitas no cálulo da impedância característica de uma linha de transmissão do tipo \textit{microstrip} aberta. Com as simplificações feitas, é possível chegar ao resultado por meio dos seguintes passos: \\
+\begin{listaef}[1]
+	\item calcular o potencial em todos os pontos da região por meio da equação de Laplace: $ \lap{} V = 0 $.
+	\item calcular o campo elétrico em todos os pontos a partir do potencial a partir da expressão $ \vec{E} = - \grad V $.
+	\item calcular a carga elétrica na região por meio da lei de Gauss:
+	\begin{align*}
+		q = \oint \limits_{S} \vec{D} \cdot d \vec{S}
+	\end{align*}
+	\item calcular a capacitância da linha por meio da expressão $ C_0 = \dfrac{q}{V_0} $.
+	\item calcular a indutãncia da linha pela expressão $ L = \dfrac{\ell^2}{c^2 C_0} $.
+	\item calcular a impedância da linha pela expressão $ Z_0 = \sqrt{\dfrac{L}{C}} $.
+\end{listaef}
+Esses passos são detalhados a seguir.
+
+\subsection{Cálculo do potencial em cada ponto}
+Uma linha do tipo \textit{microstrip} é construída a partir de uma placa de circuito impresso de dupla face. A geometria está ilustrada nas figuras abaixo.
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+	% Entorno
+	\draw[help lines] (0,0) rectangle (6,4);
+	% Placa de circuito impresso
+	% substrato
+	\filldraw[fill=red!40!black, draw=black] (0,1.5) rectangle (6,2.5);
+	% superfície condutora
+	\filldraw[fill=red!80!black, draw=black] (1.5,1.2) rectangle (4.5,1.5);
+	\filldraw[fill=red!80!black, draw=black] (1.5,2.5) rectangle (4.5,2.8);
+	% Indicação dos eixos
+	\draw[thick,->] (7,2) -- (8,2) node[anchor=north west] {X};
+	\draw[thick,->] (7,2) -- (7,3) node[anchor=south east] {Y};
+	% Indicação dos meios
+	\node[fill=blue!40!white, circle] at (5.5,3.5) {\textfrak{1}};
+	\node[fill=blue!40!white, circle] at (5.5,2) {\textfrak{2}};
+	\node[fill=blue!40!white, circle] at (4,1) {\textfrak{3}};
+	% Cotas
+	\draw[<->] (0,-0.1) -- (6,-0.1) node [midway,below] {2b};
+	\draw[<->] (-0.1,0) -- (-0.1,4) node [midway,left] {2a};
+	\draw[<->] (6.1,1.5) -- (6.1,2.5) node [midway,right] {2d};
+	\draw[<->] (1.5,2.9) -- (4.5,2.9) node [midway,above] {2w};
+	\draw[<->] (1.4,2.5) -- (1.4,2.8) node [midway,left] {t};
+	% Legenda
+	\node[draw, text width=3cm] at (10.5,2) {\begin{tabular}{c} Meios: \\ \\ \\ \\ \\ \\ \\ \\ \end{tabular}};
+	\node[fill=blue!40!white, circle] at (10,2.5) {\textfrak{1}};
+	\node[fill=blue!40!white, circle] at (10,1.5) {\textfrak{2}};
+	\node[fill=blue!40!white, circle] at (10,0.5) {\textfrak{2}};
+	\node[text width=3cm] at (12,2.5) {ar};
+	\node[color= blue, text width=3cm] at (12,1.5) {fenolite};
+	\node[text width=3cm] at (12,0.5) {cobre};
+\end{tikzpicture}%
+\caption{Seção transversal da linha de transmissão \textit{microstrip}}
+\end{figure}%
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+	% Entorno
+	\draw[help lines] (0,0) rectangle (8,4);
+	% Placa de circuito impresso
+	% substrato
+	\fill[red!40!black] (0,0) rectangle (8,4);
+	% superfície condutora
+	\filldraw[fill=red!80!black, draw=black] (0,1.5) rectangle (8,2.5);
+	% Indicação dos eixos
+	\draw[thick,->] (9,2) -- (10,2) node[anchor=north west] {Z};
+	\draw[thick,->] (9,2) -- (9,3) node[anchor=south east] {X};
+	% Cotas
+	\draw[<->] (0,-0.1) -- (8,-0.1) node [midway,below] {$ \ell $};
+	\draw[<->] (-0.1,0) -- (-0.1,4) node [midway,left] {2b};
+	\draw[<->] (8.1,1.5) -- (8.1,2.5) node [midway,right] {2w};	
+\end{tikzpicture}%
+\caption{Vista superior da linha de transmissão \textit{microstrip}}
+\end{figure}%
+Para se calcular $ V $ em cada ponto, pode-se estabelecer um potencial $ V_0 $ em uma das superfícies condutoras e considerar que $ V = 0 $ a uma distância suficiente. Nesse caso, o campo magnético $ \vec{H} $ será nulo e, uma vez que não há carga elétrica livre no interior dos meios dielétricos (\textfrak{1} e \textfrak{2}), o potencial deve obedecer à equação de Laplace:
+\begin{align}
+	\lap{} V & = 0 \notag \\
+	\ppx{V} + \ppy{V} & = 0 \label{EqL}
+\end{align}
+Esse caminho constitui uma simplificação valiosa, porque para $ \vec{H} $ não nulo, seria preciso empregar a equação de onda, muito mais complexa, para resolver o problema. \\
+Outra simplificação que se pode fazer é reconhecer que, devido à simetria do problema, só é necessário calcular o valor de $ V $ em um dos quadrantes, uma vez que $ V(x,y) = V(-x,y) = V(y,-x) = V (-x,-y) $. Finalmente, uma simplificação adicional decorre de considerar todos os meios como diamagnéticos e sem perdas:
+\begin{align}
+	\pme{\bbmu}^{(1)} = \pme{\bbmu}^{(2)} = \pme{\bbmu}^{(3)} & = 0 \\
+	\pme{\bbsigma}^{(1)} = \pme{\bbsigma}^{(2)} & = 0
+\end{align}
+O cálculo do potencial pelo método das diferenças finitas se baseia na divisão da região de interesse por uma grade uniforme, cada célula possuindo largura $ h $, como ilustrado nas figuras abaixo:
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+	% Entorno
+	\draw[help lines] (0,0) rectangle (6,4);
+	% Placa de circuito impresso
+	% substrato
+	\filldraw[fill=red!40!black, draw=black] (0,1.5) rectangle (6,2.5);
+	% superfície condutora
+	\filldraw[fill=red!80!black, draw=black] (1.5,1.2) rectangle (4.5,1.5);
+	\filldraw[fill=red!80!black, draw=black] (1.5,2.5) rectangle (4.5,2.8);
+	% Indicação dos campos
+	\draw[thick,->,rotate around={45:(7,2)}] (7,2) -- (8,2) node[anchor=west] {$ \vec{E} $};
+	\draw[thick,->] (7,2) -- (8,2) node[anchor= west] {$ E_x $};
+	\draw[thick,->] (7,2) -- (7,3) node[anchor=south east] {$ E_y $};
+	% Eixos de simetria
+	\draw[dotted,color=yellow,ultra thick] (-0.5,2) -- (6.5,2);
+	\draw[dotted,color=yellow,ultra thick] (3,-0.5) -- (3,4.5);
+\end{tikzpicture}%
+\caption{Eixos de simetria e vetor campo elétrico}
+\end{figure}%
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[scale=2.0]
+	\clip (2.8,1.8) rectangle (6.5,4.5);
+	% Entorno
+	\node[text width=3.5cm,color=blue,ultra thick] at (6.3,4.1) {$ V = 0 $};	
+	\draw[color=blue,ultra thick] (0,4) -- (6,4);
+	\draw[color=blue,ultra thick] (6,0) -- (6,4);
+	\draw[help lines] (0,0) rectangle (6,4);
+	% Placa de circuito impresso
+	% substrato
+	\filldraw[fill=red!40!black, draw=black] (0,1.5) rectangle (6,2.5);
+	% superfície condutora
+	\node[text width=3.5cm,color=blue] at (4.8,2.9) {$ V = V_0 $};	
+	\filldraw[fill=blue, draw=blue] (1.5,1.2) rectangle (4.5,1.5);
+	\filldraw[fill=blue, draw=blue] (1.5,2.5) rectangle (4.5,2.8);
+	% Eixos de simetria
+	\draw[dotted,color=yellow,ultra thick] (-0.5,2) -- (6.5,2);
+	\draw[dotted,color=yellow,ultra thick] (3,-0.5) -- (3,4.5);
+	% Grade
+	\draw[step=.2cm,help lines] (0,0) grid (6,4);
+	\draw[thick,|->] (3,4.3) -- (3.5,4.3) node[anchor= west] {$ i $};
+	\draw[thick,|->] (6.3,2) -- (6.3,2.5) node[anchor=south] {$ j $};
+\end{tikzpicture}%
+\caption{Região de trabalho e grade para integração}
+\end{figure}%
+\hlin
+Em coordenadas retangulares, e utilizando a aproximação da derivada segunda pela fórmula central de segunda ordem, pode-se escrever a expressão \ref{EqL} como:
+\begin{align*}
+	\ppx{V} + \ppy{V} & = 0 \\
+	\frac{V(i+1,j) - 2 V(i,j) + V(i-1,j)}{h^2} + ... \\
+	... + \frac{V(i,j+1) - 2 V(i,j) + V(i,j-1)}{h^2} & = 0 \qquad \boxed{i,j \in \mathbb{N}}
+\end{align*}
+\begin{align}
+	\wasytherefore \; 4 V(i,j) & = V(i+1,j) + V(i-1,j) + V(i,j+1) + V(i,j-1) \notag \\
+	V(i,j) & = \frac{1}{4} \left[ \frac{}{} V(i+1,j) + V(i-1,j) + V(i,j+1) + V(i,j-1) \right] \label{EqV1}
+\end{align}
+onde $ h $ é a largura da grade e $ i \text{ e } j $, os índices referentes aos eixos X e Y, respectivamente. \\
+\hhlin
+A fórmula \ref{EqV1} vale para todos os pontos onde a derivada segunda do potencial é contínua. Isso significa toda a região de interesse, com exceção das interfaces entre os meios. Nestes, há descontinuidade na derivada primeira de $ V $ na direção transversal à interface, e a derivada segunda não pode ser calculada. Para encontrar uma expressão para o potencial nas interfaces, aplica-se a lei de Gauss ao cubo de aresta infinitesimal $ \delta \ell $ indicado na figura abaixo:
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+	% Interface
+	\draw[ultra thick] (0,2) -- (5,2);
+	% Superfície Gaussiana
+	\draw[dashed] (1,1) rectangle (3,3);
+	\node[text width=1cm] at (2.8,3.2) {$ \delta S $};		
+	\draw[<->] (0.9,1) -- (0.9,3) node [near end,left] {$ \delta \ell $};
+	\draw[<->] (1,0.9) -- (3,0.9) node [midway,below] {$ \delta \ell $};
+	% Indicação dos meios
+	\node[fill=blue!40!white, circle] at (4.7,2.5) {A};
+	\node[fill=blue!40!white, circle] at (4.7,1.5) {B};
+	% Indicação dos campos
+	\draw[thick,->] (2.8,2.8) -- (3.3,2.8) node[anchor= west] {$ D_x $};
+	\draw[thick,->] (1.8,2.8) -- (1.8,3.3) node[anchor=south east] {$ D_y $};
+\end{tikzpicture}%
+\caption{Superfície para aplicação da lei de Gauss na interface}
+\end{figure}%
+As paredes desse cubo são sempre perpendiculares a uma das componentes do campo elétrico e paralelas à outra. Não há componentes de $ \vec{D} $ na direção perpendicular ao plano da figura. Como $ \delta \ell $ é infinitesimal, pode-se considerar que $ \vec{D} $ é constante na direção paralela à interface. Assim:
+\begin{align*}
+	\oint \limits_{\delta S} \vec{D} \cdot d \vec{S} & = \int \limits_{\delta V} \left( \frac{}{} \div \vec{D} \right) d \\
+	\oint \limits_{\delta S} \vec{D} \cdot d \vec{S} & = 0 \\
+	\sum \limits_{m} D_m \delta \ell \frac{\delta \ell}{2} & = 0 \qquad \boxed{m \in (1,8)} \\
+	\sum \limits_{m} D_m & = 0
+\end{align*}
+\begin{align*}
+	\wasytherefore \; - D_x^{(x^-,y^+)} - D_x^{(x^-,y^-)} - D_y^{(x^-,y^-)} - D_y^{(x^+,y^-)} + D_x^{(x^+,y^-)} + ... \\
+	\qquad ... + D_x^{(x^+,y^+)} + D_y^{(x^+,y^+)} + D_y^{(x^-,y^+)} & = 0
+\end{align*}
+Como $ \vec{D} = \pme{\bbepsilon} \vec{E} $:
+\begin{align}
+	\pme{\bbepsilon}^{(A)} \left[ - E_x^{(x^-,y^+)} + E_x^{(x^+,y^+)} + E_y^{(x^+,y^+)} + E_y^{(x^-,y^+)} \right] = ... \notag \\
+	\qquad ... \; \pme{\bbepsilon}^{(B)} \left[ E_x^{(x^-,y^-)} + E_y^{(x^-,y^-)} + E_y^{(x^+,y^-)} - E_x^{(x^+,y^-)} \right] \label{EqE}
+\end{align}
+onde $ A \text{ e } B $ são os meios que interfaceiam e $ \pme{\bbepsilon}^{(A)} \text{ e } \pme{\bbepsilon}^{(B)} $, suas respectivas permissividades elétricas. \\
+\hhlin
+Aplicando a derivada progressiva de primeira ordem, em lugar da derivada central de segunda ordem, tem-se:
+\begin{align*}
+	\vec{E} & = - \grad V \\
+	E_x \a{x} + E_y \a{y} & = - \px{V} \a{x} - \py{V} \a{y} \qquad \implies
+\end{align*}
+\begin{align}
+	& & E_x & = \begin{cases} \dfrac{V(i,j) - V(i+1,j)}{h} & i > i_I \\ \\ \dfrac{V(i-1,j) - V(i,j)}{h} & i < i_I \\ \end{cases} \notag \\ \label{EqD} \\
+	& & E_y & = \begin{cases} \dfrac{V(i,j) - V(i,j+1)}{h} & j > j_I \\ \\ \dfrac{V(i,j-1) - V(i,j)}{h} & j < j_I  \\ \end{cases} \notag
+\end{align}
+onde $ i_I \text{ e } j_I $ denotam a localização da superfície Gaussiana. \\
+\hhlin
+Para uma interface paralela ao eixo X, a aplicação de \ref{EqD} a \ref{EqE} resulta:
+\begin{align*}
+	\pme{\bbepsilon}^{(A)} \left[ \frac{V(i,j) - V(i-1,j)}{h} + \frac{V(i,j) - V(i+1,j)}{h} + \frac{V(i,j) - V(i,j+1)}{h} + ... \right. & \\
+	\left. ... + \frac{V(i,j) - V(i,j+1)}{h} \right] = \pme{\bbepsilon}^{(B)} \left[ \frac{V(i-1,j) - V(i,j)}{h} + \frac{V(i,j-1) - V(i,j)}{h} \right. & + ... \\
+	\left. ... + \frac{V(i,j-1) - V(i,j)}{h} + \frac{V(i+1,j) - V(i,j)}{h} \right] &
+\end{align*}
+\begin{align*}
+	\left[ \frac{}{} 4 \pme{\bbepsilon}^{(A)} + 4 \pme{\bbepsilon}^{(B)} \right] V(i,j) & = \pme{\bbepsilon}^{(A)} \left[ \frac{}{} V(i-1,j) + V(i+1,j) + 2 V(i,j+1) \right] + ... \\
+	& ... + \pme{\bbepsilon}^{(B)} \left[ \frac{}{} V(i-1,j) + 2 V(i,j-1) + V(i+1,j) \right] \\
+	& = \left[ \frac{}{} \pme{\bbepsilon}^{(A)} + \pme{\bbepsilon}^{(B)} \right] \left[ \frac{}{} V(i+1,j) + V(i-1,j)\right] + ... \\
+	& \qquad ... + 2 \pme{\bbepsilon}^{(A)} V(i,j+1) + 2 \pme{\bbepsilon}^{(B)} V(i,j-1)
+\end{align*}
+\begin{align}
+	\wasytherefore \; V(i,j) & = \frac{1}{4} \left[ \frac{}{} V(i+1,j) + V(i-1,j) \right] + \frac{\pme{\bbepsilon}^{(A)} V(i,j+1) + \pme{\bbepsilon}^{(B)} V(i,j-1) }{2 (\pme{\bbepsilon}^{(A)} + \pme{\bbepsilon}^{(B)})} \label{EqIx}
+\end{align}
+De forma similar, para uma interface paralela ao eixo Y:
+\begin{align}
+	V(i,j) & = \frac{1}{4} \left[ \frac{}{} V(i,j+1) + V(i,j-1) \right] + \frac{\pme{\bbepsilon}^{(A)} V(i+1,j) + \pme{\bbepsilon}^{(B)} V(i-1,j) }{2 (\pme{\bbepsilon}^{(A)} + \pme{\bbepsilon}^{(B)})} \label{EqIy}
+\end{align}
+As equações \ref{EqIx} e \ref{EqIy} se igualam a \ref{EqV1} para $ \pme{\bbepsilon}^{(A)} = \pme{\bbepsilon}^{(B)}) $, ou seja, quando não há interface no local. \\
+\hlin
+Nos eixos de simetria, o campo elétrico deve se anular, pois o potencial em ambos os lados é igual. Assim, para $ x = 0 $, teremos:
+\begin{align}
+	\px{V} = 0 \implies V(-1,j) = V(1,j) \label{Eqx0}
+\end{align}
+E de forma similar, para $ y = 0 $:
+\begin{align}
+	\py{V} = 0 \implies V(i,-1) = V(i,j) \label{Eqy0}
+\end{align}
+Essas expressões devem ser aplicadas à equação \ref{EqV1} sobre os eixos de simetria ($ i = 0 \text{ e } j = 0$), o que resulta:
+\begin{align}
+	V(i,j) & = \frac{1}{4} \left[ \frac{}{} V(i+1,j) + V(i-1,j) + 2 V(i,j+1) \right] \qquad / j = 0 \land i > 0 \label{EqV2} \\
+	V(i,j) & = \frac{1}{4} \left[ \frac{}{} 2 V(i+1,j) + V(i,j+1) + V(i,j-1) \right] \qquad / i = 0 \land j > 0 \label{EqV3} \\
+	V(i,j) & = \frac{1}{4} \left[ \frac{}{} 2 V(i+1,j) + 2 V(i,j+1) \right] \qquad / i = 0 \land j = 0 \label{EqV4}
+\end{align}
+\hlin
+Resumindo: o potencial $ V $ deve ser calculado pelo método das diferenças finitas, subdividindo-se o quadrante superior direito da região em uma grade de largura $ h $ constante, considerando as expressões seguintes:
+\begin{align*}
+	V(i,j) & = \begin{cases} 0 & i,j \in \{ \mathfrak{R_1} \} \\ \\ V_0 & i,j \in \{ \mathfrak{R_2} \} \\ \\ \dfrac{ V(i+1,j) + V(i-1,j) + V(i,j+1) + V(i,j-1)}{4} & i,j \in \{ \mathfrak{R_3} \cup \mathfrak{R_6} \} \\ \\ \dfrac{V(i+1,j) + V(i-1,j)}{4} + \dfrac{\pme{\bbepsilon}^{(A)} V(i,j+1) + \pme{\bbepsilon}^{(B)} V(i,j-1) }{2 (\pme{\bbepsilon}^{(A)} + \pme{\bbepsilon}^{(B)})} & i,j \in \{ \mathfrak{R_4} \}  \\ \\ \dfrac{2 V(1,j) + V(0,j+1) + V(0,j-1)}{4} & i,j \in \{ \mathfrak{R_5} \} \\ \\ \dfrac{2 V(i,1) + V(i+1,0) + V(i-1,0)}{4} & i,j \in \{ \mathfrak{R_7} \}\end{cases}
+\end{align*}
+onde as subregiões $ \mathfrak{R_n} $ são:
+\begin{align*}
+	\mathfrak{R_1}: & \; \left( \frac{}{} i = N_i \right) \lor \left( \frac{}{} j = N_j \right) \\
+	\mathfrak{R_2}: & \; \left( \frac{}{} 0 \le i \le i_w \right) \land \left( \frac{}{} j_d \le j \le j_w \right) \\
+	\mathfrak{R_3}: & \; \left( \frac{}{} 0 \le i \le N_i \right) \land \left( \frac{}{} 0 \le j \le j_d \right) \\
+	\mathfrak{R_4}: & \; \left( \frac{}{} i_w \le i \le N_i \right) \land \left( \frac{}{} j = j_d \right) \\
+	\mathfrak{R_5}: & \; \left( \frac{}{} 0 \le i \le N_i \right) \land \left( \frac{}{} j = 0 \right) \\
+	\mathfrak{R_6}: & \; \left[ \frac{}{} \left( \frac{}{} i_1 \le i \le i_2 \right) \land \left( \frac{}{} i_w \le i \le N_i \right) \right] \lor \left( \frac{}{} j_w \le j \le N_j \right) \\
+	\mathfrak{R_7}: & \; \left( \frac{}{} i = 0 \right) \land \left( \frac{}{} 0 \le j \le N_j \right)
+\end{align*}
+onde $ N_i \text{ e } N_j $ são os limites de $ i \text{ e } j \text{, e } i_w \text{, } j_e \text{ e } j_w $ são as posições das interfaces entre os meios; todos esses valores dependem das dimensões do problema e do valor de $ h $ escolhido. A figura abaixo mostra as subregiões existentes:
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[scale=2.0]
+	\clip (2.95,1.95) rectangle (6.5,4.5);
+	% Entorno
+	\node[text width=1cm,color=blue,ultra thick] at (6,4.1) {$ \mathfrak{R_1} $};	
+	\draw[color=blue,ultra thick] (0,4) -- (6,4);
+	\draw[color=blue,ultra thick] (6,0) -- (6,4);
+	\draw[help lines] (0,0) rectangle (6,4);
+	% Placa de circuito impresso
+	% substrato
+	\filldraw[fill=red!40!black, draw=black] (0,1.5) rectangle (6,2.5);
+	\node[text width=1cm,color=white] at (5.5,2.2) {$ \mathfrak{R_3} $};	
+	\draw[color=orange,ultra thick] (4.5,2.49) -- (6,2.49);
+	\node[text width=1cm,color=orange] at (6.3,2.53) {$ \mathfrak{R_4} $};	
+	% superfície condutora
+	\filldraw[fill=red!80!black, draw=red!80!black] (1.5,1.2) rectangle (4.5,1.5);
+	\filldraw[fill=red!80!black, draw=red!80!black] (1.5,2.5) rectangle (4.5,2.8);
+	\node[text width=1cm,color=white] at (4,2.65) {$ \mathfrak{R_2} $};	
+	\node[text width=1cm] at (5.5,3.5) {$ \mathfrak{R_6} $};	
+	% Eixos de simetria
+	\draw[dotted,color=yellow,ultra thick] (-0.5,2) -- (6.5,2);
+	\draw[dotted,color=yellow,ultra thick] (3,-0.5) -- (3,4.5);
+	% Grade
+	\draw[step=.2cm,help lines] (0,0) grid (6,4);
+	\draw[color=green,ultra thick] (0,2) -- (6,2);
+	\node[text width=1cm,color=green] at (6.3,2.05) {$ \mathfrak{R_5} $};	
+	\draw[color=green,ultra thick] (3,2) -- (3,4);
+	\node[text width=1cm,color=green] at (3.3,4.15) {$ \mathfrak{R_7} $};	
+\end{tikzpicture}%
+\caption{Subregiões para integração}
+\end{figure}%
+
+\subsection{Cálculo do campo elétrico}
+A partir do resultado, as componentes do campo elétrico em cada ponto podem ser calculadas pela aplicação da derivada primeira adequada. Essa derivada será a derivada central de segunda ordem nos pontos distantes das interfaces e dos limites da grade; nos demais pontos, será necessário usar uma derivada de primeira ordem, como nas equações \ref{EqE}. \\
+O cálculo do campo elétrico não é estritamente necessário para o cálculo da impedância da linha, porque todos os valores relevantes podem ser obtidos diretamente do potencial, como será mostrado em seguida \begin{inthisrev}(equação \ref{EqQ})\end{inthisrev}. \\
+
+\subsection{Cálculo da carga elétrica na região}
+Pode-se obter a carga total $ q $ existente na região aplicando-se a lei de Gauss a um entorno da superfície condutora, conforme mostram as figuras abaixo:
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+	% Entorno
+	\draw[help lines] (0,0) rectangle (6,4);
+	% Placa de circuito impresso
+	% substrato
+	\filldraw[fill=red!40!black, draw=black] (0,1.5) rectangle (6,2.5);
+	% superfície condutora
+	\filldraw[fill=red!80!black, draw=black] (1.5,1.2) rectangle (4.5,1.5);
+	\filldraw[fill=red!80!black, draw=black] (1.5,2.5) rectangle (4.5,2.8);
+	% Indicação dos eixos
+	\draw[thick,->] (7,2) -- (8,2) node[anchor=north west] {X};
+	\draw[thick,->] (7,2) -- (7,3) node[anchor=south east] {Y};
+	% Percurso de integração
+	\draw[dashed] (1,0.8) rectangle (5,3.2);
+	\node[text width=1cm] at (5,3.4) {S};		
+\end{tikzpicture}
+\begin{tikzpicture}[scale=2.0]
+	\clip (2.95,1.95) rectangle (6.5,4.5);
+	% Entorno
+	\draw[help lines] (0,0) rectangle (6,4);
+	% Placa de circuito impresso
+	% substrato
+	\filldraw[fill=red!40!black, draw=black] (0,1.5) rectangle (6,2.5);
+	% superfície condutora
+	\filldraw[fill=red!80!black, draw=black] (1.5,1.2) rectangle (4.5,1.5);
+	\filldraw[fill=red!80!black, draw=black] (1.5,2.5) rectangle (4.5,2.8);
+	% Percurso de integração
+	\draw[dashed] (1,0.8) rectangle (5,3.2);
+	\node[text width=1cm] at (5,3.4) {$ Sq $};		
+	\draw[dashed,color=blue] (3,3.2) -- (5,3.2);
+	\node[text width=1cm,color=blue] at (3.5,3.4) {$ Sq_1 $};		
+	\draw[dashed,color=red] (5,3.2) -- (5,2.5);
+	\node[text width=1cm,color=red] at (5.3,3) {$ Sq_2 $};		
+	\draw[dashed,color=white] (5,2.5) -- (5,2);
+	\node[text width=1cm,color=white] at (5.3,2.2) {$ Sq_2 $};		
+\end{tikzpicture}%
+\caption{Superfícies para aplicação da lei de Gauss}
+\end{figure}%
+\begin{align*}
+	q = \oint \limits_{S} \vec{D} \cdot d \vec{S}
+\end{align*}
+Podem-se usar os valores de $ \vec{E} $ encontrados anteriormente para calcular $ \vec{D} $, mas também podem-se empregar diretamente os valores do potencial:
+\begin{align*}
+	q & = \oint \limits_{S} \vec{D} \cdot d \vec{S} \\
+	& = \oint \limits_{S} \pme{\bbepsilon} \vec{E} \cdot d \vec{S} \\
+	& = 4 \int \limits_{Sq} \pme{\bbepsilon} \vec{E} \cdot d \vec{S} \\
+	& = 4 \left\{ \int \limits_{Sq_1} \pme{\bbepsilon}^{(A)} E_y \; dS + \int \limits_{Sq_2} \pme{\bbepsilon}^{(A)} E_x \; dS + \int \limits_{Sq_3} \pme{\bbepsilon}^{(B)} E_x \; dS \right\}
+\end{align*}
+Empregando a derivada central de segunda ordem para calcular $ \vec{E} $:
+\begin{align}
+	q & = 4 \left\{ \sum \limits_{Sq_1} \pme{\bbepsilon}^{(A)} \frac{V(i + 1, j) + V(i - 1, j)}{2 h} h \ell + \sum \limits_{Sq_2} \pme{\bbepsilon}^{(A)} \frac{V(i, j + 1) + V(i, j - 1)}{2 h} h \ell + ... \right. \notag \\
+	& \qquad ... \left. + \sum \limits_{Sq_3} \pme{\bbepsilon}^{(B)} \frac{V(i, j + 1) + V(i, j - 1)}{2 h} h \ell \right\} \notag \\
+	& = 2 \ell \left\{ \pme{\bbepsilon}^{(A)} \sum \limits_{Sq_1} V(i + 1, j) + V(i - 1, j) + \pme{\bbepsilon}^{(A)} \sum \limits_{Sq_2} V(i, j + 1) + V(i, j - 1) + ... \right. \notag \\
+	& \qquad ... \left. + \pme{\bbepsilon}^{(B)} \sum \limits_{Sq_3} V(i, j + 1) + V(i, j - 1) \right\} \label{EqQ}
+\end{align}
+A carga também poderia ser calculada a partir do Laplaciano, pois:
+\begin{align}
+	\lap V = \frac{\boldsymbol{\rho}}{\pme{\bbepsilon}}
+\end{align}
+e
+\begin{align}
+	q = \int \limits_V \boldsymbol{\rho} \; dV
+\end{align}
+\begin{inthisrev}
+Esse cálculo alternativo não foi feito, pois o objetivo do trabalho é comparar métodos para encontrar-se o potencial, não a carga. \\
+\end{inthisrev}
+
+\subsection{Cálculo dos parâmetros da linha}
+A capacitância da linha pode ser calculada pela expressão:
+\begin{align}
+	C = \frac{q}{V_0} \label{EqC}
+\end{align}
+A indutãncia da linha pode ser calculada pela expressão:
+\begin{align}
+	L = \frac{\ell^2}{c^2 C_0}
+\end{align}
+onde $ c $ é a velocidade da luz no vácuo e $ C_0 $ é a capacitância da linha quando todo o dielétrico for substituído pelo vácuo. \\
+A impedância característica da linha, finalmente, é dada por:
+\begin{align}
+	Z_0 & = \sqrt{\frac{L}{C}} \notag \\
+	& = \sqrt{\frac{\ell^2}{c^2 C_0 C}} \\
+	& = \dfrac{1}{c \sqrt{\frac{C_0}{\ell} \frac{C}{\ell}}} \label{EqZ}
+\end{align}
+Percebe-se, pelas equações \ref{EqZ}, \ref{EqC} e \ref{EqQ}, que o valor de $ \ell $ não precisa ser dado para que o problema seja resolvido. \\
+  
+%\end{}
+
+\section{Solução computacional} 
+O problema foi resolvido através MATLAB, por isso os índices $ i \text{ e } j $ variaram no intervalo $ (1,N_a+1 ) $ em lugar de no intervalo $ (0,N_a) $, como ocorreu na seção anterior. Os valores de permissividade elétrica relativa usados foram:
+\begin{align*}
+	\pme{\bbepsilon}_r^{(1)} & = 1 \\
+	\pme{\bbepsilon}_r^{(2)} & = 2.35
+\end{align*}
+Os parâmetros da linha escolhidos foram os seguintes:
+\begin{align*}
+	2a & = 5.0 \; cm \\
+	2b & = 5.0 \; cm \\
+	2d & = 1.0 \; cm \\
+	2w & = 2.0 \; cm \\
+	t & = 0.001 \; cm
+\end{align*}
+que são os valores usados por \cite{SADIKU 2009}. O uso desses parãmetros permitiu a comparação dos resultados obtidos com os listados no livro. O programa listado considera que $ t << h $ sempre, o que simplifica o cálculo. Esse programa contém pequenos erros: não calcula o potencial na origem ($ x = y = 0 $), por exemplo; além disso, ele usa um método iterativo que não leva em conta a precisão obtida em cada iteração como critério de parada. Mesmo assim, para viabilizar a comparação dos resultados obtidos, implementamos o método iterativo com características similares. Além disso, implementamos também o método alternativo de solução do sistema linear: \\
+\begin{align*}
+	\matriz{A} \matriz{V} = \matriz{b}
+\end{align*}
+onde $ \matriz{A} $ é a matriz dos coeficientes, que expressa o valor do potencial em um ponto $ p $ em função do potencial dos outros pontos, e $ \matriz{b} $ é um vetor que expressa a contribuição dos pontos fixos para o potencial em $ p $. \\
+O código para cálculo do potencial está listado abaixo. \\
+\listingsM
+\lstinputlisting[caption=CalcVS.m,language=Matlab]{CalcVS.m}
+
+\clearpage
+\lstinputlisting[caption=CalcVI.m,language=Matlab]{CalcVI.m}
+
+\clearpage
+O código para cálculo do campo elétrico e plotagem dos gráficos é o seguinte: \\
+\lstinputlisting[caption=Grad.m,language=Matlab]{Grad.m}
+\lstinputlisting[caption=plotVE.m,language=Matlab]{plotVE.m}
+
+\clearpage
+Finalmente, o código para cálculo da carga e da impedância da linha e controle geral da execução está listado abaixo: \\
+\lstinputlisting[caption=CalcQ.m,language=Matlab]{CalcQ.m}
+
+\clearpage
+\lstinputlisting[caption=CalcZ0.m,language=Matlab]{CalcZ0.m}
+
+\section{Análise numérica}
+Os valores obtidos e os listados por \cite{SADIKU 2009} estão tabelados abaixo:
+\\[\baselineskip]
+\begin{minipage*}{\textwidth}
+\centering
+    \begin{tabular}{|c|c|c|c|c|}
+		\hline
+        \textbf{h} & \textbf{iterações} & \multicolumn{3}{|c|}{\textbf{$ Z_0 \; (\Omega) $}} \\
+		& & \textbf{bibliografia} & \textbf{I: iterativo} & \textbf{II: sistema linear} \\
+		\hline
+		$ 0.25 $ & $ 700 $ & $ 49.05 $ & $ 77.2752 $ & $ 77.2752 $ \\
+		\hline
+		$ 0.1 $ & $ 500 $ & $ 58.07 $ & $ 61.9011 $ & $ 61.8511 $ \\
+		\hline
+		\multirow{3}{*}{$ 0.05 $} & $ 500 $ & $ 65.82 $ & $ 64.3315 $ & \multirow{3}{*}{$ 58.1798 $} \\
+		& $ 700 $ & $ 63.10 $ & $ 61.1018 $ & \\
+		& $ 1000 $ & $ 61.53 $ & $ 59.2266 $ & \\
+		\hline
+		\multirow{3}{*}{$ 0.02 $} & $ 1000 $ & \multirow{3}{*}{-} & $ 102.8709 $ & \multirow{3}{*}{$ 56.2993 $} \\
+		& $ 2000 $ & & $ 69.6871 $ & \\
+		& $ 3000 $ & & $ 62.6227 $ & \\
+		& $ 4000 $ & & $ 59.7201 $ & \\
+		& $ 5000 $ & & $ 56.2993 $ & \\
+		\hline
+    \end{tabular}
+\end{minipage*}
+O texto não indica qual seria o valor correto. O método iterativo não reproduziu os resultados que constam da bibliografia, apesar de o programa ser praticamente idêntico. Os resultados obtidos com o método II também foram bem diferentes. Aplicamos o método I a grades bem finas e pudemos observar que o número de iterações precisa também ser aumentado para que o cálculo seja coerente. \\
+De acordo com o programa listado, a superfície Gaussiana para cálculo da carga elétrica situou-se a meio caminho entre a superfície condutora e o entorno do espaço considerado; essa localização é arbitrária, e o valor calculado para a carga, e por conseguinte a impedância calculada para a linha, deveria ser a mesma qualquer que fosse a escolha. Nossos testes, no entanto, mostraram que não é assim. Isso indica que a distribuição do potencial obtida com grades e número de iterações pequenos não é suficientemente acurada. A tabela abaixo mostra, para $ h $ = 0.02 cm e 5000 iterações, a impedância característica obtida a partir de diversos valores para a posição da superfície Gaussiana. \\ 
+\\[\baselineskip]
+\begin{minipage*}{\textwidth}
+\centering
+    \begin{tabular}{|c|c|c|c|}
+		\hline
+        \textbf{i} & \textbf{j} & \multicolumn{2}{|c|}{\textbf{$ Z_0 \; (\Omega) $}} \\
+		& & \textbf{I: iterativo} & \textbf{II: sistema linear} \\
+		\hline
+		$ 88 $ & $ 75 $ & $ 58.2421 $ & $ 56.2993 $ \\
+		$ 53 $ & $ 28 $ & $ 50.3515 $ & $ 54.3069 $ \\
+		$ 100 $ & $ 100 $ & $ 63.0335 $ & $ 56.6847 $ \\
+		\hline
+    \end{tabular}
+\end{minipage*}
+A tabela mostra que os resultados do método I não são perfeitamente coerentes, mesmo para grades finas e muitas iterações. Os resultados do método II são mais consistente, mas a grade usada também não foi suficientemente fina para eliminar todas as discrepâncias. \\
+Os gráficos de $ V \text{ (equipotenciais) e } \vec{E} $ obtidos foram os seguintes: \\
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab37fig1.jpg} \\
+	\caption{ $ V \text{ e } \vec{E} $ sem o dielétrico, método II, $ h = 0.25 \; cm $ }
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab37fig2.jpg} \\
+	\caption{ $ V \text{ e } \vec{E} $ com o dielétrico, método II, $ h = 0.25 \; cm $ }
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab37fig3.jpg} \\
+	\caption{ $ V \text{ e } \vec{E} $ sem o dielétrico, método II, $ h = 0.1 \; cm $ }
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab37fig4.jpg} \\
+	\caption{ $ V \text{ e } \vec{E} $ com o dielétrico, método II, $ h = 0.1 \; cm $ }
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab37fig5.jpg} \\
+	\caption{ $ V \text{ e } \vec{E} $ sem o dielétrico, método II, $ h = 0.05 \; cm $ }
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab37fig6.jpg} \\
+	\caption{ $ V \text{ e } \vec{E} $ com o dielétrico, método II, $ h = 0.05 \; cm $ }
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab37fig7.jpg} \\
+	\caption{ $ V \text{ e } \vec{E} $ sem o dielétrico, método II, $ h = 0.02 \; cm $ }
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab37fig8.jpg} \\
+	\caption{ $ V \text{ e } \vec{E} $ com o dielétrico, método II, $ h = 0.02 \; cm $ }
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab37fig11.jpg} \\
+	\caption{ $ V \text{ e } \vec{E} $ sem o dielétrico, método I, $ h = 0.25 \; cm \text{ e } nt = 700 $ }
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab37fig12.jpg} \\
+	\caption{ $ V \text{ e } \vec{E} $ com o dielétrico, método I, $ h = 0.25 \; cm \text{ e } nt = 700 $ }
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab37fig13.jpg} \\
+	\caption{ $ V \text{ e } \vec{E} $ sem o dielétrico, método I, $ h = 0.1 \; cm \text{ e } nt = 500 $ }
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab37fig14.jpg} \\
+	\caption{ $ V \text{ e } \vec{E} $ com o dielétrico, método I, $ h = 0.1 \; cm \text{ e } nt = 500 $ }
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab37fig15.jpg} \\
+	\caption{ $ V \text{ e } \vec{E} $ sem o dielétrico, método I, $ h = 0.05 \; cm \text{ e } nt = 500 $ }
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab37fig16.jpg} \\
+	\caption{ $ V \text{ e } \vec{E} $ com o dielétrico, método I, $ h = 0.05 \; cm \text{ e } nt = 500 $ }
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab37fig17.jpg} \\
+	\caption{ $ V \text{ e } \vec{E} $ sem o dielétrico, método I, $ h = 0.05 \; cm \text{ e } nt = 700 $ }
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab37fig18.jpg} \\
+	\caption{ $ V \text{ e } \vec{E} $ com o dielétrico, método I, $ h = 0.05 \; cm \text{ e } nt = 700 $ }
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab37fig19.jpg} \\
+	\caption{ $ V \text{ e } \vec{E} $ sem o dielétrico, método I, $ h = 0.05 \; cm \text{ e } nt = 1000 $ }
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab37fig20.jpg} \\
+	\caption{ $ V \text{ e } \vec{E} $ com o dielétrico, método I, $ h = 0.05 \; cm \text{ e } nt = 1000 $ }
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab37fig21.jpg} \\
+	\caption{ $ V \text{ e } \vec{E} $ sem o dielétrico, método I, $ h = 0.02 \; cm \text{ e } nt = 1000 $ }
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab37fig22.jpg} \\
+	\caption{ $ V \text{ e } \vec{E} $ com o dielétrico, método I, $ h = 0.02 \; cm \text{ e } nt = 1000 $ }
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab37fig23.jpg} \\
+	\caption{ $ V \text{ e } \vec{E} $ sem o dielétrico, método I, $ h = 0.02 \; cm \text{ e } nt = 2000 $ }
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab37fig24.jpg} \\
+	\caption{ $ V \text{ e } \vec{E} $ com o dielétrico, método I, $ h = 0.02 \; cm \text{ e } nt = 2000 $ }
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab37fig25.jpg} \\
+	\caption{ $ V \text{ e } \vec{E} $ sem o dielétrico, método I, $ h = 0.02 \; cm \text{ e } nt = 3000 $ }
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab37fig26.jpg} \\
+	\caption{ $ V \text{ e } \vec{E} $ com o dielétrico, método I, $ h = 0.02 \; cm \text{ e } nt = 3000 $ }
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab37fig27.jpg} \\
+	\caption{ $ V \text{ e } \vec{E} $ sem o dielétrico, método I, $ h = 0.02 \; cm \text{ e } nt = 4000 $ }
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab37fig28.jpg} \\
+	\caption{ $ V \text{ e } \vec{E} $ com o dielétrico, método I, $ h = 0.02 \; cm \text{ e } nt = 4000 $ }
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab37fig29.jpg} \\
+	\caption{ $ V \text{ e } \vec{E} $ sem o dielétrico, método I, $ h = 0.02 \; cm \text{ e } nt = 5000 $ }
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab37fig30.jpg} \\
+	\caption{ $ V \text{ e } \vec{E} $ com o dielétrico, método I, $ h = 0.02 \; cm \text{ e } nt = 5000 $ }
+\end{figure}
+A permissividade relativa do dielétrico é pequena, por isso a diferença entre os campos com e sem ele é discreta, mas ainda assim perceptível. A diferença entre o número de iterações usadas no método I, por outro lado, é bastante expressiva. Também se pode notar que o número de iterações necessário para que a precisão do método I alcance a do método II é grande; por outro lado, o método I consegue trabalhar com malhas mais finas que o método II. \\
+
+\section{Conclusão}
+Comparado com o método iterativo, o método de solução do sistema linear é mais preciso, mas é mais lento e o tamanho da matriz de coeficientes limita a precisão que pode ser obtida, pois para valores de $ h $ muito pequenos o MATLAB não aceita criar a matriz resultante. Além disso, o tempo de cálculo aumenta muito rápido à medida que $ h $ diminui. \\
+A precisão obtida não foi suficiente para tornar o resultado independente do valor escolhido para o tamanho da superfície Gaussiana usada no cálculo da carga elétrica livre na superfície condutora. Infelizmente, como se acabou de mencionar, os recursos computacionais necessários para aumentar a precisão a um ponto adequado são muito grandes. Seria preciso usar outra ferramenta que não o MATLAB. \\
+Neste trabalho, optamos por implementar o método de solução iterativo exatamente da forma proposta por \cite{SADIKU 2009}, de forma a poder conferir os resultados obtidos. Ambos os métodos, contudo, poderiam ser otimizados. O método iterativo, por exemplo, usa um fator de relaxação muito baixo. O método de solução do sistema linear, por sua vez, poderia usar matrizes esparsas, de forma a ocupar menos memória. \\
+
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{1pt}}
+
+\begin{thebibliography}{30}
+
+\newbibbk{SADIKU 2009}{SADIKU 2009}{Matthew N. O. SADIKU}{Numerical Techniques in Electromagnetic with MATLAB}{3\textsuperscript{rd} Ed., CRC, 2009, Chap. 3, pp. 132 a 159}
+
+\end{thebibliography}
+
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{1pt}}
+
+Todo o código consta do anexo (arquivo \textbf{\texttt{trabalho.zip}}). \\
+Programas testados com \textbf{MATLAB} R2016a \\
+\url{https://www.mathworks.com} \\
+Texto formatado com \textbf{pdflatex} em ambiente \textbf{MiKTeX} 2.9: \\
+\url{http://miktex.org/download/} \\
+\end{document}

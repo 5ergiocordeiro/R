@@ -1,0 +1,233 @@
+% Oitava lista de exercícios de Sistemas e Sinais
+% Preparado para MiKTeX 2.9. Gerar arquivo PDF com pdflatex.
+\documentclass[12pt,fleqn]{amsart}
+\usepackage{enumitem}
+\usepackage{xstring}
+\usepackage{graphicx}
+\usepackage[a4paper]{geometry}
+\usepackage[portuguese,brazilian]{babel}
+\usepackage[ansinew]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{comment}
+% Fontes
+\usepackage{textgreek}
+\usepackage{yfonts}
+\usepackage{microtype}
+\usepackage{calligra}
+\usepackage{lmodern}
+\usepackage{bookman}
+\usepackage[scaled]{helvet}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+\usepackage{fmtcount}
+% Formatação
+\usepackage{sidecap}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{matlab-prettifier}
+% Símbolos matemáticos
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{wasysym}
+\usepackage{mathtools}
+\usepackage{bbm}
+\usepackage{mbboard}
+\usepackage{steinmetz}
+% Desenhos
+\usepackage{tikz}
+\usepackage{circuitikz}
+
+
+\title{Sistemas e Sinais - Exercício VIII}
+\date{}
+\author{Sérgio Cordeiro}
+
+
+\newenvironment{pergunta}{
+	\par
+	\trivlist
+	\fontfamily{phv}
+	\selectfont
+	\item\arabic{prob_num}. 
+	}{
+	\endtrivlist
+	}
+
+\newenvironment{resposta}{
+	\trivlist
+    \vspace{3pt}
+	\fontfamily{pbk}
+	\selectfont
+	\item
+	}{
+	\vspace{3pt}
+	\noindent\makebox[\linewidth]{\rule{\paperwidth}{1pt}}
+	\endtrivlist
+	\stepcounter{prob_num}
+	}
+
+\newenvironment{listae}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}	
+	\vspace{-5mm}}
+
+\newenvironment{listaef}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}}
+
+\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
+
+%\BeforeBeginEnvironment{figure}{\vskip-1ex}
+\AfterEndEnvironment{figure}{\vskip-4ex}
+
+\DeclareMathOperator{\atan}{\boldsymbol{atan}}						% Arco tangente
+\DeclareMathOperator{\La}{\mathcal{L}}								% Transformada de Laplace
+\DeclareMathOperator{\Fou}{\mathcal{F}}								% Transformada de Fourier
+\DeclareMathOperator{\De}{\boldsymbol{\delta}}						% Função impulso
+\DeclareMathOperator{\dDe}{\boldsymbol{\dot{\delta}}}				% Derivada da função impulso
+\DeclareMathOperator{\He}{\boldsymbol{u}}							% Função degrau
+\DeclareMathOperator{\tri}{\boldsymbol{tri}}						% Função triangular
+\DeclareMathOperator{\rect}{\boldsymbol{rect}}						% Função retangular
+\DeclareMathOperator{\sinc}{\boldsymbol{sinc}}						% Função sinc
+\newcommand{\PL}[1]{\boldsymbol{P_L}^{(#1)}}						% Polinômio de Legendre
+\newcommand{\Walsh}[1]{\boldsymbol{W}^{(#1)}}						% Função de Walsh
+\newcommand{\E}[1]{\mathpzc{E} \left\{ \frac{}{} {#1} \right\}}		% Energia
+\newcommand{\dt}[1]{\frac{d {#1}}{dt}}					% derivada temporal
+\newcommand{\ddt}[1]{\frac{d^2 {#1}}{dt^2}}				% derivada segunda temporal
+\newcommand{\dtau}[1]{\frac{d {#1}}{d \tau}}			% derivada temporal
+\newcommand{\ddtau}[1]{\frac{d^2 {#1}}{d \tau^2}}		% derivada segunda temporal
+
+
+% Linhas divisórias
+\newcommand{\hhhlin}{\noindent\hfil\rule{0.25\textwidth}{.2pt}\hfil\newline}
+\newcommand{\hhlin}{\noindent\hfil\rule{0.5\textwidth}{.4pt}\hfil\newline}
+\newcommand{\hlin}{\noindent\hfil\rule{\textwidth}{.8pt}\hfil\newline}
+
+% Listagens
+\newcommand{\listingsO}{\lstset{language=Octave,literate={^}{\textasciicircum}1,frame=single,style=Matlab-editor,basicstyle={\tiny},breaklines=true,numbers=left,numberstyle={\color{red}},numbersep=9pt,showstringspaces=false,keepspaces=false,tabsize=2}}
+\newcommand{\listingsC}{\lstset{language=C,frame=single,basicstyle={\tiny},breaklines=true,numbers=left,numberstyle={\color{red}},numbersep=9pt,showstringspaces=false,keepspaces=false,tabsize=2}}
+\newcommand{\listingsG}{\lstset{language=Ada,frame=none,basicstyle={\ttfamily\bfseries},numbers=none,tabsize=2,mathescape}}
+
+% Citações
+\newcommand{\newbibit}[6]{\bibitem[#1]{#2}#3, {\bf #4}. Disponível em \url{#5}, acesso em #6.}
+\newcommand{\newbibpp}[5]{\bibitem[#1]{#2}#3, {\bf #4}, \emph{in} #5.}
+\newcommand{\newbibbk}[5]{\bibitem[#1]{#2}#3, {\bf #4}, #5.}
+\newcommand{\newbibip}[6]{\bibitem[#1]{#2}#3, {\bf #4}, \emph{in} #5, disponível em \url{#6}.}
+\newcommand{\newbiboc}[4]{\bibitem[#1]{#2}#3, \textit{op. cit.}, #4.}
+\newcommand{\newbibsi}[7]{\bibitem[#1]{#2}#3, {\bf #4} : {#5}. Disponível em \url{#6}, acesso em #7.}
+
+\newenvironment{iquote}{\begin{quote}\itshape}{\end{quote}}
+
+% Perguntas
+\newcommand{\perguntaa}{A série de Fourier discreta que representa a sequência periódica:
+\begin{align*}
+	x[n] = \begin{cases} 1 & -4 \le n \le 4 \\ 0 & 5 \le n \le 27 \\ 1 & 28 \le n \le 36 \end{cases}
+\end{align*}
+é
+\begin{align*}
+	D[k] = \frac{1}{32} \; \dfrac{\sin \left( \frac{9 k \pi}{32} \right)}{\sin \left( \frac{k \pi}{32} \right)}
+\end{align*}
+Analisar o que acontece quando:
+\begin{listae}[2]
+	\item aumenta-se o intervalo onde a sequência tem valor 1
+	\item diminui-se o intervalo onde a sequência tem valor 1
+	\item inserem-se pontos com valor 0 no intervalo onde a sequência tem valor 1
+\end{listae}
+Comprovar a análise por meio de simulação.}
+	
+
+\begin{document}
+\setlength{\parskip}{1em}
+\setlength{\jot}{10pt}
+\setlength{\parindent}{0pt}
+
+\maketitle
+
+\newcounter{prob_num}
+\setcounter{prob_num}{1}
+
+
+\begin{pergunta}
+\perguntaa{}
+\end{pergunta}
+\begin{resposta}
+a) Neste caso, as componentes de mais baixa frequência do espectro devem ser reforçadas e as de alta frequência, atenuadas. No limite, $ x[n] = 1 $ e o espectro conteria apenas a componente correspondente a $ \Omega = 0 $ (sequência constante). \\
+b) Neste caso, as componentes de mais alta frequência do espectro devem ser reforçadas, sem que as de baixa frequência sejam atenuadas. No limite, $ x[n] = \De[n] $, e o espectro será constante ($ D[k] = \mathrm{A} $). \\
+c) Neste caso, as componentes de mais alta frequência do espectro devem ser reforçadas e as de baixa frequência,  atenuadas. No limite, $ x[n] = \cos \left( \frac{\pi}{16} \right) $, e o espectro conterá apenas as componentes correspondentes a $ \Omega = 0 \text{ e } \Omega = \pi $. \\
+Os gráficos obtidos ilustram a análise. No caso das DFTs, plotou-se tanto o espectro da amplitude quanto o seu envelope; o espectro de fase não foi plotado. \\
+\begin{minipage}{0.5\textwidth}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{trab36fig1.jpg} \\
+	Sequência $ x[n] $ original
+\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{trab36fig2.jpg} \\
+	DFT correspondente
+\end{figure}%
+\end{minipage} \\
+\begin{minipage}{0.5\textwidth}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{trab36fig3.jpg} \\
+	Sequência $ x[n] $ com o intervalo onde $ f[n] = 1 $ aumentado
+\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{trab36fig4.jpg} \\
+	DFT correspondente
+\end{figure}%
+\end{minipage} \\
+\begin{minipage}{0.5\textwidth}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{trab36fig5.jpg} \\
+	Sequência $ x[n] $ com o intervalo onde $ f[n] = 1 $ reduzido
+\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{trab36fig6.jpg} \\
+	DFT correspondente
+\end{figure}%
+\end{minipage} \\
+\begin{minipage}{0.5\textwidth}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{trab36fig7.jpg} \\
+	Sequência $ x[n] $ com valores das amostras ímpares zerados
+\end{figure}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{trab36fig8.jpg} \\
+	DFT correspondente
+\end{figure}%
+\end{minipage} \\
+\end{resposta}
+
+Simulação realizada com \textbf{Scilab} 5.5.2: \\
+\url{https://www.scilab.org} \\
+Texto formatado com \textbf{pdflatex} em ambiente \textbf{MiKTeX} 2.9: \\
+\url{http://miktex.org/download/} \\ \\
+\end{document}

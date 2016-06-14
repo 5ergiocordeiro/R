@@ -1,0 +1,217 @@
+% Sétima lista de exercícios de Sistemas e Sinais
+% Preparado para MiKTeX 2.9. Gerar arquivo PDF com pdflatex.
+\documentclass[12pt,fleqn]{amsart}
+\usepackage{enumitem}
+\usepackage{xstring}
+\usepackage{graphicx}
+\usepackage[a4paper]{geometry}
+\usepackage[portuguese,brazilian]{babel}
+\usepackage[ansinew]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{comment}
+% Fontes
+\usepackage{textgreek}
+\usepackage{yfonts}
+\usepackage{microtype}
+\usepackage{calligra}
+\usepackage{lmodern}
+\usepackage{bookman}
+\usepackage[scaled]{helvet}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+\usepackage{fmtcount}
+% Formatação
+\usepackage{sidecap}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{matlab-prettifier}
+% Símbolos matemáticos
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{wasysym}
+\usepackage{mathtools}
+\usepackage{bbm}
+\usepackage{mbboard}
+\usepackage{steinmetz}
+% Desenhos
+\usepackage{tikz}
+\usepackage{circuitikz}
+
+
+\title{Sistemas e Sinais - Exercício VII}
+\date{}
+\author{Sérgio Cordeiro}
+
+
+\newenvironment{pergunta}{
+	\par
+	\trivlist
+	\fontfamily{phv}
+	\selectfont
+	\item\arabic{prob_num}. 
+	}{
+	\endtrivlist
+	}
+
+\newenvironment{resposta}{
+	\trivlist
+    \vspace{3pt}
+	\fontfamily{pbk}
+	\selectfont
+	\item
+	}{
+	\vspace{3pt}
+	\noindent\makebox[\linewidth]{\rule{\paperwidth}{1pt}}
+	\endtrivlist
+	\stepcounter{prob_num}
+	}
+
+\newenvironment{listae}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}	
+	\vspace{-5mm}}
+
+\newenvironment{listaef}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}}
+
+\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
+
+%\BeforeBeginEnvironment{figure}{\vskip-1ex}
+\AfterEndEnvironment{figure}{\vskip-4ex}
+
+\DeclareMathOperator{\atan}{\boldsymbol{atan}}						% Arco tangente
+\DeclareMathOperator{\La}{\mathcal{L}}								% Transformada de Laplace
+\DeclareMathOperator{\Fou}{\mathcal{F}}								% Transformada de Fourier
+\DeclareMathOperator{\De}{\boldsymbol{\delta}}						% Função impulso
+\DeclareMathOperator{\dDe}{\boldsymbol{\dot{\delta}}}				% Derivada da função impulso
+\DeclareMathOperator{\He}{\boldsymbol{u}}							% Função degrau
+\DeclareMathOperator{\tri}{\boldsymbol{tri}}						% Função triangular
+\DeclareMathOperator{\rect}{\boldsymbol{rect}}						% Função retangular
+\DeclareMathOperator{\sinc}{\boldsymbol{sinc}}						% Função sinc
+\newcommand{\PL}[1]{\boldsymbol{P_L}^{(#1)}}						% Polinômio de Legendre
+\newcommand{\Walsh}[1]{\boldsymbol{W}^{(#1)}}						% Função de Walsh
+\newcommand{\E}[1]{\mathpzc{E} \left\{ \frac{}{} {#1} \right\}}		% Energia
+\newcommand{\dt}[1]{\frac{d {#1}}{dt}}					% derivada temporal
+\newcommand{\ddt}[1]{\frac{d^2 {#1}}{dt^2}}				% derivada segunda temporal
+\newcommand{\dtau}[1]{\frac{d {#1}}{d \tau}}			% derivada temporal
+\newcommand{\ddtau}[1]{\frac{d^2 {#1}}{d \tau^2}}		% derivada segunda temporal
+
+
+% Linhas divisórias
+\newcommand{\hhhlin}{\noindent\hfil\rule{0.25\textwidth}{.2pt}\hfil\newline}
+\newcommand{\hhlin}{\noindent\hfil\rule{0.5\textwidth}{.4pt}\hfil\newline}
+\newcommand{\hlin}{\noindent\hfil\rule{\textwidth}{.8pt}\hfil\newline}
+
+% Listagens
+\newcommand{\listingsO}{\lstset{language=Octave,literate={^}{\textasciicircum}1,frame=single,style=Matlab-editor,basicstyle={\tiny},breaklines=true,numbers=left,numberstyle={\color{red}},numbersep=9pt,showstringspaces=false,keepspaces=false,tabsize=2}}
+\newcommand{\listingsC}{\lstset{language=C,frame=single,basicstyle={\tiny},breaklines=true,numbers=left,numberstyle={\color{red}},numbersep=9pt,showstringspaces=false,keepspaces=false,tabsize=2}}
+\newcommand{\listingsG}{\lstset{language=Ada,frame=none,basicstyle={\ttfamily\bfseries},numbers=none,tabsize=2,mathescape}}
+
+% Citações
+\newcommand{\newbibit}[6]{\bibitem[#1]{#2}#3, {\bf #4}. Disponível em \url{#5}, acesso em #6.}
+\newcommand{\newbibpp}[5]{\bibitem[#1]{#2}#3, {\bf #4}, \emph{in} #5.}
+\newcommand{\newbibbk}[5]{\bibitem[#1]{#2}#3, {\bf #4}, #5.}
+\newcommand{\newbibip}[6]{\bibitem[#1]{#2}#3, {\bf #4}, \emph{in} #5, disponível em \url{#6}.}
+\newcommand{\newbiboc}[4]{\bibitem[#1]{#2}#3, \textit{op. cit.}, #4.}
+\newcommand{\newbibsi}[7]{\bibitem[#1]{#2}#3, {\bf #4} : {#5}. Disponível em \url{#6}, acesso em #7.}
+
+\newenvironment{iquote}{\begin{quote}\itshape}{\end{quote}}
+
+% Perguntas
+\newcommand{\perguntaa}{Calcular a transformada de Fourier da função triangular.}
+
+\begin{document}
+\setlength{\parskip}{1em}
+\setlength{\jot}{10pt}
+\setlength{\parindent}{0pt}
+
+\maketitle
+
+\newcounter{prob_num}
+\setcounter{prob_num}{1}
+
+
+\begin{pergunta}
+\perguntaa{}
+\end{pergunta}
+\begin{resposta}
+A função triangular é definida como:
+\begin{align*}
+	\tri (t) = \begin{cases} 1 + t & -1 \le t \le 0 \\ 1 - t & 0 \le t \le 1 \\ 0 & |t| > 1 \end{cases}
+\end{align*}
+Pode-se calcular a transformada de Fourier diretamente através da definição:
+\begin{align}
+	\mathpzc{F} (\omega) & = \int_{-\infty}^{\infty} \tri (t) \; e^{- \jmath \omega t} \; dt \notag \\
+	& = \int_{-1}^{0}  (1 + t) \; e^{- \jmath \omega t} \; dt + \int_{0}^{1} (1 - t) \; e^{- \jmath \omega t} \; dt \notag \\
+	& = \int_{-1}^{1} e^{- \jmath \omega t} \; dt + \int_{-1}^{0} t e^{- \jmath \omega t} \; dt - \int_{0}^{1} t e^{- \jmath \omega t} \; dt \label{Eq1}
+\end{align}
+\hhlin
+A integral indefinida
+\begin{align*}
+	\int t e^{at} \; dt 
+\end{align*}
+pode ser obtida através da técnica de integração por partes:
+\begin{align*}
+	\int u \; dv = u v - \int v \; du 
+\end{align*}
+fazendo-se
+\begin{align*}
+	\begin{matrix} u = t & \implies & du = dt \\ dv = e^{at} \; dt & & v = \frac{1}{a} e^{at} \end{matrix}
+\end{align*}
+Assim:
+\begin{align}
+	\int t \; e^{at} \; dt & = t \; \frac{1}{a} e^{at} - \int \frac{1}{a} e^{at} \; dt \notag \\
+	& = \frac{1}{a} \; e^{at} \; \left( t - \frac{1}{a} \right) \label{Eq2}
+\end{align}
+\hhlin
+Com base na equação \ref{Eq2}, a equação \ref{Eq1} se torna:
+\begin{align}
+	\mathpzc{F} (\omega) & = \left. \frac{1}{a} e^{at} \right|_{-1}^{1} + \left. \frac{1}{a} \; e^{at} \; \left( t - \frac{1}{a} \right) \right|_{-1}^{0} - \left. \frac{1}{a} \; e^{at} \; \left( t - \frac{1}{a} \right) \right|_{0}^{1} \notag \qquad \boxed{a = - \jmath \omega} \notag \\
+	& = \frac{1}{a} \left( e^{a} - e^{-a} \right) + \frac{1}{a} \left( 1 \cdot \left[ 0 - \frac{1}{a} \right] - e^{-a} \; \left[-1 - \frac{1}{a} \right] \right) - \frac{1}{a} \left( e^{a} \; \left[ 1 - \frac{1}{a} \right] - 1 \cdot \left[ 0 - \frac{1}{a} \right] \right) \notag \\
+	& = \frac{1}{a} \left( e^{a} - e^{-a} - \frac{1}{a} + e^{-a} \; \left[1 + \frac{1}{a} \right] - e^{a} \; \left[ 1 - \frac{1}{a} \right] - \frac{1}{a} \right) \notag \\
+	& = \frac{1}{a^2} \left( -2 + e^{-a} + e^{a} \right) \notag \\
+	& = \frac{1}{[- \jmath \omega]^2} \left( -2 + e^{-\jmath \omega} + e^{\jmath \omega} \right) \notag \\
+	& = \frac{2}{\omega^2} \left( \frac{}{} 1 - \cos(\omega) \right) \label{Eq3}
+\end{align}
+\hlin
+A transformada pode também ser calculada através da propriedade da convolução, reconhecendo-se que:
+\begin{align*}
+	\tri (t) = \rect(t) * \rect(t)
+\end{align*}
+onde $ \rect (t) $ é a função retangular, cuja transformada é conhecida:
+\begin{align*}
+	\Fou \{ \rect (t) \} & = \sinc \left( \frac{\omega}{2} \right) \\
+	& = \frac{\sin \left( \frac{\omega}{2} \right)}{\frac{\omega}{2}} \\
+	& = \frac{2}{\omega} \sin \left( \frac{\omega}{2} \right)
+\end{align*}
+Pela propriedade da convolução
+\begin{align}
+	\Fou \{ f(t) * g(t) \} = \Fou \{ f(t) \} \Fou \{ g(t) \} \qquad \implies \Fou \{ \tri (t) \} &= \Fou \{ \rect(t) \} \Fou \{ \rect(t) \} \notag \\
+	& = \frac{2}{\omega} \sin \left( \frac{\omega}{2} \right) \cdot \frac{2}{\omega} \sin \left( \frac{\omega}{2}  \right) \notag \\
+	& = \frac{4}{\omega^2} \sin ^2 \left( \frac{\omega}{2} \right) \label{Eq4}
+\end{align}
+Para demonstrar que as equações \ref{Eq3} e \ref{Eq4} são equivalentes, pode-se lançar mão da identidade $ \cos(2a) = 1 - 2 \sin^2(a) $ e escrever:
+\begin{align*}
+	\frac{2}{\omega^2} \left( \frac{}{} 1 - \cos(\omega) \right) & = \frac{2}{\omega^2} \left( 1 - \left[ 1 - 2 \sin ^2 \left(\frac{\omega}{2} \right) \right] \right) \\
+	& = \frac{2}{\omega^2} \left( 2 \sin ^2 \left(\frac{\omega}{2} \right) \right) \\
+	& = \frac{4}{\omega^2} \sin ^2 \left(\frac{\omega}{2} \right) \\
+\end{align*}	
+\end{resposta}
+
+Texto formatado com \textbf{pdflatex} em ambiente \textbf{MiKTeX} 2.9: \\
+\url{http://miktex.org/download/} \\ \\
+\end{document}

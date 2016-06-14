@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (MiKTeX 2.9) (preloaded format=pdflatex 2015.4.4)  8 MAY 2016 23:42
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (MiKTeX 2.9) (preloaded format=pdflatex 2015.4.4)  18 MAY 2016 19:40
 entering extended mode
 **trab34.tex
 (trab34.tex
@@ -1080,90 +1080,90 @@ ircuitikz\circuitikz1.code.tex"
 \pgf@circ@res@step=\dimen214
 \pgfstartlinewidth=\dimen215
 )) (trab34.aux)
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 133.
-LaTeX Font Info:    ... okay on input line 133.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 133.
-LaTeX Font Info:    ... okay on input line 133.
-LaTeX Font Info:    Checking defaults for OT1/mbb/m/n on input line 133.
-LaTeX Font Info:    ... okay on input line 133.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 133.
-LaTeX Font Info:    ... okay on input line 133.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 133.
-LaTeX Font Info:    ... okay on input line 133.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 133.
-LaTeX Font Info:    ... okay on input line 133.
-LaTeX Font Info:    Checking defaults for LGR/cmr/m/n on input line 133.
-LaTeX Font Info:    Try loading font information for LGR+cmr on input line 133.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 136.
+LaTeX Font Info:    ... okay on input line 136.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 136.
+LaTeX Font Info:    ... okay on input line 136.
+LaTeX Font Info:    Checking defaults for OT1/mbb/m/n on input line 136.
+LaTeX Font Info:    ... okay on input line 136.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 136.
+LaTeX Font Info:    ... okay on input line 136.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 136.
+LaTeX Font Info:    ... okay on input line 136.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 136.
+LaTeX Font Info:    ... okay on input line 136.
+LaTeX Font Info:    Checking defaults for LGR/cmr/m/n on input line 136.
+LaTeX Font Info:    Try loading font information for LGR+cmr on input line 136.
 
 
 ("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\cbfonts-fd\lgrcmr.fd"
 File: lgrcmr.fd 2013/09/01 v1.0 Greek European Computer Regular
 )
-LaTeX Font Info:    ... okay on input line 133.
-LaTeX Font Info:    Checking defaults for LY/yfrak/m/n on input line 133.
-LaTeX Font Info:    ... okay on input line 133.
-LaTeX Font Info:    Checking defaults for LYG/ygoth/m/n on input line 133.
-LaTeX Font Info:    ... okay on input line 133.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 133.
-LaTeX Font Info:    ... okay on input line 133.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 133.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 133.
+LaTeX Font Info:    ... okay on input line 136.
+LaTeX Font Info:    Checking defaults for LY/yfrak/m/n on input line 136.
+LaTeX Font Info:    ... okay on input line 136.
+LaTeX Font Info:    Checking defaults for LYG/ygoth/m/n on input line 136.
+LaTeX Font Info:    ... okay on input line 136.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 136.
+LaTeX Font Info:    ... okay on input line 136.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 136.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 136.
 
 
 ("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\base\ts1cmr.fd"
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 133.
-LaTeX Font Info:    Try loading font information for T1+pbk on input line 133.
+LaTeX Font Info:    ... okay on input line 136.
+LaTeX Font Info:    Try loading font information for T1+pbk on input line 136.
 
 ("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\psnfss\t1pbk.fd"
 File: t1pbk.fd 2001/06/04 font definitions for T1/pbk.
 )
 LaTeX Font Info:    Font shape `T1/pbk/m/n' in size <12> not available
-(Font)              Font shape `T1/pbk/l/n' tried instead on input line 133.
+(Font)              Font shape `T1/pbk/l/n' tried instead on input line 136.
 LaTeX Font Info:    Font shape `T1/pbk/m/n' in size <10> not available
-(Font)              Font shape `T1/pbk/l/n' tried instead on input line 133.
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 133.
+(Font)              Font shape `T1/pbk/l/n' tried instead on input line 136.
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 136.
 
 
 ("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\lm\ot1lmr.fd"
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 133.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 136.
 
 
 ("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\lm\omllmm.fd"
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 133
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 136
 .
 
 ("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\lm\omslmsy.fd"
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 133
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 136
 .
 
 ("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\lm\omxlmex.fd"
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 133.
+(Font)              <10> on input line 136.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 133.
+(Font)              <7> on input line 136.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 133.
-LaTeX Font Info:    Try loading font information for U+msa on input line 133.
+(Font)              <5> on input line 136.
+LaTeX Font Info:    Try loading font information for U+msa on input line 136.
 
 ("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 133.
+LaTeX Font Info:    Try loading font information for U+msb on input line 136.
 
 ("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for U+wasy on input line 133.
+LaTeX Font Info:    Try loading font information for U+wasy on input line 136.
 
 ("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\wasysym\uwasy.fd"
 File: uwasy.fd 2003/10/30 v2.0 Wasy-2 symbol font definitions
@@ -1216,7 +1216,7 @@ File: uwasy.fd 2003/10/30 v2.0 Wasy-2 symbol font definitions
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Info: Redefining \microtypecontext on input line 133.
+LaTeX Info: Redefining \microtypecontext on input line 136.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
@@ -1231,7 +1231,7 @@ Package microtype Info: Loading generic settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 \AtBeginShipoutBox=\box48
-Package hyperref Info: Link coloring OFF on input line 133.
+Package hyperref Info: Link coloring OFF on input line 136.
 ("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\hyperref\nameref.sty"
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 
@@ -1240,9 +1240,9 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count175
 )
-LaTeX Info: Redefining \ref on input line 133.
-LaTeX Info: Redefining \pageref on input line 133.
-LaTeX Info: Redefining \nameref on input line 133.
+LaTeX Info: Redefining \ref on input line 136.
+LaTeX Info: Redefining \pageref on input line 136.
+LaTeX Info: Redefining \nameref on input line 136.
  (trab34.out) (trab34.out)
 \@outlinefile=\write6
 
@@ -1275,28 +1275,28 @@ LaTeX Info: Redefining \selectfont on input line 126.
 
 ABD: EveryShipout initializing macros
 LaTeX Font Info:    Font shape `T1/pbk/bx/n' in size <12> not available
-(Font)              Font shape `T1/pbk/b/n' tried instead on input line 139.
+(Font)              Font shape `T1/pbk/b/n' tried instead on input line 142.
 LaTeX Font Info:    Font shape `T1/pbk/b/n' in size <12> not available
-(Font)              Font shape `T1/pbk/db/n' tried instead on input line 139.
+(Font)              Font shape `T1/pbk/db/n' tried instead on input line 142.
 \c@prob_num=\count177
-LaTeX Font Info:    Try loading font information for T1+phv on input line 144.
+LaTeX Font Info:    Try loading font information for T1+phv on input line 147.
 
 ("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\psnfss\t1phv.fd"
 File: t1phv.fd 2001/06/04 scalable font definitions for T1/phv.
 )
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 11.39996pt on input line 144.
+(Font)              scaled to size 11.39996pt on input line 147.
 Package microtype Info: Loading generic settings for font family
 (microtype)             `phv' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-LaTeX Font Info:    Try loading font information for T1+pcr on input line 148.
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 151.
 
 ("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\psnfss\t1pcr.fd"
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
 LaTeX Font Info:    Font shape `T1/pcr/bx/n' in size <12> not available
-(Font)              Font shape `T1/pcr/b/n' tried instead on input line 148.
+(Font)              Font shape `T1/pcr/b/n' tried instead on input line 151.
 Package microtype Info: Loading generic settings for font family
 (microtype)             `pcr' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
@@ -1311,7 +1311,7 @@ File: lstlang1.sty 2015/06/04 1.6 listings language file
 ("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\listings\lstlang1.sty"
 File: lstlang1.sty 2015/06/04 1.6 listings language file
 )
-Underfull \hbox (badness 10000) in paragraph at lines 148--150
+Underfull \hbox (badness 10000) in paragraph at lines 151--153
 
  []
 
@@ -1320,11 +1320,11 @@ File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman
 (RS)
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 153.
+(Font)              <12> on input line 156.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 153.
+(Font)              <8> on input line 156.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 153.
+(Font)              <6> on input line 156.
 
 ("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\microtype\mt-msa.cfg"
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
@@ -1337,235 +1337,227 @@ Package microtype Info: Loading generic settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 
-Underfull \hbox (badness 10000) in paragraph at lines 153--155
+Underfull \hbox (badness 10000) in paragraph at lines 156--158
 
  []
 
-<trab34figa1.jpg, id=6, 361.35pt x 301.125pt>
+<trab34figa1.jpg, id=6, 307.1475pt x 240.9pt>
 File: trab34figa1.jpg Graphic file (type jpg)
  <use trab34figa1.jpg>
-Package pdftex.def Info: trab34figa1.jpg used on input line 163.
-(pdftex.def)             Requested size: 209.12683pt x 174.27124pt.
+Package pdftex.def Info: trab34figa1.jpg used on input line 166.
+(pdftex.def)             Requested size: 209.12683pt x 164.02301pt.
 
 
 LaTeX Font Warning: Font shape `U/wasy/b/n' in size <8> not available
-(Font)              Font shape `U/wasy/m/n' tried instead on input line 164.
+(Font)              Font shape `U/wasy/m/n' tried instead on input line 167.
 
 
 LaTeX Font Warning: Font shape `U/wasy/b/n' in size <6> not available
-(Font)              Font shape `U/wasy/m/n' tried instead on input line 164.
+(Font)              Font shape `U/wasy/m/n' tried instead on input line 167.
 
-<trab34figa2.jpg, id=7, 367.3725pt x 301.125pt>
+<trab34figa2.jpg, id=7, 307.1475pt x 240.9pt>
 File: trab34figa2.jpg Graphic file (type jpg)
  <use trab34figa2.jpg>
-Package pdftex.def Info: trab34figa2.jpg used on input line 168.
-(pdftex.def)             Requested size: 209.12683pt x 171.41788pt.
+Package pdftex.def Info: trab34figa2.jpg used on input line 171.
+(pdftex.def)             Requested size: 209.12683pt x 164.02301pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 LaTeX Font Info:    Font shape `T1/pbk/m/n' in size <9> not available
-(Font)              Font shape `T1/pbk/l/n' tried instead on input line 170.
+(Font)              Font shape `T1/pbk/l/n' tried instead on input line 173.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 170.
+(babel)             in language  on input line 173.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 170.
+(babel)             in language  on input line 173.
  [1{C:/Documents and Settings/Cliente/Configurações locais/Dados de aplicativ
-os/MiKTeX/2.9/pdftex/config/pdftex.map}] <trab34figa3.jpg, id=24, 367.3725pt x 
-301.125pt>
+os/MiKTeX/2.9/pdftex/config/pdftex.map}] <trab34figa3.jpg, id=24, 307.1475pt x 
+240.9pt>
 File: trab34figa3.jpg Graphic file (type jpg)
 
 <use trab34figa3.jpg>
-Package pdftex.def Info: trab34figa3.jpg used on input line 173.
-(pdftex.def)             Requested size: 209.12683pt x 171.41788pt.
- <trab34figa4.jpg, id=25, 367.3725pt x 301.125pt>
+Package pdftex.def Info: trab34figa3.jpg used on input line 176.
+(pdftex.def)             Requested size: 209.12683pt x 164.02301pt.
+ <trab34figa4.jpg, id=25, 307.1475pt x 240.9pt>
 File: trab34figa4.jpg Graphic file (type jpg)
 
 <use trab34figa4.jpg>
-Package pdftex.def Info: trab34figa4.jpg used on input line 178.
-(pdftex.def)             Requested size: 209.12683pt x 171.41788pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
+Package pdftex.def Info: trab34figa4.jpg used on input line 181.
+(pdftex.def)             Requested size: 209.12683pt x 164.02301pt.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 180.
+(babel)             in language  on input line 184.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 180.
- [2 <./trab34figa1.jpg> <./trab34figa2.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 181--183
+(babel)             in language  on input line 184.
+ [2 <./trab34figa1.jpg> <./trab34figa2.jpg> <./trab34figa3.jpg>]
+Underfull \hbox (badness 10000) in paragraph at lines 184--186
 
  []
 
 LaTeX Font Info:    Font shape `T1/pbk/m/n' in size <8> not available
-(Font)              Font shape `T1/pbk/l/n' tried instead on input line 186.
+(Font)              Font shape `T1/pbk/l/n' tried instead on input line 189.
 LaTeX Font Info:    Font shape `T1/pbk/m/n' in size <6> not available
-(Font)              Font shape `T1/pbk/l/n' tried instead on input line 186.
+(Font)              Font shape `T1/pbk/l/n' tried instead on input line 189.
 
-Overfull \hbox (35.1031pt too wide) in paragraph at lines 186--190
+Overfull \hbox (35.1031pt too wide) in paragraph at lines 189--193
 \T1/pbk/l/n/12 (-20) Os pri-mei-ros va-lo-res s�o os co-e-fi-ci-en-tes $\OML/lm
 m/m/it/12 a[][]a[][]b[]$\T1/pbk/l/n/12 (-20) . 
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 192.
+(babel)             in language  on input line 199.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 192.
-[3 <./trab34figa3.jpg> <./trab34figa4.jpg>]
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 196.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 196.
- [4]
-<trab34figb1.jpg, id=48, 367.3725pt x 301.125pt>
+(babel)             in language  on input line 199.
+[3 <./trab34figa4.jpg>] <trab34figb1.jpg, id=44, 307.1475pt x 240.9pt>
 File: trab34figb1.jpg Graphic file (type jpg)
- <use trab34figb1.jpg>
-Package pdftex.def Info: trab34figb1.jpg used on input line 214.
-(pdftex.def)             Requested size: 209.12683pt x 171.41788pt.
 
-<trab34figb2.jpg, id=49, 367.3725pt x 301.125pt>
+<use trab34figb1.jpg>
+Package pdftex.def Info: trab34figb1.jpg used on input line 218.
+(pdftex.def)             Requested size: 209.12683pt x 164.02301pt.
+ <trab34figb2.jpg, id=45, 307.1475pt x 240.9pt>
 File: trab34figb2.jpg Graphic file (type jpg)
- <use trab34figb2.jpg>
-Package pdftex.def Info: trab34figb2.jpg used on input line 219.
-(pdftex.def)             Requested size: 209.12683pt x 171.41788pt.
 
-<trab34figb3.jpg, id=50, 367.3725pt x 301.125pt>
+<use trab34figb2.jpg>
+Package pdftex.def Info: trab34figb2.jpg used on input line 223.
+(pdftex.def)             Requested size: 209.12683pt x 164.02301pt.
+ <trab34figb3.jpg, id=46, 307.1475pt x 240.9pt>
 File: trab34figb3.jpg Graphic file (type jpg)
- <use trab34figb3.jpg>
-Package pdftex.def Info: trab34figb3.jpg used on input line 224.
-(pdftex.def)             Requested size: 209.12683pt x 171.41788pt.
+
+<use trab34figb3.jpg>
+Package pdftex.def Info: trab34figb3.jpg used on input line 228.
+(pdftex.def)             Requested size: 209.12683pt x 164.02301pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 226.
+(babel)             in language  on input line 230.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 226.
- [5
+(babel)             in language  on input line 230.
+ [4
 
- <./trab34figb1.jpg>] <trab34figb4.jpg, id=59, 367.3725pt x 301.125pt>
+ <./trab34figb1.jpg>] <trab34figb4.jpg, id=55, 307.1475pt x 240.9pt>
 File: trab34figb4.jpg Graphic file (type jpg)
 
 <use trab34figb4.jpg>
-Package pdftex.def Info: trab34figb4.jpg used on input line 229.
-(pdftex.def)             Requested size: 209.12683pt x 171.41788pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
+Package pdftex.def Info: trab34figb4.jpg used on input line 233.
+(pdftex.def)             Requested size: 209.12683pt x 164.02301pt.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 232.
+(babel)             in language  on input line 239.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 232.
- [6 <./trab34figb2.jpg> <./trab34figb3.jpg>]
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 235.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 235.
- [7 <./trab34figb4.jpg>]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+(babel)             in language  on input line 239.
+ [5 <./trab34figb2.jpg> <./trab34figb3.jpg> <./trab34figb4.jpg>]
+LaTeX Font Info:    Try loading font information for OT1+pzc on input line 254.
 
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 263.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 263.
- [8
-
-]
-LaTeX Font Info:    Try loading font information for OT1+pzc on input line 291.
-
-
-("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\psnfss\ot1pzc.fd"
+ ("C:\Arquivos de programas\MiKTeX 2.9\tex\latex\psnfss\ot1pzc.fd"
 File: ot1pzc.fd 2001/06/04 font definitions for OT1/pzc.
 )
 LaTeX Font Info:    Font shape `OT1/pzc/m/it' in size <12> not available
-(Font)              Font shape `OT1/pzc/mb/it' tried instead on input line 291.
+(Font)              Font shape `OT1/pzc/mb/it' tried instead on input line 254.
 
 Package microtype Info: Loading generic settings for font family
 (microtype)             `pzc' (encoding: OT1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 LaTeX Font Info:    Font shape `OT1/pzc/m/it' in size <8> not available
-(Font)              Font shape `OT1/pzc/mb/it' tried instead on input line 291.
+(Font)              Font shape `OT1/pzc/mb/it' tried instead on input line 254.
 
 LaTeX Font Info:    Font shape `OT1/pzc/m/it' in size <6> not available
-(Font)              Font shape `OT1/pzc/mb/it' tried instead on input line 291.
+(Font)              Font shape `OT1/pzc/mb/it' tried instead on input line 254.
 
 
-Overfull \hbox (50.53395pt too wide) in paragraph at lines 291--291
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 272.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 272.
+ [6
+
+]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 285.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 285.
+
+[7]
+Overfull \hbox (32.909pt too wide) in paragraph at lines 299--299
 [] 
  []
 
+
+Overfull \hbox (13.14778pt too wide) in paragraph at lines 307--307
+[] 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 291.
+(babel)             in language  on input line 307.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 291.
+(babel)             in language  on input line 307.
+ [8]
+Underfull \hbox (badness 10000) in paragraph at lines 321--323
+
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 324.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 324.
 [9]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 298.
+(babel)             in language  on input line 350.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 298.
- [10]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+(babel)             in language  on input line 350.
+ [10
 
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 332.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 332.
- [11]
-Overfull \vbox (134.18672pt too high) has occurred while \output is active []
-
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 332.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 332.
-
-[12]
-Overfull \hbox (56.93047pt too wide) in paragraph at lines 349--349
+]
+Overfull \hbox (56.93047pt too wide) in paragraph at lines 374--374
 [] 
  []
 
-
-Overfull \hbox (2.92807pt too wide) in paragraph at lines 349--350
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 374.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 374.
+[11]
+Overfull \hbox (2.92807pt too wide) in paragraph at lines 374--375
  [] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 352--356
+Underfull \hbox (badness 10000) in paragraph at lines 377--381
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 352--356
+Underfull \hbox (badness 10000) in paragraph at lines 377--381
 
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 356.
+(babel)             in language  on input line 381.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 356.
-[13]
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 356.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 356.
- [14]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 356.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 356.
+(babel)             in language  on input line 381.
+[12]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 381.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 381.
  (trab34.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 356.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 356.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 381.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 381.
 Package rerunfilecheck Info: File `trab34.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 356.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 381.
  ) 
 Here is how much of TeX's memory you used:
- 30008 strings out of 493698
- 597144 string characters out of 3141115
- 775346 words of memory out of 3000000
- 32446 multiletter control sequences out of 15000+200000
- 63166 words of font info for 136 fonts, out of 3000000 for 9000
+ 30010 strings out of 493698
+ 597175 string characters out of 3141115
+ 772353 words of memory out of 3000000
+ 32447 multiletter control sequences out of 15000+200000
+ 63359 words of font info for 138 fonts, out of 3000000 for 9000
  1186 hyphenation exceptions out of 8191
- 55i,15n,58p,933b,1975s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 55i,15n,58p,933b,1254s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Arquivos de programas/MiKTeX 2.9/fonts/enc/dvips/fontname/8r.enc}{C:/Arqu
 ivos de programas/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathsy.enc}{C:/Arquivos de p
 rogramas/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Arquivos de programas/
@@ -1583,9 +1575,9 @@ pe1/urw/bookman/ubkd8a.pfb><C:/Arquivos de programas/MiKTeX 2.9/fonts/type1/urw
 r/ucrb8a.pfb><C:/Arquivos de programas/MiKTeX 2.9/fonts/type1/urw/courier/ucrr8
 a.pfb><C:/Arquivos de programas/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvr8a.pfb>
 <C:/Arquivos de programas/MiKTeX 2.9/fonts/type1/urw/zapfchan/uzcmi8a.pfb>
-Output written on trab34.pdf (14 pages, 348745 bytes).
+Output written on trab34.pdf (12 pages, 337069 bytes).
 PDF statistics:
- 163 PDF objects out of 1000 (max. 8388607)
- 32 named destinations out of 1000 (max. 500000)
+ 153 PDF objects out of 1000 (max. 8388607)
+ 30 named destinations out of 1000 (max. 500000)
  21557 words of extra memory for PDF output out of 24883 (max. 10000000)
 

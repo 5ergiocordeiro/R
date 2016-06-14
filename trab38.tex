@@ -1,0 +1,334 @@
+% Nona lista de exercícios de Sistemas e Sinais
+% Preparado para MiKTeX 2.9. Gerar arquivo PDF com pdflatex.
+\documentclass[12pt,fleqn]{amsart}
+\usepackage{enumitem}
+\usepackage{xstring}
+\usepackage{graphicx}
+\usepackage[a4paper]{geometry}
+\usepackage[portuguese,brazilian]{babel}
+\usepackage[ansinew]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{comment}
+% Fontes
+\usepackage{textgreek}
+\usepackage{yfonts}
+\usepackage{microtype}
+\usepackage{calligra}
+\usepackage{lmodern}
+\usepackage{bookman}
+\usepackage[scaled]{helvet}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+\usepackage{fmtcount}
+% Formatação
+\usepackage{sidecap}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{matlab-prettifier}
+% Símbolos matemáticos
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{wasysym}
+\usepackage{mathtools}
+\usepackage{bbm}
+\usepackage{mbboard}
+\usepackage{steinmetz}
+% Desenhos
+\usepackage{tikz}
+\usepackage{circuitikz}
+\usepackage{pgfplots}
+
+\title{Sistemas e Sinais - Exercício IX}
+\date{}
+\author{Sérgio Cordeiro}
+
+
+\newenvironment{pergunta}{
+	\par
+	\trivlist
+	\fontfamily{phv}
+	\selectfont
+	\item\arabic{prob_num}. 
+	}{
+	\endtrivlist
+	}
+
+\newenvironment{resposta}{
+	\trivlist
+    \vspace{3pt}
+	\fontfamily{pbk}
+	\selectfont
+	\item
+	}{
+	\vspace{3pt}
+	\noindent\makebox[\linewidth]{\rule{\paperwidth}{1pt}}
+	\endtrivlist
+	\stepcounter{prob_num}
+	}
+
+\newenvironment{listae}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}	
+	\vspace{-5mm}}
+
+\newenvironment{listaef}[1][]{
+  \IfStrEqCase{#1}{
+    {1}{\setenumerate[0]{label=\arabic*.}}
+    {2}{\setenumerate[0]{label=\alph*)}}
+    {3}{\setenumerate[0]{label=\roman*.}}
+	{}{\setenumerate[0]{label=\arabic*)}}}
+	\vspace{-5mm}
+	\begin{enumerate}}{
+	\end{enumerate}}
+
+\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
+
+%\BeforeBeginEnvironment{figure}{\vskip-1ex}
+\AfterEndEnvironment{figure}{\vskip-4ex}
+
+\DeclareMathOperator{\atan}{\boldsymbol{atan}}						% Arco tangente
+\DeclareMathOperator{\La}{\mathcal{L}}								% Transformada de Laplace
+\DeclareMathOperator{\Fou}{\mathcal{F}}								% Transformada de Fourier
+\DeclareMathOperator{\De}{\boldsymbol{\delta}}						% Função impulso
+\DeclareMathOperator{\dDe}{\boldsymbol{\dot{\delta}}}				% Derivada da função impulso
+\DeclareMathOperator{\He}{\boldsymbol{u}}							% Função degrau
+\DeclareMathOperator{\tri}{\boldsymbol{tri}}						% Função triangular
+\DeclareMathOperator{\rect}{\boldsymbol{rect}}						% Função retangular
+\DeclareMathOperator{\sinc}{\boldsymbol{sinc}}						% Função sinc
+\newcommand{\PL}[1]{\boldsymbol{P_L}^{(#1)}}						% Polinômio de Legendre
+\newcommand{\Walsh}[1]{\boldsymbol{W}^{(#1)}}						% Função de Walsh
+\newcommand{\E}[1]{\mathpzc{E} \left\{ \frac{}{} {#1} \right\}}		% Energia
+\newcommand{\dt}[1]{\frac{d {#1}}{dt}}					% derivada temporal
+\newcommand{\ddt}[1]{\frac{d^2 {#1}}{dt^2}}				% derivada segunda temporal
+\newcommand{\dtau}[1]{\frac{d {#1}}{d \tau}}			% derivada temporal
+\newcommand{\ddtau}[1]{\frac{d^2 {#1}}{d \tau^2}}		% derivada segunda temporal
+
+
+% Linhas divisórias
+\newcommand{\hhhlin}{\noindent\hfil\rule{0.25\textwidth}{.2pt}\hfil\newline}
+\newcommand{\hhlin}{\noindent\hfil\rule{0.5\textwidth}{.4pt}\hfil\newline}
+\newcommand{\hlin}{\noindent\hfil\rule{\textwidth}{.8pt}\hfil\newline}
+
+% Listagens
+\newcommand{\listingsO}{\lstset{language=Octave,literate={^}{\textasciicircum}1,frame=single,style=Matlab-editor,basicstyle={\tiny},breaklines=true,numbers=left,numberstyle={\color{red}},numbersep=9pt,showstringspaces=false,keepspaces=false,tabsize=2}}
+\newcommand{\listingsC}{\lstset{language=C,frame=single,basicstyle={\tiny},breaklines=true,numbers=left,numberstyle={\color{red}},numbersep=9pt,showstringspaces=false,keepspaces=false,tabsize=2}}
+\newcommand{\listingsG}{\lstset{language=Ada,frame=none,basicstyle={\ttfamily\bfseries},numbers=none,tabsize=2,mathescape}}
+
+% Citações
+\newcommand{\newbibit}[6]{\bibitem[#1]{#2}#3, {\bf #4}. Disponível em \url{#5}, acesso em #6.}
+\newcommand{\newbibpp}[5]{\bibitem[#1]{#2}#3, {\bf #4}, \emph{in} #5.}
+\newcommand{\newbibbk}[5]{\bibitem[#1]{#2}#3, {\bf #4}, #5.}
+\newcommand{\newbibip}[6]{\bibitem[#1]{#2}#3, {\bf #4}, \emph{in} #5, disponível em \url{#6}.}
+\newcommand{\newbiboc}[4]{\bibitem[#1]{#2}#3, \textit{op. cit.}, #4.}
+\newcommand{\newbibsi}[7]{\bibitem[#1]{#2}#3, {\bf #4} : {#5}. Disponível em \url{#6}, acesso em #7.}
+
+\newenvironment{iquote}{\begin{quote}\itshape}{\end{quote}}
+
+% Perguntas
+\newcommand{\perguntaa}{Discutir a convergência das representações de Fourier para a função $ \sinc(x) $, mostrando que ela não atende à condição:
+\begin{align*}
+	\sum_{-\infty}^{\infty} | f[n] | < \infty
+\end{align*}
+mas atende a:
+\begin{align*}
+	\sum_{-\infty}^{\infty} | f(n) |^2 < \infty
+\end{align*}
+Explicar o que significam convergência uniforme e convergência na média.
+}
+\newcommand{\perguntab}{Calcular a resposta ao impulso de um filtro passa-altas ideal com $ \Omega_c = \dfrac{\pi}{4} $:
+\begin{tikzpicture}
+	\begin{axis}[axis lines=middle, ymin=-0.8, xscale=2.0, yscale=0.5, xlabel=$ \Omega $, xlabel style={at=(current axis.right of origin), anchor=west}, ylabel=$ |X(\Omega)| $, ylabel style={at=(current axis.north), anchor=south}, xtick={-10,-5,0,10,15}, minor xtick={-9,-8,...,14}, ytick={-0.5,0,0.5,1}, grid=both]
+		\addplot[color=blue,ultra thick,domain=-9:-7] {0};
+		\addplot[color=blue,ultra thick,domain=-7:-5] {1};
+		\addplot[color=blue,ultra thick,domain=-5:3] {0};
+		\addplot[color=blue,ultra thick,domain=3:5] {1};
+		\addplot[color=blue,ultra thick,domain=5:11] {0};
+		\addplot[color=blue,ultra thick,domain=11:13] {1};
+		\addplot[color=blue,ultra thick,domain=13:15] {0};
+		\addplot[color=white,domain=13:15] {-0.8};
+		\node at (axis cs:3,-0.4) {$ \dfrac{3 \pi}{4} $ };
+		\node at (axis cs:5,-0.4) {$ \dfrac{5 \pi}{4} $ };
+	\end{axis}
+\end{tikzpicture} \\
+usando a propriedade:
+\begin{align*}
+	x[n] e^{- \jmath \Omega_c n} \iff X(\Omega + \Omega_c)
+\end{align*}
+Simular no MATLAB: obter 20 amostras da resposta ao impulso e voltar para o domínio da frequência. \\
+}
+	
+%\begin{}
+\begin{document}
+\setlength{\parskip}{1em}
+\setlength{\jot}{10pt}
+\setlength{\parindent}{0pt}
+
+\maketitle
+
+\newcounter{prob_num}
+\setcounter{prob_num}{1}
+%\end{}
+
+\begin{pergunta}
+\perguntaa{}
+\end{pergunta}
+\begin{resposta}
+De maneira geral, podemos dizer que uma série $ S(x,n) $ é convergente quando a função $ f_n(x) = S(x,n) $ se aproxima de outra função $ f(x) \text{ quando } n $ aumenta, ou seja:
+\begin{align}
+	\lim_{n \to \infty} f_n(x) = f(x) \forall x \in \mathbb{D} \label{EqP}
+\end{align}
+onde $ \mathbb{D} $ é o domínio de $ f \text{ e } f_n $. \\
+A Análise Matemática define diversos tipos de convergência para séries infinitas. O mais intuitivo é o expresso pela equação \ref{EqP}, e é chamado de \textbf{convergência ponto-a-ponto}. Um tipo de convergência mais estrito é a \textbf{convergência uniforme}, descoberta por Weierstrass em 1841. Em resumo, uma série $ S(x,n) $ converge uniformemente para uma função $ f(x) $ quando a velocidade da convergência não depende de $ x $. Formalmente, isso se expressa como:
+\begin{align}
+	\lim_{n \to \infty} \sup \left\{ \frac{}{} | f_n(x) - f(x) | \right\} = 0 \; \forall x \in \mathbb{D} \label{EqU}
+\end{align}
+onde $ \sup \{ g \} $ denota o \textit{supremum} da função $ g $. Quando essa condição é satisfeita, as seguintes propriedades são garantidas para $ S(x,n) $: \\
+\begin{listae}[1]
+	\item a convergência é ponto-a-ponto
+	\item $ f_n(x) $ é contínua se $ f(x) $ for contínua
+	\item os operadores derivação $ \mathpzc{D} \text{ e integração } \mathpzc{D}^{-1} $ são comutáveis entre si e com o operador limite $ \mathpzc{L} $
+	\item a convergência é incondicional, ou seja, independe da ordem em que os termos são somados
+\end{listae}
+Essas propriedades são muito úteis na manipulação das séries, principalmente para demonstração de teoremas, e não são garantidas se apenas a convergência ponto-a-ponto se verifica, com exceção da última (\textbf{convergência incondicional}). \\
+Existem testes para se verificar se uma série converge uniformemente. Um deles é o \textbf{teste M de Weierstrass}, que é expresso por:
+\begin{align}
+	| s_n(x) | \le M_n < \infty \forall x \in \mathbb{D} \land n \in \mathbb{N}^+ \notag \\
+	\land \notag \\
+	\sum_{n = 1}^{\infty} M_n \label{EqTM}
+\end{align}
+onde $ s_n $ são os termos da sequência. Ou seja, se cada termo da sequência tiver um limite superior, e a série desses limites convergir (não necessariamente de forma uniforme), então a série $ S $ convergirá uniformemente. \\
+Um teste conhecido para convergência ponto-a-ponto é o \textbf{teste da razão}, expresso matematicamente por:
+\begin{align}
+	| s_n(x) | \le M_n < \infty \forall x \in \mathbb{D} \land n \in \mathbb{N}^+ \notag \\
+	\lim_{n \to \infty} \frac{M_{n+1}}{M_n} = 0 \label{EqTR}
+\end{align}
+
+A propriedade já mencionada de convergência incondicional vale não apenas para séries convergentes ponto-a-oponto, e sim para todas as séries que possuem \textbf{convergência absoluta}, ou seja, séries que possuem a propriedade:
+\begin{align}
+	\sum_{n = 1}^{\infty} | s_n | < \infty \label{EqA}
+\end{align}
+A convergência absoluta garante outra propriedade para a série, além da convergência incondicional: o produto de uma série absolutamente convergente por outra, convergente mas não necessariamente de forma absoluta, é o produto das séries:
+\begin{align}
+	\left( \sum_{n = 1}^{\infty} s_n \right) \cdot \left( \sum_{n = 1}^{\infty} r_n \right) = \sum_{n = 1}^{\infty} \sum_{k = 1}^{n} s_k r_{n-k}
+\end{align}
+Infelizmente, algumas séries importantes não convergem absolutamente. Um outro tipo é a \textbf{convergência norma-p}, expressa por:
+\begin{align}
+	\sum_{n = 1}^{\infty} | s_n | ^ p < \infty / 1 < p < \infty \label{EqN}
+\end{align}
+é importante frisar que a convergência norma-p e a convergência ponto-a-ponto são dois tipos diferentes de convergência, não sendo uma mais forte que a outra. Existem séries que convergem em um sentido e divergem no outro. A convergência uniforme, por sua vez, é mais forte que ambas, pois uma série uniformemente convergente sempre convergirá tanto poonto-a-ponto quanto com relação à norma-p. \\
+Um tipo mais fraco é a \textbf{convergência pela média}, introduzida por Ernesto Cesàro e expressa por:
+\begin{align}
+	\lim_{n \to \infty} \frac{1}{n} \sum_{k = 1}^{n} s_k < \infty \label{EqC}
+\end{align}
+A equação \ref{EqC} claramente expressa a média aritmética dos primeiros $ n $ termos da sequência. Muitas séries divergentes possuem essa propriedade.
+\hlin
+No contexto das representações de Fourier, existem vários testes para verificação da convergência. O mais antigo é apresentado por Peter Gustav Lejeune Dirichlet em 1823:
+\begin{listae}[1]
+	\item $ f(x) $ deve ser uma função periódica com período $ T $
+	\item $ f(x) $ deve ser absolutamente integrável sobre um período:
+		\begin{align}
+			\int \limits_{T} | f(x) | \; dx < \infty
+		\end{align}
+    \item $ f(x) $ deve apresentar um número finito de máximos e mínimos no período
+	\item $ f(x) $ deve apresentar um número finito de descontinuidades, todas de valor finito, no período
+\end{listae}
+Para funções não-periódicas, considera-se um período $ T \to \infty $. \\
+As condições de Dirichlet garante convergência uniforme nos pontos onde $ f(x) $ é contínua, e convergência (não-uniforme) para a média $ \dfrac{f(x_{n^+} + f(x_{n^-}}{2} $ nas descontinuidades $ x = x_n $. \\
+Uma das consequências da convergência não-uniforme é o conhecido \textbf{efeito de Gibbs}. \\
+Os critérios foram posteriormente aperfeiçoados por Ulisse Dini e Rudolf Lipschitz e o chamado teste de Dini:
+\begin{align}
+	\int_0^{\pi} \frac{1}{t} \; \left| \frac{f(x_0 + t) + f(x_0 - t)}{2} - \ell \right| < \infty \label{EqD}
+\end{align}
+onde $ f(x) $ é qualquer função com período $ 2 \pi $ e com um número finito de descontinuidades nesse intervalo, garantem que $ f(x_0) = \ell $ de forma uniforme. Esse teste é satisfeito por toda função cujos coeficientes $ \hat{f}[n] $ decaem exponencialmente:
+\begin{align}
+	\hat{f}[n] \le \frac{M}{|n|^p} / p > 0
+\end{align}
+Algumas funções de grande interesse para o processamento de sinais, entretanto, não passam nos testes de Dirichlet e de Dini. O melhor exemplo é $ f(x) = \sinc(x) $. Outro critério de convergência, mais fraco, é o seguinte:
+\begin{align}
+	\hat{f}[n] \le M \label{EqB}
+\end{align}
+que garante convergência ponto-a-ponto. \\
+A transformada de Laplace da função $ \sinc(x) $ pode ser facilmente calculada por meio da propriedade:
+\begin{align*}
+	\mathpzc{L} \left\{ \frac{f(x)}{x} \right\} & = \int_s^{\infty} F(p) \; dp \qquad \boxed{F(s) = \mathpzc{L} \{ f(x) \}} \\
+	\mathpzc{L} \left\{ \frac{\sin(x)}{x} \right\} & = \int_s^{\infty} \frac{1}{p^2 + 1} \; dp \\
+	& = \left. \atan(p) \right|_s^{\infty} \\
+	& = \frac{\pi}{2} - \atan(s)
+\end{align*}
+A região de convergência para essa transformada inclui o eixo imaginário, por isso podemos obter a transformada de Fourier fazendo $ s = \jmath \omega $:
+\begin{align*}
+	\mathpzc{F} \left\{ \frac{\sin(x)}{x} \right\} & = \left. \mathpzc{L} \left\{ \frac{\sin(x)}{x} \right\} \right|_{s = \jmath \omega} \\
+	& = \frac{\pi}{2} - \atan(\jmath \omega) \\
+	& = \begin{cases} 0 & \omega \ne 0 \\ \frac{\pi}{2} & \omega = 0 \end{cases} \\
+	& = \frac{\pi}{2} \De(\omega)
+\end{align*}
+Os coeficientes são limitados, portanto a representação de Fourier converge ponto-a-ponto, de acordo com o critério \ref{EqB}. Como a convergência não é uniforme nesse caso, apesar de a função ser contínua, devemos esperar o aparecimento do efeito de Gibbs na reconstrução. \\
+Um critério de convergência bastante útil para as representações de Fourier é o da norma $ p = 2 $; para $ f(x) $ periódica, por exemplo:
+\begin{align}
+	\int \limits_T | f(x) | ^2 \; dx < \infty
+\end{align}
+Tal teste é útil porque todo sinal físico o atende, uma vez que a integral é a medida da potência do sinal. Esse critério garante convergência (não-uniforme) nos pontos onde $ f(x) $ é contínua, e para a média nas descontinuidades. \\
+Uma função trivial, a função constante $ f(x) = \mathrm{A} $ não atende nem ao teste de Dirichlet nem ao da norma-2; no entanto, sua transformada de Fourier existe, e é bastante útil. Para que ela faça sentido matematicamente, é preciso usar ainda outro critério de convergência, o de convergência pela média, expresso por \ref{EqC}, uma vez que:
+\begin{align*}
+	\mathpzc{F} \{ f(x) \} & = \int_{-\infty}^{\infty} \mathrm{A} e^{- \jmath \omega} \; dx \\
+	&= \begin{cases} \mathrm{A} \De & \omega = 0 \\ 0 & \omega \ne 0 \end{cases} \\
+	& = \mathrm{A} \De(\omega)
+\end{align*}
+Para $ \omega \ne 0 $, considera-se que cada grupo de $ \dfrac{\omega}{2 \pi} $ valores consecutivos tem uma soma nula, o que justifica o resultado. Esse exemplo ilustra bem a conveniência de poder-se aplicar mais de um tipo de convergência para a representação de Fourier. \\
+\end{resposta}
+
+\begin{pergunta}
+\perguntab{}
+\end{pergunta}
+\begin{resposta}
+A resposta do filtro passa-altas ideal é idêntica à do passa-baixa ideal, apenas com o espectro deslocado de forma a ter seu centro em $ \Omega = \pi $ em vez de em $ \Omega = 0 $. De acordo com a propriedade citada, tal deslocamento resulta de uma multiplicação da sequência original por uma exponencial com frequência $ n \pi $. Essa multiplicação corresponde a uma modulação em amplitude de uma onda senoidal de alta frequência pelo sinal original. \\
+Sua resposta ao impulso será:
+\begin{align*}
+	h[n] & = \mathpzc{F}{-1} \{ H(\Omega) \} \\
+	& = \mathpzc{F}{-1} \left\{ \rect \left( \frac{2 * (\Omega + \pi)}{\pi} \right) \right\} \\
+	& = \frac{1}{4} \sinc \left( \frac{\pi}{4} \Omega \right) e^{-\jmath \pi n}
+\end{align*}
+O gráfico dessa resposta é o seguiinte:
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab38fig1.jpg} \\
+\end{figure}
+A transformada inversa, obtida através da função \texttt{ifft}, tem o seguinte gráfico:
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{trab38fig2.jpg} \\
+\end{figure}
+\end{resposta}
+
+\begin{thebibliography}{30}
+
+\newbibit{GRIGORYAN}{GRIGORYAN}{Viktor GRIGORYAN}{Convergence of Fourier series}{http://www.math.ucsb.edu/~grigoryan/124B/lecs/lec5.pdf}
+
+\newbibit{MARTÍN}{MARTÍN}{Raúl Martín MARTÍN}{Convergencia de las series de Fourier}{http://www.uclm.es/PROFESORADO/raulmmartin/AmpliacionMatematicas/SeriesFourier.pdf}
+
+\newbibit{WIKIPEDIA 1}{WIKIPEDIA 1}{WIKIPEDIA}{Convergence tests}{https://en.wikipedia.org/wiki/Convergence_tests}
+
+\newbibit{WIKIPEDIA 2}{WIKIPEDIA 2}{WIKIPEDIA}{Dini's theorem}{https://en.wikipedia.org/wiki/Dini's_theorem}
+
+\newbibit{WIKIPEDIA 3}{WIKIPEDIA 3}{WIKIPEDIA}{Dirichlet's test}{https://en.wikipedia.org/wiki/Dirichlet's_test}
+
+\newbibit{WIKIPEDIA 4}{WIKIPEDIA 4}{WIKIPEDIA}{Pointwise convergence}{https://en.wikipedia.org/wiki/Pointwise_convergence}
+
+\newbibit{WIKIPEDIA 5}{WIKIPEDIA 5}{WIKIPEDIA}{Uniform convergence}{https://en.wikipedia.org/wiki/Uniform_convergence}
+
+\end{thebibliography}
+
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{1pt}}
+
+Simulação realizada com \textbf{MATLAB} R2016a \\
+\url{https://www.mathworks.com} \\
+Texto formatado com \textbf{pdflatex} em ambiente \textbf{MiKTeX} 2.9: \\
+\url{http://miktex.org/download/} \\ \\
+\end{document}
