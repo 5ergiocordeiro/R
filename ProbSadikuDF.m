@@ -9,8 +9,6 @@ function Z0 = ProbSadikuDF(h, nt)
 	plotVE(V1, E1,4);	
 	iout = round((iw + nx)/2); jout = round((jd + ny)/2);
 	%iout = iw + 3; jout = jd + 3;
-	%iout = 100; jout=100;
-	[iout jout]
 	C0 = 4 * CalcQ(V0, iout, jout, jd, [e0, e0]);
 	C1 = 4 * CalcQ(V1, iout, jout, jd, [e0, er*e0]);
 	Z0 = 1 / (3e8 * sqrt(C0 * C1));
@@ -75,27 +73,29 @@ function plotVE(V, E, fig)
 	sely = - Ey(idx,idy);
 	figure(fig + 1), quiver(sely, selx), title('Campo elétrico');
 end
-%{
+
+
 function q = CalcQ(V, iout, jout, jd, e)
-	asum = e(1)*sum(V(3:iout+1,jout+2))+ e(1)*V(2,jout+2)/2 + e(2)*V(iout+2,2)/2;
-	for k=1:2
-	for j=1:jout-1
-		if(j<jd)
-			asum = asum+e(2)*V(iout+2,j+2)/2;
-		else
-			asum = asum + e(1)*V(iout+2,j+2);
+	for k = 1:2
+		asum = e(1) * sum(V(3:iout+1, jout+2)) + e(1) * V(2,jout+2) / 2 + e(2) * V(iout+2, 2) / 2;
+		for j = 2:jout+2
+			if (j < jd)
+				asum = asum + e(2) * V(iout + 2, j + 2);
+			else
+				asum = asum + e(1) * V(iout + 2, j + 2);
+			end
 		end
+		if (k == 1)
+			sv = asum;
+		end
+		iout = iout - 1;
+		jout = jout - 1;
 	end
-	if k==1
-		sv=asum;
-	end
-	iout = iout - 1;
-	jout = jout - 1;
-	end
-	asum = asum + 2 * e(1)*V(iout+2,jout+2);
+	asum = asum + 2 * e(1) * V(iout + 2, jout + 2);
 	q = sv - asum;
 end
-%}
+
+%{
 function q = CalcQ(V, iout, jout, jd, epsilon)
 % Calcula a carga por meio da lei de Gauss a partir do potencial 'V'
 	% Ajuste dos parâmetros
@@ -129,3 +129,4 @@ function q = CalcQ(V, iout, jout, jd, epsilon)
 		q = q + sum(V(interval(k,1):interval(k,2), interval(k,3):interval(k,4))) * mult(k);
 	end
 end
+%}

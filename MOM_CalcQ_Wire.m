@@ -19,7 +19,7 @@ function [q, rho, y] = MOM_CalcQ_Wire(V0, er, aa, l, n)
 	% Calcula a matrix de momentos 'b'
 	b = 4.0 * pi * epsilon0 * er * V0 * ones(n, 1);
 	% Calcula a distribuição de carga
-	rho = h * (A \ b);
+	rho = A \ b;
 	% Calcula a carga total
-	q = sum(rho);
+	q = h * sum(rho);
 end
